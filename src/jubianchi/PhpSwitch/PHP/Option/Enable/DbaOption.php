@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class DbaOption extends Option
+class DbaOption extends EnableOption
 {
     const ARG = 'dba';
-    const ALIAS = '--enable-dba';
 }

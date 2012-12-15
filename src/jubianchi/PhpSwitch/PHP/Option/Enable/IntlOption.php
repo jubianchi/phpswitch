@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class IntlOption extends Option
+class IntlOption extends EnableOption
 {
     const ARG = 'intl';
-    const ALIAS = '--enable-intl';
 }

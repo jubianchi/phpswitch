@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class JSONOption extends Option
+class JSONOption extends EnableOption
 {
     const ARG = 'json';
-    const ALIAS = '--enable-json';
 }

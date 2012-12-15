@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class FTPOption extends Option
+class FTPOption extends EnableOption
 {
     const ARG = 'ftp';
-    const ALIAS = '--enable-ftp';
 }

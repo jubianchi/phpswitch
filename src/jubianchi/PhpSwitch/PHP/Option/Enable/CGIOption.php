@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class CGIOption extends Option
+class CGIOption extends EnableOption
 {
     const ARG = 'cgi';
-    const ALIAS = '--enable-cgi';
 }

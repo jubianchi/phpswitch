@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class SimpleXMLOption extends Option
+class SimpleXMLOption extends EnableOption
 {
-    const ARG = 'simple-xml';
-    const ALIAS = '--enable-simplexml';
+    const ARG = 'simplexml';
 }

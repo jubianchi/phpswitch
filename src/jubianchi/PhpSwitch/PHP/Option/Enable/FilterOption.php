@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class FilterOption extends Option
+class FilterOption extends EnableOption
 {
     const ARG = 'filter';
-    const ALIAS = '--enable-filter';
 }

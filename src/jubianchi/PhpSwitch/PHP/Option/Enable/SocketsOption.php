@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class SocketsOption extends Option
+class SocketsOption extends EnableOption
 {
     const ARG = 'sockets';
-    const ALIAS = '--enable-sockets';
 }

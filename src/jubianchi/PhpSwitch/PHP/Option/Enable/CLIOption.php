@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class CLIOption extends Option
+class CLIOption extends EnableOption
 {
     const ARG = 'cli';
-    const ALIAS = '--enable-cli';
 }

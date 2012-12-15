@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class FileInfoOption extends Option
+class FileInfoOption extends EnableOption
 {
     const ARG = 'fileinfo';
-    const ALIAS = '--enable-fileinfo';
 }

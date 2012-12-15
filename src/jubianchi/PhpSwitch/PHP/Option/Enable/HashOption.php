@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class HashOption extends Option
+class HashOption extends EnableOption
 {
     const ARG = 'hash';
-    const ALIAS = '--enable-hash';
 }

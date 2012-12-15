@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class TokenizerOption extends Option
+class TokenizerOption extends EnableOption
 {
     const ARG = 'tokenizer';
-    const ALIAS = '--enable-tokenizer';
 }

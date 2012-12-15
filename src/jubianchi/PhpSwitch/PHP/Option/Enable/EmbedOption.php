@@ -1,10 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class EmbedOption extends Option
+class EmbedOption extends EnableOption
 {
     const ARG = 'embed';
-    const ALIAS = '--enable-embed';
 }
