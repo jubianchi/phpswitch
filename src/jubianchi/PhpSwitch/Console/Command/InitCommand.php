@@ -22,7 +22,7 @@ class InitCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $directories = array(
-            $this->getApplication()->getService('app.workspace.path'),
+            $workspace = $this->getApplication()->getService('app.workspace.path'),
             $this->getApplication()->getService('app.workspace.downloads.path'),
             $this->getApplication()->getService('app.workspace.sources.path'),
             $installed = $this->getApplication()->getService('app.workspace.installed.path')
@@ -44,7 +44,7 @@ class InitCommand extends Command
 
         $path = $this->getApplication()->getService('app.path');
         file_put_contents(
-            $this->getApplication()->getService('app.user.path') . '/.phpswitchrc',
+            $workspace . '/.phpswitchrc',
             <<<SHELL
 #!/bin/bash
 
