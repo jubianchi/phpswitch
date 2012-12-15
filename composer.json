@@ -1,0 +1,27 @@
+{
+    "name": "jubianchi/phpswitch",
+    "author": "jubianchi",
+    "description": "PHP Switch",
+    "license": "MIT",
+    "version": "0.1",
+    "require": {
+        "symfony/console": "dev-master",
+        "symfony/finder": "dev-master",
+        "symfony/config": "dev-master",
+        "symfony/yaml": "dev-master",
+        "symfony/process": "dev-master",
+        "symfony/dom-crawler": "dev-master",
+        "symfony/css-selector": "*"
+    },
+    "require-dev": {
+        "atoum/atoum": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
