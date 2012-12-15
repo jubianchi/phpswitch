@@ -22,10 +22,10 @@ class InitCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $directories = array(
-            $this->getApplication()->get('app.workspace.path'),
-            $this->getApplication()->get('app.workspace.downloads.path'),
-            $this->getApplication()->get('app.workspace.sources.path'),
-            $installed = $this->getApplication()->get('app.workspace.installed.path')
+            $this->getApplication()->getService('app.workspace.path'),
+            $this->getApplication()->getService('app.workspace.downloads.path'),
+            $this->getApplication()->getService('app.workspace.sources.path'),
+            $installed = $this->getApplication()->getService('app.workspace.installed.path')
         );
 
         $status = 0;
@@ -42,9 +42,9 @@ class InitCommand extends Command
             }
         }
 
-        $path = $this->getApplication()->get('app.path');
+        $path = $this->getApplication()->getService('app.path');
         file_put_contents(
-            $this->getApplication()->get('app.user.path') . '/.phpswitchrc',
+            $this->getApplication()->getService('app.user.path') . '/.phpswitchrc',
             <<<SHELL
 #!/bin/bash
 
@@ -83,7 +83,7 @@ SHELL
         $output->writeln(
             sprintf(
                 'You should source <info>%s</info> to use PhpSwitch',
-                $this->getApplication()->get('app.user.path') . '/.phpswitchrc'
+                $this->getApplication()->getService('app.user.path') . '/.phpswitchrc'
             )
         );
 
