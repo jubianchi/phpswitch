@@ -11,8 +11,9 @@
         "symfony/yaml": "dev-master",
         "symfony/process": "dev-master",
         "symfony/dom-crawler": "dev-master",
-        "symfony/css-selector": "*"
-    },
+        "symfony/css-selector": "*",
+        "pimple/pimple": "1.0.x-dev"
+},
     "require-dev": {
         "atoum/atoum": "dev-master"
     },

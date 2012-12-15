@@ -21,13 +21,11 @@ class InitCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->getApplication()->getConfiguration();
-
         $directories = array(
-            $home = $config->get('home'),
-            $home . DIRECTORY_SEPARATOR . 'downloads',
-            $home . DIRECTORY_SEPARATOR . 'sources',
-            $home . DIRECTORY_SEPARATOR . 'installed'
+            $this->getApplication()->get('app.workspace.path'),
+            $this->getApplication()->get('app.workspace.downloads.path'),
+            $this->getApplication()->get('app.workspace.sources.path'),
+            $installed = $this->getApplication()->get('app.workspace.installed.path')
         );
 
         $status = 0;
@@ -44,11 +42,9 @@ class InitCommand extends Command
             }
         }
 
-        $path = PhpSwitch\PHPSWITCH_HOME;
-        $home = $this->getConfiguration()->get('home');
-
+        $path = $this->getApplication()->get('app.path');
         file_put_contents(
-            getenv('HOME') . '/.phpswitchrc',
+            $this->getApplication()->get('app.user.path') . '/.phpswitchrc',
             <<<SHELL
 #!/bin/bash
 
@@ -69,7 +65,7 @@ php() {
                 $path/bin/phpswitch php:switch $2
 
                 VERSION=\$($path/bin/phpswitch php:current)
-                export PATH=$home/installed/\$VERSION/bin:\$PATH
+                export PATH=$installed/\$VERSION/bin:\$PATH
             fi
 
             php -v
@@ -84,7 +80,12 @@ php() {
 SHELL
         );
 
-        $output->writeln(sprintf('You should source <info>%s</info> to use PhpSwitch', getenv('HOME') . '/.phpswitchrc'));
+        $output->writeln(
+            sprintf(
+                'You should source <info>%s</info> to use PhpSwitch',
+                $this->getApplication()->get('app.user.path') . '/.phpswitchrc'
+            )
+        );
 
         return $status;
     }

@@ -19,14 +19,15 @@ class ListCommand extends Command
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
         $finder = new Finder();
+        $builder = $this->getApplication()->getBuilder();
 
         foreach ($finder as  $version) {
-            $version->setPath($this->getConfiguration()->get('home'));
+            $dest = $builder->getDestination($version);
 
             $output->writeln(
                 sprintf(
                     '<info>%-15s</info> <comment>%s</comment>',
-                    $version->getName() . ($version->isInstalled() ? '*' : ''),
+                    $version->getName() . (is_dir($dest) ? '*' : ''),
                     sprintf($version->getUrl(), 'a')
                 )
             );

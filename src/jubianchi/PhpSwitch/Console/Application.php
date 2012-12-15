@@ -12,14 +12,8 @@ class Application extends BaseApplication
     /** @var \jubianchi\PhpSwitch\Config\Configuration */
     private $configuration;
 
-    /** @var \jubianchi\PhpSwitch\PHP\Downloader */
-    private $downloader;
-
-    /** @var \jubianchi\PhpSwitch\PHP\Extracter */
-    private $extracter;
-
-    /** @var \jubianchi\PhpSwitch\PHP\Builder */
-    private $builder;
+    /** @var \Pimple */
+    private $container;
 
     /**
      * @param string $name
@@ -55,11 +49,7 @@ class Application extends BaseApplication
      */
     public function getDownloader()
     {
-        if (null === $this->downloader) {
-            $this->downloader = new Downloader($this->getConfiguration()->get('downloads'));
-        }
-
-        return $this->downloader;
+        return $this->getService('app.php.downloader');
     }
 
     /**
@@ -67,11 +57,7 @@ class Application extends BaseApplication
      */
     public function getExtracter()
     {
-        if (null === $this->extracter) {
-            $this->extracter = new Extracter($this->getConfiguration()->get('sources'));
-        }
-
-        return $this->extracter;
+        return $this->getService('app.php.extracter');
     }
 
     /**
@@ -79,10 +65,43 @@ class Application extends BaseApplication
      */
     public function getBuilder()
     {
-        if (null === $this->builder) {
-            $this->builder = new Builder($this->getConfiguration()->get('install'));
+        return $this->getService('app.php.builder');
+    }
+
+    /**
+     * @return \jubianchi\PhpSwitch\PHP\Builder
+     */
+    public function getOptionFinder()
+    {
+        return $this->getService('app.php.option.finder');
+    }
+
+    /**
+     * @param \Pimple $container
+     *
+     * @return \jubianchi\PhpSwitch\Console\Application
+     */
+    public function setContainer(\Pimple $container)
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
+     * @return \Pimple
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    public function getService($service)
+    {
+        if (null === $this->container) {
+            throw new \RuntimeException(sprintf('No service container defined'));
         }
 
-        return $this->builder;
+        return $this->container[$service];
     }
 }

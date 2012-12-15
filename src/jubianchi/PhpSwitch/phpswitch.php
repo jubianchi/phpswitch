@@ -5,23 +5,72 @@ use jubianchi\PhpSwitch\Console\Command\Finder;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-define(__NAMESPACE__ . '\\PHPSWITCH_HOME', realpath(__DIR__ . '/../../../'));
-define(__NAMESPACE__ . '\\PHPSWITCH_SRC', PHPSWITCH_HOME . '/src');
-define(__NAMESPACE__ . '\\HOME',  getenv('HOME'));
+$container = new \Pimple();
 
-$app = new Console\Application();
+$container['app.path'] = realpath(__DIR__ . '/../../../');
+$container['app.source.path'] = $container['app.path'] . DIRECTORY_SEPARATOR . 'src';
+$container['app.user.path'] = getenv('HOME');
+$container['app.workspace.path'] = $container['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
+$container['app.workspace.downloads.path'] = $container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
+$container['app.workspace.sources.path'] = $container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
+$container['app.workspace.installed.path'] = $container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
+$container['app.command.path'] = $container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
+$container['app.php.option.path'] = $container['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
+$container['app.config.name'] = '.phpswitch.yml';
 
-$appConfigLoader = new Config\Loader(HOME, new Config\Validator(HOME));
-$appConfigDumper = new Config\Dumper(HOME);
+$container['app'] = function(\Pimple $container) {
+    $appliction = new Console\Application();
+    return $container['app.loader']
+        ->load($appliction->setContainer($container))
+            ->setConfiguration($container['app.config'])
+    ;
+};
 
-$appConfig = new Config\Configuration();
-$appConfigLoader->load(
-    '.phpswitch.yml',
-    $appConfig,
-    $appConfigDumper
-);
+$container['app.loader'] = function(\Pimple $container) {
+    return new Console\Loader($container['app.command.finder']);
+};
 
-$appLoader = new Console\Loader(new Finder(__DIR__ . '/Console/Command', PHPSWITCH_SRC));
-$appLoader->load($app);
+$container['app.command.finder'] = function(\Pimple $container) {
+    return new Finder($container['app.command.path'], $container['app.source.path']);
+};
 
-return $app->setConfiguration($appConfig)->run();
+$container['app.config'] = function(\Pimple $container) {
+    return $container['app.config.loader']->load(
+        $container['app.config.name'],
+        new Config\Configuration(),
+        $container['app.config.dumper']
+    );
+};
+
+$container['app.config.validator'] = function(\Pimple $container) {
+    return new Config\Validator($container['app.path']);
+};
+
+$container['app.config.loader'] = function(\Pimple $container) {
+    return new Config\Loader($container['app.user.path'], $container['app.config.validator']);
+};
+
+$container['app.config.dumper'] = function(\Pimple $container) {
+    return new Config\Dumper($container['app.user.path']);
+};
+
+$container['app.php.builder'] = function(\Pimple $container) {
+    return new PHP\Builder($container['app.workspace.installed.path']);
+};
+
+$container['app.php.extracter'] = function(\Pimple $container) {
+    return new PHP\Extracter($container['app.workspace.sources.path']);
+};
+
+$container['app.php.downloader'] = function(\Pimple $container) {
+    return new PHP\Downloader($container['app.workspace.downloads.path']);
+};
+
+$container['app.php.option.finder'] = function(\Pimple $container) {
+    return new PHP\Option\Finder(
+        $container['app.php.option.path'],
+        $container['app.source.path']
+    );
+};
+
+return $container['app']->run();
