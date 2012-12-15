@@ -19,7 +19,7 @@ class Application extends BaseApplication
      * @param string $name
      * @param string $version
      */
-    public function __construct($name = 'PhpSwitch', $version = '0.1')
+    public function __construct($name = 'phpswitch', $version = '0.1')
     {
         parent::__construct($name, $version);
     }
