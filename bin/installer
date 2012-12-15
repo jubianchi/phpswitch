@@ -1,0 +1,284 @@
+#!/usr/bin/env php
+<?php
+define('INSTALLER_URL',             'https://raw.github.com/jubianchi/phpswitch/master/bin/installer');
+define('PHPSWITCH_GIT_URL',         (($url = getenv('PHPSWITCH_GIT_URL')) ? $url : 'git://github.com/jubianchi/phpswitch.git'));
+
+define('PHPSWITCH_PATH_DEFAULT',    '/usr/share');
+define('PHPSWITCH_PATH',            (($path = getenv('PHPSWITCH_PATH')) ? $path : PHPSWITCH_PATH_DEFAULT) . DIRECTORY_SEPARATOR . 'phpswitch');
+define('PHPSWITCH_SYMLINK_DEFAULT', '/usr/local/bin');
+define('PHPSWITCH_SYMLINK',         (($symlink = getenv('PHPSWITCH_SYMLINK')) ? $symlink : PHPSWITCH_SYMLINK_DEFAULT) . DIRECTORY_SEPARATOR . 'phpswitch');
+
+if(false === defined('STDOUT')) {
+    define('STDOUT', fopen('php://stdout', 'w'));
+}
+
+if(false !== getenv('PHPSWITCH_PATH') || false !== getenv('PHPSWITCH_SYMLINK')) {
+    $argv[] = '--global';
+}
+
+$silence = false;
+$errors = array (
+    E_ERROR             => 'ERROR',
+    E_WARNING           => 'WARNING',
+    E_PARSE             => 'PARSING ERROR',
+    E_NOTICE            => 'NOTICE',
+    E_CORE_ERROR        => 'CORE ERROR',
+    E_CORE_WARNING      => 'CORE WARNING',
+    E_COMPILE_ERROR     => 'COMPILE ERROR',
+    E_COMPILE_WARNING   => 'COMPILE WARNING',
+    E_USER_ERROR        => 'USER ERROR',
+    E_USER_WARNING      => 'USER WARNING',
+    E_USER_NOTICE       => 'USER NOTICE',
+    E_STRICT            => 'STRICT NOTICE',
+    E_RECOVERABLE_ERROR => 'RECOVERABLE ERROR'
+);
+
+error_reporting(0);
+set_error_handler(function($code, $str, $file, $line) use($errors, &$silence) {
+    if(false === $silence) {
+        printfln('<red>> [%s] %s (Line %d)', $errors[$code], $str, $line);
+    }
+});
+
+array_shift($argv);
+exit(execute($argv, $silence));
+
+function execute(array $args, &$silence) {
+    printfln('> <green>phpswitch installer');
+
+    if(true === in_array('--usage', $args)) {
+        usage($args);
+
+        return 0;
+    }
+
+    printfln('>> <yellow>Checking requirements...');
+    $silence = true;
+    if(false === checkRequirements($args)) {
+        return 1;
+    }
+    $silence = false;
+
+    if(true === in_array('--check', $args)) {
+        return 0;
+    }
+
+    if(false === download($args)) {
+        return 1;
+    }
+
+    install($args);
+
+    printfln('>> <green>phpswitch was successfully installed. Enjoy!');
+
+    return 0;
+}
+
+function usage(array $args) {
+    $format = '%-15s : %s';
+    printfln($format, '--global', 'Install phpswitch as a global command');
+    printfln($format, '--check', 'Only run system requirements check');
+
+    printfln(PHP_EOL . 'Environment :');
+    printfln($format, 'PHPSWITCH_GIT_URL', 'Git repository <yellow>(default : git://github.com/jubianchi/phpswitch.git)');
+    printfln($format, 'PHPSWITCH_PATH', 'Installation directory <yellow>(default : ' . PHPSWITCH_PATH_DEFAULT . ')');
+    printfln($format, 'PHPSWITCH_SYMLINK', 'phpswitch bin symlink path <yellow>(default: ' . PHPSWITCH_SYMLINK_DEFAULT . ')');
+
+    printfln(PHP_EOL . 'Examples :');
+    printfln('$ curl ' . INSTALLER_URL .' | sudo php -- --global');
+    printfln('$ curl ' . INSTALLER_URL .' | PHPSWITCH_PATH=/home/me php');
+}
+
+function download(array $args) {
+    printfln('>> <yellow>Installing from sources...');
+
+    if(true === in_array('--global', $args)) {
+        $path = PHPSWITCH_PATH;
+    } else {
+        $path = getcwd() . DIRECTORY_SEPARATOR . 'phpswitch';
+    }
+
+    if(false === checkDirectoryExists($path)) {
+        printfln('>>> <yellow>Cloning source repository...');
+        ppassthru('git clone ' . PHPSWITCH_GIT_URL . ' ' . $path);
+
+        $output = null;
+        exec('cd ' . $path . ' && git rev-parse HEAD', $output);
+        printfln('>>> <yellow>Installed phpswitch master@%s', substr(implode('', $output), 0, 7));
+    } else {
+        printfln('>> <yellow>Updating sources...');
+        ppassthru('cd ' . $path . ' && git fetch origin && git reset --hard origin/master');
+
+        $output = null;
+        exec('cd ' . $path . ' && git rev-parse HEAD', $output);
+        printfln('>>> <yellow>Updated phpswitch to master@%s', substr(implode('', $output), 0, 7));
+    }
+
+    printfln('>> <yellow>Updating dependencies...');
+    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install', $output);
+
+    return true;
+}
+
+function install(array $args) {
+    if(true === in_array('--global', $args)) {
+        if(true === checkLinkExists(PHPSWITCH_SYMLINK)) {
+            unlink(PHPSWITCH_SYMLINK);
+        }
+        ppassthru('ln -s ' . PHPSWITCH_PATH . DIRECTORY_SEPARATOR .'bin/phpswitch ' . PHPSWITCH_SYMLINK);
+
+        printfln('>> <green>phpswitch sources path : <yellow>' . PHPSWITCH_PATH);
+        printfln('>> <green>phpswitch bin path : <yellow>' . PHPSWITCH_PATH . DIRECTORY_SEPARATOR .'bin/phpswitch -> ' . PHPSWITCH_SYMLINK);
+    } else {
+        printfln('>> <green>phpswitch sources path : <yellow>%s/phpswitch', getcwd());
+        printfln('>> <green>phpswitch bin path : <yellow>%s/phpswitch/bin/phpswitch', getcwd());
+    }
+}
+
+function checkRequirements(array $args) {
+    $error = false;
+
+    if(50303 > PHP_VERSION_ID) {
+        printfln('>>> <red>You should install PHP 5.3.3+/5.4. Actual version is %s', phpversion());
+        $error = true;
+    } else {
+        printfln('>>> <green>Actual PHP version is %s', phpversion());
+    }
+
+    if(false === extension_loaded('curl')) {
+        printfln('>>> <red>cURL extension is not enabled');
+        $error = true;
+    } else {
+        printfln('>>> <green>cURL extension is enabled');
+    }
+
+    if(false === checkPermissions($args)) {
+        $error = true;
+    } else {
+        $paths = getPaths($args);
+        $paths = implode(', ', array_keys(array_filter($paths, function($v) { return (true === $v);  })));
+        printfln('>>> <green>You have required permissions on <yellow>%s', $paths);
+    }
+
+    return (false === $error);
+}
+
+function checkPermissions(array $args) {
+    if(false != ($restrict = ini_get('open_basedir'))) {
+        printfln('>>> <yellow>open_basedir restriction : %s', $restrict);
+        printfln('>>>> To fix this issue, try to run :');
+        printfln('>>>> <yellow>PHPSWITCH_PATH=/an/allowed/path ./installer <clear>or <yellow>curl ' . INSTALLER_URL . ' | PHPSWITCH_PATH=/an/allowed/path php');
+        printfln('>>>> or');
+        printfln('>>>> <yellow>php -dopen_basedir= ./installer <clear>or <yellow>curl ' . INSTALLER_URL . ' | php -dopen_basedir=');
+    }
+
+    $paths = getPaths($args);
+
+    if(true === in_array(false, $paths)) {
+        $paths = implode(', ', array_keys(array_filter($paths, function($v) { return (false === $v);  })));
+        printfln('>>> <red>You don\'t have required permissions on <yellow>%s', $paths);
+
+        return false;
+    }
+
+    return true;
+}
+
+function getPaths(array $args) {
+    if(true === in_array('--global', $args)) {
+        $paths = array(
+            dirname(PHPSWITCH_SYMLINK) => is_writeable(dirname(PHPSWITCH_SYMLINK)),
+            dirname(PHPSWITCH_PATH) => is_writeable(dirname(PHPSWITCH_PATH))
+        );
+    } else {
+        $paths = array(
+            getcwd() => is_writeable(getcwd())
+        );
+    }
+
+    return $paths;
+}
+
+function checkDirectoryExists($dir) {
+    if(false === ($exists = is_dir($dir))) {
+        printfln('>>> <yellow>Directory %s does not exist.', $dir);
+    } else {
+        printfln('>>> <yellow>Directory %s exists.', $dir);
+    }
+
+    return $exists;
+}
+
+function checkAndCreateDirectory($dir) {
+    if(false === checkDirectoryExists($dir)) {
+        printfln('>>> <yellow>Creating directory %s', $dir);
+        mkdir($dir, 0755, true);
+    }
+}
+
+function checkFileExists($file) {
+    if(false === ($exists = is_file($file))) {
+        printfln('>>> <yellow>File %s does not exist.', $file);
+    } else {
+        printfln('>>> <yellow>File %s exists.', $file);
+    }
+
+    return $exists;
+}
+
+function checkLinkExists($file) {
+    if(false === ($exists = is_link($file))) {
+        printfln('>>> <yellow>File %s does not exist.', $file);
+    } else {
+        printfln('>>> <yellow>File %s exists.', $file);
+    }
+
+    return $exists;
+}
+
+function ppassthru($cmd) {
+    printfln('>>> <yellow>' . $cmd);
+
+    $status = 0;
+    passthru($cmd, $status);
+
+    return $status;
+}
+
+function printfln($line) {
+    $line = call_user_func_array('sprintf', func_get_args());
+
+    $support = '\\' === DIRECTORY_SEPARATOR ? false !== getenv('ANSICON') : (function_exists('posix_isatty') && true === posix_isatty(STDOUT));
+
+    $colors = array(
+        'red' => 31,
+        'green' => 32,
+        'yellow' => 33,
+        'blue' => 34
+    );
+    $pattern = '/\<(' . implode('|', array_keys($colors)) . '|clear)\>/';
+
+    if(true === $support) {
+        $line = preg_replace_callback(
+            $pattern,
+            function($matches) use($colors) {
+                $color = $matches[1];
+
+                if('clear' === $color) {
+                    return "\033[0m";
+                } else {
+                    return true === isset($colors[$matches[1]]) ? "\033[0;" . $colors[$matches[1]] . 'm' : '';
+                }
+            },
+            $line
+        );
+
+        $line .= "\033[0m";
+    } else {
+        $line = preg_replace($pattern, '', $line);
+    }
+
+    $line .= PHP_EOL;
+
+    print $line;
+}
