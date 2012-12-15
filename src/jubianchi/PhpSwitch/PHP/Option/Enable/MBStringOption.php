@@ -1,7 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-class MBString extends EnableOption
+class MBStringOption extends EnableOption
 {
     const ARG = 'mbstring';
 }
