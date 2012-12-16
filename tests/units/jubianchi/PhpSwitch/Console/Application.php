@@ -21,7 +21,7 @@ class Application extends atoum\test
         $this
             ->if($object = new TestedClass())
             ->then
-                ->string($object->getName())->isEqualTo('PhpSwitch')
+                ->string($object->getName())->isEqualTo('phpswitch')
                 ->string($object->getVersion())->isEqualTo('0.1')
         ;
     }
