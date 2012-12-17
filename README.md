@@ -26,3 +26,10 @@ $ php switch off
 
 $ php -v
 ```
+
+If you want to automatically enable phpswitch, just add these lines to your ```.bashrc``` or ```.zshrc``` :
+
+```shell
+source /usr/share/phpswitch/.phpswitch/.phpswitchrc
+php switch on > /dev/null
+```
