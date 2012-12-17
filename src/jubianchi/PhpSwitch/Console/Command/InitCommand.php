@@ -62,10 +62,17 @@ php() {
             then
                 export PATH=\$PHPSWITCH_ORIG_PATH
             else
-                $path/bin/phpswitch php:switch $2
+                if [ "$2" != on ]
+                then
+                    $path/bin/phpswitch php:switch $2
+                fi
 
                 VERSION=\$($path/bin/phpswitch php:current)
-                export PATH=$installed/\$VERSION/bin:\$PATH
+
+                if [ $? ] && [ ! -z \$VERSION ]
+                then
+                    export PATH=$installed/\$VERSION/bin:\$PHPSWITCH_ORIG_PATH
+                fi
             fi
 
             php -v

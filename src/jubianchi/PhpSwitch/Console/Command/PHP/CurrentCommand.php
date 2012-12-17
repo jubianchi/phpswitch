@@ -18,7 +18,11 @@ class CurrentCommand extends Command
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
-        $output->writeln($this->getConfiguration()->get('version'));
+        try {
+            $output->writeln($this->getConfiguration()->get('version'));
+        } catch (\InvalidArgumentException $exception) {
+            return $exception->getCode();
+        }
 
         return 0;
     }
