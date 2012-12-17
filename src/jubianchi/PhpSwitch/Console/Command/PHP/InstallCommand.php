@@ -1,11 +1,11 @@
 <?php
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
-use jubianchi\PhpSwitch\PHP\Option\Resolver;
-use jubianchi\PhpSwitch\Console\Application;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
+use jubianchi\PhpSwitch\PHP\Option\Resolver;
 use jubianchi\PhpSwitch\PHP\Finder as PHPFinder;
 use jubianchi\PhpSwitch\PHP\Version;
 use jubianchi\PhpSwitch\Console\Command\Command;
@@ -43,10 +43,12 @@ class InstallCommand extends Command
     {
         parent::setApplication($application);
 
-        foreach($application->getOptionFinder() as $option) {
-            $option = new $option();
-            $option->setCommand($this);
-            $this->options[] = $option;
+        if(null !== $application) {
+            foreach($application->getOptionFinder() as $option) {
+                $option = new $option();
+                $option->setCommand($this);
+                $this->options[] = $option;
+            }
         }
     }
 
