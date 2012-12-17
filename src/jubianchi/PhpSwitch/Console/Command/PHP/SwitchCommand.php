@@ -29,12 +29,19 @@ class SwitchCommand extends Command
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
+        $version = $input->getArgument('version');
+        $version = ('off' === $version ? null : $version);
+
         $this->getConfiguration()
-            ->set('version', $input->getArgument('version'))
+            ->set('version', $version)
             ->dump()
         ;
 
-        $output->writeln(sprintf('PHP switched to <info>%s</info>', $input->getArgument('version')));
+        if (null === $version) {
+            $output->writeln(sprintf('Restored <info>default PHP</info> version', $version));
+        } else {
+            $output->writeln(sprintf('PHP switched to <info>%s</info>', $version));
+        }
 
         return 0;
     }

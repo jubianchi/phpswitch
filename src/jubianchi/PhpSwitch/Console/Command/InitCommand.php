@@ -61,6 +61,7 @@ php() {
             if [ "$2" == "off" ]
             then
                 export PATH=\$PHPSWITCH_ORIG_PATH
+                $path/bin/phpswitch php:switch off
             else
                 if [ "$2" != on ]
                 then
