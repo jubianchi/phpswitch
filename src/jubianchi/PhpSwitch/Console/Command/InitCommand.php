@@ -32,13 +32,13 @@ class InitCommand extends Command
         foreach($directories as $directory) {
             try {
                 if ($this->makeDirectory($directory)) {
-                    $output->writeln(sprintf('Directory <info>%s</info> was created', $directory));
+                    $this->log(sprintf('Directory <info>%s</info> was created', $directory), \Monolog\Logger::INFO, $output);
                 } else {
-                    $output->writeln(sprintf('Directory <error>%s</error> was not created', $directory));
+					$this->log(sprintf('Directory <error>%s</error> was not created', $directory), \Monolog\Logger::ERROR, $output);
                     $status = 1;
                 }
             } catch (DirectoryExistsException $exc) {
-                $output->writeln(sprintf('Directory <info>%s</info> already exists', $directory));
+				$this->log(sprintf('Directory <info>%s</info> already exists', $directory), \Monolog\Logger::ERROR, $output);
             }
         }
 
@@ -88,7 +88,7 @@ php() {
 SHELL
         );
 
-        $output->writeln(
+        $this->log(
             sprintf(
                 'You should source <info>%s</info> to use PhpSwitch',
                 $this->getApplication()->getService('app.user.path') . '/.phpswitchrc'

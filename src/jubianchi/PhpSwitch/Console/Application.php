@@ -76,6 +76,14 @@ class Application extends BaseApplication
         return $this->getService('app.php.option.finder');
     }
 
+	/**
+	 * @return \Monolog\Logger
+	 */
+	public function getLogger()
+	{
+		return $this->getService('app.logger');
+	}
+
     /**
      * @param \Pimple $container
      *

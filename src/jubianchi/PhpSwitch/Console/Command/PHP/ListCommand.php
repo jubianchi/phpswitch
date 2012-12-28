@@ -24,12 +24,14 @@ class ListCommand extends Command
         foreach ($finder as  $version) {
             $dest = $builder->getDestination($version);
 
-            $output->writeln(
+            $this->log(
                 sprintf(
                     '<info>%-15s</info> <comment>%s</comment>',
                     $version->getName() . (is_dir($dest) ? '*' : ''),
                     sprintf($version->getUrl(), 'a')
-                )
+                ),
+				\Monolog\Logger::INFO,
+				$output
             );
         }
 

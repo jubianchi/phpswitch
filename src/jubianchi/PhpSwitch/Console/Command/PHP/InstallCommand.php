@@ -5,6 +5,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
+use Monolog\Logger;
 use jubianchi\PhpSwitch\PHP\Option\Resolver;
 use jubianchi\PhpSwitch\PHP\Finder as PHPFinder;
 use jubianchi\PhpSwitch\PHP\Version;
@@ -66,10 +67,14 @@ class InstallCommand extends Command
         $resolver = new Resolver();
         $options = $resolver->resolve($input, $this->options);
 
-        $output->writeln(array(
-            sprintf('Installing PHP <info>%s</info>', $version),
-            sprintf('Configure options: <info>[%s]</info>', implode(', ', $options) )
-        ));
+		$this->log(
+			array(
+				sprintf('Installing PHP <info>%s</info>', $version),
+				sprintf('Configure options: <info>[%s]</info>', implode(', ', $options))
+			),
+			Logger::INFO,
+			$output
+		);
 
         $this
             ->download($version, $output)
@@ -77,7 +82,7 @@ class InstallCommand extends Command
             ->install($version, implode(' ', $options), $output)
         ;
 
-        $output->writeln(array(
+		$this->log(array(
             sprintf('PHP version <info>%s</info> was installed:', $version->getVersion()),
             sprintf('  <comment>%s</comment>', $this->prefix)
         ));
@@ -104,10 +109,12 @@ class InstallCommand extends Command
         $dest = $this->getDownloader()->getDestination($version);
         if(false === file_exists($dest)) {
             $mirror = $this->getConfiguration()->get('mirror');
-            $output->writeln(
+			var_dump(sprintf($version->getUrl(), $mirror));
+
+			$this->log(array(
                 sprintf('Downloading PHP <info>%s</info>', $version),
                 sprintf('  <comment>%</comment>', sprintf($version->getUrl(), $mirror))
-            );
+            ));
 
             $this->getDownloader()->download($version, $mirror);
         }
@@ -134,9 +141,9 @@ class InstallCommand extends Command
     protected function extract(Version $version, OutputInterface $output) {
         $dest = $this->getExtracter()->getDestination($version);
         if(false === file_exists($dest)) {
-            $output->writeln(array(
+			$this->log(array(
                 sprintf('Extracting <info>%s</info>', $version),
-                sprintf('<info>%s</info>', $dest)
+                sprintf('  <comment>%s</comment>', $dest)
             ));
 
             $this->getExtracter()->extract($version, $this->archive, $this->getProcessCallback($output));
@@ -170,17 +177,17 @@ class InstallCommand extends Command
             throw new \RuntimeException(sprintf('PHP version %s is already installed', $version->getVersion()));
         }
 
-        $output->writeln(
+		$this->log(array(
             sprintf('Building <info>%s</info>', $version),
             sprintf('  <comment>%s</comment>', $dest)
-        );
+        ));
 
         $this->getBuilder()->build($version, $this->source, $options, $this->getProcessCallback($output));
 
         $ini = $this->source . DIRECTORY_SEPARATOR . 'php.ini-development';
         $destination = $dest . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'php.ini';
 
-        $output->writeln(array(
+		$this->log(array(
             'Moving configuration file',
             sprintf('  <comment>From: %s</comment>', $ini),
             sprintf('  <comment>To: %s</comment>', $destination)
@@ -199,13 +206,20 @@ class InstallCommand extends Command
      */
     protected function getProcessCallback(OutputInterface $output)
     {
-        return function($type, $buffer) use($output) {
-            if ('err' === $type) {
-                $buffer = sprintf('<error>%s</error>', $buffer);
+		$self = $this;
+
+        return function($type, $buffer) use($self, $output) {
+            $buffer = rtrim($buffer);
+			if ('' === empty($buffer)) {
+				return;
+			}
+
+			if ('err' === $type) {
+				$buffer = sprintf('<error>%s</error>', $buffer);
             }
 
-            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
-                $output->write($buffer);
+            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity() || 'err' === $type) {
+				$self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::DEBUG);
             }
         };
     }

@@ -2,6 +2,8 @@
 namespace jubianchi\PhpSwitch;
 
 use jubianchi\PhpSwitch\Console\Command\Finder;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
@@ -17,6 +19,8 @@ $container['app.workspace.installed.path'] = $container['app.workspace.path'] . 
 $container['app.command.path'] = $container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
 $container['app.php.option.path'] = $container['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
 $container['app.config.name'] = '.phpswitch.yml';
+$container['app.logger.output.path'] = 'php://stdout';
+$container['app.logger.error.path'] = 'php://stderr';
 
 $container['app'] = function(\Pimple $container) {
     $appliction = new Console\Application();
@@ -71,6 +75,22 @@ $container['app.php.option.finder'] = function(\Pimple $container) {
         $container['app.php.option.path'],
         $container['app.source.path']
     );
+};
+
+$container['app.logger'] = function(\Pimple $container) {
+	$logger = new Logger('output');
+	$formatter = new \Monolog\Formatter\LineFormatter('%message%');
+
+	$info = new StreamHandler($container['app.logger.output.path'], Logger::INFO);
+	$info->setFormatter($formatter);
+	$logger->pushHandler($info);
+
+
+	$error = new StreamHandler($container['app.logger.error.path'], Logger::ERROR, false);
+	$error->setFormatter($formatter);
+	$logger->pushHandler($error);
+
+	return $logger;
 };
 
 return $container['app']->run();

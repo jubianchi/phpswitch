@@ -37,11 +37,13 @@ class SwitchCommand extends Command
             ->dump()
         ;
 
-        if (null === $version) {
-            $output->writeln(sprintf('Restored <info>default PHP</info> version', $version));
-        } else {
-            $output->writeln(sprintf('PHP switched to <info>%s</info>', $version));
-        }
+		$this->log(
+			null === $version
+				? 'Restored <info>default PHP</info> version'
+				: sprintf('PHP switched to <info>%s</info>', $version),
+			\Monolog\Logger::INFO,
+			$output
+		);
 
         return 0;
     }
