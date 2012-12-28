@@ -3,7 +3,6 @@ namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
 use Symfony\Component\Console;
 use Symfony\Component\Console\Input\InputArgument;
-use jubianchi\PhpSwitch\PHP\Finder;
 use jubianchi\PhpSwitch\Console\Command\Command;
 
 class SwitchCommand extends Command
@@ -37,13 +36,13 @@ class SwitchCommand extends Command
             ->dump()
         ;
 
-		$this->log(
-			null === $version
-				? 'Restored <info>default PHP</info> version'
-				: sprintf('PHP switched to <info>%s</info>', $version),
-			\Monolog\Logger::INFO,
-			$output
-		);
+        $this->log(
+            null === $version
+                ? 'Restored <info>default PHP</info> version'
+                : sprintf('PHP switched to <info>%s</info>', $version),
+            \Monolog\Logger::INFO,
+            $output
+        );
 
         return 0;
     }

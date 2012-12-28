@@ -16,8 +16,6 @@ class InstallCommand extends Command
     const NAME = 'php:install';
     const DESC = 'Installs a PHP version';
 
-    const INDENT = '    ';
-
     /** @var string */
     private $archive;
 
@@ -40,12 +38,15 @@ class InstallCommand extends Command
         $this->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)');
     }
 
+    /**
+     * @param \Symfony\Component\Console\Application $application
+     */
     public function setApplication(Application $application = null)
     {
         parent::setApplication($application);
 
-        if(null !== $application) {
-            foreach($application->getOptionFinder() as $option) {
+        if (null !== $application) {
+            foreach ($application->getOptionFinder() as $option) {
                 $option = new $option();
                 $option->setCommand($this);
                 $this->options[] = $option;
@@ -54,7 +55,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return int
@@ -67,14 +68,14 @@ class InstallCommand extends Command
         $resolver = new Resolver();
         $options = $resolver->resolve($input, $this->options);
 
-		$this->log(
-			array(
-				sprintf('Installing PHP <info>%s</info>', $version),
-				sprintf('Configure options: <info>[%s]</info>', implode(', ', $options))
-			),
-			Logger::INFO,
-			$output
-		);
+        $this->log(
+            array(
+                sprintf('Installing PHP <info>%s</info>', $version),
+                sprintf('Configure options: <info>[%s]</info>', implode(', ', $options))
+            ),
+            Logger::INFO,
+            $output
+        );
 
         $this
             ->download($version, $output)
@@ -82,9 +83,9 @@ class InstallCommand extends Command
             ->install($version, implode(' ', $options), $output)
         ;
 
-		$this->log(array(
+        $this->log(array(
             sprintf('PHP version <info>%s</info> was installed:', $version->getVersion()),
-            sprintf('  <comment>%s</comment>', $this->prefix)
+            sprintf('%s<comment>%s</comment>', self::INDENT, $this->prefix)
         ));
 
         return 0;
@@ -107,13 +108,13 @@ class InstallCommand extends Command
     protected function download(Version $version, OutputInterface $output)
     {
         $dest = $this->getDownloader()->getDestination($version);
-        if(false === file_exists($dest)) {
+        if (false === file_exists($dest)) {
             $mirror = $this->getConfiguration()->get('mirror');
-			var_dump(sprintf($version->getUrl(), $mirror));
+            var_dump(sprintf($version->getUrl(), $mirror));
 
-			$this->log(array(
+            $this->log(array(
                 sprintf('Downloading PHP <info>%s</info>', $version),
-                sprintf('  <comment>%</comment>', sprintf($version->getUrl(), $mirror))
+                sprintf('%s<comment>%</comment>', self::INDENT, sprintf($version->getUrl(), $mirror))
             ));
 
             $this->getDownloader()->download($version, $mirror);
@@ -138,12 +139,13 @@ class InstallCommand extends Command
      *
      * @return \jubianchi\PhpSwitch\Console\Command\PHP\InstallCommand
      */
-    protected function extract(Version $version, OutputInterface $output) {
+    protected function extract(Version $version, OutputInterface $output)
+    {
         $dest = $this->getExtracter()->getDestination($version);
-        if(false === file_exists($dest)) {
-			$this->log(array(
+        if (false === file_exists($dest)) {
+            $this->log(array(
                 sprintf('Extracting <info>%s</info>', $version),
-                sprintf('  <comment>%s</comment>', $dest)
+                sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
             ));
 
             $this->getExtracter()->extract($version, $this->archive, $this->getProcessCallback($output));
@@ -171,15 +173,16 @@ class InstallCommand extends Command
      *
      * @return \jubianchi\PhpSwitch\Console\Command\PHP\InstallCommand
      */
-    protected function install(Version $version, $options, OutputInterface $output) {
+    protected function install(Version $version, $options, OutputInterface $output)
+    {
         $dest = $this->getBuilder()->getDestination($version);
-        if(true === file_exists($dest)) {
+        if (true === file_exists($dest)) {
             throw new \RuntimeException(sprintf('PHP version %s is already installed', $version->getVersion()));
         }
 
-		$this->log(array(
+        $this->log(array(
             sprintf('Building <info>%s</info>', $version),
-            sprintf('  <comment>%s</comment>', $dest)
+            sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
         ));
 
         $this->getBuilder()->build($version, $this->source, $options, $this->getProcessCallback($output));
@@ -187,10 +190,10 @@ class InstallCommand extends Command
         $ini = $this->source . DIRECTORY_SEPARATOR . 'php.ini-development';
         $destination = $dest . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'php.ini';
 
-		$this->log(array(
+        $this->log(array(
             'Moving configuration file',
-            sprintf('  <comment>From: %s</comment>', $ini),
-            sprintf('  <comment>To: %s</comment>', $destination)
+            sprintf('%s<comment>From: %s</comment>', self::INDENT, $ini),
+            sprintf('%s<comment>To: %s</comment>', self::INDENT, $destination)
         ));
         copy($ini, $destination);
 
@@ -206,20 +209,20 @@ class InstallCommand extends Command
      */
     protected function getProcessCallback(OutputInterface $output)
     {
-		$self = $this;
+        $self = $this;
 
-        return function($type, $buffer) use($self, $output) {
+        return function($type, $buffer) use ($self, $output) {
             $buffer = rtrim($buffer);
-			if ('' === empty($buffer)) {
-				return;
-			}
+            if ('' === empty($buffer)) {
+                return;
+            }
 
-			if ('err' === $type) {
-				$buffer = sprintf('<error>%s</error>', $buffer);
+            if ('err' === $type) {
+                $buffer = sprintf('<error>%s</error>', $buffer);
             }
 
             if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity() || 'err' === $type) {
-				$self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::DEBUG);
+                $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::DEBUG);
             }
         };
     }

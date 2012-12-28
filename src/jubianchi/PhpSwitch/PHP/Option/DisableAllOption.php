@@ -1,8 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use jubianchi\PhpSwitch\Console\Command\Command;
-
 class DisableAllOption extends Option
 {
     const ARG = 'disable-all';

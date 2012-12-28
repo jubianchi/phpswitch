@@ -54,8 +54,8 @@ class Builder
      * @param array                            $options
      * @param callable                         $callback
      *
-	 * @throws \Symfony\Component\Process\Exception\ProcessFailedException
-	 *
+     * @throws \Symfony\Component\Process\Exception\ProcessFailedException
+     *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
     public function configure(Version $version, $source, $options, $callback = null)
@@ -83,8 +83,8 @@ class Builder
      * @param string   $source
      * @param callable $callback
      *
-	 * @throws \Symfony\Component\Process\Exception\ProcessFailedException
-	 *
+     * @throws \Symfony\Component\Process\Exception\ProcessFailedException
+     *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
     public function make($source, $callback = null)

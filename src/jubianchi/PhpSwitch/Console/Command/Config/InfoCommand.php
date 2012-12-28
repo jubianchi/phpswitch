@@ -13,7 +13,7 @@ class InfoCommand extends Command
     const INDENT = '    ';
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return int
@@ -48,10 +48,9 @@ class InfoCommand extends Command
     {
         $margin = str_repeat(self::INDENT, $level);
 
-        foreach($section as $key => $value) {
-            if(false === is_array($value)) {
-                if(true === is_bool($value))
-                {
+        foreach ($section as $key => $value) {
+            if (false === is_array($value)) {
+                if (true === is_bool($value)) {
                     $value = $value ? 'true' : 'false';
                 }
 

@@ -4,16 +4,19 @@ namespace jubianchi\PhpSwitch\PHP\Option;
 use Symfony\Component\Console\Input\InputOption;
 use jubianchi\PhpSwitch\Console\Command\Command;
 use jubianchi\PhpSwitch\PHP\Option\Enable;
-use jubianchi\PhpSwitch\PHP\Option\With;
 
 class AtoumOption extends Option
 {
     const ARG = 'atoum';
 
+    /**
+     * @param \jubianchi\PhpSwitch\Console\Command\Command $command
+     *
+     * @return Option
+     */
     public function applyArgument(Command $command)
     {
-        if (static::ARG !== null && false === $command->getDefinition()->hasArgument(static::ARG))
-        {
+        if (static::ARG !== null && false === $command->getDefinition()->hasArgument(static::ARG)) {
             $command->addOption(
                 static::ARG,
                 null,
@@ -25,6 +28,9 @@ class AtoumOption extends Option
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return implode(

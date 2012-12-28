@@ -76,13 +76,13 @@ class Application extends BaseApplication
         return $this->getService('app.php.option.finder');
     }
 
-	/**
-	 * @return \Monolog\Logger
-	 */
-	public function getLogger()
-	{
-		return $this->getService('app.logger');
-	}
+    /**
+     * @return \Monolog\Logger
+     */
+    public function getLogger()
+    {
+        return $this->getService('app.logger');
+    }
 
     /**
      * @param \Pimple $container
@@ -104,14 +104,14 @@ class Application extends BaseApplication
         return $this->container;
     }
 
-	/**
-	 * @param string $service
-	 *
-	 * @throws \RuntimeException
-	 *
-	 * @return mixed
-	 */
-	public function getService($service)
+    /**
+     * @param string $service
+     *
+     * @throws \RuntimeException
+     *
+     * @return mixed
+     */
+    public function getService($service)
     {
         if (null === $this->container) {
             throw new \RuntimeException(sprintf('No service container defined'));

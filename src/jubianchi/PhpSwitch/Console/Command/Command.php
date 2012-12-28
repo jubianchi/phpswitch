@@ -31,41 +31,43 @@ abstract class Command extends BaseCommand
         return $this->getApplication()->getConfiguration();
     }
 
-	/**
-	 * @return \Monolog\Logger
-	 */
-	public function getLogger()
-	{
-		return $this->getApplication()->getLogger();
-	}
+    /**
+     * @return \Monolog\Logger
+     */
+    public function getLogger()
+    {
+        return $this->getApplication()->getLogger();
+    }
 
-	/**
-	 * @param array|string $messages
-	 *
-	 * @return Command
-	 */
+    /**
+     * @param string[]|string                                   $messages
+     * @param int                                               $level
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return \jubianchi\PhpSwitch\Console\Command\Command
+     */
 	public function log($messages, $level = Logger::INFO, OutputInterface $output = null)
-	{
-		static $formatter;
+    {
+        static $formatter;
 
-		if (null !== $output) {
-			$formatter = $output->getFormatter();
-		}
+        if (null !== $output) {
+            $formatter = $output->getFormatter();
+        }
 
-		if (null === $formatter) {
-			$formatter = new OutputFormatter();
-		}
+        if (null === $formatter) {
+            $formatter = new OutputFormatter();
+        }
 
-		if (false === is_array($messages)) {
-			$messages = array($messages);
-		}
+        if (false === is_array($messages)) {
+            $messages = array($messages);
+        }
 
-		foreach ($messages as $message) {
-			$this->getLogger()->addRecord($level, $formatter->format($message) . PHP_EOL);
-		}
+        foreach ($messages as $message) {
+            $this->getLogger()->addRecord($level, $formatter->format($message) . PHP_EOL);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * @return \jubianchi\PhpSwitch\Console\Application

@@ -10,10 +10,14 @@ class DefaultOption extends Option
 {
     const ARG = 'default';
 
+    /**
+     * @param \jubianchi\PhpSwitch\Console\Command\Command $command
+     *
+     * @return Option
+     */
     public function applyArgument(Command $command)
     {
-        if (static::ARG !== null && false === $command->getDefinition()->hasArgument(static::ARG))
-        {
+        if (static::ARG !== null && false === $command->getDefinition()->hasArgument(static::ARG)) {
             $command->addOption(
                 static::ARG,
                 null,
@@ -25,6 +29,9 @@ class DefaultOption extends Option
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return implode(

@@ -35,7 +35,7 @@ class Loader
      */
     public function load(Application $application)
     {
-        foreach($this->finder as $command) {
+        foreach ($this->finder as $command) {
             $application->add(new $command());
         }
 

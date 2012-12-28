@@ -24,9 +24,9 @@ class Configuration implements \IteratorAggregate
         $reference = $this->configuration;
         $current = $sep = '';
 
-        foreach($offset as $key) {
+        foreach ($offset as $key) {
             $current .= $sep . $key;
-            if(false === isset($reference[$key])) {
+            if (false === isset($reference[$key])) {
                 throw new \InvalidArgumentException(sprintf('Offset %s does not exist', $current));
             }
 
@@ -52,9 +52,9 @@ class Configuration implements \IteratorAggregate
         $reference = & $this->configuration;
         $current = $sep = '';
 
-        foreach($offset as $key) {
+        foreach ($offset as $key) {
             $current .= $sep . $key;
-            if(false === isset($reference[$key])) {
+            if (false === isset($reference[$key])) {
                 $reference[$key] = null;
             }
 
@@ -103,7 +103,7 @@ class Configuration implements \IteratorAggregate
      */
     public function dump()
     {
-        if(null === $this->dumper) {
+        if (null === $this->dumper) {
             throw new \RuntimeException('No dumper available');
         }
 

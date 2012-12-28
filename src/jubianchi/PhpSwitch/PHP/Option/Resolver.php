@@ -1,7 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use Symfony\Component\Finder\Finder as BaseFinder;
 use Symfony\Component\Console\Input\InputInterface;
 
 class Resolver

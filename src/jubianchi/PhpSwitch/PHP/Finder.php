@@ -17,8 +17,7 @@ class Finder implements \IteratorAggregate
      */
     public function __construct($url = 'http://php.net/releases/', Crawler $crawler = null)
     {
-        if (null === $crawler)
-        {
+        if (null === $crawler) {
             $this->crawler = new Crawler();
         }
 
@@ -52,18 +51,18 @@ class Finder implements \IteratorAggregate
         return $versions;
     }
 
-	/**
-	 * @param string $name
-	 *
-	 * @throws \InvalidArgumentException
-	 *
-	 * @return \jubianchi\PhpSwitch\PHP\Version
-	 */
-	public function getVersion($name)
+    /**
+     * @param string $name
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return \jubianchi\PhpSwitch\PHP\Version
+     */
+    public function getVersion($name)
     {
         $versions = $this->getVersions();
 
-        if(false === array_key_exists($name, $versions)) {
+        if (false === array_key_exists($name, $versions)) {
             throw new \InvalidArgumentException(sprintf('Version %s does not exist', $name));
         }
 
@@ -77,8 +76,7 @@ class Finder implements \IteratorAggregate
      */
     protected function crawl($refresh = false)
     {
-        if (null === $this->items || true === $refresh)
-        {
+        if (null === $this->items || true === $refresh) {
             $this->items = $this->crawler->filter('body #content li a');
         }
 

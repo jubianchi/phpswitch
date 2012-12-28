@@ -13,7 +13,10 @@ class Validator implements ConfigurationInterface
     /** @var string */
     private $directory;
 
-    function __construct($directory)
+    /**
+     * @param string $directory
+     */
+    public function __construct($directory)
     {
         $this->directory = $directory;
     }
@@ -25,8 +28,6 @@ class Validator implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root(self::ROOT);
-
-        $home = $this->directory . DIRECTORY_SEPARATOR . '.phpswitch';
 
         $rootNode
             ->children()

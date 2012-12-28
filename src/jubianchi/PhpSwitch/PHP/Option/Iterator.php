@@ -5,6 +5,10 @@ class Iterator extends \FilterIterator
 {
     private $directory;
 
+    /**
+     * @param \Iterator $iterator
+     * @param string    $directory
+     */
     public function __construct(\Iterator $iterator, $directory)
     {
         parent::__construct($iterator);
@@ -12,6 +16,9 @@ class Iterator extends \FilterIterator
         $this->directory = realpath($directory);
     }
 
+    /**
+     * @return bool
+     */
     public function accept()
     {
         $file = parent::current();
@@ -19,7 +26,7 @@ class Iterator extends \FilterIterator
 
         $className = $this->getClassName($file);
 
-        if(class_exists($className)) {
+        if (class_exists($className)) {
             $reflector = new \ReflectionClass($className);
 
             return (
@@ -31,11 +38,19 @@ class Iterator extends \FilterIterator
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function current()
     {
         return $this->getClassName(parent::current());
     }
 
+    /**
+     * @param string $file
+     *
+     * @return string
+     */
     protected function getClassName($file)
     {
         $className = pathinfo($file, PATHINFO_FILENAME);

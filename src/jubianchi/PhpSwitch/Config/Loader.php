@@ -1,7 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\Config;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
 
 class Loader

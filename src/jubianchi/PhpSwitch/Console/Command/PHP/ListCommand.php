@@ -30,8 +30,8 @@ class ListCommand extends Command
                     $version->getName() . (is_dir($dest) ? '*' : ''),
                     sprintf($version->getUrl(), 'a')
                 ),
-				\Monolog\Logger::INFO,
-				$output
+                \Monolog\Logger::INFO,
+                $output
             );
         }
 

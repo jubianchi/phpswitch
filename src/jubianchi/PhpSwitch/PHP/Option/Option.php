@@ -42,8 +42,7 @@ abstract class Option
      */
     public function applyArgument(Command $command)
     {
-        if (static::ARG !== null && false === $command->getDefinition()->hasArgument(static::ARG))
-        {
+        if (static::ARG !== null && false === $command->getDefinition()->hasArgument(static::ARG)) {
             $command->addOption(
                 static::ARG,
                 null,

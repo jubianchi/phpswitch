@@ -8,7 +8,7 @@ class Iterator extends \FilterIterator
 
     /**
      * @param \Iterator $iterator
-     * @param string $directory
+     * @param string    $directory
      */
     public function __construct(\Iterator $iterator, $directory)
     {
@@ -27,7 +27,7 @@ class Iterator extends \FilterIterator
 
         $className = $this->getClassName($file);
 
-        if(class_exists($className)) {
+        if (class_exists($className)) {
             $reflector = new \ReflectionClass($className);
 
             return (
