@@ -25,6 +25,7 @@ class Loader
     /**
      * @param string                                    $name
      * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+     * @param \jubianchi\PhpSwitch\Config\Dumper        $dumper
      *
      * @return \jubianchi\PhpSwitch\Config\Configuration
      */

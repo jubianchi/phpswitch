@@ -96,7 +96,14 @@ class Application extends BaseApplication
         return $this->container;
     }
 
-    public function getService($service)
+	/**
+	 * @param string $service
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return mixed
+	 */
+	public function getService($service)
     {
         if (null === $this->container) {
             throw new \RuntimeException(sprintf('No service container defined'));

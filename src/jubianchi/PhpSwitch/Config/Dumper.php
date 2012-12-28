@@ -19,8 +19,10 @@ class Dumper
     /**
      * @param string                                    $name
      * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+	 *
+	 * @return \jubianchi\PhpSwitch\Config\Dumper
      */
-    public function dump($name, Configuration $configuration)
+	public function dump($name, Configuration $configuration)
     {
         $path = $this->directory . DIRECTORY_SEPARATOR . $name;
 

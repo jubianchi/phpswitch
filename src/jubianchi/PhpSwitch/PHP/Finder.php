@@ -34,7 +34,7 @@ class Finder implements \IteratorAggregate
     }
 
     /**
-     * @return array
+     * @return \jubianchi\PhpSwitch\PHP\Version[]
      */
     protected function getVersions()
     {
@@ -52,7 +52,14 @@ class Finder implements \IteratorAggregate
         return $versions;
     }
 
-    public function getVersion($name)
+	/**
+	 * @param string $name
+	 *
+	 * @throws \InvalidArgumentException
+	 *
+	 * @return \jubianchi\PhpSwitch\PHP\Version
+	 */
+	public function getVersion($name)
     {
         $versions = $this->getVersions();
 

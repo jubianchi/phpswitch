@@ -2,6 +2,7 @@
 namespace jubianchi\PhpSwitch\PHP;
 
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class Builder
 {
@@ -25,22 +26,22 @@ class Builder
     public function build(Version $version, $source, $options, $callback = null)
     {
         $this
-            ->clean($version, $callback)
+            ->clean($source, $callback)
             ->configure($version, $source, $options, $callback)
             ->make($source, $callback)
         ;
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\PHP\Version $version
-     * @param callable                         $callback
+     * @param string   $source
+     * @param callable $callback
      *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
-    public function clean(Version $version, $callback = null)
+    public function clean($source, $callback = null)
     {
         if (true === file_exists($this->directory . DIRECTORY_SEPARATOR . 'Makefile')) {
-            $process = new Process('make clean', $version->getSourcePath());
+            $process = new Process('make clean', $source);
             $process->run($callback);
         }
 
@@ -53,6 +54,8 @@ class Builder
      * @param array                            $options
      * @param callable                         $callback
      *
+	 * @throws \Symfony\Component\Process\Exception\ProcessFailedException
+	 *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
     public function configure(Version $version, $source, $options, $callback = null)
@@ -70,7 +73,7 @@ class Builder
         $process->run($callback);
 
         if (false === $process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
+            throw new ProcessFailedException($process);
         }
 
         return $this;
@@ -80,6 +83,8 @@ class Builder
      * @param string   $source
      * @param callable $callback
      *
+	 * @throws \Symfony\Component\Process\Exception\ProcessFailedException
+	 *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
     public function make($source, $callback = null)
@@ -88,14 +93,14 @@ class Builder
         $process->run($callback);
 
         if (false === $process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
+            throw new ProcessFailedException($process);
         }
 
         $process = new Process('make install', $source);
         $process->run($callback);
 
         if (false === $process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
+            throw new ProcessFailedException($process);
         }
 
         return $this;

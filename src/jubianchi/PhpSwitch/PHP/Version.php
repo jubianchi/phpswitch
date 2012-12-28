@@ -33,6 +33,8 @@ class Version
     /**
      * @param string $name
      *
+	 * @throws \InvalidArgumentException
+	 *
      * @return \jubianchi\PhpSwitch\PHP\Version
      */
     public function setName($name)
