@@ -113,6 +113,6 @@ class Builder
      */
     public function getDestination(Version $version)
     {
-        return $this->directory . DIRECTORY_SEPARATOR . $version->getName();
+        return $this->directory . DIRECTORY_SEPARATOR . $version->getName() . '-' . $version->getVersion();
     }
 }

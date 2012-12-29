@@ -3,6 +3,8 @@ namespace jubianchi\PhpSwitch\PHP;
 
 class Version
 {
+	const DEFAULT_NAME = 'php';
+
     /** @var string */
     private $name;
 
@@ -13,17 +15,16 @@ class Version
     private $url;
 
     /**
+     * @param string $version
      * @param string $name
      * @param string $url
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($name, $url = null)
+    public function __construct($version, $url = null, $name = null)
     {
+        $this->setVersion($version);
         $this->setName($name);
-
-        preg_match('/^php\-\s*(5\.\d+\.\d+)/', $name, $matches);
-        $this->setVersion($matches[1]);
 
         if (null !== $url) {
             $this->setUrl($url);
@@ -39,10 +40,6 @@ class Version
      */
     public function setName($name)
     {
-        if (false == preg_match('/^(php\-\s*(5\.\d+\.\d+))/', $name, $matches)) {
-            throw new \InvalidArgumentException(sprintf('Wrong PHP version %s', $name));
-        }
-
         $this->name = $name;
 
         return $this;
@@ -53,7 +50,7 @@ class Version
      */
     public function getName()
     {
-        return $this->name;
+        return $this->name ?: self::DEFAULT_NAME;
     }
 
     /**
@@ -87,6 +84,10 @@ class Version
      */
     public function setVersion($version)
     {
+		if (false == preg_match('/^(5\.(?:\d+\.?))/', $version)) {
+			throw new \InvalidArgumentException(sprintf('Wrong PHP version %s', $version));
+		}
+
         $this->version = $version;
 
         return $this;
@@ -105,6 +106,6 @@ class Version
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->getName() . '-' . $this->getVersion();
     }
 }

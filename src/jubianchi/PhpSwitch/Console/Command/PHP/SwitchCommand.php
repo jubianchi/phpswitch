@@ -17,7 +17,7 @@ class SwitchCommand extends Command
     {
         parent::__construct($name);
 
-        $this->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (x.y.z)');
+        $this->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)');
     }
 
     /**
@@ -37,9 +37,7 @@ class SwitchCommand extends Command
         ;
 
         $this->log(
-            null === $version
-                ? 'Restored <info>default PHP</info> version'
-                : sprintf('PHP switched to <info>%s</info>', $version),
+            sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'),
             \Monolog\Logger::INFO,
             $output
         );

@@ -12,36 +12,44 @@ class Version extends atoum\test
     public function test__construct()
     {
         $this
-            ->if($name = uniqid())
+            ->if($version = uniqid())
             ->and($url = uniqid())
             ->then
-                ->exception(function() use($name, $url) {
-                    new TestedClass($name, $url);
+                ->exception(function() use($version, $url) {
+                    new TestedClass($version, $url);
                 })
                     ->isInstanceOf('\\InvalidArgumentException')
-                    ->hasMessage(sprintf('Wrong PHP version %s', $name))
+                    ->hasMessage(sprintf('Wrong PHP version %s', $version))
             ->if($version = '5.5.5')
-            ->if($name = 'php-' . $version)
             ->then
-                ->object($object = new TestedClass($name, $url))
-                ->string($object->getName())->isEqualTo($name)
+                ->object($object = new TestedClass($version, $url))
+                ->string($object->getName())->isEqualTo('php')
                 ->string($object->getVersion())->isEqualTo($version)
                 ->string($object->getUrl())->isEqualTo('http://php.net/' . $url)
             ->if($url = 'http://' . ($host = uniqid()) . '/from/a/mirror')
             ->then
-                ->object($object = new TestedClass($name, $url))
+                ->object($object = new TestedClass($version, $url))
                 ->string($object->getUrl())->isEqualTo('http://' . $host . '/from/%s/mirror')
+			->if($name = uniqid())
+			->then
+				->object($object = new TestedClass($version, $url, $name))
+				->string($object->getName())->isEqualTo($name)
+				->string($object->getVersion())->isEqualTo($version)
         ;
     }
 
     public function test__toString()
     {
         $this
-            ->if($name = 'php-5.5.5')
+            ->if($version = '5.5.5')
             ->and($url = uniqid())
-            ->and($object = new TestedClass($name, $url))
+            ->and($object = new TestedClass($version, $url))
             ->then
-                ->castToString($object)->isEqualTo($name)
+                ->castToString($object)->isEqualTo('php-' . $version)
+			->if($name = uniqid())
+			->and($object = new TestedClass($version, $url, $name))
+			->then
+				->castToString($object)->isEqualTo($name . '-' . $version)
         ;
     }
 }

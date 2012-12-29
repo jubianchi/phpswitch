@@ -4,6 +4,7 @@ namespace jubianchi\PhpSwitch\Console\Command\PHP;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Monolog\Logger;
 use jubianchi\PhpSwitch\PHP\Option\Resolver;
@@ -35,7 +36,10 @@ class InstallCommand extends Command
     {
         parent::__construct($name);
 
-        $this->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)');
+        $this
+			->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
+			->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
+		;
     }
 
     /**
@@ -65,12 +69,16 @@ class InstallCommand extends Command
         $finder = new PHPFinder();
         $version = $finder->getVersion($input->getArgument('version'));
 
+		if (null !== ($alias = $input->getOption('alias'))) {
+			$version->setName($alias);
+		}
+
         $resolver = new Resolver();
         $options = $resolver->resolve($input, $this->options);
 
         $this->log(
             array(
-                sprintf('Installing PHP <info>%s</info>', $version),
+                sprintf('Installing PHP <info>%s</info>', $version->getVersion()),
                 sprintf('Configure options: <info>[%s]</info>', implode(', ', $options))
             ),
             Logger::INFO,
@@ -84,12 +92,24 @@ class InstallCommand extends Command
         ;
 
         $this->log(array(
-            sprintf('PHP version <info>%s</info> was installed:', $version->getVersion()),
+            sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $version->getVersion()),
             sprintf('%s<comment>%s</comment>', self::INDENT, $this->prefix)
         ));
 
         return 0;
     }
+
+	protected function startProgress(OutputInterface $output)
+	{
+		$progress = $this->getHelper('progress');
+
+		$progress->setBarWidth(50);
+		$progress->setEmptyBarCharacter('=');
+		$progress->setProgressCharacter('>');
+		$progress->setFormat('[%bar%]');
+
+		$progress->start($output);
+	}
 
     /**
      * @return \jubianchi\PhpSwitch\PHP\Downloader
@@ -110,10 +130,9 @@ class InstallCommand extends Command
         $dest = $this->getDownloader()->getDestination($version);
         if (false === file_exists($dest)) {
             $mirror = $this->getConfiguration()->get('mirror');
-            var_dump(sprintf($version->getUrl(), $mirror));
 
             $this->log(array(
-                sprintf('Downloading PHP <info>%s</info>', $version),
+                sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $version->getVersion()),
                 sprintf('%s<comment>%</comment>', self::INDENT, sprintf($version->getUrl(), $mirror))
             ));
 
@@ -144,7 +163,7 @@ class InstallCommand extends Command
         $dest = $this->getExtracter()->getDestination($version);
         if (false === file_exists($dest)) {
             $this->log(array(
-                sprintf('Extracting <info>%s</info>', $version),
+                sprintf(PHP_EOL . 'Extracting <info>%s</info>', $version->getVersion()),
                 sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
             ));
 
@@ -181,7 +200,7 @@ class InstallCommand extends Command
         }
 
         $this->log(array(
-            sprintf('Building <info>%s</info>', $version),
+            sprintf(PHP_EOL . PHP_EOL . 'Building <info>%s</info>', $version->getVersion()),
             sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
         ));
 
@@ -191,7 +210,7 @@ class InstallCommand extends Command
         $destination = $dest . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'php.ini';
 
         $this->log(array(
-            'Moving configuration file',
+			PHP_EOL . PHP_EOL . 'Moving configuration file',
             sprintf('%s<comment>From: %s</comment>', self::INDENT, $ini),
             sprintf('%s<comment>To: %s</comment>', self::INDENT, $destination)
         ));
@@ -211,6 +230,10 @@ class InstallCommand extends Command
     {
         $self = $this;
 
+		if (OutputInterface::VERBOSITY_VERBOSE !== $output->getVerbosity()) {
+			$this->startProgress($output);
+		}
+
         return function($type, $buffer) use ($self, $output) {
             $buffer = rtrim($buffer);
             if ('' === empty($buffer)) {
@@ -221,9 +244,11 @@ class InstallCommand extends Command
                 $buffer = sprintf('<error>%s</error>', $buffer);
             }
 
-            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity() || 'err' === $type) {
+            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
                 $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::DEBUG);
-            }
+            } else {
+				$self->getHelper('progress')->advance();
+			}
         };
     }
 }

@@ -3,6 +3,8 @@ namespace jubianchi\PhpSwitch\PHP;
 
 class Downloader
 {
+	const EXTENSION = '.tar.bz2';
+
     /** @var string $directory */
     private $directory;
 
@@ -44,6 +46,6 @@ class Downloader
      */
     public function getDestination(Version $version)
     {
-        return $this->directory . DIRECTORY_SEPARATOR . $version->getName() . '.tar.bz2';
+        return $this->directory . DIRECTORY_SEPARATOR . $version->getName() . '-' . $version->getVersion() . self::EXTENSION;
     }
 }

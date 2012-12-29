@@ -23,13 +23,13 @@ class Extracter
      *
      * @return \jubianchi\PhpSwitch\PHP\Extracter
      */
-    public function extract($version, $file, $callback = null)
+    public function extract(Version $version, $file, $callback = null)
     {
-        $basename = basename($file, '.tar.bz2');
+        $basename = 'php-' . $version->getVersion();
         $dirname = dirname($file);
 
         $process = new Process(
-            sprintf('tar -xf %s', escapeshellarg($file)),
+            sprintf('tar -xvf %s', escapeshellarg($file)),
             $dirname
         );
         $process->run($callback);
@@ -54,6 +54,6 @@ class Extracter
      */
     public function getDestination(Version $version)
     {
-        return $this->directory . DIRECTORY_SEPARATOR . $version->getName();
+        return $this->directory . DIRECTORY_SEPARATOR . $version->getName() . '-' . $version->getVersion();
     }
 }

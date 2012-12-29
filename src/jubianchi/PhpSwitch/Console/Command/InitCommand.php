@@ -54,18 +54,27 @@ then
 fi
 
 php() {
-    local VERSION
+    local VERSION STATUS
 
+	STATUS=1
     case "$1" in
+    	list)
+    		$path/bin/phpswitch php:list --installed
+
+    		return $?
+    		;;
+
         switch)
             if [ "$2" == "off" ]
             then
                 export PATH=\$PHPSWITCH_ORIG_PATH
                 $path/bin/phpswitch php:switch off
+                STATUS=$?
             else
                 if [ "$2" != on ]
                 then
                     $path/bin/phpswitch php:switch $2
+                    STATUS=$?
                 fi
 
                 VERSION=\$($path/bin/phpswitch php:current)
@@ -76,7 +85,7 @@ php() {
                 fi
             fi
 
-            php -v
+            [ \$STATUS == 0 ] && php -v
 
             return 0
             ;;
