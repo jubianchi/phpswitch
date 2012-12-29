@@ -41,6 +41,7 @@ class Loader
 
         $configuration->setValues($this->validator->validate($this->parse($path)));
         $configuration->setDumper($dumper);
+        $configuration->dump();
 
         return $configuration;
     }

@@ -6,92 +6,160 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+class PhpSwitch
+{
+    /** @var \Pimple */
+    private $container;
 
-$container = new \Pimple();
+    public static function init()
+    {
+        return new static(static::getEnv());
+    }
 
-$container['app.path'] = realpath(__DIR__ . '/../../../');
-$container['app.source.path'] = $container['app.path'] . DIRECTORY_SEPARATOR . 'src';
-$container['app.user.path'] = getenv('HOME');
-$container['app.workspace.path'] = $container['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
-$container['app.workspace.downloads.path'] = $container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
-$container['app.workspace.sources.path'] = $container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
-$container['app.workspace.installed.path'] = $container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
-$container['app.command.path'] = $container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
-$container['app.php.option.path'] = $container['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
-$container['app.config.name'] = '.phpswitch.yml';
-$container['app.logger.output.path'] = 'php://stdout';
-$container['app.logger.error.path'] = 'php://stderr';
+    protected static function getEnv()
+    {
+        $env = array();
+        $map = array(
+            'PHPSWITCH_PREFIX' => 'app.workspace.path',
+            'PHPSWITCH_HOME' => 'app.user.path',
+            'PHPSWITCH_CONFIG' => 'app.config.name',
+        );
 
-$container['app'] = function(\Pimple $container) {
-    $appliction = new Console\Application();
+        array_walk(
+            $_SERVER,
+            function($value, $key) use (& $env, $map) {
+                if (preg_match('/^PHPSWITCH_/', $key) && array_key_exists($key, $map)) {
+                    $env[$map[$key]] = $value;
+                }
+            }
+        );
 
-    return $container['app.loader']
-        ->load($appliction->setContainer($container))
-            ->setConfiguration($container['app.config'])
-    ;
-};
+        return $env;
+    }
 
-$container['app.loader'] = function(\Pimple $container) {
-    return new Console\Loader($container['app.command.finder']);
-};
+    protected function __construct(array $env = array())
+    {
+        $this->container = new \Pimple();
 
-$container['app.command.finder'] = function(\Pimple $container) {
-    return new Finder($container['app.command.path'], $container['app.source.path']);
-};
+        $this
+            ->initEnv($env)
+            ->initApplication()
+            ->initConfiguration()
+            ->initPhp()
+        ;
+    }
 
-$container['app.config'] = function(\Pimple $container) {
-    return $container['app.config.loader']->load(
-        $container['app.config.name'],
-        new Config\Configuration(),
-        $container['app.config.dumper']
-    );
-};
+    public function run()
+    {
+        $this->container['app']->run();
+    }
 
-$container['app.config.validator'] = function(\Pimple $container) {
-    return new Config\Validator($container['app.path']);
-};
+    protected function initEnv(array $env = array())
+    {
+        $this->container['app.path'] = realpath(__DIR__ . '/../../../');
+        $this->container['app.source.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . 'src';
+        $this->container['app.command.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
+        $this->container['app.php.option.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
+        $this->container['app.user.path'] = getenv('HOME');
+        $this->container['app.workspace.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
+        $this->container['app.config.name'] = '.phpswitch.yml';
+        $this->container['app.logger.output.path'] = 'php://stdout';
+        $this->container['app.logger.error.path'] = 'php://stderr';
 
-$container['app.config.loader'] = function(\Pimple $container) {
-    return new Config\Loader($container['app.user.path'], $container['app.config.validator']);
-};
+        foreach ($env as $key => $value) {
+            $this->container[$key] = $value;
+        }
 
-$container['app.config.dumper'] = function(\Pimple $container) {
-    return new Config\Dumper($container['app.user.path']);
-};
+        $this->container['app.workspace.downloads.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
+        $this->container['app.workspace.sources.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
+        $this->container['app.workspace.installed.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
 
-$container['app.php.builder'] = function(\Pimple $container) {
-    return new PHP\Builder($container['app.workspace.installed.path']);
-};
+        return $this;
+    }
 
-$container['app.php.extracter'] = function(\Pimple $container) {
-    return new PHP\Extracter($container['app.workspace.sources.path']);
-};
+    protected function initApplication()
+    {
+        $this->container['app'] = function(\Pimple $container) {
+            $appliction = new Console\Application();
 
-$container['app.php.downloader'] = function(\Pimple $container) {
-    return new PHP\Downloader($container['app.workspace.downloads.path']);
-};
+            return $container['app.loader']
+                ->load($appliction->setContainer($container))
+                ->setConfiguration($container['app.config'])
+            ;
+        };
 
-$container['app.php.option.finder'] = function(\Pimple $container) {
-    return new PHP\Option\Finder(
-        $container['app.php.option.path'],
-        $container['app.source.path']
-    );
-};
+        $this->container['app.loader'] = function(\Pimple $container) {
+            return new Console\Loader($container['app.command.finder']);
+        };
 
-$container['app.logger'] = function(\Pimple $container) {
-    $logger = new Logger('output');
-    $formatter = new \Monolog\Formatter\LineFormatter('%message%');
+        $this->container['app.command.finder'] = function(\Pimple $container) {
+            return new Finder($container['app.command.path'], $container['app.source.path']);
+        };
 
-    $info = new StreamHandler($container['app.logger.output.path'], Logger::INFO);
-    $info->setFormatter($formatter);
-    $logger->pushHandler($info);
+        $this->container['app.logger'] = function(\Pimple $container) {
+            $logger = new Logger('output');
+            $formatter = new \Monolog\Formatter\LineFormatter('%message%');
 
-    $error = new StreamHandler($container['app.logger.error.path'], Logger::ERROR, false);
-    $error->setFormatter($formatter);
-    $logger->pushHandler($error);
+            $info = new StreamHandler($container['app.logger.output.path'], Logger::INFO);
+            $info->setFormatter($formatter);
+            $logger->pushHandler($info);
 
-    return $logger;
-};
+            $error = new StreamHandler($container['app.logger.error.path'], Logger::ERROR, false);
+            $error->setFormatter($formatter);
+            $logger->pushHandler($error);
 
-return $container['app']->run();
+            return $logger;
+        };
+
+        return $this;
+    }
+
+    protected function initConfiguration()
+    {
+        $this->container['app.config'] = function(\Pimple $container) {
+            return $container['app.config.loader']->load(
+                $container['app.config.name'],
+                new Config\Configuration(),
+                $container['app.config.dumper']
+            );
+        };
+
+        $this->container['app.config.loader'] = function(\Pimple $container) {
+            return new Config\Loader($container['app.user.path'], $container['app.config.validator']);
+        };
+
+        $this->container['app.config.validator'] = function(\Pimple $container) {
+            return new Config\Validator($container['app.path']);
+        };
+
+        $this->container['app.config.dumper'] = function(\Pimple $container) {
+            return new Config\Dumper($container['app.user.path']);
+        };
+
+        return $this;
+    }
+
+    protected function initPhp()
+    {
+        $this->container['app.php.builder'] = function(\Pimple $container) {
+            return new PHP\Builder($container['app.workspace.installed.path']);
+        };
+
+        $this->container['app.php.extracter'] = function(\Pimple $container) {
+            return new PHP\Extracter($container['app.workspace.sources.path']);
+        };
+
+        $this->container['app.php.downloader'] = function(\Pimple $container) {
+            return new PHP\Downloader($container['app.workspace.downloads.path']);
+        };
+
+        $this->container['app.php.option.finder'] = function(\Pimple $container) {
+            return new PHP\Option\Finder(
+                $container['app.php.option.path'],
+                $container['app.source.path']
+            );
+        };
+
+        return $this;
+    }
+}

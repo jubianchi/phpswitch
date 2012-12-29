@@ -3,7 +3,7 @@ namespace jubianchi\PhpSwitch\PHP;
 
 class Downloader
 {
-	const EXTENSION = '.tar.bz2';
+    const EXTENSION = '.tar.bz2';
 
     /** @var string $directory */
     private $directory;

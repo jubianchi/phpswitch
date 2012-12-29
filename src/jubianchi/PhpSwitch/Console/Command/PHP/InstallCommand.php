@@ -37,9 +37,9 @@ class InstallCommand extends Command
         parent::__construct($name);
 
         $this
-			->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
-			->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
-		;
+            ->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
+            ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
+        ;
     }
 
     /**
@@ -69,9 +69,9 @@ class InstallCommand extends Command
         $finder = new PHPFinder();
         $version = $finder->getVersion($input->getArgument('version'));
 
-		if (null !== ($alias = $input->getOption('alias'))) {
-			$version->setName($alias);
-		}
+        if (null !== ($alias = $input->getOption('alias'))) {
+            $version->setName($alias);
+        }
 
         $resolver = new Resolver();
         $options = $resolver->resolve($input, $this->options);
@@ -99,17 +99,17 @@ class InstallCommand extends Command
         return 0;
     }
 
-	protected function startProgress(OutputInterface $output)
-	{
-		$progress = $this->getHelper('progress');
+    protected function startProgress(OutputInterface $output)
+    {
+        $progress = $this->getHelper('progress');
 
-		$progress->setBarWidth(50);
-		$progress->setEmptyBarCharacter('=');
-		$progress->setProgressCharacter('>');
-		$progress->setFormat('[%bar%]');
+        $progress->setBarWidth(50);
+        $progress->setEmptyBarCharacter('=');
+        $progress->setProgressCharacter('>');
+        $progress->setFormat('[%bar%]');
 
-		$progress->start($output);
-	}
+        $progress->start($output);
+    }
 
     /**
      * @return \jubianchi\PhpSwitch\PHP\Downloader
@@ -210,7 +210,7 @@ class InstallCommand extends Command
         $destination = $dest . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'php.ini';
 
         $this->log(array(
-			PHP_EOL . PHP_EOL . 'Moving configuration file',
+            PHP_EOL . PHP_EOL . 'Moving configuration file',
             sprintf('%s<comment>From: %s</comment>', self::INDENT, $ini),
             sprintf('%s<comment>To: %s</comment>', self::INDENT, $destination)
         ));
@@ -230,9 +230,9 @@ class InstallCommand extends Command
     {
         $self = $this;
 
-		if (OutputInterface::VERBOSITY_VERBOSE !== $output->getVerbosity()) {
-			$this->startProgress($output);
-		}
+        if (OutputInterface::VERBOSITY_VERBOSE !== $output->getVerbosity()) {
+            $this->startProgress($output);
+        }
 
         return function($type, $buffer) use ($self, $output) {
             $buffer = rtrim($buffer);
@@ -247,8 +247,8 @@ class InstallCommand extends Command
             if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
                 $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::DEBUG);
             } else {
-				$self->getHelper('progress')->advance();
-			}
+                $self->getHelper('progress')->advance();
+            }
         };
     }
 }

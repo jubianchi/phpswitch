@@ -46,7 +46,7 @@ abstract class Command extends BaseCommand
      *
      * @return \jubianchi\PhpSwitch\Console\Command\Command
      */
-	public function log($messages, $level = Logger::INFO, OutputInterface $output = null)
+    public function log($messages, $level = Logger::INFO, OutputInterface $output = null)
     {
         static $formatter;
 

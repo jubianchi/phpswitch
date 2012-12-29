@@ -1,13 +1,15 @@
 #!/usr/bin/env php
 <?php
-include implode(
+namespace jubianchi\PhpSwitch;
+
+require_once implode(
     DIRECTORY_SEPARATOR,
     array(
         __DIR__,
         '..',
-        'src',
-        'jubianchi',
-        'PhpSwitch',
-        'phpswitch.php'
+        'vendor',
+        'autoload.php'
     )
 );
+
+PhpSwitch::init()->run();

@@ -20,6 +20,7 @@ class Loader extends atoum\test
             ->and($configuration->getMockController()->getValues = array())
             ->and($validator = new \mock\jubianchi\PhpSwitch\Config\Validator($directory))
             ->and($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper($directory))
+            ->and($dumper->getMockController()->dump = $dumper)
             ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader($directory, $validator))
             ->and($object->getMockController()->parse = array())
             ->then

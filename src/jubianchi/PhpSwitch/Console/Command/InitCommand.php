@@ -48,26 +48,26 @@ class InitCommand extends Command
             <<<SHELL
 #!/bin/bash
 
-if [ -z \$PHPSWITCH_ORIG_PATH ]
+if [ -z "\$_PHPSWITCH_ORIG_PATH" ]
 then
-    export PHPSWITCH_ORIG_PATH=\$PATH
+    export _PHPSWITCH_ORIG_PATH=\$PATH
 fi
 
 php() {
     local VERSION STATUS
 
-	STATUS=1
+    STATUS=1
     case "$1" in
-    	list)
-    		$path/bin/phpswitch php:list --installed
+        list)
+            $path/bin/phpswitch php:list --installed
 
-    		return $?
-    		;;
+            return $?
+            ;;
 
         switch)
             if [ "$2" == "off" ]
             then
-                export PATH=\$PHPSWITCH_ORIG_PATH
+                export PATH=\$_PHPSWITCH_ORIG_PATH
                 $path/bin/phpswitch php:switch off
                 STATUS=$?
             else
@@ -79,9 +79,9 @@ php() {
 
                 VERSION=\$($path/bin/phpswitch php:current)
 
-                if [ $? ] && [ ! -z \$VERSION ]
+                if [ $? ] && [ ! -z "\$VERSION" ]
                 then
-                    export PATH=$installed/\$VERSION/bin:\$PHPSWITCH_ORIG_PATH
+                    export PATH=$installed/\$VERSION/bin:\$_PHPSWITCH_ORIG_PATH
                 fi
             fi
 
@@ -100,7 +100,7 @@ SHELL
         $this->log(
             sprintf(
                 'You should <info>source %s</info> to use phpswitch',
-				$workspace . '/.phpswitchrc'
+                $workspace . '/.phpswitchrc'
             )
         );
 

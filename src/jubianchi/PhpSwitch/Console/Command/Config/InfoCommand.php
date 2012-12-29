@@ -20,21 +20,17 @@ class InfoCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(
-            array(
-                sprintf(
-                    '<info>%s</info> version <comment>%s</comment>',
-                    $this->getApplication()->getName(),
-                    $this->getApplication()->getVersion()
-                ),
-                sprintf(
-                    '<info>Installation directory:</info> <comment>%s</comment>' . PHP_EOL,
-                    realpath(__DIR__ . '/../../../../../..')
-                )
-            )
-        );
-
         $this->displaySection($output, $this->getConfiguration());
+
+        $output->write(PHP_EOL);
+
+        foreach ($this->getApplication()->getContainer()->keys() as $key) {
+            $value = $this->getApplication()->getContainer()->offsetGet($key);
+
+            if (is_scalar($value)) {
+                $output->writeln(sprintf('<info>%-35s</info><comment>%s</comment>', $key, $value));
+            }
+        }
 
         return 0;
     }

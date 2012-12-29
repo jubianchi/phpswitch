@@ -44,7 +44,7 @@ class Finder implements \IteratorAggregate
 
             if (false != preg_match('/^(PHP\s*((5\.\d+)\.\d+)).*tar\.bz2.*/', $value, $matches)) {
                 $version = $matches[2];
-				$versions[$version] = new Version($version, $elem->getAttribute('href'));
+                $versions[$version] = new Version($version, $elem->getAttribute('href'));
             }
         }
 

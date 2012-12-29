@@ -3,7 +3,7 @@ namespace jubianchi\PhpSwitch\PHP;
 
 class Version
 {
-	const DEFAULT_NAME = 'php';
+    const DEFAULT_NAME = 'php';
 
     /** @var string */
     private $name;
@@ -84,9 +84,9 @@ class Version
      */
     public function setVersion($version)
     {
-		if (false == preg_match('/^(5\.(?:\d+\.?))/', $version)) {
-			throw new \InvalidArgumentException(sprintf('Wrong PHP version %s', $version));
-		}
+        if (false == preg_match('/^(5\.(?:\d+\.?))/', $version)) {
+            throw new \InvalidArgumentException(sprintf('Wrong PHP version %s', $version));
+        }
 
         $this->version = $version;
 
