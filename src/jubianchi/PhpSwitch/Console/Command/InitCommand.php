@@ -99,8 +99,8 @@ SHELL
 
         $this->log(
             sprintf(
-                'You should source <info>%s</info> to use PhpSwitch',
-                $this->getApplication()->getService('app.user.path') . '/.phpswitchrc'
+                'You should <info>source %s</info> to use phpswitch',
+				$workspace . '/.phpswitchrc'
             )
         );
 
