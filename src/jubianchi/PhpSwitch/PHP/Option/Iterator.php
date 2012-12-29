@@ -13,7 +13,7 @@ class Iterator extends \FilterIterator
     {
         parent::__construct($iterator);
 
-        $this->directory = realpath($directory);
+        $this->directory = $directory;
     }
 
     /**
@@ -21,10 +21,7 @@ class Iterator extends \FilterIterator
      */
     public function accept()
     {
-        $file = parent::current();
-        require_once $file->getRealPath();
-
-        $className = $this->getClassName($file);
+        $className = $this->current();
 
         if (class_exists($className)) {
             $reflector = new \ReflectionClass($className);
@@ -59,7 +56,7 @@ class Iterator extends \FilterIterator
             '',
             dirname($file)
         );
-        $namespace = str_replace('/', '\\', $path);
+        $namespace = '\\' . str_replace('/', '\\', trim($path, '/'));
 
         return $namespace . '\\' . $className;
     }
