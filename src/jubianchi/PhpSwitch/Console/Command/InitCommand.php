@@ -65,13 +65,13 @@ php() {
             ;;
 
         switch)
-            if [ "$2" == "off" ]
+            if [ "$2" = "off" ]
             then
                 export PATH=\$_PHPSWITCH_ORIG_PATH
                 $path/bin/phpswitch php:switch off
                 STATUS=$?
             else
-                if [ "$2" != on ]
+                if [ "$2" != "on" ]
                 then
                     $path/bin/phpswitch php:switch $2
                     STATUS=$?
@@ -85,7 +85,7 @@ php() {
                 fi
             fi
 
-            [ \$STATUS == 0 ] && php -v
+            [ \$STATUS -eq 0 ] && php -v
 
             return 0
             ;;
