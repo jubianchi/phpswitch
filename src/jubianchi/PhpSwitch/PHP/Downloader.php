@@ -19,10 +19,11 @@ class Downloader
     /**
      * @param \jubianchi\PhpSwitch\PHP\Version $version
      * @param string                           $mirror
+     * @param callable                         $callback
      *
      * @return \jubianchi\PhpSwitch\PHP\Downloader
      */
-    public function download(Version $version, $mirror)
+    public function download(Version $version, $mirror, $callback = null)
     {
         $url  = sprintf($version->getUrl(), $mirror);
         $handle = fopen($this->getDestination($version), 'wb+');
@@ -32,6 +33,12 @@ class Downloader
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+        if (null !== $callback) {
+            curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+            curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, $callback);
+        }
+
         curl_exec($ch);
         curl_close($ch);
         fclose($handle);
@@ -46,6 +53,6 @@ class Downloader
      */
     public function getDestination(Version $version)
     {
-        return $this->directory . DIRECTORY_SEPARATOR . $version->getName() . '-' . $version->getVersion() . self::EXTENSION;
+        return $this->directory . DIRECTORY_SEPARATOR . Version::DEFAULT_NAME . '-' . $version->getVersion() . self::EXTENSION;
     }
 }

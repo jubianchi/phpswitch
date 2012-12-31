@@ -74,6 +74,11 @@ class InstallCommand extends Command
             $version->setName($alias);
         }
 
+        $dest = $this->getBuilder()->getDestination($version);
+        if (true === file_exists($dest)) {
+            throw new \RuntimeException(sprintf('PHP version %s is already installed', $version));
+        }
+
         $resolver = new Resolver();
 
         $options = $resolver->resolve($input, $this->options);
@@ -127,16 +132,16 @@ class InstallCommand extends Command
         return 0;
     }
 
-    protected function startProgress(OutputInterface $output)
+    protected function startProgress(OutputInterface $output, $max = null, $format = '[%bar%]')
     {
         $progress = $this->getHelper('progress');
 
         $progress->setBarWidth(50);
         $progress->setEmptyBarCharacter('=');
         $progress->setProgressCharacter('>');
-        $progress->setFormat('[%bar%]');
+        $progress->setFormat($format);
 
-        $progress->start($output);
+        $progress->start($output, $max);
     }
 
     /**
@@ -161,10 +166,12 @@ class InstallCommand extends Command
 
             $this->log(array(
                 sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $version->getVersion()),
-                sprintf('%s<comment>%</comment>', self::INDENT, sprintf($version->getUrl(), $mirror))
+                sprintf('%s<comment>%s</comment>', self::INDENT, sprintf($version->getUrl(), $mirror))
             ));
 
-            $this->getDownloader()->download($version, $mirror);
+            $this->getDownloader()->download($version, $mirror, $this->getDownloadProgressCallback($output));
+
+            $this->log('');
         }
 
         $this->archive = $dest;
@@ -196,6 +203,8 @@ class InstallCommand extends Command
             ));
 
             $this->getExtracter()->extract($version, $this->archive, $this->getProcessCallback($output));
+
+            $this->log('');
         }
 
         $this->source = $dest;
@@ -223,12 +232,8 @@ class InstallCommand extends Command
     protected function install(Version $version, $options, OutputInterface $output)
     {
         $dest = $this->getBuilder()->getDestination($version);
-        if (true === file_exists($dest)) {
-            throw new \RuntimeException(sprintf('PHP version %s is already installed', $version->getVersion()));
-        }
-
         $this->log(array(
-            sprintf(PHP_EOL . PHP_EOL . 'Building <info>%s</info>', $version->getVersion()),
+            sprintf(PHP_EOL . 'Building <info>%s</info>', $version->getVersion()),
             sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
         ));
 
@@ -277,6 +282,25 @@ class InstallCommand extends Command
                 $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
             } else {
                 $self->getHelper('progress')->advance();
+            }
+        };
+    }
+
+    protected function getDownloadProgressCallback(OutputInterface $output)
+    {
+        $self = $this;
+
+        $this->startProgress($output, 100, '[%bar%] %percent%%');
+
+        return function($download_size, $downloaded_size, $upload_size, $uploaded_size) use($self) {
+            static $previous = 0;
+
+            if($download_size > 0) {
+                $complete = ceil(($downloaded_size / $download_size) * 100);
+
+                $self->getHelper('progress')->advance($complete - $previous);
+
+                $previous = $complete;
             }
         };
     }
