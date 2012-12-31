@@ -53,50 +53,15 @@ class SwitchCommand extends Command
                 throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
             }
         } else {
-            $result = $status = null;
-            exec('command -v apxs', $result);
-            exec($result[0] . ' -q LIBEXECDIR', $result, $status);
-
-            if (0 === $status && is_writable($result[1])) {
-                $original = $result[1] . DIRECTORY_SEPARATOR . 'libphp5.so';
-                $backup = $result[1] . DIRECTORY_SEPARATOR . 'libphp5.so.system';
-
-                if(is_file($backup)) {
-                    if (is_file($original)) {
-                       unlink($original);
-                    }
-
-                    $output->writeln('Restoring <info>system default</info> Apache2 module');
-                    copy($backup, $original);
-                    chmod($original, 0755);
-                }
-            }
+            $this->restoreSystemModule($output);
         }
 
         if ($input->getOption('apache2')) {
-            $result = $status = null;
-            exec('command -v apxs', $result);
-            exec($result[0] . ' -q LIBEXECDIR', $result, $status);
-
-            if (0 === $status && is_writable($result[1])) {
-                $original = $result[1] . DIRECTORY_SEPARATOR . 'libphp5.so';
-                $module = $result[1] . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
-
-                if(is_file($module)) {
-                    if(is_file($original)) {
-                        if(false === is_file($original . '.system')) {
-                            $output->writeln('Backuping system default Apache2 module');
-                            copy($original, $original . '.system');
-                        }
-
-                        unlink($original);
-                    }
-
-                    $output->writeln(sprintf('Switching Apache2 module to <info>%s</info>', $version));
-                    copy($module, $original);
-                    chmod($original, 0755);
-                }
+            if (false === is_writable($this->getLibDir())) {
+                throw new \RuntimeException(sprintf('%s is not writable', $this->getLibDir()));
             }
+
+            $this->switchModule($output, $version);
         }
 
         $this->getConfiguration()
@@ -111,5 +76,107 @@ class SwitchCommand extends Command
         );
 
         return 0;
+    }
+
+    public function backupSystemModule(OutputInterface $output) {
+        $path = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
+
+        if (is_file($path)) {
+            $backup = $path . '.system';
+
+            if (false === is_file($backup)) {
+                $output->writeln(array(
+                    PHP_EOL . 'Backuping <info>system default</info> Apache2 module',
+                    sprintf('    <comment>From: %s</comment>', $path),
+                    sprintf('    <comment>To: %s</comment>', $backup)
+                ));
+
+                copy($path, $backup);
+            }
+        }
+    }
+
+    public function restoreSystemModule(OutputInterface $output) {
+        $original = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
+        $backup = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so.system';
+
+        if(is_file($backup)) {
+            if (is_file($original)) {
+                unlink($original);
+            }
+
+            $output->writeln('Restoring <info>system default</info> Apache2 module');
+            copy($backup, $original);
+            chmod($original, 0755);
+
+            $this->promptApacheRestart($output);
+        }
+    }
+
+    public function switchModule(OutputInterface $output, $version)
+    {
+        $original = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
+        $module = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
+
+        if(is_file($module)) {
+            if(is_file($original)) {
+                $this->backupSystemModule($output);
+
+                unlink($original);
+            }
+
+            $output->writeln(sprintf('Switching Apache2 module to <info>%s</info>', $version));
+            copy($module, $original);
+            chmod($original, 0755);
+
+            $this->promptApacheRestart($output);
+        }
+    }
+
+    protected function getLibDir()
+    {
+        static $directory;
+
+        if (null === $directory) {
+            $result = $status = null;
+            exec($this->getApxsPath() . ' -q LIBEXECDIR', $result, $status);
+
+            if (0 !== $status) {
+                throw new \RuntimeException('Could not find Apache2 modules directory');
+            }
+
+            $directory = $result[0];
+        }
+
+        return $directory;
+    }
+
+    protected function getApxsPath()
+    {
+        static $command;
+
+        if(null === $command) {
+            $result = $status = null;
+            exec('command -v apxs', $result, $status);
+
+            if (0 !== $status) {
+                throw new \RuntimeException('Could not find apxs command');
+            }
+
+            $command = $result[0];
+        }
+
+        return $command;
+    }
+
+    protected function promptApacheRestart(OutputInterface $output)
+    {
+        $output->writeln(array(
+            'You should <info>restart apache2</info> using one of:',
+            '    <comment>- sudo /etc/init.d/apache2 restart</comment>',
+            '    <comment>- sudo service apache2 restart</comment>',
+            '    <comment>- sudo apachectl restart</comment>',
+            '    <comment>- ...</comment>',
+        ));
     }
 }

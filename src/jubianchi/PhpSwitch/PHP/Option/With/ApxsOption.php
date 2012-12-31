@@ -16,70 +16,88 @@ class ApxsOption extends WithOption
     public function preInstall(Version $version, InputInterface $input, OutputInterface $output)
     {
         if(null !== $this->value) {
-            $result = $status = null;
-            exec($this->value . ' -q LIBEXECDIR', $result, $status);
-
-            if (0 === $status) {
-                $path = $result[0] . DIRECTORY_SEPARATOR . 'libphp5.so';
-
-                if (is_file($path)) {
-                    $output->writeln(array(
-                        PHP_EOL . 'Backuping Apache2 module',
-                        sprintf('    <comment>From: %s</comment>', $path),
-                        sprintf('    <comment>To: %s.backup</comment>', $path)
-                    ));
-
-                    copy($path, $path . '.backup');
-                }
-            }
+            $this->backupModule($output);
         }
     }
 
     public function postInstall(Version $version, InputInterface $input, OutputInterface $output)
     {
         if(null !== $this->value) {
-            $result = $status = null;
+            $this->restoreModule($output);
+
+            $this->installModule($output, $version);
+        }
+    }
+
+    public function backupModule(OutputInterface $output)
+    {
+        $path = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
+
+        if (is_file($path)) {
+            $output->writeln(array(
+                PHP_EOL . 'Backuping <info>current</info> Apache2 module',
+                sprintf('    <comment>From: %s</comment>', $path),
+                sprintf('    <comment>To: %s.backup</comment>', $path)
+            ));
+
+            copy($path, $path . '.backup');
+        }
+    }
+
+    public function restoreModule(OutputInterface $output)
+    {
+        $path = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
+
+        if (is_file($path)) {
+            $output->writeln(array(
+                PHP_EOL . 'Restoring <info>previous</info> Apache2 module',
+                sprintf('    <comment>From: %s.backup</comment>', $path),
+                sprintf('    <comment>To: %s</comment>', $path)
+            ));
+
+            copy($path . '.backup', $path);
+            unlink($path . '.backup');
+        }
+    }
+
+    public function installModule(OutputInterface $output, Version $version) {
+        $module = implode(
+            DIRECTORY_SEPARATOR,
+            array(
+                $this->command->getApplication()->getService('app.workspace.sources.path'),
+                $version,
+                'libs',
+                'libphp5.so'
+            )
+        );
+
+        if (is_file($module)) {
+            $out = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
+
+            $output->writeln(array(
+                PHP_EOL . 'Installing Apache2 module',
+                sprintf('    <comment>From: %s</comment>', $module),
+                sprintf('    <comment>To: %s</comment>', $out)
+            ));
+
+            copy($module, $out);
+            chmod($out, 0755);
+        }
+    }
+
+    protected function getLibDir() {
+        static $directory;
+
+        if (null === $directory) {
             exec($this->value . ' -q LIBEXECDIR', $result, $status);
 
-            if (0 === $status) {
-                $path = $result[0] . DIRECTORY_SEPARATOR . 'libphp5.so';
-
-                if (is_file($path . '.backup')) {
-                    $output->writeln(array(
-                        PHP_EOL . 'Restoring Apache2 module',
-                        sprintf('    <comment>From: %s.backup</comment>', $path),
-                        sprintf('    <comment>To: %s</comment>', $path)
-                    ));
-
-                    copy($path . '.backup', $path);
-                    unlink($path . '.backup');
-                }
+            if (0 !== $status) {
+                throw new \RuntimeException('Could not find Apache2 modules directory');
             }
 
-            $module = implode(
-                DIRECTORY_SEPARATOR,
-                array(
-                    $this->command->getApplication()->getService('app.workspace.sources.path'),
-                    $version,
-                    'libs',
-                    'libphp5.so'
-                )
-            );
-
-            if (is_file($path)) {
-                $out = dirname($path) . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
-
-                $output->writeln(array(
-                    PHP_EOL . 'Installing Apache2 module',
-                    sprintf('    <comment>From: %s</comment>', $module),
-                    sprintf('    <comment>To: %s</comment>', $out)
-                ));
-
-
-                copy($module, $out);
-                chmod($out, 0755);
-
-            }
+            $directory = $result[0];
         }
+
+        return $directory;
     }
 }
