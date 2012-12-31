@@ -75,10 +75,11 @@ abstract class Option
      */
     public function isEnabled(InputInterface $input)
     {
-        $enabled = (bool) $input->getOption($this->getName());
+        $value = $input->getOption($this->getName());
+        $enabled = (bool) $value;
 
         if ($enabled && static::MODE !== InputOption::VALUE_NONE) {
-            $this->value = $input->getOption($this->getName());
+            $this->value = $value;
         }
 
         return $enabled;
