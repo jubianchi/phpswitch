@@ -42,7 +42,7 @@ class Finder implements \IteratorAggregate
         foreach ($this->crawl() as $elem) {
             $value = $elem->nodeValue;
 
-            if (false != preg_match('/^(PHP\s*((5\.\d+)\.\d+)).*tar\.bz2.*/', $value, $matches)) {
+            if (false != preg_match('/^(PHP\s*([4-5]\.(?:\d+\.?)*)).*tar\.bz2.*/', $value, $matches)) {
                 $version = $matches[2];
                 $versions[$version] = new Version($version, $elem->getAttribute('href'));
             }
