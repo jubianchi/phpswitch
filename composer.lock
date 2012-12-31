@@ -1,5 +1,5 @@
 {
-    "hash": "e4aa9f1e86f13d0f3b64154e7198b678",
+    "hash": "861528b3566a0baf692d0fe340993f3c",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -446,6 +446,56 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com"
+        },
+        {
+            "name": "twig/twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/fabpot/Twig.git",
+                "reference": "25f7b0c7eb456f5c39f1e8163da538de5d0d717b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Twig/archive/25f7b0c7eb456f5c39f1e8163da538de5d0d717b.zip",
+                "reference": "25f7b0c7eb456f5c39f1e8163da538de5d0d717b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "time": "2012-12-30 20:07:31",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.12-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ]
         }
     ],
     "packages-dev": null,
@@ -462,6 +512,7 @@
         "symfony/dom-crawler": 20,
         "pimple/pimple": 20,
         "monolog/monolog": 20,
+        "twig/twig": 20,
         "atoum/atoum": 20
     }
 }

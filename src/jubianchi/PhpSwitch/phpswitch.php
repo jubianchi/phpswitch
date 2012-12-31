@@ -59,6 +59,7 @@ class PhpSwitch
         $this->container['app.path'] = realpath(__DIR__ . '/../../../');
         $this->container['app.source.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . 'src';
         $this->container['app.command.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
+        $this->container['app.templates.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Templates';
         $this->container['app.php.option.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
         $this->container['app.user.path'] = getenv('HOME');
         $this->container['app.workspace.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
@@ -109,6 +110,11 @@ class PhpSwitch
             $logger->pushHandler($error);
 
             return $logger;
+        };
+
+        $this->container['app.twig'] = function(\Pimple $container) {
+            $loader = new \Twig_Loader_Filesystem($container['app.templates.path']);
+            return new \Twig_Environment($loader);
         };
 
         return $this;

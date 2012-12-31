@@ -42,59 +42,15 @@ class InitCommand extends Command
             }
         }
 
-        $path = $this->getApplication()->getService('app.path');
         file_put_contents(
             $workspace . '/.phpswitchrc',
-            <<<SHELL
-#!/bin/bash
-
-if [ -z "\$_PHPSWITCH_ORIG_PATH" ]
-then
-    export _PHPSWITCH_ORIG_PATH=\$PATH
-fi
-
-php() {
-    local VERSION STATUS
-
-    STATUS=1
-    case "$1" in
-        list)
-            $path/bin/phpswitch php:list --installed
-
-            return $?
-            ;;
-
-        switch)
-            if [ "$2" = "off" ]
-            then
-                export PATH=\$_PHPSWITCH_ORIG_PATH
-                $path/bin/phpswitch php:switch off
-                STATUS=$?
-            else
-                if [ "$2" != "on" ]
-                then
-                    $path/bin/phpswitch php:switch $2
-                    STATUS=$?
-                fi
-
-                VERSION=\$($path/bin/phpswitch php:current)
-
-                if [ $? ] && [ ! -z "\$VERSION" ]
-                then
-                    export PATH=$installed/\$VERSION/bin:\$_PHPSWITCH_ORIG_PATH
-                fi
-            fi
-
-            [ \$STATUS -eq 0 ] && php -v
-
-            return 0
-            ;;
-    esac
-
-    /usr/bin/env php $*
-}
-
-SHELL
+            $this->getApplication()->getService('app.twig')->render(
+                'phpswitchrc.twig',
+                array(
+                    'path' => $this->getApplication()->getService('app.path'),
+                    'installed' => $installed
+                )
+            )
         );
 
         $this->log(
