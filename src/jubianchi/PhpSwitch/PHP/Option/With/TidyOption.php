@@ -1,9 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\With;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class TidyOption extends Option
+class TidyOption extends WithOption
 {
     const ARG = 'tidy';
     const ALIAS = '--with-tidy';

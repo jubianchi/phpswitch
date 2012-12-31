@@ -1,9 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\With;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class IMAPOption extends Option
+class IMAPOption extends WithOption
 {
     const ARG = 'imap';
     const ALIAS = '--with-imap-ssl';

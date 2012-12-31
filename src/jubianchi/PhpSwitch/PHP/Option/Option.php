@@ -36,6 +36,14 @@ abstract class Option
     }
 
     /**
+     * @return string
+     */
+    public function getDesc()
+    {
+        return static::DESC ?: 'Enables ' . static::ARG . sprintf($this->getAlias() ? ' <comment>(%s)</comment>' : '', $this->getAlias());
+    }
+
+    /**
      * @param \jubianchi\PhpSwitch\Console\Command\Command $command
      *
      * @return Option
@@ -47,7 +55,7 @@ abstract class Option
                 static::ARG,
                 null,
                 InputOption::VALUE_NONE,
-                static::DESC ?: 'Enables ' . static::ARG . sprintf($this->getAlias() ? ' <comment>(%s)</comment>' : '', $this->getAlias())
+                $this->getDesc()
             );
         }
 

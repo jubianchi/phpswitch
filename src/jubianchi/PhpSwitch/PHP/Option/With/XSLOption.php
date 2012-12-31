@@ -1,9 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\With;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class XSLOption extends Option
+class XSLOption extends WithOption
 {
     const ARG = 'xsl';
     const ALIAS = '--with-xsl';

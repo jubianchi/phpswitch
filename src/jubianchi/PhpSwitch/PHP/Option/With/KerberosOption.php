@@ -1,9 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\With;
 
-use jubianchi\PhpSwitch\PHP\Option\Option;
-
-class KerberosOption extends Option
+class KerberosOption extends WithOption
 {
     const ARG = 'kerberos';
     const ALIAS = '--with-kerberos';
