@@ -8,34 +8,8 @@ php() {
     STATUS=1
 
     case "$1" in
-        -h)
-            /usr/bin/env php -h
-            STATUS=$?
-
-            echo 'phpswitch commands:'
-            echo '  - php list       Lists available PHP versions'
-            echo '  - php current    Displays current PHP version'
-            echo '  - php config     Gets or Sets configuration for current PHP version'
-            echo '  - php switch     Switches current PHP version'
-
-            return $STATUS
-            ;;
         list)
             {{ path }}/bin/phpswitch php:list --installed
-
-            return $?
-            ;;
-
-        current)
-            {{ path }}/bin/phpswitch php:current
-
-            /usr/bin/env php -ddisplay_errors=stderr -v 2> /dev/null
-
-            return $?
-            ;;
-
-        config)
-            {{ path }}/bin/phpswitch php:config $2 $3
 
             return $?
             ;;
@@ -61,9 +35,9 @@ php() {
                 fi
             fi
 
-            [ $STATUS -eq 0 ] && /usr/bin/env php -ddisplay_errors=stderr -v 2> /dev/null
+            [ $STATUS -eq 0 ] && php -v
 
-            return $?
+            return 0
             ;;
     esac
 
