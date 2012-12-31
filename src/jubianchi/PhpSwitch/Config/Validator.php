@@ -37,6 +37,9 @@ class Validator implements ConfigurationInterface
                 ->scalarNode('mirror')
                     ->defaultValue(getenv('PHPSWITCH_MIRROR') ?: 'fr2.php.net')
                 ->end()
+                ->arrayNode('versions')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end()
         ;
 

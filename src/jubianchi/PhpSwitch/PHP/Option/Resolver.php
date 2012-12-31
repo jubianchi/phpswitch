@@ -20,9 +20,6 @@ class Resolver
             }
         }
 
-        $opts = implode(' ', $opts);
-        $opts = explode(' ', $opts);
-
         return array_unique($opts);
     }
 }

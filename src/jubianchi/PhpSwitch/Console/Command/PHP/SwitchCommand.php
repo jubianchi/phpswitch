@@ -5,6 +5,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use jubianchi\PhpSwitch\Console\Command\Command;
 
 class SwitchCommand extends Command
@@ -19,7 +20,10 @@ class SwitchCommand extends Command
     {
         parent::__construct($name);
 
-        $this->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)');
+        $this
+            ->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)')
+            ->addOption('apache2', 'a', InputOption::VALUE_NONE)
+        ;
     }
 
     /**
@@ -47,6 +51,51 @@ class SwitchCommand extends Command
 
             if (0 === count($finder)) {
                 throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
+            }
+        } else {
+            $result = $status = null;
+            exec('command -v apxs', $result);
+            exec($result[0] . ' -q LIBEXECDIR', $result, $status);
+
+            if (0 === $status && is_writable($result[1])) {
+                $original = $result[1] . DIRECTORY_SEPARATOR . 'libphp5.so';
+                $backup = $result[1] . DIRECTORY_SEPARATOR . 'libphp5.so.system';
+
+                if(is_file($backup)) {
+                    if (is_file($original)) {
+                       unlink($original);
+                    }
+
+                    $output->writeln('Restoring <info>system default</info> Apache2 module');
+                    copy($backup, $original);
+                    chmod($original, 0755);
+                }
+            }
+        }
+
+        if ($input->getOption('apache2')) {
+            $result = $status = null;
+            exec('command -v apxs', $result);
+            exec($result[0] . ' -q LIBEXECDIR', $result, $status);
+
+            if (0 === $status && is_writable($result[1])) {
+                $original = $result[1] . DIRECTORY_SEPARATOR . 'libphp5.so';
+                $module = $result[1] . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
+
+                if(is_file($module)) {
+                    if(is_file($original)) {
+                        if(false === is_file($original . '.system')) {
+                            $output->writeln('Backuping system default Apache2 module');
+                            copy($original, $original . '.system');
+                        }
+
+                        unlink($original);
+                    }
+
+                    $output->writeln(sprintf('Switching Apache2 module to <info>%s</info>', $version));
+                    copy($module, $original);
+                    chmod($original, 0755);
+                }
             }
         }
 

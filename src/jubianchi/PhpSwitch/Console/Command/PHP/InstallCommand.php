@@ -26,7 +26,7 @@ class InstallCommand extends Command
     /** @var string */
     private $prefix;
 
-    /** @var array */
+    /** @var \jubianchi\PhpSwitch\PHP\Option\Option[] */
     private $options = array();
 
     /**
@@ -39,6 +39,7 @@ class InstallCommand extends Command
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
             ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
+            ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Use the same configuration as an existing version')
         ;
     }
 
@@ -74,7 +75,23 @@ class InstallCommand extends Command
         }
 
         $resolver = new Resolver();
+
         $options = $resolver->resolve($input, $this->options);
+
+        if(null !== ($config = $input->getOption('config'))) {
+            try {
+                $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $config));
+            } catch(\InvalidArgumentException $exception) {
+                throw new \InvalidArgumentException(
+                    sprintf('Configuration %s does not exist', $config),
+                    $exception->getCode(),
+                    $exception
+                );
+            }
+
+
+            $options = array_unique(array_merge(explode(', ', $config), $options));
+        }
 
         $this->log(
             array(
@@ -85,11 +102,22 @@ class InstallCommand extends Command
             $output
         );
 
+        foreach ($this->options as $option) {
+            $option->preInstall($version, $input, $output);
+        }
+
         $this
             ->download($version, $output)
             ->extract($version, $output)
             ->install($version, implode(' ', $options), $output)
+            ->getConfiguration()
+                ->set('versions.' . str_replace('.', '-', $version), implode(', ', $options))
+                ->dump()
         ;
+
+        foreach ($this->options as $option) {
+            $option->postInstall($version, $input, $output);
+        }
 
         $this->log(array(
             sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $version->getVersion()),
@@ -205,6 +233,7 @@ class InstallCommand extends Command
         ));
 
         $this->getBuilder()->build($version, $this->source, $options, $this->getProcessCallback($output));
+        mkdir($dest . '/var/db', 0777, true);
 
         $ini = $this->source . DIRECTORY_SEPARATOR . 'php.ini-development';
         $destination = $dest . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'php.ini';
@@ -245,7 +274,7 @@ class InstallCommand extends Command
             }
 
             if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
-                $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::DEBUG);
+                $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
             } else {
                 $self->getHelper('progress')->advance();
             }

@@ -2,6 +2,8 @@
 namespace jubianchi\PhpSwitch\PHP\Option;
 
 use jubianchi\PhpSwitch\Console\Command\Command;
+use Symfony\Component\Console\Output\OutputInterface;
+use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -10,9 +12,13 @@ abstract class Option
     const ARG = null;
     const ALIAS = null;
     const DESC = null;
+    const MODE = InputOption::VALUE_NONE;
 
     /** @var \jubianchi\PhpSwitch\Console\Command\Command */
     protected $command;
+
+    /** @var string */
+    protected $value;
 
     /**
      * @param \jubianchi\PhpSwitch\Console\Command\Command $command
@@ -54,7 +60,7 @@ abstract class Option
             $command->addOption(
                 static::ARG,
                 null,
-                InputOption::VALUE_NONE,
+                static::MODE,
                 $this->getDesc()
             );
         }
@@ -69,7 +75,13 @@ abstract class Option
      */
     public function isEnabled(InputInterface $input)
     {
-        return (false !== $input->getOption($this->getName()));
+        $enabled = (bool) $input->getOption($this->getName());
+
+        if ($enabled && static::MODE !== InputOption::VALUE_NONE) {
+            $this->value = $input->getOption($this->getName());
+        }
+
+        return $enabled;
     }
 
     /**
@@ -80,11 +92,21 @@ abstract class Option
         return static::ALIAS ?: '';
     }
 
+    public function preInstall(Version $version, InputInterface $input, OutputInterface $output)
+    {
+
+    }
+
+    public function postInstall(Version $version, InputInterface $input, OutputInterface $output)
+    {
+
+    }
+
     /**
      * @return string
      */
     public function __toString()
     {
-        return $this->getAlias();
+        return $this->getAlias() . ($this->value ? '=' . escapeshellarg($this->value) : '');
     }
 }

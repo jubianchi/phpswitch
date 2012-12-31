@@ -18,16 +18,22 @@ class Configuration implements \IteratorAggregate
      *
      * @return array
      */
-    public function get($offset)
+    public function get($offset, $default = null)
     {
-        $offset = explode('.', $offset);
+        $offset = str_replace('-', '_', $offset);
+        $offset = preg_split('/(?<!\\\)\./', $offset);
         $reference = $this->configuration;
         $current = $sep = '';
 
         foreach ($offset as $key) {
+            $key = preg_replace('/\\\\./', '.', $key);
             $current .= $sep . $key;
-            if (false === isset($reference[$key])) {
-                throw new \InvalidArgumentException(sprintf('Offset %s does not exist', $current));
+            if (false === array_key_exists($key, $reference)) {
+                if(null === $default) {
+                    throw new \InvalidArgumentException(sprintf('Offset %s does not exist', $current));
+                } else {
+                    return $default;
+                }
             }
 
             $reference = & $reference[$key];
@@ -48,11 +54,13 @@ class Configuration implements \IteratorAggregate
      */
     public function set($offset, $value)
     {
-        $offset = explode('.', $offset);
+        $offset = str_replace('-', '_', $offset);
+        $offset = preg_split('/(?<!\\\)\./', $offset);
         $reference = & $this->configuration;
         $current = $sep = '';
 
         foreach ($offset as $key) {
+            $key = preg_replace('/\\\\./', '.', $key);
             $current .= $sep . $key;
             if (false === isset($reference[$key])) {
                 $reference[$key] = null;
