@@ -1,45 +1,14 @@
 #!/bin/bash
 
-[ -z "$_PHPSWITCH_ORIG_PATH" ] && export _PHPSWITCH_ORIG_PATH=$PATH
+prompt_phpswitch() {
+    local version
 
-php() {
-    local VERSION STATUS
+    version=$(php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:current 2> /dev/null)
 
-    STATUS=1
-
-    case "$1" in
-        list)
-            {{ path }}/bin/phpswitch php:list --installed
-
-            return $?
-            ;;
-
-        switch)
-            if [ "$2" = "off" ]
-            then
-                export PATH=$_PHPSWITCH_ORIG_PATH
-                {{ path }}/bin/phpswitch php:switch off
-                STATUS=$?
-            else
-                if [ "$2" != "on" ]
-                then
-                    {{ path }}/bin/phpswitch php:switch $2 $3
-                    STATUS=$?
-                fi
-
-                VERSION=$({{ path }}/bin/phpswitch php:current)
-
-                if [ $? ] && [ ! -z "$VERSION" ]
-                then
-                    export PATH={{ installed }}/$VERSION/bin:$_PHPSWITCH_ORIG_PATH
-                fi
-            fi
-
-            [ $STATUS -eq 0 ] && php -v
-
-            return 0
-            ;;
-    esac
-
-    /usr/bin/env php $*
+    if [ $? ] && [ -z "$version" ]
+    then
+        command -v prompt_php > /dev/null&& prompt_php $1
+    else
+        $1 red white $version
+    fi
 }

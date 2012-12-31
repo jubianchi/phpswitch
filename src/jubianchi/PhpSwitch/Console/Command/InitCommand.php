@@ -53,6 +53,16 @@ class InitCommand extends Command
             )
         );
 
+        file_put_contents(
+            $workspace . '/.phpswitchprompt',
+            $this->getApplication()->getService('app.twig')->render(
+                'phpswitchprompt.twig',
+                array(
+                    'path' => $this->getApplication()->getService('app.path')
+                )
+            )
+        );
+
         $this->log(
             sprintf(
                 'You should <info>source %s</info> to use phpswitch',
