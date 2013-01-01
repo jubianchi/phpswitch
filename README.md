@@ -97,7 +97,7 @@ $ phpswitch php:current
 
 # Combine output of both previous commands
 $ php current
-``
+```
 
 ### Get the list of available PHP version
 
