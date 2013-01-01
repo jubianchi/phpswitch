@@ -7,7 +7,7 @@ prompt_phpswitch() {
 
     if [ $? ] && [ -z "$version" ]
     then
-        command -v prompt_php > /dev/null&& prompt_php $1
+        command -v prompt_php > /dev/null && prompt_php $1
     else
         $1 red white $version
     fi
