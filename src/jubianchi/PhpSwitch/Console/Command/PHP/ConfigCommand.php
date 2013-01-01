@@ -52,10 +52,14 @@ class ConfigCommand extends Command
                     $ini = parse_ini_string(file_get_contents($path));
 
                     $output->writeln(sprintf(
-                        '<info>%s</info> <comment>%s</comment>',
+                        '<info>%s</info> => <comment>%s</comment>',
                         $input->getArgument('name'),
                         $ini[$input->getArgument('name')]
                     ));
+                }
+            } else {
+                if (null === $value) {
+                   return 1;
                 }
             }
 
