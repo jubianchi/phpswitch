@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>phpswitch by jubianchi</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>phpswitch</h1>
+        <h2>A CLI utility to help you build and test PHP versions</h2>
+        <a href="https://github.com/jubianchi/phpswitch" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>phpswitch</h1>
+
+<p>A CLI utility to help you build and test PHP versions</p>
+
+<ul>
+<li><a href="#how-to-install">How to install</a></li>
+<li><a href="#how-to-use">How to use</a></li>
+<li><a href="#extras">Extras</a></li>
+</ul><h2>How to install</h2>
+
+<div class="highlight"><pre><span class="nv">$ </span>curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo php
+
+<span class="c"># Creates the phpswitch workspace</span>
+<span class="nv">$ </span>phpswitch init
+</pre></div>
+
+<h2>How to use</h2>
+
+<ul>
+<li><a href="#enable-phpswitch">Enable phpswitch</a></li>
+<li><a href="#install-a-new-php-version">Install a new PHP version</a></li>
+<li><a href="#switch-php-version">Switch PHP version</a></li>
+<li><a href="#display-the-current-php-version">Display the current PHP version</a></li>
+<li><a href="#manage-php-configuration">Manage PHP configuration</a></li>
+<li><a href="#working-with-apache2">Working with Apache2</a></li>
+</ul><h3>Enable phpswitch</h3>
+
+<p>You can temporarily enable phpswitch using this command :</p>
+
+<div class="highlight"><pre><span class="nb">source</span> /usr/share/phpswitch/.phpswitch/.phpswitchrc
+</pre></div>
+
+<p>If you want to permanently enable phpswitch, add these lines to your <code>.bashrc</code> or <code>.zshrc</code> :</p>
+
+<div class="highlight"><pre><span class="nb">source</span> /usr/share/phpswitch/.phpswitch/.phpswitchrc
+php switch on &gt; /dev/null
+</pre></div>
+
+<p><strong>Once enabled, phpswitch will override the default <code>php</code> command. To get usage informations, use <code>$ php -h</code></strong></p>
+
+<h3>Install a new PHP version</h3>
+
+<p>To install a new PHP version using the default options, run this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>phpswitch php:install 5.4.8 --default
+</pre></div>
+
+<p>To get the full options list, use this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>phpswitch <span class="nb">help </span>php:install
+</pre></div>
+
+<p>With phpswitch, you can install the same PHP version many times using different configurations :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>phpswitch php:install 5.4.8 --alias<span class="o">=</span>atoum --atoum
+</pre></div>
+
+<p>This will install a new php-5.4.8 with the default atoum configuration. The name of this environment will
+be <code>atoum-5.4.8</code>.</p>
+
+<h3>Switch PHP version</h3>
+
+<p>To switch PHP version use this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>php switch php-5.4.8
+</pre></div>
+
+<p>If you want to switch to an aliased PHP version, use this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>php switch atoum-5.4.8
+</pre></div>
+
+<p>To restore the system default PHP version, use this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>php switch off
+</pre></div>
+
+<h3>Display the current PHP version</h3>
+
+<p>To display the current PHP version, use one of these commands :</p>
+
+<div class="highlight"><pre><span class="c"># Will dislpay the PHP version message</span>
+<span class="nv">$ </span>php -v
+
+<span class="c"># Will display the phpswitch PHP version name</span>
+<span class="nv">$ </span>phpswitch php:current
+
+<span class="c"># Combine output of both previous commands</span>
+<span class="nv">$ </span>php current
+</pre></div>
+
+<h3>Get the list of available PHP version</h3>
+
+<p>To get the list of installed PHP versions, use this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>php list
+</pre></div>
+
+<p>If you want to get the list of available (installable) PHP versions, use this command :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>phpswitch php:list --available
+</pre></div>
+
+<h3>Manage PHP configuration</h3>
+
+<p>With phpswitch you will be able to quickly define or retrieve configuration directives :</p>
+
+<p><strong>phpswitch is only able to manage configuration for PHP versions installed through it</strong></p>
+
+<div class="highlight"><pre><span class="c"># Retrieves the value of date.timezone</span>
+<span class="nv">$ </span>phpswitch php:config date.timezone
+
+<span class="c"># Defines the value of date.timezone</span>
+<span class="nv">$ </span>phpswitch php:config date.timezone Europe/Paris
+
+<span class="c"># Same as previous commands</span>
+<span class="nv">$ </span>php config date.timezone
+<span class="nv">$ </span>php config date.timezone Europe/Paris
+</pre></div>
+
+<p><strong>phpswitch is only able to work with configuration directives that where defined through it :</strong></p>
+
+<div class="highlight"><pre><span class="nv">$ </span>phpswitch install 5.4.9 --default
+
+<span class="c"># This command will fail as the directive was not defined through phpswitch</span>
+<span class="nv">$ </span>php config error_reporting
+
+<span class="nv">$ </span>php config error_reporting E_ALL
+
+<span class="c"># The command will now succeed as the value was previously defined through phpswitch</span>
+<span class="nv">$ </span>php config error_reporting
+<span class="nv">error_reporting</span> <span class="o">=</span>&gt; E_ALL
+</pre></div>
+
+<h3>Working with Apache2</h3>
+
+<p>phpswitch is able to trigger Apache2 modules build and manage them for you. You will only have to
+ask when you want to switch the current module :</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>phpswitch php:install 5.4.8 --default --apxs2<span class="o">=</span>/usr/sbin/apxs
+
+<span class="nv">$ </span>php switch php-5.4.8 --apache2
+Switching Apache2 module to php-5.4.8
+You should restart apache2 using one of:
+    - sudo /etc/init.d/apache2 restart
+    - sudo service apache2 restart
+    - sudo apachectl restart
+    - ...
+PHP switched to php-5.4.8
+PHP 5.4.8 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Dec 31 2012 23:43:05<span class="o">)</span>
+Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2012 The PHP Group
+Zend Engine v2.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2012 Zend Technologies
+
+<span class="nv">$ </span>php switch off                                                                                                          ⮂ Mar 1 jan 2013 01:39:15 ⮂ 72%
+Restoring system default Apache2 module
+You should restart apache2 using one of:
+    - sudo /etc/init.d/apache2 restart
+    - sudo service apache2 restart
+    - sudo apachectl restart
+    - ...
+PHP switched to system default version
+PHP 5.3.15 with Suhosin-Patch <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Aug 24 2012 17:45:44<span class="o">)</span>
+Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2012 The PHP Group
+Zend Engine v2.3.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2012 Zend Technologies
+    with Xdebug v2.2.1, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2012, by Derick Rethans
+</pre></div>
+
+<h2>Extras</h2>
+
+<p>If you are using <a href="https://github.com/jubianchi/dotfiles">my ZSH theme</a>, you may want to use the phpswitch prompt segment.
+To do so, make your <code>.zshrc</code> match the following lines :</p>
+
+<div class="highlight"><pre><span class="c">##</span>
+<span class="c">## ZSH Theme Configuration</span>
+<span class="c">##</span>
+<span class="nb">source</span> /usr/share/phpswitch/.phpswitch/.phpswitchprompt
+
+<span class="nv">LEFT_PROMPT</span><span class="o">=(</span>status context dir phpswitch sf2 vagrant git<span class="o">)</span>; <span class="nb">export </span>LEFT_PROMPT
+<span class="nv">RIGHT_PROMPT</span><span class="o">=(</span>date battery<span class="o">)</span>; <span class="nb">export </span>RIGHT_PROMPT
+<span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">"jubianchi"</span>
+</pre></div>
+
+<p>As you can see, you will need to source the <code>.phpswitchprompt</code> file and add the <code>phpswitch</code>
+segment to one of the two prompts.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/jubianchi/phpswitch/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/jubianchi/phpswitch/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/jubianchi/phpswitch"></a> is maintained by <a href="https://github.com/jubianchi">jubianchi</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
