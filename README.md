@@ -39,7 +39,7 @@ To get the full options list, use this command :
 $ phpswitch help php:install
 ```
 
-With phpswitch, you can install the same PHP version manytimes using different configurations :
+With phpswitch, you can install the same PHP version many times using different configurations :
 
 ```shell
 $ phpswitch php:install 5.4.8 --alias=atoum --atoum
@@ -50,7 +50,7 @@ be ```atoum-5.4.8```.
 
 ### Switch PHP version
 
-When enabled, phpswitch will override the default ```php``` command. You will htne be able to switch version using :
+When enabled, phpswitch will override the default ```php``` command. You will then be able to switch version using :
 
 ```shell
 $ php switch php-5.4.8
