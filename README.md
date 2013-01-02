@@ -5,6 +5,8 @@ A CLI utility to help you build and test PHP versions
 * [How to install](#how-to-install)
 * [How to use](#how-to-use)
 * [Extras](#extras)
+    * [Offline documentation](#offline-documentation)
+    * [Shell prompt](#shell-prompt)
 
 ## How to install
 
@@ -181,6 +183,25 @@ Zend Engine v2.3.0, Copyright (c) 1998-2012 Zend Technologies
 ```
 
 ## Extras
+
+### Offline documentation
+
+phpswitch can help you install and manage your offline PHP documentations :
+
+```
+$ phpswitch help php:doc:install
+Usage:
+ php:doc:install [-f|--format[="..."]] [-l|--lang[="..."]]
+
+Options:
+ --format (-f)         Documentation format (html, single-html, chm, chm-enhanced) (default: "html")
+ --lang (-l)           Documentation language (en, pt, cn, fr, de, it, ja, pl, ro, ru, es, tr) (default: "en")
+```
+
+This command will install the chosen documentation in the phpswitch workspace to allow offline browsing.
+You can downland and install multiple formats and languages side by side.
+
+### Shell prompt
 
 If you are using [my ZSH theme](https://github.com/jubianchi/dotfiles), you may want to use the phpswitch prompt segment.
 To do so, make your ```.zshrc``` match the following lines :
