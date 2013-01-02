@@ -25,7 +25,8 @@ class InitCommand extends Command
             $workspace = $this->getApplication()->getService('app.workspace.path'),
             $this->getApplication()->getService('app.workspace.downloads.path'),
             $this->getApplication()->getService('app.workspace.sources.path'),
-            $installed = $this->getApplication()->getService('app.workspace.installed.path')
+            $installed = $this->getApplication()->getService('app.workspace.installed.path'),
+            $this->getApplication()->getService('app.workspace.doc.path'),
         );
 
         $status = 0;

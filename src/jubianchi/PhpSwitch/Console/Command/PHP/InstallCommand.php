@@ -137,7 +137,7 @@ class InstallCommand extends Command
         $progress = $this->getHelper('progress');
 
         $progress->setBarWidth(50);
-        $progress->setEmptyBarCharacter('=');
+        $progress->setEmptyBarCharacter($max ? '-' : '=');
         $progress->setProgressCharacter('>');
         $progress->setFormat($format);
 

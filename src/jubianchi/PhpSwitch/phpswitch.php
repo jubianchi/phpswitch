@@ -74,6 +74,7 @@ class PhpSwitch
         $this->container['app.workspace.downloads.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
         $this->container['app.workspace.sources.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
         $this->container['app.workspace.installed.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
+        $this->container['app.workspace.doc.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'doc';
 
         return $this;
     }
