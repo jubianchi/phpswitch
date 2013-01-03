@@ -4,9 +4,15 @@ A CLI utility to help you build and test PHP versions
 
 * [How to install](#how-to-install)
 * [How to use](#how-to-use)
+   * [Enable phpswitch](#enable-phpswitch)
+   * [Install a new PHP version](#install-a-new-php-version)
+   * [Switch PHP version](#switch-php-version)
+   * [Display the current PHP version](#display-the-current-php-version)
+   * [Manage PHP configuration](#manage-php-configuration)
+   * [Working with Apache2](#working-with-apache2)
 * [Extras](#extras)
-    * [Offline documentation](#offline-documentation)
-    * [Shell prompt](#shell-prompt)
+   * [Offline documentation](#offline-documentation)
+   * [Shell prompt](#shell-prompt)
 
 ## How to install
 
@@ -183,6 +189,9 @@ Zend Engine v2.3.0, Copyright (c) 1998-2012 Zend Technologies
 ```
 
 ## Extras
+
+* [Offline documentation](#offline-documentation)
+* [Shell prompt](#shell-prompt)
 
 ### Offline documentation
 
