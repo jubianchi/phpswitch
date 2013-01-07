@@ -101,7 +101,6 @@ header h2 {
 }
 
 #main-content {
-  width: 690px;
   float: left;
 }
 
@@ -147,6 +146,10 @@ header a.button {
   right: 0;
   top: 0;
   background: transparent url(../images/github-button.png) 0 0 no-repeat;
+}
+header a.button.zip {
+    top: 85px;
+    background: transparent url(../images/download-button.png) 0 0 no-repeat;
 }
 aside a.button {
   width: 138px;
