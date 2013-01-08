@@ -45,7 +45,7 @@ class SwitchCommand extends Command
             $finder
                 ->in($path)
                 ->directories()
-                ->name('*-*')
+                ->name($version)
                 ->depth(0)
             ;
 
@@ -178,5 +178,14 @@ class SwitchCommand extends Command
             '    <comment>- sudo apachectl restart</comment>',
             '    <comment>- ...</comment>',
         ));
+    }
+
+    public function getSynopsis()
+    {
+        $synopsis = parent::getSynopsis();
+        $parts = explode(' ', $synopsis, 2);
+        $synopsis .= PHP_EOL . trim(sprintf('%s %s', 'php switch', $parts[1]));
+
+        return $synopsis;
     }
 }
