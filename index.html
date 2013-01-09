@@ -7,6 +7,9 @@
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-responsive.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/custom.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
     <!--[if lt IE 9]>
@@ -19,23 +22,45 @@
 <body>
     <header>
         <div class="inner">
-            <h1>phpswitch</h1>
+            <h1><a href="index.html">phpswitch</a></h1>
             <h2>A CLI utility to help you build and test PHP versions</h2>
             <a href="https://github.com/jubianchi/phpswitch" class="button">
                 <small>View project on</small>
                 GitHub
             </a>
-            <a href="https://github.com/jubianchi/phpswitch/zipball/master" class="button zip">
-                <small>Download</small>
-                .zip file
+            <a href="https://github.com/jubianchi/phpswitch/zipball/master" class="button issue">
+                <small>Found a bug ?</small>
+                issue
             </a>
         </div>
     </header>
 
+    <div class="navbar navbar-static">
+        <div class="navbar-inner">
+            <div class="container-fluid inner">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="#how-to-install">Install phpswitch</a></li>
+                        <li><a href="#enable-phpswitch">Enable phpswitch</a></li>
+                        <li><a href="#how-to-use">Manage PHP versions</a></li>
+                        <li><a href="#working-with-apache-2">Working with Apache2</a></li>
+                        <li><a href="#extras">Extras</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-            <h1>How to install</h1>
+            <h1 id="how-to-install">How to install</h1>
 
             <div class="highlight">
                 <pre><span class="nv">$ </span>curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo php
@@ -44,8 +69,12 @@
 <span class="nv">$ </span>phpswitch init</pre>
             </div>
 
-            <h2>How to use</h2>
-            <h3>Enable phpswitch</h3>
+            <div class="alert alert-block alert-info">
+                <h4>Info</h4>
+                <p>Read the <a href="installer.html">installer documentation</a> to get more informations.</p>
+            </div>
+
+            <h2 id="enable-phpswitch">Enable phpswitch</h2>
 
             <p>You can temporarily enable phpswitch using this command :</p>
             <div class="highlight">
@@ -59,9 +88,21 @@
 php switch on &gt; /dev/null</pre>
             </div>
 
-            <p><strong>Once enabled, phpswitch will override the default <code>php</code> command. To get usage informations, use <code>$&nbsp;php&nbsp;-h</code></strong></p>
+            <div class="alert alert-block">
+                <h4>Warning</h4>
+                <p>Depending on the chosen <a href="installer.html">installation method</a> you will have to <a href="#">adjust settings</a>.</p>
+            </div>
 
-            <h3>Install a new PHP version</h3>
+            <div class="alert alert-block alert-info">
+                <h4>Info</h4>
+                <p>
+                    Once enabled, phpswitch will override the default <code>php</code> command. To get usage
+                    informations, use <code>$&nbsp;php&nbsp;-h</code>
+                </p>
+            </div>
+
+            <h1 id="how-to-use">How to use</h1>
+            <h2 id="install-a-new-php-version">Install a new PHP version</h2>
 
             <p>To install a new PHP version using the default options, run this command :</p>
             <div class="highlight">
@@ -82,7 +123,7 @@ php switch on &gt; /dev/null</pre>
 
             <p>This will install a new php-5.4.8 with the default atoum configuration. The name of this environment will be <code>atoum-5.4.8</code>.</p>
 
-            <h3>Switch PHP version</h3>
+            <h2 id="switch-php-version">Switch PHP version</h2>
 
             <p>To switch PHP version use this command :</p>
 
@@ -102,7 +143,7 @@ php switch on &gt; /dev/null</pre>
                 <pre><span class="nv">$ </span>php switch off</pre>
             </div>
 
-            <h3>Display the current PHP version</h3>
+            <h2 id="display-the-current-php-version">Display the current PHP version</h2>
 
             <p>To display the current PHP version, use one of these commands :</p>
 
@@ -117,7 +158,7 @@ php switch on &gt; /dev/null</pre>
 <span class="nv">$ </span>php current</pre>
             </div>
 
-            <h3>Get the list of available PHP version</h3>
+            <h2 id="list-available-php-versions">List available PHP version</h2>
 
             <p>To get the list of installed PHP versions, use this command :</p>
 
@@ -131,7 +172,7 @@ php switch on &gt; /dev/null</pre>
                 <pre><span class="nv">$ </span>phpswitch php:list --available</pre>
             </div>
 
-            <h3>Manage PHP configuration</h3>
+            <h2 id="manage-php-configuration">Manage PHP configuration</h2>
 
             <p>With phpswitch you will be able to quickly define or retrieve configuration directives :</p>
 
@@ -164,7 +205,7 @@ php switch on &gt; /dev/null</pre>
 <span class="nv">error_reporting</span> <span class="o">=</span>&gt; E_ALL</pre>
             </div>
 
-            <h3>Working with Apache2</h3>
+            <h1 id="working-with-apache-2">Working with Apache2</h1>
 
             <p>
                 phpswitch is able to trigger Apache2 modules build and manage them for you. You will only have to ask
@@ -200,7 +241,26 @@ Zend Engine v2.3.0, Copyright <span class="o">(</span>c<span class="o">)</span> 
     with Xdebug v2.2.1, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2012, by Derick Rethans</pre>
             </div>
 
-            <h2>Extras</h2>
+            <h1 id="extras">Extras</h1>
+            <h2 id="offline-documentation">Offline documentation</h2>
+
+            <p>phpswitch can help you install and manage your offline PHP documentations :</p>
+
+            <div class="highlight">
+                <pre><span class="nv">$ </span>phpswitch help php:doc:install
+Usage:
+php:doc:install [-f|--format[="..."]] [-l|--lang[="..."]]
+
+Options:
+--format (-f)         Documentation format (html, single-html, chm, chm-enhanced) (default: "html")
+--lang (-l)           Documentation language (en, pt, cn, fr, de, it, ja, pl, ro, ru, es, tr) (default: "en")
+```
+
+This command will install the chosen documentation in the phpswitch workspace to allow offline browsing.
+You can downland and install multiple formats and languages side by side.</pre>
+            </div>
+
+            <h2 id="shell-prompt">Shell prompt</h2>
 
             <p>
                 If you are using <a href="https://github.com/jubianchi/dotfiles">my ZSH theme</a>, you may want to use
@@ -220,7 +280,7 @@ Zend Engine v2.3.0, Copyright <span class="o">(</span>c<span class="o">)</span> 
 
             <p>
                 As you can see, you will need to source the <code>.phpswitchprompt</code> file and add the
-                <code>phpswitch</code> segment to one of the two prompts.
+                <code>phpswitch</code> segment to one of the two prompt parts.
             </p>
         </section>
       </div>

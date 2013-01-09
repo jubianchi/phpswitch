@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-responsive.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/custom.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>phpswitch by jubianchi</title>
+</head>
+
+<body data-spy="scroll">
+    <header>
+        <div class="inner">
+            <h1><a href="index.html">phpswitch</a></h1>
+            <h2>A CLI utility to help you build and test PHP versions</h2>
+            <a href="https://github.com/jubianchi/phpswitch" class="button">
+                <small>View project on</small>
+                GitHub
+            </a>
+            <a href="https://github.com/jubianchi/phpswitch/zipball/master" class="button issue">
+                <small>Found a bug ?</small>
+                Fill an issue
+            </a>
+        </div>
+    </header>
+
+    <div class="navbar navbar-static">
+        <div class="navbar-inner">
+            <div class="container-fluid inner">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="#usage">Usage</a></li>
+                        <li><a href="#default-installation">Default installation</a></li>
+                        <li><a href="#global-installation">Global installation</a></li>
+                        <li><a href="#custom-installation">Custom installation</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="content-wrapper">
+        <div class="inner clearfix">
+            <section id="main-content">
+                <h1 id="usage">Using the installer</h1>
+
+                <div class="highlight">
+                    <pre><span class="nv">$ </span>bin/installer --usage
+> phpswitch installer
+--global        : Install phpswitch as a global command
+--check         : Only run system requirements check
+
+Environment :
+PHPSWITCH_GIT_URL : Git repository (default : git://github.com/jubianchi/phpswitch.git)
+PHPSWITCH_PATH : Installation directory (default : /usr/share)
+PHPSWITCH_SYMLINK : phpswitch bin symlink path (default: /usr/local/bin)
+
+Examples :
+$ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo php -- --global
+$ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | PHPSWITCH_PREFIX=/home/me php</pre>
+                </div>
+
+                <h2 id="default-installation">Default installation</h2>
+
+                <p>
+                    The default option is to install phpswitch in the current directory. The installer will check
+                    requirements and checkout if everything is ok. Once done, you wil be able to initalize phpswitch
+                    workspace :
+                </p>
+
+                <div class="highlight">
+                    <pre><span class="nv">$ </span>bin/installer
+
+<span class="c"># ...</span>
+
+<span class="nv">$ </span>./phpswitch/bin/phpswitch init</pre>
+                </div>
+
+                <h2 id="global-installation">Global installation</h2>
+
+                <p>
+                    The installer has an option to install phpswitch globally in <code>/usr/share/phpswitch</code>
+                    and link the executable to <code>/usr/local/bin/phpswitch</code> :
+                </p>
+
+                <div class="highlight">
+                    <pre><span class="nv">$ </span>bin/installer --global</pre>
+                </div>
+
+                <p><strong>When using this method, you will have to ensure that you have write access to the directories.</strong></p>
+
+                <h2 id="custom-installation">Custom installation</h2>
+
+                <p>If you want to install phpswitch in another directory, you can use the following variables :</p>
+
+                <div class="highlight">
+                    <pre><span class="c"># This will change the installation directory to /path/to/install/phpswitch</span>
+<span class="nv">$ </span>PHPSWITCH_PATH=/path/to/install bin/installer
+
+<span class="c"># This will change the link target to /path/to/bin/phpswitch</span>
+<span class="nv">$ </span>PHPSWITCH_SYMLINK=/path/to/bin bin/installer
+
+<span class="c"># This will change both at the same time</span>
+<span class="nv">$ </span>PHPSWITCH_PATH=/path/to/install PHPSWITCH_SYMLINK=/path/to/bin bin/installer
+
+<span class="c"># ...</span>
+
+<span class="nv">$ </span>phpswitch init</pre>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</body>
+</html>

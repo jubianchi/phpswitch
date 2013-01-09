@@ -70,7 +70,6 @@ header {
   background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
   border-bottom: solid 1px #275da1;
 }
-
 header h1 {
   letter-spacing: -1px;
   font-size: 72px;
@@ -78,6 +77,15 @@ header h1 {
   line-height: 1;
   margin-bottom: 0.2em;
   width: 540px;
+}
+
+header h1 a, header h1 a:hover {
+    color: white;
+}
+
+header h1 a:hover:after {
+    font-size: 0.25em;
+    content: ">> home"
 }
 
 header h2 {
@@ -97,7 +105,6 @@ header h2 {
 
 #content-wrapper {
   border-top: solid 1px #fff;
-  padding-top: 30px;
 }
 
 #main-content {
@@ -147,9 +154,9 @@ header a.button {
   top: 0;
   background: transparent url(../images/github-button.png) 0 0 no-repeat;
 }
-header a.button.zip {
+header a.button.issue {
     top: 85px;
-    background: transparent url(../images/download-button.png) 0 0 no-repeat;
+    background: transparent url(../images/github-button.png) 0 0 no-repeat;
 }
 aside a.button {
   width: 138px;
@@ -191,6 +198,9 @@ ul, ol, dl {
   margin-bottom: 20px;
 }
 
+strong {
+    font-weight: bold;
+}
 
 /* COMMON STYLES */
 
@@ -427,7 +437,7 @@ footer a:hover {
   header h2 {
     font-size: 24px;
   }
-  header a.button {
+  header a.button, header a.button.issue {
     background-image: none;
     width: auto;
     height: auto;
@@ -442,8 +452,10 @@ footer a:hover {
     color: #2879d0;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;                     
-    border-radius: 5px;    
+    border-radius: 5px;
+    top: 0;
   }
+
   header a.button small {
     font-size: 13px;
     display: inline;
