@@ -248,6 +248,10 @@ class InstallCommand extends Command
             sprintf('%s<comment>From: %s</comment>', self::INDENT, $ini),
             sprintf('%s<comment>To: %s</comment>', self::INDENT, $destination)
         ));
+        if(false === is_dir(dirname($destination))) {
+            mkdir(dirname($destination), 0755, true);
+        }
+
         copy($ini, $destination);
 
         $this->prefix = $dest;

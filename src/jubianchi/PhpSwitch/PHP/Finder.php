@@ -11,17 +11,24 @@ class Finder implements \IteratorAggregate
     /** @var \Symfony\Component\DomCrawler\Crawler */
     private $items;
 
+    /** @var \Symfony\Component\DomCrawler\Crawler */
+    private $urls;
+
     /**
-     * @param string                                $url
-     * @param \Symfony\Component\DomCrawler\Crawler $crawler
+     * @param array|null                                 $urls
+     * @param \Symfony\Component\DomCrawler\Crawler|null $crawler
      */
-    public function __construct($url = 'http://php.net/releases/', Crawler $crawler = null)
+    public function __construct(array $urls = null, Crawler $crawler = null)
     {
         if (null === $crawler) {
             $this->crawler = new Crawler();
         }
 
-        $this->crawler->addContent(file_get_contents($url));
+        $this->urls = $urls ?: array(
+            'http://php.net/releases',
+            'http://downloads.php.net/stas',
+            'http://downloads.php.net/dsp'
+        );
     }
 
     /**
@@ -39,12 +46,24 @@ class Finder implements \IteratorAggregate
     {
         $versions = array();
 
-        foreach ($this->crawl() as $elem) {
-            $value = $elem->nodeValue;
+        foreach($this->urls as $url) {
+            $this->crawler->clear();
+            $this->crawler->addContent(file_get_contents($url));
 
-            if (false != preg_match('/^(PHP\s*([4-5]\.(?:\d+\.?)*)).*tar\.bz2.*/', $value, $matches)) {
-                $version = $matches[2];
-                $versions[$version] = new Version($version, $elem->getAttribute('href'));
+            foreach (static::crawl($this->crawler) as $elem) {
+                $value = $elem->nodeValue;
+
+                if (false != preg_match('/^((?:PHP\s*|php-)([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)).*tar\.bz2.*/', $value, $matches)) {
+                    $href = $elem->getAttribute('href');
+                    if(false == preg_match('/^https?:\/\//', $href)) {
+                        $href = rtrim($url, '/') . '/' . $href;
+                    }
+
+                    $version = $matches[2];
+                    if(false === array_key_exists($version, $versions)) {
+                        $versions[$version] = new Version($version, $href);
+                    }
+                }
             }
         }
 
@@ -70,16 +89,12 @@ class Finder implements \IteratorAggregate
     }
 
     /**
-     * @param bool $refresh
+     * @param \Symfony\Component\DomCrawler\Crawler $crawler
      *
      * @return \Symfony\Component\DomCrawler\Crawler
      */
-    protected function crawl($refresh = false)
+    private static function crawl(Crawler $crawler)
     {
-        if (null === $this->items || true === $refresh) {
-            $this->items = $this->crawler->filter('body #content li a');
-        }
-
-        return $this->items;
+        return $crawler->filter('ul li a');
     }
 }
