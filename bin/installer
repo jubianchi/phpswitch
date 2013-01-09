@@ -53,7 +53,6 @@ function execute(array $args, &$silence) {
     }
 
     printfln('>> <yellow>Checking requirements...');
-    $silence = true;
     if(false === checkRequirements($args)) {
         return 1;
     }
@@ -115,7 +114,7 @@ function download(array $args) {
     }
 
     printfln('>> <yellow>Updating dependencies...');
-    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install', $output);
+    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist', $output);
 
     return true;
 }
