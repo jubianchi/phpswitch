@@ -53,7 +53,7 @@ class InfoCommand extends Command
                 $output->writeln(sprintf($margin . '<info>%-15s</info> <comment>%s</comment>', $key, $value));
             } else {
                 $output->writeln(sprintf($margin . '<info>%s</info>', $key));
-                $this->displaySection($output, $value, $level + 1);
+                $this->displaySection($output, new \ArrayIterator($value), $level + 1);
             }
         }
     }
