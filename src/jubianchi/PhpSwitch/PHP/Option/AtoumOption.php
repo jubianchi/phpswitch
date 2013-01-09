@@ -45,7 +45,8 @@ class AtoumOption extends Option
                 new Enable\SessionOption(),
                 new Enable\TokenizerOption(),
                 new Enable\PosixOption(),
-                new Enable\DOMOption()
+                new Enable\DOMOption(),
+                new Enable\MBStringOption()
             )
         );
     }
