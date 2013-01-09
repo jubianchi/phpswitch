@@ -2,6 +2,8 @@
 
 A CLI utility to help you build and test PHP versions
 
+Documentation : [http://jubianchi.github.com/phpswitch/](http://jubianchi.github.com/phpswitch/)
+
 * [How to install](#how-to-install)
 * [How to use](#how-to-use)
    * [Enable phpswitch](#enable-phpswitch)
@@ -22,6 +24,11 @@ $ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo ph
 # Creates the phpswitch workspace
 $ phpswitch init
 ```
+
+This will install phpswitch in ```/usr/share/phpswitch``` and create the workspace in the installation directory
+so make sure you have write access on this directory.
+
+Read the [installer documentation](http://jubianchi.github.com/phpswitch/installer.html) to get more informations.
 
 ## How to use
 
@@ -227,4 +234,4 @@ ZSH_THEME="jubianchi"
 ```
 
 As you can see, you will need to source the ```.phpswitchprompt``` file and add the ```phpswitch```
-segment to one of the two prompts.
+segment to one of the two prompt parts.
