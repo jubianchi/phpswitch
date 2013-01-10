@@ -49,7 +49,7 @@ php() {
             else
                 if [ "$2" != "on" ]
                 then
-                    /usr/bin/env php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:switch $2 $3 2> /dev/null
+                    /usr/bin/env php {{ path }}/bin/phpswitch php:switch $2 $3
                     STATUS=$?
                 fi
 
