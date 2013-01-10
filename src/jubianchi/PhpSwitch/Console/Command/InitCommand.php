@@ -33,13 +33,13 @@ class InitCommand extends Command
         foreach ($directories as $directory) {
             try {
                 if ($this->makeDirectory($directory)) {
-                    $this->log(sprintf('Directory <info>%s</info> was created', $directory), \Monolog\Logger::INFO, $output);
+                    $output->writeln(sprintf('Directory <info>%s</info> was created', $directory));
                 } else {
-                    $this->log(sprintf('Directory <error>%s</error> was not created', $directory), \Monolog\Logger::ERROR, $output);
+                    $output->writeln(sprintf('Directory <error>%s</error> was not created', $directory));
                     $status = 1;
                 }
             } catch (DirectoryExistsException $exc) {
-                $this->log(sprintf('Directory <info>%s</info> already exists', $directory), \Monolog\Logger::ERROR, $output);
+                $output->writeln(sprintf('Directory <info>%s</info> already exists', $directory));
             }
         }
 
@@ -64,7 +64,7 @@ class InitCommand extends Command
             )
         );
 
-        $this->log(
+        $output->writeln(
             sprintf(
                 'You should <info>source %s</info> to use phpswitch',
                 $workspace . '/.phpswitchrc'
