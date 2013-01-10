@@ -87,12 +87,10 @@ class ListCommand extends Command
             function($a, $b) {
                 $pattern = '/(5\.\d+\.\d+)$/';
 
-                preg_match($pattern, $a, $matches);
-                $a = $matches[1];
-                preg_match($pattern, $b, $matches);
-                $b = $matches[1];
+                preg_match($pattern, $a, $a);
+                preg_match($pattern, $b, $b);
 
-                return version_compare($a, $b);
+                return version_compare(isset($b[1]) ? $b[1] : 0, isset($a[1]) ? $a[1] : 0);
             }
         );
 
