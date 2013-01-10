@@ -14,6 +14,12 @@ class Version
     /** @var string */
     private $url;
 
+    public static function fromString($version)
+    {
+        $infos = explode('-', $version, 2);
+        return new static($infos[1], null, $infos[0]);
+    }
+
     /**
      * @param string $version
      * @param string $name
