@@ -42,28 +42,17 @@ abstract class Command extends BaseCommand
     /**
      * @param string[]|string                                   $messages
      * @param int                                               $level
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return \jubianchi\PhpSwitch\Console\Command\Command
      */
-    public function log($messages, $level = Logger::INFO, OutputInterface $output = null)
+    public function log($messages, $level = Logger::INFO)
     {
-        static $formatter;
-
-        if (null !== $output) {
-            $formatter = $output->getFormatter();
-        }
-
-        if (null === $formatter) {
-            $formatter = new OutputFormatter();
-        }
-
         if (false === is_array($messages)) {
             $messages = array($messages);
         }
 
         foreach ($messages as $message) {
-            $this->getLogger()->addRecord($level, $formatter->format($message) . PHP_EOL);
+            $this->getLogger()->addRecord($level, $message);
         }
 
         return $this;

@@ -98,13 +98,11 @@ class InstallCommand extends Command
             $options = array_unique(array_merge(explode(', ', $config), $options));
         }
 
-        $this->log(
+        $output->writeln(
             array(
                 sprintf('Installing PHP <info>%s</info>', $version->getVersion()),
                 sprintf('Configure options: <info>[%s]</info>', implode(', ', $options))
-            ),
-            Logger::INFO,
-            $output
+            )
         );
 
         foreach ($this->options as $option) {
@@ -124,7 +122,7 @@ class InstallCommand extends Command
             $option->postInstall($version, $input, $output);
         }
 
-        $this->log(array(
+        $output->writeln(array(
             sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $version->getVersion()),
             sprintf('%s<comment>%s</comment>', self::INDENT, $this->prefix)
         ));
@@ -164,14 +162,14 @@ class InstallCommand extends Command
         if (false === file_exists($dest)) {
             $mirror = $this->getConfiguration()->get('mirror');
 
-            $this->log(array(
+            $output->writeln(array(
                 sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $version->getVersion()),
                 sprintf('%s<comment>%s</comment>', self::INDENT, sprintf($version->getUrl(), $mirror))
             ));
 
             $this->getDownloader()->download($version, $mirror, $this->getDownloadProgressCallback($output));
 
-            $this->log('');
+            $output->writeln('');
         }
 
         $this->archive = $dest;
@@ -197,14 +195,14 @@ class InstallCommand extends Command
     {
         $dest = $this->getExtracter()->getDestination($version);
         if (false === file_exists($dest)) {
-            $this->log(array(
+            $output->writeln(array(
                 sprintf(PHP_EOL . 'Extracting <info>%s</info>', $version->getVersion()),
                 sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
             ));
 
             $this->getExtracter()->extract($version, $this->archive, $this->getProcessCallback($output));
 
-            $this->log('');
+            $output->writeln('');
         }
 
         $this->source = $dest;
@@ -232,7 +230,7 @@ class InstallCommand extends Command
     protected function install(Version $version, $options, OutputInterface $output)
     {
         $dest = $this->getBuilder()->getDestination($version);
-        $this->log(array(
+        $output->writeln(array(
             sprintf(PHP_EOL . 'Building <info>%s</info>', $version->getVersion()),
             sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
         ));
@@ -243,11 +241,12 @@ class InstallCommand extends Command
         $ini = $this->source . DIRECTORY_SEPARATOR . 'php.ini-development';
         $destination = $dest . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'php.ini';
 
-        $this->log(array(
+        $output->writeln(array(
             PHP_EOL . PHP_EOL . 'Moving configuration file',
             sprintf('%s<comment>From: %s</comment>', self::INDENT, $ini),
             sprintf('%s<comment>To: %s</comment>', self::INDENT, $destination)
         ));
+
         if(false === is_dir(dirname($destination))) {
             mkdir(dirname($destination), 0755, true);
         }
@@ -278,15 +277,8 @@ class InstallCommand extends Command
                 return;
             }
 
-            if ('err' === $type) {
-                $buffer = sprintf('<error>%s</error>', $buffer);
-            }
-
-            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
-                $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
-            } else {
-                $self->getHelper('progress')->advance();
-            }
+            $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
+            $self->getHelper('progress')->advance();
         };
     }
 

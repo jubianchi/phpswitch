@@ -18,7 +18,7 @@ class CurrentCommand extends Command
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
         try {
-            $this->log($this->getConfiguration()->get('version'), \Monolog\Logger::INFO, $output);
+            $output->writeln($this->getConfiguration()->get('version'));
         } catch (\InvalidArgumentException $exception) {
             return $exception->getCode();
         }

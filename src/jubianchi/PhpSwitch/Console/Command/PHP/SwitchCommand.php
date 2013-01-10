@@ -69,11 +69,7 @@ class SwitchCommand extends Command
             ->dump()
         ;
 
-        $this->log(
-            sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'),
-            \Monolog\Logger::INFO,
-            $output
-        );
+        $output->writeln(sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'));
 
         return 0;
     }

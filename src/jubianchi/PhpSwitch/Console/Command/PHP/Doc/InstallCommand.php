@@ -185,15 +185,8 @@ class InstallCommand extends Command
                 return;
             }
 
-            if ('err' === $type) {
-                $buffer = sprintf('<error>%s</error>', $buffer);
-            }
-
-            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
-                $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
-            } else {
-                $self->getHelper('progress')->advance();
-            }
+            $self->log($buffer, 'err' === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
+            $self->getHelper('progress')->advance();
         };
     }
 

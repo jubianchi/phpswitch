@@ -64,8 +64,8 @@ class PhpSwitch
         $this->container['app.user.path'] = getenv('HOME');
         $this->container['app.workspace.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
         $this->container['app.config.name'] = '.phpswitch.yml';
-        $this->container['app.logger.output.path'] = 'php://stdout';
-        $this->container['app.logger.error.path'] = 'php://stderr';
+        $this->container['app.logger.output.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'phpswitch.log';
+        $this->container['app.logger.error.path'] = $this->container['app.logger.output.path'];
 
         foreach ($env as $key => $value) {
             $this->container[$key] = $value;
@@ -100,7 +100,7 @@ class PhpSwitch
 
         $this->container['app.logger'] = function(\Pimple $container) {
             $logger = new Logger('output');
-            $formatter = new \Monolog\Formatter\LineFormatter('%message%');
+            $formatter = new \Monolog\Formatter\LineFormatter();
 
             $info = new StreamHandler($container['app.logger.output.path'], Logger::INFO);
             $info->setFormatter($formatter);

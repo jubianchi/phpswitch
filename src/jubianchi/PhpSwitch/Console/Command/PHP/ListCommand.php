@@ -37,12 +37,12 @@ class ListCommand extends Command
     {
         $all = ($input->getOption('all') || (false === $input->getOption('installed') && false === $input->getOption('available')));
         if ($all || $input->getOption('installed')) {
-            $this->log($this->getHelper('formatter')->formatBlock('Installed versions', 'info'));
+            $output->writeln($this->getHelper('formatter')->formatBlock('Installed versions', 'info'));
             $this->listInstalled($output);
         }
 
         if ($all || $input->getOption('available')) {
-            $this->log($this->getHelper('formatter')->formatBlock('Available versions', 'info'));
+            $output->writeln($this->getHelper('formatter')->formatBlock('Available versions', 'info'));
             $this->listAvailable($output);
         }
 
@@ -54,14 +54,12 @@ class ListCommand extends Command
         $finder = new PHP\Finder();
 
         foreach ($finder as  $version) {
-            $this->log(
+            $output->writeln(
                 sprintf(
                     '<info>%-15s</info> <comment>%s</comment>',
                     $version,
                     sprintf($version->getUrl(), 'a')
-                ),
-                \Monolog\Logger::INFO,
-                $output
+                )
             );
         }
     }
@@ -95,14 +93,12 @@ class ListCommand extends Command
         );
 
         foreach ($versions as $path => $version) {
-            $this->log(
+            $output->writeln(
                 sprintf(
                     '<info>%-15s</info> <comment>%s</comment>',
                     $version,
                     $path
-                ),
-                \Monolog\Logger::INFO,
-                $output
+                )
             );
 
         }
