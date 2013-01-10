@@ -12,22 +12,22 @@ class Finder implements \IteratorAggregate
     private $items;
 
     /** @var \Symfony\Component\DomCrawler\Crawler */
-    private $urls;
+    private $sites;
 
     /**
      * @param array|null                                 $urls
      * @param \Symfony\Component\DomCrawler\Crawler|null $crawler
      */
-    public function __construct(array $urls = null, Crawler $crawler = null)
+    public function __construct(array $sites = null, Crawler $crawler = null)
     {
         if (null === $crawler) {
             $this->crawler = new Crawler();
         }
 
-        $this->urls = $urls ?: array(
-            'http://php.net/releases',
-            'http://downloads.php.net/stas',
-            'http://downloads.php.net/dsp'
+        $this->sites = $sites ?: array(
+            'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
+            'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
+            'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)\.tar\.bz2)/'
         );
     }
 
@@ -46,14 +46,14 @@ class Finder implements \IteratorAggregate
     {
         $versions = array();
 
-        foreach($this->urls as $url) {
+        foreach($this->sites as $url => $regex) {
             $this->crawler->clear();
             $this->crawler->addContent(file_get_contents($url));
 
             foreach (static::crawl($this->crawler) as $elem) {
                 $value = $elem->nodeValue;
 
-                if (false != preg_match('/^((?:PHP\s*|php-)([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)).*tar\.bz2.*/', $value, $matches)) {
+                if (false != preg_match($regex, $value, $matches)) {
                     $href = $elem->getAttribute('href');
                     if(false == preg_match('/^https?:\/\//', $href)) {
                         $href = rtrim($url, '/') . '/' . $href;
