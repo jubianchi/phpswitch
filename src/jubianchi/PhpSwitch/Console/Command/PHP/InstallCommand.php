@@ -67,6 +67,8 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         $finder = new PHPFinder();
         $version = $finder->getVersion($input->getArgument('version'));
 

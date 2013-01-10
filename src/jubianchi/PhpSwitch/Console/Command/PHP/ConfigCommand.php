@@ -31,6 +31,8 @@ class ConfigCommand extends Command
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         try {
             $version = $this->getConfiguration()->get('version');
             $path = implode(

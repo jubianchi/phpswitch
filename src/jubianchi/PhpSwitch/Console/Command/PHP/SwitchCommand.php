@@ -36,6 +36,8 @@ class SwitchCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         $version = $input->getArgument('version');
         $version = ('off' === $version ? null : $version);
 
