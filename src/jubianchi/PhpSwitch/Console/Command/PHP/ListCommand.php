@@ -66,8 +66,6 @@ class ListCommand extends Command
 
     protected function listInstalled(OutputInterface $output)
     {
-        parent::execute($input, $output);
-        
         $path = $this->getApplication()->getService('app.workspace.installed.path');
         $finder = new Finder();
         $finder
