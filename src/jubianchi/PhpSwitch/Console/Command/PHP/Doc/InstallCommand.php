@@ -86,7 +86,7 @@ class InstallCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         parent::execute($input, $output);
-        
+
         $format = $input->getOption('format');
         $lang = $input->getOption('lang');
         $filename = static::getFilename($format, $lang);

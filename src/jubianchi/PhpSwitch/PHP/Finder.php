@@ -55,8 +55,15 @@ class Finder implements \IteratorAggregate
 
                 if (false != preg_match($regex, $value, $matches)) {
                     $href = $elem->getAttribute('href');
+                    $url = rtrim($url, '/');
+
                     if(false == preg_match('/^https?:\/\//', $href)) {
-                        $href = rtrim($url, '/') . '/' . $href;
+                        if (0 === strpos($href, '/')) {
+                            $parts = parse_url($url);
+                            $url = $parts['scheme'] . '://' . $parts['host'] . (isset($parts['port']) ? ':' . $parts['port'] : '');
+                        }
+
+                        $href = $url . '/' . ltrim($href, '/');
                     }
 
                     $version = $matches[2];
