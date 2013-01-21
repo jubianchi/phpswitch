@@ -11,8 +11,6 @@ class InitCommand extends Command
     const NAME = 'init';
     const DESC = 'Initializes PhpSwitch environment';
 
-    const INDENT = '    ';
-
     /**
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output

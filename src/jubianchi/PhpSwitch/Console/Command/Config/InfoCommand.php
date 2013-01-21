@@ -10,8 +10,6 @@ class InfoCommand extends Command
     const NAME = 'config:info';
     const DESC = 'Displays configuration';
 
-    const INDENT = '    ';
-
     /**
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
@@ -29,6 +27,8 @@ class InfoCommand extends Command
 
             if (is_scalar($value)) {
                 $output->writeln(sprintf('<info>%-35s</info><comment>%s</comment>', $key, $value));
+            } else {
+                $output->writeln(sprintf('<info>%-35s</info><comment>%s</comment>', $key, get_class($value)));
             }
         }
 
