@@ -3,7 +3,8 @@
 prompt_phpswitch() {
     local version
 
-    version=$(php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:current 2> /dev/null)
+    version=$(php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:current 2> /dev/null)
 
     if [ $? ] && [ -z "$version" ]
     then

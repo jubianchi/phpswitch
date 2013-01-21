@@ -2,6 +2,70 @@
 
 [ -z "$_PHPSWITCH_ORIG_PATH" ] && export _PHPSWITCH_ORIG_PATH=$PATH
 
+phpswitch_help() {
+    local STATUS
+
+    /usr/bin/env php -h
+    STATUS=$?
+
+    echo 'phpswitch commands:'
+    echo '  - php list                   Lists available PHP versions'
+    echo '  - php current                Displays current PHP version'
+    echo '  - php config <key> [<value>] Gets or Sets configuration for current PHP version'
+    echo '  - php switch <version>       Switches current PHP version'
+
+    return $STATUS
+}
+
+phpswitch_list() {
+    /usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:list --installed 2> /dev/null
+
+    return $?
+}
+
+phpswitch_current() {
+    /usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:current 2> /dev/null
+
+    /usr/bin/env php -ddisplay_errors=stderr -v 2> /dev/null
+
+    return $?
+}
+
+phpswitch_config() {
+    /usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:config $1 $2 2> /dev/null
+
+    return $?
+}
+
+phpswitch_switchoff() {
+    export PATH=$_PHPSWITCH_ORIG_PATH
+
+    /usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:switch off 2> /dev/null
+}
+
+phpswitch_switchon() {
+    if [ "$1" != "on" ]
+    then
+        /usr/bin/env php \
+            {{ path }}/bin/phpswitch php:switch $1 $2
+        STATUS=$?
+    fi
+
+    VERSION=$(/usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:current 2> /dev/null)
+
+    if [ $? ] && [ ! -z "$VERSION" ]
+    then
+        export PATH={{ installed }}/$VERSION/bin:$_PHPSWITCH_ORIG_PATH
+    fi
+
+    return $STATUS
+}
+
 php() {
     local VERSION STATUS
 
@@ -9,33 +73,24 @@ php() {
 
     case "$1" in
         -h)
-            /usr/bin/env php -h
-            STATUS=$?
+            phpswitch_help
 
-            echo 'phpswitch commands:'
-            echo '  - php list       Lists available PHP versions'
-            echo '  - php current    Displays current PHP version'
-            echo '  - php config     Gets or Sets configuration for current PHP version'
-            echo '  - php switch     Switches current PHP version'
-
-            return $STATUS
+            return $?
             ;;
         list)
-            /usr/bin/env php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:list --installed 2> /dev/null
+            phpswitch_list
 
             return $?
             ;;
 
         current)
-            /usr/bin/env php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:current 2> /dev/null
-
-            /usr/bin/env php -ddisplay_errors=stderr -v 2> /dev/null
+            phpswitch_current
 
             return $?
             ;;
 
         config)
-            /usr/bin/env php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:config $2 $3 2> /dev/null
+            phpswitch_config $2 $3
 
             return $?
             ;;
@@ -43,23 +98,11 @@ php() {
         switch)
             if [ "$2" = "off" ]
             then
-                export PATH=$_PHPSWITCH_ORIG_PATH
-                /usr/bin/env php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:switch off 2> /dev/null
-                STATUS=$?
+                phpswitch_switchoff
             else
-                if [ "$2" != "on" ]
-                then
-                    /usr/bin/env php {{ path }}/bin/phpswitch php:switch $2 $3
-                    STATUS=$?
-                fi
-
-                VERSION=$(/usr/bin/env php -ddisplay_errors=stderr {{ path }}/bin/phpswitch php:current 2> /dev/null)
-
-                if [ $? ] && [ ! -z "$VERSION" ]
-                then
-                    export PATH={{ installed }}/$VERSION/bin:$_PHPSWITCH_ORIG_PATH
-                fi
+                phpswitch_switchon $2 $3
             fi
+            STATUS=$?
 
             [ $STATUS -eq 0 ] && /usr/bin/env php -ddisplay_errors=stderr -v 2> /dev/null
 
