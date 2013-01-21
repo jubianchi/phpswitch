@@ -1,4 +1,5 @@
 bin/atoum
+bin/behat
 .vagrant
 vendor
 coverage
