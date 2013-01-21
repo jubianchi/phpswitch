@@ -23,16 +23,21 @@ class Iterator extends \FilterIterator
     {
         $className = $this->current();
 
-        if (class_exists($className)) {
-            $reflector = new \ReflectionClass($className);
+        try{
+            $reflector = $this->getReflector($className);
 
             return (
                 true === $reflector->isInstantiable() &&
                 true === $reflector->isSubclassOf('\\jubianchi\\PhpSwitch\\PHP\\Option\\Option')
             );
+        } catch(\ReflectionException $exception) {
+            return false;
         }
+    }
 
-        return false;
+    public function getReflector($className)
+    {
+        return new \ReflectionClass($className);
     }
 
     /**

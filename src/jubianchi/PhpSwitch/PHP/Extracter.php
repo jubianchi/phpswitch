@@ -17,15 +17,15 @@ class Extracter
     }
 
     /**
-     * @param string   $version
-     * @param string   $file
-     * @param callable $callback
+     * @param \jubianchi\PhpSwitch\PHP\Version   $version
+     * @param string                             $file
+     * @param callable                           $callback
      *
      * @return \jubianchi\PhpSwitch\PHP\Extracter
      */
     public function extract(Version $version, $file, $callback = null)
     {
-        $basename = 'php-' . $version->getVersion();
+        $basename = Version::DEFAULT_NAME . '-' . $version->getVersion();
         $dirname = dirname($file);
 
         $process = new Process(

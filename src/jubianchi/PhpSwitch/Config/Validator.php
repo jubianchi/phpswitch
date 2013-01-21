@@ -1,7 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\Config;
 
-use jubianchi\PhpSwitch;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Processor;
@@ -9,17 +8,6 @@ use Symfony\Component\Config\Definition\Processor;
 class Validator implements ConfigurationInterface
 {
     const ROOT = 'phpswitch';
-
-    /** @var string */
-    private $directory;
-
-    /**
-     * @param string $directory
-     */
-    public function __construct($directory)
-    {
-        $this->directory = $directory;
-    }
 
     /**
      * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
@@ -47,13 +35,14 @@ class Validator implements ConfigurationInterface
     }
 
     /**
-     * @param array $values
+     * @param array                                          $values
+     * @param \Symfony\Component\Config\Definition\Processor $processor
      *
      * @return array
      */
-    public function validate(array $values)
+    public function validate(array $values, Processor $processor = null)
     {
-        $processor = new Processor();
+        $processor = $processor ?: New Processor();
 
         return $processor->processConfiguration($this, $values);
     }

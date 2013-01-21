@@ -38,6 +38,34 @@ class Version extends atoum\test
         ;
     }
 
+    public function testFromString()
+    {
+        $this
+            ->if($version = uniqid())
+            ->then
+                ->exception(function() use($version) {
+                    TestedClass::fromString(uniqid() . '-' . $version);
+                })
+                    ->isInstanceOf('\InvalidArgumentException')
+                    ->hasMEssage(sprintf('Wrong PHP version %s', $version))
+            ->if($version = '5.5.5')
+            ->then
+                ->object($object = TestedClass::fromString($version))->isInstanceOf('\\jubianchi\PhpSwitch\PHP\Version')
+                ->string($object->getName())->isEqualTo(TestedClass::DEFAULT_NAME)
+                ->string($object->getVersion())->isEqualTo($version)
+            ->if($name = uniqid())
+            ->then
+                ->object($object = TestedClass::fromString($name . '-' . $version))->isInstanceOf('\\jubianchi\PhpSwitch\PHP\Version')
+                ->string($object->getName())->isEqualTo($name)
+                ->string($object->getVersion())->isEqualTo($version)
+            ->if($name = uniqid() . '-' . uniqid())
+            ->then
+                ->object($object = TestedClass::fromString($name . '-' . $version))->isInstanceOf('\\jubianchi\PhpSwitch\PHP\Version')
+                ->string($object->getName())->isEqualTo($name)
+                ->string($object->getVersion())->isEqualTo($version)
+        ;
+    }
+
     public function test__toString()
     {
         $this

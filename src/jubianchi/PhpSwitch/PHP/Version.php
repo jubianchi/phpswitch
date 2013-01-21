@@ -16,8 +16,12 @@ class Version
 
     public static function fromString($version)
     {
-        $infos = explode('-', $version, 2);
-        return new static($infos[1], null, $infos[0]);
+        $infos = explode('-', $version);
+
+        $name = implode('-', array_slice($infos, 0, -1));
+        $version = current(array_slice($infos, -1));
+
+        return new static($version, null, $name);
     }
 
     /**

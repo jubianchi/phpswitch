@@ -9,13 +9,10 @@ class Finder implements \IteratorAggregate
     private $crawler;
 
     /** @var \Symfony\Component\DomCrawler\Crawler */
-    private $items;
-
-    /** @var \Symfony\Component\DomCrawler\Crawler */
     private $sites;
 
     /**
-     * @param array|null                                 $urls
+     * @param array|null                                 $sites
      * @param \Symfony\Component\DomCrawler\Crawler|null $crawler
      */
     public function __construct(array $sites = null, Crawler $crawler = null)

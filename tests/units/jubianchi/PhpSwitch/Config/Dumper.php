@@ -3,6 +3,7 @@ namespace tests\units\jubianchi\PhpSwitch\Config;
 
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
+use mageekguy\atoum\mock\streams\file;
 use jubianchi\PhpSwitch\Config\Dumper as TestedClass;
 
 require_once __DIR__ . '/../../../../bootstrap.php';
@@ -12,8 +13,7 @@ class Dumper extends atoum\test
     public function testDump() {
         $this
             ->if($directory = stream::get('directory'))
-            ->if($file = stream::getSubStream($directory, $name = uniqid()))
-            ->and($file->file_get_contents = '')
+            ->if($file = file::getSubStream($directory, $name = uniqid()))
             ->and($file->file_put_contents = true)
             ->and($directory->readdir[1] = $file)
             ->and($object = new TestedClass($directory))
@@ -32,7 +32,7 @@ class Dumper extends atoum\test
             ->then
                 ->object($object->dump($name, $configuration))
                 ->adapter($file)
-                    ->call('stream_write')->withArguments("phpswitch:\n    $key: $value\n    $otherKey: { $subKey: $subValue }\n")->once()
+                    ->call('stream_write')->withArguments("phpswitch:\n  $key: $value\n  $otherKey: { $subKey: $subValue }\n")->once()
         ;
     }
 }
