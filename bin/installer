@@ -114,6 +114,9 @@ function download(array $args) {
     }
 
     printfln('>> <yellow>Updating dependencies...');
+    if(true === is_file($path . DIRECTORY_SEPARATOR . 'composer.phar')) {
+        unlink($path . DIRECTORY_SEPARATOR . 'composer.phar');
+    }
     exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist', $output);
 
     return true;
