@@ -118,6 +118,10 @@ class PhpSwitch
             return new \Twig_Environment($loader);
         };
 
+        $this->container['app.process.builder'] = function(\Pimple $container) {
+            return new Process\Builder();
+        };
+
         return $this;
     }
 
@@ -149,11 +153,17 @@ class PhpSwitch
     protected function initPhp()
     {
         $this->container['app.php.builder'] = function(\Pimple $container) {
-            return new PHP\Builder($container['app.workspace.installed.path']);
+            return new PHP\Builder(
+                $container['app.workspace.installed.path'],
+                $container['app.process.builder']
+            );
         };
 
         $this->container['app.php.extracter'] = function(\Pimple $container) {
-            return new PHP\Extracter($container['app.workspace.sources.path']);
+            return new PHP\Extracter(
+                $container['app.workspace.sources.path'],
+                $container['app.process.builder']
+            );
         };
 
         $this->container['app.php.downloader'] = function(\Pimple $container) {

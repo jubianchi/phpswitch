@@ -1,7 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP;
 
-use Symfony\Component\Process\Process;
+use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class Builder
@@ -9,12 +9,17 @@ class Builder
     /** @var string */
     private $directory;
 
+    /** @var \jubianchi\PhpSwitch\Process\Builder */
+    private $builder;
+
     /**
-     * @param string $directory
+     * @param string                               $directory
+     * @param \jubianchi\PhpSwitch\Process\Builder $builder
      */
-    public function __construct($directory)
+    public function __construct($directory, ProcessBuilder $builder = null)
     {
         $this->directory = $directory;
+        $this->builder = $builder ?: new ProcessBuilder();
     }
 
     /**
@@ -41,8 +46,13 @@ class Builder
     public function clean($source, $callback = null)
     {
         if (true === file_exists($this->directory . DIRECTORY_SEPARATOR . 'Makefile')) {
-            $process = new Process('make clean', $source);
-            $process->run($callback);
+            $this->builder->get()
+                ->setWorkingDirectory($source)
+                ->add('make')
+                ->add('clean')
+                ->getProcess()
+                    ->run($callback)
+            ;
         }
 
         return $this;
@@ -61,15 +71,20 @@ class Builder
     public function configure(Version $version, $source, $options, $callback = null)
     {
         $prefix = $this->getDestination($version);
-        $args[] = '--prefix=' . $prefix;
-        $args[] = '--with-config-file-path=' . $prefix . '/etc';
-        $args[] = '--with-config-file-scan-dir=' . $prefix . '/var/db';
-        $args[] = '--with-pear=' . $prefix . '/lib/php';
+        $builder = $this->builder->get()
+            ->setWorkingDirectory($source)
+            ->add('./configure')
+            ->add('--prefix=' . $prefix)
+            ->add('--with-config-file-path=' . $prefix . '/etc')
+            ->add('--with-config-file-scan-dir=' . $prefix . '/var/db')
+            ->add('--with-pear=' . $prefix . '/lib/php')
+        ;
 
-        $process = new Process(
-            './configure ' . implode(' ', $args) . ' ' . $options,
-            $source
-        );
+        foreach(explode(' ', $options) as $option) {
+            $builder->add((string) $option);
+        }
+
+        $process = $builder->getProcess();
         $process->run($callback);
 
         if (false === $process->isSuccessful()) {
@@ -89,16 +104,23 @@ class Builder
      */
     public function make($source, $callback = null)
     {
-        $process = new Process('make', $source);
+        $process = $this->builder->get()
+            ->setWorkingDirectory($source)
+            ->add('make')
+            ->getProcess()
+        ;
         $process->run($callback);
-
         if (false === $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
-        $process = new Process('make install', $source);
+        $process = $this->builder->get()
+            ->setWorkingDirectory($source)
+            ->add('make')
+            ->add('install')
+            ->getProcess()
+        ;
         $process->run($callback);
-
         if (false === $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }

@@ -1,19 +1,24 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP;
 
-use Symfony\Component\Process\Process;
+use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
 
 class Extracter
 {
     /** @var string */
     private $directory;
 
+    /** @var \jubianchi\PhpSwitch\Process\Builder */
+    private $builder;
+
     /**
-     * @param string $directory
+     * @param string                               $directory
+     * @param \jubianchi\PhpSwitch\Process\Builder $builder
      */
-    public function __construct($directory)
+    public function __construct($directory, ProcessBuilder $builder = null)
     {
         $this->directory = $directory;
+        $this->builder = $builder ?: new ProcessBuilder();
     }
 
     /**
@@ -28,21 +33,24 @@ class Extracter
         $basename = Version::DEFAULT_NAME . '-' . $version->getVersion();
         $dirname = dirname($file);
 
-        $process = new Process(
-            sprintf('tar -xvf %s', escapeshellarg($file)),
-            $dirname
-        );
-        $process->run($callback);
+        $this->builder->get()
+            ->setWorkingDirectory($dirname)
+            ->add('tar')
+            ->add('-xvf')
+            ->add($file)
+            ->getProcess()
+                ->run($callback)
+        ;
 
-        $process = new Process(
-            sprintf(
-                'mv -f %s %s',
-                escapeshellarg($basename),
-                $this->getDestination($version)
-            ),
-            $dirname
-        );
-        $process->run($callback);
+        $this->builder->get()
+            ->setWorkingDirectory($dirname)
+            ->add('mv')
+            ->add('-f')
+            ->add($basename)
+            ->add($this->getDestination($version))
+            ->getProcess()
+                ->run($callback)
+        ;
 
         return $this;
     }

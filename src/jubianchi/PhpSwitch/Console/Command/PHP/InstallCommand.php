@@ -222,7 +222,7 @@ class InstallCommand extends Command
 
     /**
      * @param \jubianchi\PhpSwitch\PHP\Version                  $version
-     * @param array                                             $options
+     * @param string                                            $options
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \RuntimeException
