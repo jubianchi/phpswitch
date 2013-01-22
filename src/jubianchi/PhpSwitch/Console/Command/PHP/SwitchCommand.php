@@ -31,6 +31,7 @@ class SwitchCommand extends Command
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      *
      * @return int
      */

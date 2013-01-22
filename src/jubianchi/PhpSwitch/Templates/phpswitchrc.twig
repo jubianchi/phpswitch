@@ -112,3 +112,21 @@ php() {
 
     /usr/bin/env php $*
 }
+
+phpswitch_dir() {
+    if [ -f .phpswitch.yml ]
+    then
+        /usr/bin/env php {{ path }}/bin/phpswitch php:current 2> /dev/null | read VERSION
+
+        if [ $? ] && [ ! -z "$VERSION" ]
+        then
+            export PATH={{ installed }}/$VERSION/bin:$_PHPSWITCH_ORIG_PATH
+        fi
+    fi
+}
+
+[ $(echo $SHELL | grep bash) ] && export PROMPT_COMMAND="phpswitch_dir"
+if [ $(echo $SHELL | grep zsh) ]
+then
+    precmd_functions=($precmd_functions phpswitch_dir)
+fi

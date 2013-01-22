@@ -136,7 +136,12 @@ class PhpSwitch
         };
 
         $this->container['app.config.loader'] = function(\Pimple $container) {
-            return new Config\Loader($container['app.user.path'], $container['app.config.validator']);
+            return new Config\Loader(
+                is_file(getcwd() . DIRECTORY_SEPARATOR . $container['app.config.name'])
+                    ? getcwd()
+                    : $container['app.user.path'],
+                $container['app.config.validator']
+            );
         };
 
         $this->container['app.config.validator'] = function(\Pimple $container) {

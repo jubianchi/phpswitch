@@ -1,15 +1,15 @@
 #!/bin/bash
 
 prompt_phpswitch() {
-    local version
+    local VERSION
 
-    version=$(php -ddisplay_errors=stderr \
+    VERSION=$(php -ddisplay_errors=stderr \
         {{ path }}/bin/phpswitch php:current 2> /dev/null)
 
-    if [ $? ] && [ -z "$version" ]
+    if [ $? ] && [ -z "$VERSION" ]
     then
         command -v prompt_php > /dev/null && prompt_php $1
     else
-        $1 red white $version
+        $1 red white $VERSION
     fi
 }
