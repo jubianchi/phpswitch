@@ -60,6 +60,7 @@ phpswitch_switchon() {
 
     if [ $? ] && [ ! -z "$VERSION" ]
     then
+        export _PHPSWITCH_CURRENT_VERSION=$VERSION
         export PATH={{ installed }}/$VERSION/bin:$_PHPSWITCH_ORIG_PATH
     fi
 
@@ -114,14 +115,15 @@ php() {
 }
 
 phpswitch_dir() {
-    if [ -f .phpswitch.yml ]
-    then
-        /usr/bin/env php {{ path }}/bin/phpswitch php:current 2> /dev/null | read VERSION
+    /usr/bin/env php {{ path }}/bin/phpswitch php:current 2> /dev/null | read VERSION
 
-        if [ $? ] && [ ! -z "$VERSION" ]
-        then
-            export PATH={{ installed }}/$VERSION/bin:$_PHPSWITCH_ORIG_PATH
-        fi
+    [ "$_PHPSWITCH_CURRENT_VERSION" = "$VERSION" ] && return
+
+    if [ $? ] && [ ! -z "$VERSION" ]
+    then
+        phpswitch_switchon $VERSION 1 > /dev/null 2>&1
+    else
+        phpswitch_switchoff 1 > /dev/null 2>&1
     fi
 }
 
