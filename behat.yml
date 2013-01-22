@@ -1,4 +1,0 @@
-default:
-    paths:
-        features: "features"
-        bootstrap: "features/Context"
