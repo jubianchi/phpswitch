@@ -7,9 +7,9 @@ class Resolver
 {
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param array                                           $options
+     * @param \jubianchi\PhpSwitch\PHP\Option\Option[]        $options
      *
-     * @return array
+     * @return \jubianchi\PhpSwitch\PHP\Option\Option[]
      */
     public function resolve(InputInterface $input, array $options)
     {
@@ -17,6 +17,11 @@ class Resolver
         foreach ($options as $option) {
             if ($option->isEnabled($input) && false === in_array($option, $opts)) {
                 $opts[] = $option;
+
+                $requires = $option->requires();
+                if (count($requires) > 0) {
+                    $opts = array_merge($opts, $requires);
+                }
             }
         }
 

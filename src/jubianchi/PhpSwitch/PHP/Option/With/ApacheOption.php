@@ -1,7 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\With;
 
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
 class ApacheOption extends WithOption

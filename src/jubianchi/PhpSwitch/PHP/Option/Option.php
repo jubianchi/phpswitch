@@ -46,7 +46,7 @@ abstract class Option
      */
     public function getDesc()
     {
-        return static::DESC ?: 'Enables ' . static::ARG . sprintf($this->getAlias() ? ' <comment>(%s)</comment>' : '', $this->getAlias());
+        return (static::DESC ?: 'Enables ' . static::ARG) . sprintf($this->getAlias() ? ' <comment>(%s)</comment>' : '', $this->getAlias());
     }
 
     /**
@@ -78,6 +78,11 @@ abstract class Option
         $value = $input->getOption($this->getName());
         $enabled = (bool) $value;
 
+        if(null === $value && static::MODE === InputOption::VALUE_OPTIONAL)
+        {
+            $enabled = true;
+        }
+
         if ($enabled && static::MODE !== InputOption::VALUE_NONE) {
             $this->value = $value;
         }
@@ -101,6 +106,14 @@ abstract class Option
     public function postInstall(Version $version, InputInterface $input, OutputInterface $output)
     {
 
+    }
+
+    /**
+     * @return \jubianchi\PhpSwitch\PHP\Option\Option[]
+     */
+    public function requires()
+    {
+        return array();
     }
 
     /**
