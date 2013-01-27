@@ -4,7 +4,7 @@ namespace jubianchi\PhpSwitch\PHP\Option;
 use Symfony\Component\Console\Input\InputOption;
 use jubianchi\PhpSwitch\PHP\Option\Enable;
 
-class AliasOption extends Option
+abstract class AliasOption extends Option
 {
     const ARG = 'atoum';
     const DESC = 'atoum configure options';

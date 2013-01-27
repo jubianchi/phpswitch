@@ -69,11 +69,27 @@ class Application extends BaseApplication
     }
 
     /**
-     * @return \jubianchi\PhpSwitch\PHP\Builder
+     * @return \jubianchi\PhpSwitch\PHP\Option\Finder
      */
     public function getOptionFinder()
     {
         return $this->getService('app.php.option.finder');
+    }
+
+    /**
+     * @return \jubianchi\PhpSwitch\PHP\Option\Resolver
+     */
+    public function getOptionResolver()
+    {
+        return $this->getService('app.php.option.resolver');
+    }
+
+    /**
+     * @return \jubianchi\PhpSwitch\PHP\Option\Normalizer
+     */
+    public function getOptionNormalizer()
+    {
+        return $this->getService('app.php.option.normalizer');
     }
 
     /**

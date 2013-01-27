@@ -183,6 +183,14 @@ class PhpSwitch
             );
         };
 
+        $this->container['app.php.option.resolver'] = function(\Pimple $container) {
+            return new PHP\Option\Resolver();
+        };
+
+        $this->container['app.php.option.normalizer'] = function(\Pimple $container) {
+            return new PHP\Option\Normalizer();
+        };
+
         return $this;
     }
 }

@@ -41,6 +41,18 @@ abstract class Option
         return static::ARG;
     }
 
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
     /**
      * @return string
      */
@@ -121,6 +133,6 @@ abstract class Option
      */
     public function __toString()
     {
-        return $this->getAlias() . ($this->value ? '=' . escapeshellarg($this->value) : '');
+        return $this->getAlias() . ($this->value ? '=' . $this->value : '');
     }
 }

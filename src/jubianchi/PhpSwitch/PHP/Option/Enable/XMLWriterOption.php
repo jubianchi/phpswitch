@@ -1,8 +1,8 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option\Enable;
 
-class XMLOption extends EnableOption
+class XMLWriterOption extends EnableOption
 {
     const ARG = 'xml';
-    const ALIAS = '--enable-xml';
+    const ALIAS = '--enable-xmlwriter';
 }

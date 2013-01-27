@@ -159,7 +159,11 @@ class SwitchCommand extends Command
             exec('command -v apxs', $result, $status);
 
             if (0 !== $status) {
-                throw new \RuntimeException('Could not find apxs command');
+                exec('command -v apxs2', $result, $status);
+
+                if (0 !== $status) {
+                    throw new \RuntimeException('Could not find apxs command');
+                }
             }
 
             $command = $result[0];

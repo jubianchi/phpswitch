@@ -63,6 +63,9 @@ class InstallCommand extends Command
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -81,11 +84,9 @@ class InstallCommand extends Command
             throw new \RuntimeException(sprintf('PHP version %s is already installed', $version));
         }
 
-        $resolver = new Resolver();
+        $options = $this->getResolver()->resolve($input, $this->options);
 
-        $options = $resolver->resolve($input, $this->options);
-
-        if(null !== ($config = $input->getOption('config'))) {
+        if (null !== ($config = $input->getOption('config'))) {
             try {
                 $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $config));
             } catch(\InvalidArgumentException $exception) {
@@ -96,31 +97,36 @@ class InstallCommand extends Command
                 );
             }
 
-
-            $options = array_unique(array_merge(explode(', ', $config), $options));
+            $options = array_merge(
+                $this->getNormalizer()->denormalize($config, $this->options),
+                $options
+            );
         }
+
+        $options = array_unique($options);
+        $normalized = $this->getNormalizer()->normalize($options);
 
         $output->writeln(
             array(
                 sprintf('Installing PHP <info>%s</info>', $version->getVersion()),
-                sprintf('Configure options: <info>[%s]</info>', implode(', ', $options))
+                sprintf('Configure options: <info>[%s]</info>', $normalized)
             )
         );
 
-        foreach ($this->options as $option) {
+        foreach ($options as $option) {
             $option->preInstall($version, $input, $output);
         }
 
         $this
             ->download($version, $output)
             ->extract($version, $output)
-            ->install($version, implode(' ', $options), $output)
+            ->install($version, $this->getNormalizer()->normalize($options), $output)
             ->getConfiguration()
-                ->set('versions.' . str_replace('.', '-', $version), implode(', ', $options))
+                ->set('versions.' . str_replace('.', '-', $version), $normalized)
                 ->dump()
         ;
 
-        foreach ($this->options as $option) {
+        foreach ($options as $option) {
             $option->postInstall($version, $input, $output);
         }
 
@@ -130,6 +136,16 @@ class InstallCommand extends Command
         ));
 
         return 0;
+    }
+
+    public function getResolver()
+    {
+        return $this->getApplication()->getOptionResolver();
+    }
+
+    public function getNormalizer()
+    {
+        return $this->getApplication()->getOptionNormalizer();
     }
 
     protected function startProgress(OutputInterface $output, $max = null, $format = '[%bar%]')

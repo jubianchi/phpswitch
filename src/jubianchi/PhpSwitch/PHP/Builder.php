@@ -85,6 +85,7 @@ class Builder
         }
 
         $process = $builder->getProcess();
+
         $process->run($callback);
 
         if (false === $process->isSuccessful()) {
