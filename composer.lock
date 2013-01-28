@@ -550,21 +550,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/atoum/atoum.git",
-                "reference": "3b076664a0e577f525baee6a5517f669a4d870c6"
+                "reference": "906235bc46ac74a11d0fa73258c21dacb3ce9e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/atoum/atoum/archive/3b076664a0e577f525baee6a5517f669a4d870c6.zip",
-                "reference": "3b076664a0e577f525baee6a5517f669a4d870c6",
+                "url": "https://github.com/atoum/atoum/archive/906235bc46ac74a11d0fa73258c21dacb3ce9e66.zip",
+                "reference": "906235bc46ac74a11d0fa73258c21dacb3ce9e66",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.3",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-posix": "*",
+                "ext-session": "*",
+                "ext-tokenizer": "*",
+                "ext-xml": "*"
             },
             "replace": {
                 "mageekguy/atoum": "*"
             },
-            "time": "2013-01-18 23:03:07",
+            "time": "2013-01-28 12:44:14",
             "bin": [
                 "bin/atoum"
             ],
@@ -575,7 +581,7 @@
                     "classes/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "BSD"
             ],
