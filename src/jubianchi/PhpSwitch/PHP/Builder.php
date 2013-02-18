@@ -106,6 +106,7 @@ class Builder
     public function make($source, $callback = null)
     {
         $process = $this->builder->get()
+            ->setTimeout(null)
             ->setWorkingDirectory($source)
             ->add('make')
             ->getProcess()
@@ -116,6 +117,7 @@ class Builder
         }
 
         $process = $this->builder->get()
+            ->setTimeout(null)
             ->setWorkingDirectory($source)
             ->add('make')
             ->add('install')
