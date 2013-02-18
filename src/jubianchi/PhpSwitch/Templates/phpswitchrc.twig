@@ -115,7 +115,8 @@ php() {
 }
 
 phpswitch_dir() {
-    /usr/bin/env php {{ path }}/bin/phpswitch php:current 2> /dev/null | read VERSION
+    VERSION=$(/usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:current 2> /dev/null)
 
     [ "$_PHPSWITCH_CURRENT_VERSION" = "$VERSION" ] && return
 
