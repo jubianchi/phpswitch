@@ -65,7 +65,7 @@ class ConfigCommand extends Command
     {
         $path = $this->getConfigurationFilePath($name);
 
-        if (is_writable(dirname($path))) {
+        if (false === is_writable(dirname($path))) {
             throw new \RuntimeException('You don\'t have the required permission to edit configuration');
         }
 
