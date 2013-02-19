@@ -5,7 +5,7 @@ use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
 use jubianchi\PhpSwitch\Config\Validator as TestedClass;
 
-require_once __DIR__ . '/../../../../bootstrap.php';
+require_once __DIR__ . '/../../../bootstrap.php';
 
 class Validator extends atoum\test
 {

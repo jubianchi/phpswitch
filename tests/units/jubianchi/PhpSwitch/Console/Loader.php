@@ -4,7 +4,7 @@ namespace tests\units\jubianchi\PhpSwitch\Console;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Console\Loader as TestedClass;
 
-require_once __DIR__ . '/../../../../bootstrap.php';
+require_once __DIR__ . '/../../../bootstrap.php';
 
 class Loader extends atoum\test
 {

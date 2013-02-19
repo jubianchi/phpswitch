@@ -4,7 +4,7 @@ namespace tests\units\jubianchi\PhpSwitch\Config;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Config\Configuration as TestedClass;
 
-require_once __DIR__ . '/../../../../bootstrap.php';
+require_once __DIR__ . '/../../../bootstrap.php';
 
 class Configuration extends atoum\test
 {

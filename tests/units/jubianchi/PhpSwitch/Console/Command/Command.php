@@ -4,7 +4,7 @@ namespace tests\units\jubianchi\PhpSwitch\Console\Command;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Console\Command\Command as TestedClass;
 
-require_once __DIR__ . '/../../../../../bootstrap.php';
+require_once __DIR__ . '/../../../../bootstrap.php';
 
 class Command extends atoum\test
 {

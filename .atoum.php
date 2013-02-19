@@ -41,5 +41,5 @@ if(COLORIZED)
 }
 
 $runner->addReport($cliReport);
-$runner->setBootstrapFile(__DIR__ . '/tests/bootstrap.php');
-$script->addTestAllDirectory(__DIR__ . '/tests');
+$runner->setBootstrapFile(__DIR__ . '/tests/units/bootstrap.php');
+$script->addTestAllDirectory(__DIR__ . '/tests/units');
