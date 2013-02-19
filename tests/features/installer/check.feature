@@ -27,7 +27,7 @@ Feature: Check
         """
         > phpswitch installer
         >> Checking requirements...
-        >>> Actual PHP version is 5.3.15
+        >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
         >>> cURL extension is enabled
         >>> You don't have required permissions on \/usr\/local\/bin, \/usr\/share
         """
