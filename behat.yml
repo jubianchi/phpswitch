@@ -1,0 +1,4 @@
+default:
+    paths:
+        features: "tests/features"
+        bootstrap: "tests/features/Context"

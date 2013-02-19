@@ -187,16 +187,20 @@ function checkPermissions(array $args) {
 }
 
 function getPaths(array $args) {
+    ob_start();
+
     if(true === in_array('--global', $args)) {
         $paths = array(
-            dirname(PHPSWITCH_SYMLINK) => is_writeable(dirname(PHPSWITCH_SYMLINK)),
-            dirname(PHPSWITCH_PATH) => is_writeable(dirname(PHPSWITCH_PATH))
+            dirname(PHPSWITCH_SYMLINK) => @is_writeable(dirname(PHPSWITCH_SYMLINK)),
+            dirname(PHPSWITCH_PATH) => @is_writeable(dirname(PHPSWITCH_PATH))
         );
     } else {
         $paths = array(
-            getcwd() => is_writeable(getcwd())
+            getcwd() => @is_writeable(getcwd())
         );
     }
+
+    ob_end_clean();
 
     return $paths;
 }
