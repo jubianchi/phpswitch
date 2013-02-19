@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Monolog\Logger;
-use jubianchi\PhpSwitch\PHP\Option\Resolver;
 use jubianchi\PhpSwitch\PHP\Finder as PHPFinder;
 use jubianchi\PhpSwitch\PHP\Version;
 use jubianchi\PhpSwitch\Console\Command\Command;

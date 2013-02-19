@@ -35,7 +35,7 @@ phpswitch_current() {
 
 phpswitch_config() {
     /usr/bin/env php -ddisplay_errors=stderr \
-        {{ path }}/bin/phpswitch php:config $1 $2 2> /dev/null
+        {{ path }}/bin/phpswitch php:config $1 $2
 
     return $?
 }
