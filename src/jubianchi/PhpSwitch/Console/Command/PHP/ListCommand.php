@@ -35,6 +35,8 @@ class ListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         $all = ($input->getOption('all') || (false === $input->getOption('installed') && false === $input->getOption('available')));
         if ($all || $input->getOption('installed')) {
             $output->writeln($this->getHelper('formatter')->formatBlock('Installed versions', 'info'));

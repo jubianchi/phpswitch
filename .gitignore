@@ -4,3 +4,5 @@ bin/behat
 vendor
 coverage
 .phpswitch
+.phpswitch.yml
+phpswitch
