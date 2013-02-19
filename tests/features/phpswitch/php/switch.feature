@@ -42,12 +42,6 @@ Feature: php:switch
       And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:switch off"
      Then I should see
         """
-        Restoring system default Apache2 module
-        You should restart apache2 using one of:
-            - sudo /etc/init.d/apache2 restart
-            - sudo service apache2 restart
-            - sudo apachectl restart
-            - ...
         PHP switched to system default version
         """
       And The command should exit with success status
