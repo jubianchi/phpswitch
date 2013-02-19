@@ -9,7 +9,7 @@ env:
         - secure: "KCqUtDYHj1LbmbX3ayC/RFxGoVVd/md8TvTUb3V7H8qR+5+vOgoOLENAiQDO\nCjry3iXQvhaylQqhxEjTr4nFRzxS+nTHbGQkV+rfJGIL6oMhlAdzOodtTDxo\naM9WKaysuAIEM+K4w5myl7C9Ge29n4Slr5DOxKhitQIoCiAhtvc="
 
 before_script:
-    - sudo apt-get install -y apache2
+    - sudo apt-get install -y apache2-prefork-dev
     - mkdir ~/.composer
     - "echo \"{ \\\"config\\\": { \\\"github-oauth\\\": { \\\"github.com\\\": \\\"$GITHUB_TOKEN\\\" } } }\" > ~/.composer/config.json"
     - wget http://getcomposer.org/composer.phar
