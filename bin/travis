@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DIR=$(dirname $0)
+
+$DIR/atoum --test-all
+php $DIR/../behat.phar $DIR/../tests/features
