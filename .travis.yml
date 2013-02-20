@@ -17,4 +17,4 @@ before_script:
 
 script:
     - ./bin/atoum --test-all
-    - php behat.phar
+    - php ./behat.phar
