@@ -31,3 +31,12 @@ Feature: php:current
 
         """
       And The command should exit with success status
+
+  Scenario:
+    Given I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch init"
+      And I run "source ./phpswitch/.phpswitchrc && php current"
+     Then I should see output matching
+        """
+        PHP 5\.[0-9a-zA-Z\-\.]*.* \(cli\) \(built: .*\)
+        """
+      And The command should exit with success status

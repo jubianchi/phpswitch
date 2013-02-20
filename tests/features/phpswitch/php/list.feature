@@ -41,3 +41,12 @@ Feature: php:list
 
         """
       And The command should exit with success status
+
+  Scenario:
+    Given I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch init"
+      And I run "source ./phpswitch/.phpswitchrc && PHPSWITCH_PREFIX=./phpswitch php list"
+     Then I should see output matching
+        """
+        ^ Installed versions
+
+        """
