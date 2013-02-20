@@ -18,8 +18,7 @@ Feature: php:list
         """
          Installed versions
          Available versions
-        (?:php-(?:[0-9]\.?)*      http:\/\/.*\n)+
-
+        (?:php-(?:[0-9]\.?)*\s+http:\/\/.*\n)+
         """
       And The command should exit with success status
 
@@ -29,8 +28,7 @@ Feature: php:list
      Then I should see output matching
         """
         ^ Available versions
-        (?:php-(?:[0-9]\.?)*      http:\/\/.*\n)+
-
+        (?:php-(?:[0-9]\.?)*\s+http:\/\/.*\n)+
         """
       And The command should exit with success status
 

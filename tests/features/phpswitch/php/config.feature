@@ -18,11 +18,14 @@ Feature: php:current
         """
 
 
+
           [InvalidArgumentException]
           Configuration directive foo.bar is not managed by phpswitch
 
 
+
         php:config name [value]
+
 
 
         """

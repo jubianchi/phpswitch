@@ -24,12 +24,15 @@ Feature: php:switch
         """
 
 
+
           [InvalidArgumentException]
           Version 6.6.6 is not installed
 
 
+
         php:switch [-a|--apache2] version
         php switch [-a|--apache2] version
+
 
 
         """
