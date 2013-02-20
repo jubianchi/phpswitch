@@ -82,10 +82,10 @@ class PhpSwitch
     protected function initApplication()
     {
         $this->container['app'] = function(\Pimple $container) {
-            $appliction = new Console\Application();
+            $application = new Console\Application();
 
             return $container['app.loader']
-                ->load($appliction->setContainer($container))
+                ->load($application->setContainer($container))
                 ->setConfiguration($container['app.config'])
             ;
         };

@@ -28,5 +28,6 @@ Feature: php:current
      Then I should see
         """
         5.3.15
+
         """
       And The command should exit with success status

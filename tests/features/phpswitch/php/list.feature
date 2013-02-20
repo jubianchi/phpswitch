@@ -16,9 +16,10 @@ Feature: php:list
       And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:list"
      Then I should see output matching
         """
-        Installed versions
+         Installed versions
          Available versions
         (?:php-(?:[0-9]\.?)*      http:\/\/.*\n)+
+
         """
       And The command should exit with success status
 
@@ -27,8 +28,9 @@ Feature: php:list
       And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:list --available"
      Then I should see output matching
         """
-        ^Available versions
+        ^ Available versions
         (?:php-(?:[0-9]\.?)*      http:\/\/.*\n)+
+
         """
       And The command should exit with success status
 
@@ -37,6 +39,7 @@ Feature: php:list
       And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:list --installed"
      Then I should see output matching
         """
-        Installed versions$
+        ^ Installed versions
+
         """
       And The command should exit with success status

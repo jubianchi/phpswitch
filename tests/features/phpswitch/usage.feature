@@ -31,4 +31,5 @@ Feature: Usage
           php:list          Lists PHP versions
           php:switch        Switch PHP version
           php:uninstall     Uninstalls a PHP version
+
         """

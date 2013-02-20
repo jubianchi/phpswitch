@@ -22,13 +22,16 @@ Feature: php:switch
       And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:switch 6.6.6"
      Then I should see
         """
-        [InvalidArgumentException]
-          Version 6.6.6 is not installed
 
+
+          [InvalidArgumentException]
+          Version 6.6.6 is not installed
 
 
         php:switch [-a|--apache2] version
         php switch [-a|--apache2] version
+
+
         """
       And The command should exit with failure status
 
@@ -43,5 +46,6 @@ Feature: php:switch
      Then I should see
         """
         PHP switched to system default version
+
         """
       And The command should exit with success status

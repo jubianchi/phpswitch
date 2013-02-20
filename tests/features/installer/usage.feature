@@ -15,4 +15,5 @@ Feature: Usage
         Examples :
         $ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo php -- --global
         $ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | PHPSWITCH_PATH=/home/me php
+
         """

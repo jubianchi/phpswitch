@@ -16,11 +16,14 @@ Feature: php:current
       And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:config foo.bar"
      Then I should see
         """
-        [InvalidArgumentException]
+
+
+          [InvalidArgumentException]
           Configuration directive foo.bar is not managed by phpswitch
 
 
-
         php:config name [value]
+
+
         """
       And The command should exit with failure status
