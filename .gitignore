@@ -5,4 +5,4 @@ vendor
 coverage
 .phpswitch
 .phpswitch.yml
-phpswitch
+./phpswitch

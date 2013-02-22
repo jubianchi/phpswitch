@@ -14,8 +14,8 @@ class CLIContext extends BehatAtoumContext
         $this->output = null;
         $this->status = -1;
 
-        $process = new \Symfony\Component\Process\Process($command);
-        $process->run(function($type, $buffer) use(& $output) {
+        $process = new \Symfony\Component\Process\Process('bash -c "' . $command . '"');
+        $status = $process->run(function($type, $buffer) use(& $output) {
             $output .= $buffer;
         });
 
