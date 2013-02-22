@@ -1,7 +1,4 @@
 Feature: Install
-  Background:
-    Given I run "test -d ./phpswitch && rm -rf ./phpswitch"
-
   Scenario: Install from sources in the current directory
     Given I run "php -n ./bin/installer"
      Then I should see output matching
