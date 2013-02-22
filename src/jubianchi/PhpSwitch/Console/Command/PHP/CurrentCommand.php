@@ -20,7 +20,11 @@ class CurrentCommand extends Command
         parent::execute($input, $output);
 
         try {
-            $output->writeln($this->getConfiguration()->get('version'));
+            $version = $this->getConfiguration()->get('version');
+
+            if (null !== $version) {
+                $output->writeln($version);
+            }
         } catch (\InvalidArgumentException $exception) {
             return $exception->getCode();
         }
