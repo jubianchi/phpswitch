@@ -1,6 +1,6 @@
 Feature: php:current
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:config foo.bar"
+    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:config foo.bar"
      Then I should see output matching
         """
         phpswitch is not initialized. Please run init command
@@ -8,8 +8,8 @@ Feature: php:current
       And The command should exit with failure status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch init"
-      And I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch php:config foo.bar"
+    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
+      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:config foo.bar"
      Then I should see
         """
 

@@ -1,6 +1,6 @@
 Feature: Check
   Scenario: Default PHP config (no php.ini)
-    Given I run "PHPSWITCH_PATH=/tmp PHPSWITCH_SYMLINK=/tmp php -n ./bin/installer --check"
+    Given I run "PHPSWITCH_PATH=/tmp PHPSWITCH_SYMLINK=/tmp php -n ../../bin/installer --check"
      Then I should see output matching
         """
         > phpswitch installer
@@ -11,7 +11,7 @@ Feature: Check
         """
 
   Scenario: Two differents target directories (no php.ini)
-    Given I run "PHPSWITCH_PATH=/opt PHPSWITCH_SYMLINK=/bin php -n ./bin/installer --check"
+    Given I run "PHPSWITCH_PATH=/opt PHPSWITCH_SYMLINK=/bin php -n ../../bin/installer --check"
      Then I should see output matching
         """
         > phpswitch installer
@@ -22,7 +22,7 @@ Feature: Check
         """
 
   Scenario: Global install (no php.ini)
-    Given I run "php -n ./bin/installer --check --global"
+    Given I run "php -n ../../bin/installer --check --global"
      Then I should see output matching
         """
         > phpswitch installer
@@ -33,7 +33,7 @@ Feature: Check
         """
 
   Scenario: open_basedir restriction (no php.ini)
-    Given I run "php -n -dopen_basedir=/tmp ./bin/installer --check --global"
+    Given I run "php -n -dopen_basedir=/tmp ../../bin/installer --check --global"
      Then I should see output matching
         """
         > phpswitch installer

@@ -1,6 +1,6 @@
 Feature: Usage
   Scenario:
-    Given I run "./bin/phpswitch"
+    Given I run "../../bin/phpswitch"
      Then I should see
         """
         phpswitch version 0.1

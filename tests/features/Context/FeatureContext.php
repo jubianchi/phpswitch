@@ -12,17 +12,28 @@ class FeatureContext extends BehatContext
     }
 
     /**
-     * @AfterSuite
+     * @BeforeScenario ~@noinit
+     */
+    public static function init()
+    {
+        static::clean();
+
+        if (false === is_dir('phpswitch')) {
+            mkdir('phpswitch');
+            mkdir('phpswitch/home');
+            mkdir('phpswitch/sandbox');
+        }
+    }
+
+    /**
+     * @BeforeScenario @noinit
      * @AfterScenario
      */
     public static function clean()
     {
         if (is_dir('phpswitch')) {
             exec('rm -rf phpswitch');
-        }
-
-        if (is_file('.phpswitch.yml')) {
-            unlink('.phpswitch.yml');
+            clearstatcache();
         }
     }
 }

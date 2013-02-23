@@ -1,18 +1,19 @@
 Feature: init
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch init"
-     Then I should see output matching
+    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
+     Then I should see
         """
-        Directory [^\s]*\/phpswitch was created
-        Directory [^\s]*\/phpswitch\/downloads was created
-        Directory [^\s]*\/phpswitch\/sources was created
-        Directory [^\s]*\/phpswitch\/installed was created
-        Directory [^\s]*\/phpswitch\/doc was created
-        You should source [^\s]*\/phpswitch\/\.phpswitchrc to use phpswitch
+        Directory ../prefix was created
+        Directory ../prefix/downloads was created
+        Directory ../prefix/sources was created
+        Directory ../prefix/installed was created
+        Directory ../prefix/doc was created
+        You should source ../prefix/.phpswitchrc to use phpswitch
+
         """
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=./phpswitch bin/phpswitch init"
-      And I run "source ./phpswitch/.phpswitchrc && PHPSWITCH_PREFIX=./phpswitch php -h"
+    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
+      And I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php -h"
      Then I should see output matching
         """
         phpswitch commands:
