@@ -62,7 +62,7 @@ class CLIContext extends BehatAtoumContext
         $actual = preg_replace("/\033\[[0-9]+;?[0-9]*m/", '', $this->output);
 
         $this->assert
-            ->string($this->output)
+            ->string(trim($this->output))
             ->isEmpty(
                 sprintf(
                     'Expected empty output%sGot %s',
