@@ -36,7 +36,7 @@ Feature: php:switch
 
   Scenario:
     Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I have the following configuration in ".phpswitch.yml":
+      And I have the following configuration in "phpswitch/.phpswitch.yml":
         """
         phpswitch:
             version: 5.3.15
