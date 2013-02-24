@@ -127,6 +127,11 @@ class PhpSwitch
 
     protected function initConfiguration()
     {
+        $directories = array(
+            $this->container['app.user.path'],
+            getcwd() => Config\Loader::DIRECTORY_BUBBLE,
+        );
+
         $this->container['app.config'] = function(\Pimple $container) {
             return $container['app.config.loader']->load(
                 $container['app.config.name'],
@@ -150,7 +155,12 @@ class PhpSwitch
         };
 
         $this->container['app.config.dumper'] = function(\Pimple $container) {
-            return new Config\Dumper($container['app.user.path']);
+            return new Config\Dumper(
+                array(
+                    Config\Dumper::GLOBAL_DIR => $container['app.user.path'],
+                    Config\Dumper::LOCAL_DIR => getcwd(),
+                )
+            );
         };
 
         return $this;

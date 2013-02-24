@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use jubianchi\PhpSwitch\Console\Command\Command;
+use jubianchi\PhpSwitch\Config\Dumper;
 
 class SwitchCommand extends Command
 {
@@ -22,6 +23,8 @@ class SwitchCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)')
+            ->addOption('local', 'l', InputOption::VALUE_NONE, 'Switch PHP version locally')
+            ->addOption('global', 'g', InputOption::VALUE_NONE, 'Switch PHP version globaly')
             ->addOption('apache2', 'a', InputOption::VALUE_NONE)
         ;
     }
@@ -69,7 +72,7 @@ class SwitchCommand extends Command
 
         $this->getConfiguration()
             ->set('version', $version)
-            ->dump()
+            ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
         ;
 
         $output->writeln(sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'));

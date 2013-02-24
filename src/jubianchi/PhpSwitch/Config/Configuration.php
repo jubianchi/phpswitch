@@ -5,11 +5,19 @@ class Configuration implements \IteratorAggregate
 {
     const ROOT = 'phpswitch';
 
+    /** @var string */
+    protected $name;
+
     /** @var array */
     private $configuration = array();
 
     /** @var \jubianchi\PhpSwitch\Config\Dumper */
     private $dumper;
+
+    public function __construct($name = '.phpswitch.yml')
+    {
+        $this->name = $name;
+    }
 
     /**
      * @param string $offset
@@ -109,13 +117,13 @@ class Configuration implements \IteratorAggregate
      *
      * @return \jubianchi\PhpSwitch\Config\Configuration
      */
-    public function dump()
+    public function dump($type = null)
     {
         if (null === $this->dumper) {
             throw new \RuntimeException('No dumper available');
         }
 
-        $this->dumper->dump('.phpswitch.yml', $this);
+        $this->dumper->dump($this->name, $this, $type);
 
         return $this;
     }
