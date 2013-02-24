@@ -13,7 +13,7 @@ before_script:
     - mkdir ~/.composer
     - "[ ! -z $GITHUB_TOKEN ] && echo \"{ \\\"config\\\": { \\\"github-oauth\\\": { \\\"github.com\\\": \\\"$GITHUB_TOKEN\\\" } } }\" > ~/.composer/config.json"
     - wget http://getcomposer.org/composer.phar
-    - "[ -z $GITHUB_TOKEN ] && php composer.phar install --dev"
+    - "[ ! -z $GITHUB_TOKEN ] || php composer.phar install --dev"
     - "[ ! -z $GITHUB_TOKEN ] && php composer.phar install --dev --prefer-source"
 
 script:
