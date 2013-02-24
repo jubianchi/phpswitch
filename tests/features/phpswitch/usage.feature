@@ -21,6 +21,9 @@ Feature: Usage
           help              Displays help for a command
           init              Initializes PhpSwitch environment
           list              Lists commands
+        phar
+          phar:build        Builds phpswitch Phar
+          phar:extract      Builds phpswitch Phar
         php
           php:config        Get or set configuration
           php:current       Displays current PHP version

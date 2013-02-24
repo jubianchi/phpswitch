@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
-namespace jubianchi\PhpSwitch;
+
+use jubianchi\PhpSwitch\PhpSwitch;
 
 require_once implode(
     DIRECTORY_SEPARATOR,
@@ -12,4 +13,4 @@ require_once implode(
     )
 );
 
-PhpSwitch::init()->run();
+PhpSwitch::init(realpath(__DIR__ . '/..'))->run();

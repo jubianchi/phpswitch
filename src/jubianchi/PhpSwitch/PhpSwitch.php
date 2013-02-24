@@ -11,9 +11,9 @@ class PhpSwitch
     /** @var \Pimple */
     private $container;
 
-    public static function init()
+    public static function init($path)
     {
-        return new static(static::getEnv());
+        return new static($path, static::getEnv());
     }
 
     protected static function getEnv()
@@ -37,12 +37,12 @@ class PhpSwitch
         return $env;
     }
 
-    protected function __construct(array $env = array())
+    protected function __construct($path, array $env = array())
     {
         $this->container = new \Pimple();
 
         $this
-            ->initEnv($env)
+            ->initEnv($path, $env)
             ->initApplication()
             ->initConfiguration()
             ->initPhp()
@@ -54,9 +54,9 @@ class PhpSwitch
         $this->container['app']->run();
     }
 
-    protected function initEnv(array $env = array())
+    protected function initEnv($path, array $env = array())
     {
-        $this->container['app.path'] = realpath(__DIR__ . '/../../../');
+        $this->container['app.path'] = $path;
         $this->container['app.source.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . 'src';
         $this->container['app.command.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
         $this->container['app.templates.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Templates';
@@ -127,11 +127,6 @@ class PhpSwitch
 
     protected function initConfiguration()
     {
-        $directories = array(
-            $this->container['app.user.path'],
-            getcwd() => Config\Loader::DIRECTORY_BUBBLE,
-        );
-
         $this->container['app.config'] = function(\Pimple $container) {
             return $container['app.config.loader']->load(
                 $container['app.config.name'],

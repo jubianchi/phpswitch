@@ -2,6 +2,7 @@
 namespace jubianchi\PhpSwitch\Console\Command;
 
 use Symfony\Component\Finder\Finder as BaseFinder;
+use Symfony\Component\Finder\Adapter\PhpAdapter;
 
 class Finder extends BaseFinder
 {
@@ -19,6 +20,8 @@ class Finder extends BaseFinder
         $this->basedir = $basedir;
 
         $this
+            ->removeAdapters()
+            ->addAdapter(new PhpAdapter())
             ->files()
             ->in($directory)
             ->name('*Command.php')

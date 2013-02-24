@@ -2,5 +2,7 @@
 
 DIR=$(dirname $0)
 
-$DIR/atoum --test-all -nccfns Symfony
+$DIR/atoum --test-all
 php $DIR/../behat.phar $DIR/../tests/features
+
+php -dphar.readonly=0 bin/phpswitch phar:build
