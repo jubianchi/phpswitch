@@ -21,8 +21,6 @@ Feature: Usage
           help              Displays help for a command
           init              Initializes PhpSwitch environment
           list              Lists commands
-        config
-          config:info       Displays configuration
         php
           php:config        Get or set configuration
           php:current       Displays current PHP version
