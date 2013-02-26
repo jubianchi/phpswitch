@@ -26,9 +26,10 @@ class Dumper
      *
      * @return \jubianchi\PhpSwitch\Config\Dumper
      */
-    public function dump($name, Configuration $configuration, $directory = self::GLOBAL_DIR)
+    public function dump($name, Configuration $configuration, $directory = null)
     {
-        $path = $this->directories[$directory] . DIRECTORY_SEPARATOR . $name;
+
+        $path = $this->directories[$directory ?: self::GLOBAL_DIR] . DIRECTORY_SEPARATOR . $name;
 
         file_put_contents(
             $path,
