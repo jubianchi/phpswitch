@@ -56,7 +56,7 @@ Feature: php:switch
         """
         PHP 5\.[0-9a-zA-Z\-\.]*.* \(cli\) \(built: .*\)
         """
-      And The command should exit with failure status
+      And The command should exit with success status
     Given I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch off"
      Then I should see output matching
         """
