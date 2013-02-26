@@ -48,6 +48,9 @@ phpswitch_switchoff() {
 }
 
 phpswitch_switchon() {
+    local STATUS
+
+    STATUS=0
     if [ "$1" != "on" ]
     then
         /usr/bin/env php \
@@ -86,12 +89,13 @@ php() {
 
         current)
             phpswitch_current
-
+shift 1
             return $?
             ;;
 
         config)
-            phpswitch_config $2 $3
+            shift 1
+            phpswitch_config $@
 
             return $?
             ;;
@@ -101,7 +105,8 @@ php() {
             then
                 phpswitch_switchoff
             else
-                phpswitch_switchon $2 $3
+                shift 1
+                phpswitch_switchon $@
             fi
             STATUS=$?
 
