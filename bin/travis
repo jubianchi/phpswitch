@@ -2,5 +2,5 @@
 
 DIR=$(dirname $0)
 
-$DIR/atoum --test-all
+$DIR/atoum --test-all -nccfns Symfony
 php $DIR/../behat.phar $DIR/../tests/features
