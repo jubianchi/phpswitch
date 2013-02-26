@@ -52,7 +52,10 @@ Feature: php:switch
   Scenario:
     Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
       And I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch on"
-     Then I should see no output
+     Then I should see output matching
+        """
+        PHP 5\.[0-9a-zA-Z\-\.]*.* \(cli\) \(built: .*\)
+        """
       And The command should exit with failure status
     Given I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch off"
      Then I should see output matching
