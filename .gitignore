@@ -7,4 +7,3 @@ coverage
 .phpswitch.yml
 ./phpswitch
 phpswitch.phar
-phar
