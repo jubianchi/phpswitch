@@ -70,12 +70,4 @@ abstract class Command extends BaseCommand
             );
         }
     }
-
-    /**
-     * @return \jubianchi\PhpSwitch\Console\Application
-     */
-    public function getApplication()
-    {
-        return parent::getApplication();
-    }
 }
