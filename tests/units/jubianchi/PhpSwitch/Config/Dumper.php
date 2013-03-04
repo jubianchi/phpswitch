@@ -14,7 +14,7 @@ class Dumper extends atoum\test
         $this
             ->if($directory = stream::get('directory'))
             ->if($file = file::getSubStream($directory, $name = uniqid()))
-            ->and($file->file_put_contents = true)
+            ->and($file->isWritable(true))
             ->and($directory->readdir[1] = $file)
             ->and($object = new TestedClass(array(TestedClass::GLOBAL_DIR => $directory)))
             ->and($configuration = new \mock\jubianchi\PhpSwitch\Config\Configuration())

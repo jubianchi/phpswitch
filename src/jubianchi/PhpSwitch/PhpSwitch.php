@@ -5,41 +5,39 @@ use jubianchi\PhpSwitch\Console\Command\Finder;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
+use jubianchi\PhpSwitch\Phar\Runnable;
 
-class PhpSwitch
+class PhpSwitch implements Runnable
 {
-    /** @var \Pimple */
-    private $container;
+	protected $container;
+	protected $env = array();
 
-    public static function init($path)
+    public static function init($path, array $args = array())
     {
-        return new static($path, static::getEnv());
+        return new static($path, static::getEnv($args));
     }
 
-    protected static function getEnv()
+    protected static function getEnv($env = array())
     {
-        $env = array();
         $map = array(
             'PHPSWITCH_PREFIX' => 'app.workspace.path',
             'PHPSWITCH_HOME' => 'app.user.path',
             'PHPSWITCH_CONFIG' => 'app.config.name',
         );
 
-        array_walk(
-            $_SERVER,
-            function($value, $key) use (& $env, $map) {
-                if (preg_match('/^PHPSWITCH_/', $key) && array_key_exists($key, $map)) {
-                    $env[$map[$key]] = $value;
-                }
-            }
-        );
+		foreach($map as $var => $key) {
+			if(false !== ($value = getenv($var))) {
+				$env[$key] = $value;
+			}
+		}
 
         return $env;
     }
 
-    protected function __construct($path, array $env = array())
+    public function __construct($path, array $env = array())
     {
         $this->container = new \Pimple();
+		$this->env = $env;
 
         $this
             ->initEnv($path, $env)

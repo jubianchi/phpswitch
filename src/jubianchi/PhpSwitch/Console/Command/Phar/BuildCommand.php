@@ -41,7 +41,7 @@ class BuildCommand extends Command
         $builder = new Phar\Builder();
         $phar = $builder
             ->setName($name)
-            ->setBasedir(__DIR__ . '/../../../../../..')
+            ->setBasedir($basedir = __DIR__ . '/../../../../../..')
             ->addFinder(
                 Finder::create()
                     ->files()
@@ -54,9 +54,8 @@ class BuildCommand extends Command
                     ->notName('composer.lock')
                     ->notName('README.md')
                     ->notName('Vagrantfile')
-                    ->notPath('jubianchi/PhpSwitch/Phar')
                     ->notPath('jubianchi/PhpSwitch/Console/Command/Phar')
-                    ->in(__DIR__ . '/../../../../../../src')
+                    ->in($basedir . DIRECTORY_SEPARATOR . 'src')
             )
             ->addFinder(
                 Finder::create()
@@ -76,61 +75,34 @@ class BuildCommand extends Command
                     ->exclude('Tests')
                     ->exclude('test')
                     ->exclude('atoum')
-                    ->in(__DIR__ . '/../../../../../../vendor')
+                    ->in($basedir . DIRECTORY_SEPARATOR . '/vendor')
             )
             ->addFilter(new Phar\Filter\CommentFilter())
             ->addFilter(new Phar\Filter\WhitespaceFilter())
-            ->addRaw('bin/phpswitch', $this->getBin($name))
-            ->setStub($this->getStub($name))
-            ->setCallback(
-                function($total, $current, $previous) use ($output, $progress) {
-                    if (0 === $current) {
-                        $progress->setBarWidth(50);
-                        $progress->start($output, $total);
-                    } else {
-                        $progress->advance($current - $previous);
-                    }
-                }
-            )
-            ->getPhar()
+			->addRaw(
+				'bin/' . basename($name, '.phar'),
+				(string) new Phar\Bootstrap(
+					'\\jubianchi\\PhpSwitch\\PhpSwitch',
+					array(
+						'app.workspace.path' => './.phpswitch'
+					)
+				)
+			)
+			->setStub((string) new Phar\Stub())
+            ->buildPhar(
+				function($total, $current, $previous) use ($output, $progress) {
+					if (0 === $current) {
+						$progress->setBarWidth(50);
+						$progress->start($output, $total);
+					} else {
+						$progress->advance($current - $previous);
+					}
+				}
+			)
         ;
 
         unset($phar);
 
         $output->write(PHP_EOL);
-    }
-
-    protected function getBin($name)
-    {
-        return <<<EOF
-<?php
-
-use jubianchi\PhpSwitch\PhpSwitch;
-
-require_once implode(
-    DIRECTORY_SEPARATOR,
-    array(
-        'phar://$name',
-        'vendor',
-        'autoload.php'
-    )
-);
-
-PhpSwitch::init('phar://$name')->run();
-EOF;
-    }
-
-    protected function getStub($name)
-    {
-        return <<<EOF
-#!/usr/bin/env php
-<?php
-
-Phar::mapPhar('$name');
-
-require 'phar://$name/bin/phpswitch';
-
-__HALT_COMPILER();
-EOF;
     }
 }

@@ -3,14 +3,16 @@
 
 use jubianchi\PhpSwitch\PhpSwitch;
 
+$basedir = __DIR__ . DIRECTORY_SEPARATOR . '..';
+
 require_once implode(
     DIRECTORY_SEPARATOR,
     array(
-        __DIR__,
-        '..',
+        $basedir,
         'vendor',
         'autoload.php'
     )
 );
 
-PhpSwitch::init(realpath(__DIR__ . '/..'))->run();
+$app = new PhpSwitch(realpath($basedir));
+$app->run();
