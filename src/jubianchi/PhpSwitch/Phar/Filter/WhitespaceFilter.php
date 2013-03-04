@@ -1,7 +1,9 @@
 <?php
 namespace jubianchi\PhpSwitch\Phar\Filter;
 
-class WhitespaceFilter implements Filter
+use jubianchi\PhpSwitch\Phar;
+
+class WhitespaceFilter implements Phar\Filter
 {
     public function __invoke($contents, array $tokens)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace jubianchi\PhpSwitch\Phar\Filter;
+namespace jubianchi\PhpSwitch\Phar;
 
 interface Filter
 {

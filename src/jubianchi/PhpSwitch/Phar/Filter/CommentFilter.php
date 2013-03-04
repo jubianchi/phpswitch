@@ -1,7 +1,9 @@
 <?php
 namespace jubianchi\PhpSwitch\Phar\Filter;
 
-class CommentFilter implements Filter
+use jubianchi\PhpSwitch\Phar;
+
+class CommentFilter implements Phar\Filter
 {
     public function __invoke($contents, array $tokens)
     {
