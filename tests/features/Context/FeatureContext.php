@@ -8,7 +8,8 @@ class FeatureContext extends BehatContext
     function __construct()
     {
         $this->useContext('configuration', new ConfigurationContext());
-        $this->useContext('cli', new CLIContext());
+        $this->useContext('cli', new CLIContext(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch/sandbox'));
+        $this->useContext('fs', new FilesystemContext(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch'));
     }
 
     /**
@@ -18,10 +19,10 @@ class FeatureContext extends BehatContext
     {
         static::clean();
 
-        if (false === is_dir('phpswitch')) {
-            mkdir('phpswitch');
-            mkdir('phpswitch/home');
-            mkdir('phpswitch/sandbox');
+        if (false === is_dir(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch')) {
+            mkdir(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch');
+            mkdir(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch/home');
+            mkdir(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch/sandbox');
         }
     }
 
@@ -31,8 +32,8 @@ class FeatureContext extends BehatContext
      */
     public static function clean()
     {
-        if (is_dir('phpswitch')) {
-            exec('rm -rf phpswitch');
+        if (is_dir(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch')) {
+            exec('rm -rf ' . getcwd() . DIRECTORY_SEPARATOR . 'phpswitch');
             clearstatcache();
         }
     }

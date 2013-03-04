@@ -3,8 +3,16 @@ use Behat\Gherkin\Node\PyStringNode;
 
 class CLIContext extends BehatAtoumContext
 {
+    private $cwd;
     private $output;
     private $status;
+
+    public function __construct($cwd)
+    {
+        parent::__construct();
+
+        $this->cwd = $cwd;
+    }
 
     /**
      * @Given /^I run \"(?P<command>[^\"]*)\"$/
@@ -14,7 +22,7 @@ class CLIContext extends BehatAtoumContext
         $this->output = null;
         $this->status = -1;
 
-        $process = new \Symfony\Component\Process\Process('bash -c "' . $command . '"', 'phpswitch/sandbox');
+        $process = new \Symfony\Component\Process\Process('bash -c "' . $command . '"', $this->cwd);
         $process->run(function($type, $buffer) use(& $output) {
             $output .= $buffer;
         });
