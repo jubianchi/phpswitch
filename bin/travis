@@ -3,7 +3,7 @@
 DIR=$(dirname $0)
 PHP="php -dphar.readonly=Off"
 
-$PHP $DIR/atoum --test-all
-$PHP $DIR/../behat.phar $DIR/../tests/features
+$PHP $DIR/atoum --test-all || exit 1
+$PHP $DIR/../behat.phar $DIR/../tests/features || exit 1
 
 $PHP bin/phpswitch phar:build
