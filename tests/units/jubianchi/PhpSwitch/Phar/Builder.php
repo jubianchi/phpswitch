@@ -128,11 +128,11 @@ class Builder extends atoum\test
     public function testBuildPhar()
     {
         $test = $this;
-        $getPhar = function($name) use (& $phar, $test){
-            $this->mockGenerator->orphanize('__construct');
-            $this->mockGenerator->shuntParentClassCalls();
+        $getPhar = function() use (& $phar, $test){
+            $test->mockGenerator->orphanize('__construct');
+            $test->mockGenerator->shuntParentClassCalls();
 
-            return $phar = new \mock\Phar($name);
+            return $phar = new \mock\Phar();
         };
 
         $this
@@ -145,12 +145,12 @@ class Builder extends atoum\test
                     ->call('getPhar')->withArguments($name)->once()
                 ->mock($phar)
                     ->call('startBuffering')->once()
-                    ->call('startBuffering')->once()
+                    ->call('stopBuffering')->afterMethodCall('startBuffering')->once()
                     ->call('addFile')->never()
                     ->call('addFromString')->never()
-            ->if($file = streams\file::get())
+            ->if($file = streams\file::get('foobar'))
             ->and($file->setContents($contents = 'contents'))
-            ->and($builder->addFile(new \SplFileObject((string) $file)))
+            ->and($builder->addFile((string) $file))
             ->then
                 ->object($builder->buildPhar())->isIdenticalTo($phar)
                 ->mock($phar)
@@ -160,7 +160,7 @@ class Builder extends atoum\test
             ->and($this->calling($filters)->apply = $filtered = 'filtered')
             ->and($builder = new \mock\jubianchi\PhpSwitch\Phar\Builder($filters))
             ->and($this->calling($builder)->getPhar = $getPhar)
-            ->and($builder->addFile(new \SplFileObject((string) $file)))
+            ->and($builder->addFile((string) $file))
             ->then
                 ->object($builder->buildPhar())->isIdenticalTo($phar)
                 ->mock($filters)

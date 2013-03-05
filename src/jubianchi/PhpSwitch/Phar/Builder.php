@@ -12,23 +12,23 @@ class Builder implements \Countable
     protected $raw = array();
     protected $stub;
 
-	public function __construct(Filter\FilterCollection $filters = null, array $files = array())
-	{
-		$this->filters = $filters ?: new Filter\FilterCollection();
-		$this->finders['files'] = new \ArrayObject($files);
-	}
+    public function __construct(Filter\FilterCollection $filters = null, array $files = array())
+    {
+        $this->filters = $filters ?: new Filter\FilterCollection();
+        $this->finders['files'] = new \ArrayObject($files);
+    }
 
-	public function getFilters()
-	{
-		return $this->filters;
-	}
+    public function getFilters()
+    {
+        return $this->filters;
+    }
 
-	public function addFilter(Filter $filter)
-	{
-		$this->filters[] = $filter;
+    public function addFilter(Filter $filter)
+    {
+        $this->filters[] = $filter;
 
-		return $this;
-	}
+        return $this;
+    }
 
     public function setName($name)
     {
@@ -53,17 +53,9 @@ class Builder implements \Countable
 
     public function addFile($file)
     {
-		if(is_string($file)) {
-			try {
-				$file = new \SplFileObject($file, 'r');
-			} catch(\RuntimeException $exception) {
-				throw new \InvalidArgumentException(
-					sprintf('File %s does not exist', $file),
-					$exception->getCode(),
-					$exception
-				);
-			}
-		}
+        if(false === file_exists($file)) {
+            throw new \InvalidArgumentException(sprintf('File %s does not exist', $file));
+        }
 
         $this->finders['files'][] = $file;
 
@@ -77,12 +69,12 @@ class Builder implements \Countable
         return $this;
     }
 
-	public function setStub($stub)
-	{
-		$this->stub = $stub;
+    public function setStub($stub)
+    {
+        $this->stub = $stub;
 
-		return $this;
-	}
+        return $this;
+    }
 
     public function count()
     {
@@ -95,16 +87,16 @@ class Builder implements \Countable
         return $count;
     }
 
-	public function getPhar($name)
-	{
-		return new \Phar($name);
-	}
+    public function getPhar($name)
+    {
+        return new \Phar($name);
+    }
 
     public function buildPhar($callback = null)
     {
-		if (null !== $callback && false === is_callable($callback)) {
-			throw new \InvalidArgumentException('Callback is not callable');
-		}
+        if (null !== $callback && false === is_callable($callback)) {
+            throw new \InvalidArgumentException('Callback is not callable');
+        }
 
         $phar = $this->getPhar($this->name);
 
@@ -119,6 +111,7 @@ class Builder implements \Countable
 
         foreach ($this->finders as $finder) {
             foreach ($finder as $file) {
+                $file = is_string($file) ? new \SplFileObject($file) : $file;
                 $path = $file->getRealPath() ?: $file->getPathname();
                 $contents = file_get_contents($path);
                 $contents = $this->filters->apply($contents);
@@ -150,9 +143,9 @@ class Builder implements \Countable
             $previous = $current;
         }
 
-		if (null !== $this->stub) {
-			$phar->setStub($this->stub);
-		}
+        if (null !== $this->stub) {
+            $phar->setStub($this->stub);
+        }
 
         $phar->stopBuffering();
 
