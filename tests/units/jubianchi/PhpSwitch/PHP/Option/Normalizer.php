@@ -2,6 +2,7 @@
 namespace tests\units\jubianchi\PhpSwitch\PHP\Option;
 
 use mageekguy\atoum;
+use Symfony\Component\Console\Input\InputOption;
 use jubianchi\PhpSwitch\PHP\Option\Normalizer as TestedClass;
 
 require_once __DIR__ . '/../../../../bootstrap.php';
@@ -29,6 +30,7 @@ class Normalizer extends atoum\test
             ->if($object = new TestedClass())
             ->and($option = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($option)->getAlias = '--option')
+            ->and($this->calling($option)->getMode = InputOption::VALUE_OPTIONAL)
             ->and($otherOption = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($otherOption)->getAlias = '--otherOption')
             ->then

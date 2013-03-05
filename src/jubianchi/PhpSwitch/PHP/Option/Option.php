@@ -13,6 +13,7 @@ abstract class Option
     const ALIAS = null;
     const DESC = null;
     const MODE = InputOption::VALUE_NONE;
+    const DEFAULT_VALUE = null;
 
     /** @var \jubianchi\PhpSwitch\Console\Command\Command */
     protected $command;
@@ -41,9 +42,15 @@ abstract class Option
         return static::ARG;
     }
 
-    public function setValue($value)
+    public function setValue($value = null)
     {
-        $this->value = $value;
+        if (null === $value && $this->getMode() === InputOption::VALUE_OPTIONAL) {
+            $this->value = $this->getDefault();
+        }
+
+        if ($this->getMode() !== InputOption::VALUE_NONE) {
+            $this->value = $value;
+        }
 
         return $this;
     }
@@ -54,11 +61,27 @@ abstract class Option
     }
 
     /**
+     * @return int
+     */
+    public function getMode()
+    {
+        return static::MODE;
+    }
+
+    /**
      * @return string
      */
     public function getDesc()
     {
         return (static::DESC ?: 'Enables ' . static::ARG) . sprintf($this->getAlias() ? ' <comment>(%s)</comment>' : '', $this->getAlias());
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefault()
+    {
+        return static::DEFAULT_VALUE;
     }
 
     /**
@@ -73,7 +96,8 @@ abstract class Option
                 static::ARG,
                 null,
                 static::MODE,
-                $this->getDesc()
+                $this->getDesc(),
+                static::DEFAULT_VALUE
             );
         }
 
@@ -90,13 +114,8 @@ abstract class Option
         $value = $input->getOption($this->getName());
         $enabled = (bool) $value;
 
-        if(null === $value && static::MODE === InputOption::VALUE_OPTIONAL)
-        {
-            $enabled = true;
-        }
-
-        if ($enabled && static::MODE !== InputOption::VALUE_NONE) {
-            $this->value = $value;
+        if (null === $value && static::MODE === InputOption::VALUE_OPTIONAL) {
+            $enabled = in_array('--' . $this->getName(), $_SERVER['argv']);
         }
 
         return $enabled;

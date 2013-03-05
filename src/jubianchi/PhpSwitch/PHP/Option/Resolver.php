@@ -17,6 +17,8 @@ class Resolver
         $opts = array();
         foreach ($options as $option) {
             if ($option->isEnabled($input) && false === in_array($option, $opts)) {
+                $option->setValue($input->getOption($option->getName()));
+
                 if (false === ($option instanceof AliasOption)) {
                     $opts[] = $option;
                 }

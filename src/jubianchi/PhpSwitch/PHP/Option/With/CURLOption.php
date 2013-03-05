@@ -9,7 +9,8 @@ class CURLOption extends WithOption
 {
     const ARG = 'curl';
     const ALIAS = '--with-curl';
-    const MODE = InputOption::VALUE_REQUIRED;
+    const MODE = InputOption::VALUE_OPTIONAL;
+    const DEFAULT_VALUE = 'auto';
 
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input

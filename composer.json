@@ -15,7 +15,7 @@
         "pimple/pimple": "1.0.*@dev",
         "monolog/monolog": "1.4.*@dev",
         "twig/twig": "dev-master",
-        "d11wtq/boris": "dev-master"
+        "d11wtq/boris": "dev-master@dev"
     },
     "require-dev": {
         "atoum/atoum": "dev-master"
