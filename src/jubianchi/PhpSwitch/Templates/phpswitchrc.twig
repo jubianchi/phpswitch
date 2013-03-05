@@ -12,6 +12,7 @@ phpswitch_help() {
     echo '  - php list                   Lists available PHP versions'
     echo '  - php current                Displays current PHP version'
     echo '  - php config <key> [<value>] Gets or Sets configuration for current PHP version'
+    echo '  - php repl                   Enters PHP REPL'
     echo '  - php switch <version>       Switches current PHP version'
 
     return $STATUS
@@ -36,6 +37,13 @@ phpswitch_current() {
 phpswitch_config() {
     /usr/bin/env php -ddisplay_errors=stderr \
         {{ path }}/bin/phpswitch php:config $1 $2
+
+    return $?
+}
+
+phpswitch_repl() {
+    /usr/bin/env php -ddisplay_errors=stderr \
+        {{ path }}/bin/phpswitch php:repl
 
     return $?
 }
@@ -86,10 +94,14 @@ php() {
 
             return $?
             ;;
+        repl)
+            phpswitch_repl
 
+            return $?
+            ;;
         current)
             phpswitch_current
-shift 1
+            shift 1
             return $?
             ;;
 
