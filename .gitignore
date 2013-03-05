@@ -1,5 +1,6 @@
 bin/atoum
 bin/behat
+bin/boris
 .vagrant
 vendor
 coverage
