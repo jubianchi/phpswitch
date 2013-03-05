@@ -28,12 +28,12 @@ class Builder
      * @param array                            $options
      * @param callable                         $callback
      */
-    public function build(Version $version, $source, $options, $callback = null)
+    public function build(Version $version, $source, $options, $jobs = null, $callback = null)
     {
         $this
             ->clean($source, $callback)
             ->configure($version, $source, $options, $callback)
-            ->make($source, $callback)
+            ->make($source, $jobs, $callback)
         ;
     }
 
@@ -103,26 +103,26 @@ class Builder
      *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
-    public function make($source, $callback = null)
+    public function make($source, $jobs = null, $callback = null)
     {
-        $process = $this->builder->get()
+        $builder = $this->builder->get()
             ->setTimeout(null)
             ->setWorkingDirectory($source)
             ->add('make')
-            ->getProcess()
         ;
+
+        if (null !== $jobs) {
+            $builder->add('-j' . (int) $jobs);
+        }
+
+        $process = $builder->getProcess();
         $process->run($callback);
         if (false === $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
-        $process = $this->builder->get()
-            ->setTimeout(null)
-            ->setWorkingDirectory($source)
-            ->add('make')
-            ->add('install')
-            ->getProcess()
-        ;
+        $builder->add('install');
+        $process = $builder->getProcess();
         $process->run($callback);
         if (false === $process->isSuccessful()) {
             throw new ProcessFailedException($process);

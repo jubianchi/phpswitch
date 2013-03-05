@@ -39,6 +39,7 @@ class InstallCommand extends Command
             ->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
             ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Use the same configuration as an existing version')
+            ->addOption('jobs', 'j', InputOption::VALUE_REQUIRED, 'Number of jobs to run simultaneously')
         ;
     }
 
@@ -119,7 +120,7 @@ class InstallCommand extends Command
         $this
             ->download($version, $output)
             ->extract($version, $output)
-            ->install($version, $this->getNormalizer()->normalize($options), $output)
+            ->install($version, $this->getNormalizer()->normalize($options), $input->getOption('jobs'), $output)
             ->getConfiguration()
                 ->set('versions.' . str_replace('.', '-', $version), $normalized)
                 ->dump()
@@ -238,13 +239,14 @@ class InstallCommand extends Command
     /**
      * @param \jubianchi\PhpSwitch\PHP\Version                  $version
      * @param string                                            $options
+     * @param int                                               $jobs
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \RuntimeException
      *
      * @return \jubianchi\PhpSwitch\Console\Command\PHP\InstallCommand
      */
-    protected function install(Version $version, $options, OutputInterface $output)
+    protected function install(Version $version, $options, $jobs, OutputInterface $output)
     {
         $dest = $this->getBuilder()->getDestination($version);
         $output->writeln(array(
@@ -252,7 +254,7 @@ class InstallCommand extends Command
             sprintf('%s<comment>%s</comment>', self::INDENT, $dest)
         ));
 
-        $this->getBuilder()->build($version, $this->source, $options, $this->getProcessCallback($output));
+        $this->getBuilder()->build($version, $this->source, $options, $jobs, $this->getProcessCallback($output));
         mkdir($dest . '/var/db', 0777, true);
 
         $ini = $this->source . DIRECTORY_SEPARATOR . 'php.ini-development';
