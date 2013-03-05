@@ -38,6 +38,10 @@ class Builder extends atoum\test
 
     public function testGetPhar()
     {
+        if(0 !== ini_get('phar.readonly')) {
+            $this->skip('phar.readonly should be Off');
+        }
+
         $this
             ->if($builder = new TestedClass())
             ->then
