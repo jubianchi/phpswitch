@@ -1,8 +1,9 @@
 #!/bin/bash
 
 DIR=$(dirname $0)
+PHP="php -dphar.readonly=Off"
 
-$DIR/atoum --test-all
-php $DIR/../behat.phar $DIR/../tests/features
+$PHP $DIR/atoum --test-all
+$PHP $DIR/../behat.phar $DIR/../tests/features
 
-php -dphar.readonly=0 bin/phpswitch phar:build
+$PHP bin/phpswitch phar:build

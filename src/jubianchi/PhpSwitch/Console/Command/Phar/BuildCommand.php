@@ -33,8 +33,6 @@ class BuildCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $name = $input->getArgument('name');
         $progress = $this->getHelper('progress');
 
