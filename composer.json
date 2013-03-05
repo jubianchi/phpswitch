@@ -14,7 +14,8 @@
         "symfony/css-selector": "2.2.*@dev",
         "pimple/pimple": "1.0.*@dev",
         "monolog/monolog": "1.4.*@dev",
-        "twig/twig": "dev-master"
+        "twig/twig": "dev-master",
+        "d11wtq/boris": "dev-master"
     },
     "require-dev": {
         "atoum/atoum": "dev-master"

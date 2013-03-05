@@ -1,18 +1,50 @@
 {
-    "hash": "cef063450e91a1b9765e7f6c06f690de",
+    "hash": "239926702d1504cf2f2d1345be139458",
     "packages": [
+        {
+            "name": "d11wtq/boris",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/d11wtq/boris.git",
+                "reference": "7d1e2b768c9f1514939c39df917cdbfa3c0eb467"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/d11wtq/boris/zipball/7d1e2b768c9f1514939c39df917cdbfa3c0eb467",
+                "reference": "7d1e2b768c9f1514939c39df917cdbfa3c0eb467",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcntl": "*",
+                "ext-posix": "*",
+                "ext-readline": "*",
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "bin/boris"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Boris": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2013-03-03 22:26:53"
+        },
         {
             "name": "monolog/monolog",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf"
+                "url": "https://github.com/Seldaek/monolog",
+                "reference": "957ee8d0d62fad0c336797f0fb1ffa63ae6d6c71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/041aa3930f8d2b466ae897440ec9471d5159c5bf",
-                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf",
+                "url": "https://github.com/Seldaek/monolog/archive/957ee8d0d62fad0c336797f0fb1ffa63ae6d6c71.zip",
+                "reference": "957ee8d0d62fad0c336797f0fb1ffa63ae6d6c71",
                 "shasum": ""
             },
             "require": {
@@ -61,20 +93,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-02-26 10:18:11"
+            "time": "2013-01-22 15:02:20"
         },
         {
             "name": "pimple/pimple",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "5a8936d9d31eb613f1a33753e5f22bffebe0bbc3"
+                "url": "git://github.com/fabpot/Pimple.git",
+                "reference": "d58cec632dfdd3305d6b4f2563a5cf2a75b4d978"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/5a8936d9d31eb613f1a33753e5f22bffebe0bbc3",
-                "reference": "5a8936d9d31eb613f1a33753e5f22bffebe0bbc3",
+                "url": "https://github.com/fabpot/Pimple/archive/d58cec632dfdd3305d6b4f2563a5cf2a75b4d978.zip",
+                "reference": "d58cec632dfdd3305d6b4f2563a5cf2a75b4d978",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +139,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-02-09 15:33:26"
+            "time": "2013-01-07 10:39:26"
         },
         {
             "name": "psr/log",
@@ -149,17 +181,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Config.git",
-                "reference": "3af40615f2d486847d3a9f939612f8e8d08653f0"
+                "url": "https://github.com/symfony/Config",
+                "reference": "v2.2.0-BETA2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/3af40615f2d486847d3a9f939612f8e8d08653f0",
-                "reference": "3af40615f2d486847d3a9f939612f8e8d08653f0",
+                "url": "https://github.com/symfony/Config/archive/v2.2.0-BETA2.zip",
+                "reference": "v2.2.0-BETA2",
                 "shasum": ""
             },
             "require": {
@@ -192,21 +224,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 10:42:10"
+            "time": "2013-01-17 15:25:59"
         },
         {
             "name": "symfony/console",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
-                "reference": "7dc8d04604e6592665132e503aafde729eaf5611"
+                "url": "https://github.com/symfony/Console",
+                "reference": "fdb2d9320106926266a0f7a5a97aab7213e11ad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/7dc8d04604e6592665132e503aafde729eaf5611",
-                "reference": "7dc8d04604e6592665132e503aafde729eaf5611",
+                "url": "https://github.com/symfony/Console/archive/fdb2d9320106926266a0f7a5a97aab7213e11ad6.zip",
+                "reference": "fdb2d9320106926266a0f7a5a97aab7213e11ad6",
                 "shasum": ""
             },
             "require": {
@@ -239,21 +271,21 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 14:42:44"
+            "time": "2013-01-24 15:55:08"
         },
         {
             "name": "symfony/css-selector",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "v2.2.0-RC3"
+                "url": "https://github.com/symfony/CssSelector",
+                "reference": "v2.2.0-BETA2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://github.com/symfony/CssSelector/archive/v2.2.0-BETA2.zip",
+                "reference": "v2.2.0-BETA2",
                 "shasum": ""
             },
             "require": {
@@ -290,24 +322,24 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "v2.2.0"
+                "url": "https://github.com/symfony/DomCrawler",
+                "reference": "v2.2.0-BETA2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/v2.2.0",
-                "reference": "v2.2.0",
+                "url": "https://github.com/symfony/DomCrawler/archive/v2.2.0-BETA2.zip",
+                "reference": "v2.2.0-BETA2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/css-selector": ">=2.0,<3.0"
+                "symfony/css-selector": "2.2.*"
             },
             "suggest": {
                 "symfony/css-selector": "2.2.*"
@@ -339,7 +371,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 06:43:14"
+            "time": "2013-01-17 15:25:59"
         },
         {
             "name": "symfony/finder",
@@ -390,17 +422,17 @@
         },
         {
             "name": "symfony/process",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Process.git",
-                "reference": "v2.2.0-RC3"
+                "url": "https://github.com/symfony/Process",
+                "reference": "v2.2.0-BETA2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://github.com/symfony/Process/archive/v2.2.0-BETA2.zip",
+                "reference": "v2.2.0-BETA2",
                 "shasum": ""
             },
             "require": {
@@ -433,21 +465,21 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-02-18 21:28:10"
+            "time": "2013-01-17 15:25:59"
         },
         {
             "name": "symfony/yaml",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.2.0-RC3"
+                "url": "https://github.com/symfony/Yaml",
+                "reference": "b293027f4030998a752a1ac06e80ae9e6bf6a763"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://github.com/symfony/Yaml/archive/b293027f4030998a752a1ac06e80ae9e6bf6a763.zip",
+                "reference": "b293027f4030998a752a1ac06e80ae9e6bf6a763",
                 "shasum": ""
             },
             "require": {
@@ -487,13 +519,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Twig.git",
-                "reference": "39d94faabcea7d60b90c2996d51e1b6691ab39d2"
+                "url": "git://github.com/fabpot/Twig.git",
+                "reference": "eaadcca54b888db779a355e449a16dd8c7760e11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/39d94faabcea7d60b90c2996d51e1b6691ab39d2",
-                "reference": "39d94faabcea7d60b90c2996d51e1b6691ab39d2",
+                "url": "https://github.com/fabpot/Twig/archive/eaadcca54b888db779a355e449a16dd8c7760e11.zip",
+                "reference": "eaadcca54b888db779a355e449a16dd8c7760e11",
                 "shasum": ""
             },
             "require": {
@@ -529,82 +561,10 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-02-28 14:08:49"
+            "time": "2013-01-27 16:32:04"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "atoum/atoum",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/atoum/atoum.git",
-                "reference": "88395a572c33a1f4b85b60acf1f9c5044e8f3c04"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/atoum/atoum/zipball/88395a572c33a1f4b85b60acf1f9c5044e8f3c04",
-                "reference": "88395a572c33a1f4b85b60acf1f9c5044e8f3c04",
-                "shasum": ""
-            },
-            "require": {
-                "ext-hash": "*",
-                "ext-json": "*",
-                "ext-session": "*",
-                "ext-tokenizer": "*",
-                "ext-xml": "*",
-                "php": ">=5.3.3"
-            },
-            "replace": {
-                "mageekguy/atoum": "*"
-            },
-            "bin": [
-                "bin/atoum"
-            ],
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "classes/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD"
-            ],
-            "authors": [
-                {
-                    "name": "Frédéric Hardy",
-                    "email": "frederic.hardy@atoum.org",
-                    "homepage": "http://blog.mageekbox.net"
-                },
-                {
-                    "name": "François Dussert",
-                    "email": "francois.dussert@atoum.org"
-                },
-                {
-                    "name": "Gérald Croes",
-                    "email": "gerald.croes@atoum.org"
-                },
-                {
-                    "name": "Julien Bianchi",
-                    "email": "julien.bianchi@atoum.org"
-                },
-                {
-                    "name": "Ludovic Fleury",
-                    "email": "ludovic.fleury@atoum.org"
-                }
-            ],
-            "description": "Simple modern and intuitive unit testing framework for PHP 5.3+",
-            "homepage": "http://www.atoum.org",
-            "keywords": [
-                "TDD",
-                "atoum",
-                "test",
-                "unit testing"
-            ],
-            "time": "2013-03-04 14:59:27"
-        }
-    ],
+    "packages-dev": null,
     "aliases": [
 
     ],
@@ -620,6 +580,13 @@
         "pimple/pimple": 20,
         "monolog/monolog": 20,
         "twig/twig": 20,
+        "d11wtq/boris": 20,
         "atoum/atoum": 20
-    }
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }
