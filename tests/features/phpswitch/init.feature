@@ -20,5 +20,6 @@ Feature: init
           - php list                   Lists available PHP versions
           - php current                Displays current PHP version
           - php config <key> \[<value>\] Gets or Sets configuration for current PHP version
+          - php repl                   Enters PHP REPL
           - php switch <version>       Switches current PHP version
         """
