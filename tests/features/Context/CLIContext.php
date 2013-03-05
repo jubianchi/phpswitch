@@ -112,7 +112,7 @@ class CLIContext extends BehatAtoumContext
             ->integer($this->status)
             ->isEqualTo(
                 0,
-                sprintf('The command exited with a non-zero status code: int (%d)', $this->status)
+                sprintf('The command exited with a non-zero status code: int (%d)' . PHP_EOL . '%s', $this->status, $this->output)
             )
         ;
     }
@@ -126,7 +126,7 @@ class CLIContext extends BehatAtoumContext
             ->integer($this->status)
             ->isNotEqualTo(
                 0,
-                'The command exited with a zero status code'
+                sprintf('The command exited with a zero status code' . PHP_EOL . '%s', $this->output)
             )
         ;
     }

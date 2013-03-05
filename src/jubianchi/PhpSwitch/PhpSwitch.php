@@ -12,11 +12,6 @@ class PhpSwitch implements Runnable
 	protected $container;
 	protected $env = array();
 
-    public static function init($path, array $args = array())
-    {
-        return new static($path, static::getEnv($args));
-    }
-
     protected static function getEnv($env = array())
     {
         $map = array(
@@ -40,7 +35,7 @@ class PhpSwitch implements Runnable
 		$this->env = $env;
 
         $this
-            ->initEnv($path, $env)
+            ->initEnv($path, static::getEnv($env))
             ->initApplication()
             ->initConfiguration()
             ->initPhp()

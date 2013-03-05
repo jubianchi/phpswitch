@@ -1,6 +1,6 @@
 Feature: phar:build
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch phar:build"
+    Given I run "../../bin/phpswitch phar:build"
      Then The file "sandbox/phpswitch.phar" should exist
 
     Given I run "php phpswitch.phar"
@@ -48,10 +48,41 @@ Feature: phar:build
 
         """
       And The directory "sandbox/.phpswitch" should exist
+      And The command should exit with success status
       And The directory "sandbox/.phpswitch/downloads" should exist
       And The directory "sandbox/.phpswitch/sources" should exist
       And The directory "sandbox/.phpswitch/installed" should exist
       And The directory "sandbox/.phpswitch/doc" should exist
       And The file "sandbox/.phpswitch/.phpswitchrc" should exist
+
+  Scenario:
+    Given I run "../../bin/phpswitch phar:build phpswitch-custom.phar"
+     Then The file "sandbox/phpswitch-custom.phar" should exist
+
+    Given I run "php phpswitch-custom.phar"
       And The command should exit with success status
 
+    Given I run "php phpswitch-custom.phar init"
+      And The command should exit with success status
+      And The directory "sandbox/.phpswitch" should exist
+      And The directory "sandbox/.phpswitch/downloads" should exist
+      And The directory "sandbox/.phpswitch/sources" should exist
+      And The directory "sandbox/.phpswitch/installed" should exist
+      And The directory "sandbox/.phpswitch/doc" should exist
+      And The file "sandbox/.phpswitch/.phpswitchrc" should exist
+
+  Scenario:
+    Given I run "../../bin/phpswitch phar:build"
+     Then The file "sandbox/phpswitch.phar" should exist
+
+    Given I run "mkdir ../prefix; PHPSWITCH_PREFIX=../prefix/.phpswitch php phpswitch.phar"
+      And The command should exit with success status
+
+    Given I run "PHPSWITCH_PREFIX=../prefix/.phpswitch php phpswitch.phar init"
+      And The command should exit with success status
+      And The directory "prefix/.phpswitch" should exist
+      And The directory "prefix/.phpswitch/downloads" should exist
+      And The directory "prefix/.phpswitch/sources" should exist
+      And The directory "prefix/.phpswitch/installed" should exist
+      And The directory "prefix/.phpswitch/doc" should exist
+      And The file "prefix/.phpswitch/.phpswitchrc" should exist
