@@ -1,9 +1,9 @@
 #!/bin/bash
 
 DIR=$(dirname $0)
-PHP="php -dphar.readonly=Off"
+PHP="php -d phar.readonly=Off"
 
 $PHP $DIR/atoum --test-all || exit 1
-$PHP $DIR/../behat.phar $DIR/../tests/features || exit 1
+$PHP $DIR/behat.phar $DIR/../tests/features || exit 1
 
 $PHP bin/phpswitch phar:build

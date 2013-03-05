@@ -9,6 +9,11 @@ Feature: php:current
 
   Scenario:
     Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
+      And I have the following configuration in "phpswitch/.phpswitch.yml":
+        """
+        phpswitch:
+            version: 5.3.15
+        """
       And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:config foo.bar"
      Then I should see
         """
