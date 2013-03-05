@@ -27,6 +27,14 @@ class Configuration extends atoum\test
                 })
                     ->isInstanceOf('\\InvalidArgumentException')
                     ->hasMessage(sprintf('Offset %s does not exist', $offset))
+            ->if($value = null)
+            ->and($object->set($offset, $value))
+            ->then
+                ->exception(function() use($object, $offset) {
+                    $object->get($offset);
+                })
+                    ->isInstanceOf('\\InvalidArgumentException')
+                    ->hasMessage(sprintf('Offset %s does not exist', $offset))
             ->if($value = uniqid())
             ->and($object->set($offset, $value))
             ->then

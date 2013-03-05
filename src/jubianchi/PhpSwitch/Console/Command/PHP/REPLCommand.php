@@ -29,7 +29,8 @@ class REPLCommand extends Command
             throw new \RuntimeException('PCNTL extension is not enabled');
         }
 
-        $boris = new \Boris\Boris();
+        $version = $this->getConfiguration()->get('version', phpversion());
+        $boris = new \Boris\Boris($version . '> ');
         $boris->start();
 
         return 0;
