@@ -31,6 +31,7 @@ Feature: phar:build
          php:doc:install   Installs PHP offline documentation
          php:install       Installs a PHP version
          php:list          Lists PHP versions
+         php:repl          Enters PHP REPL
          php:switch        Switch PHP version
          php:uninstall     Uninstalls a PHP version
 
