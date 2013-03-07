@@ -79,7 +79,7 @@ class ConfigCommand extends Command
         return implode(
             DIRECTORY_SEPARATOR,
             array(
-                $this->getApplication()->getService('app.workspace.installed.path'),
+                $this->getApplication()->getParameter('app.workspace.installed.path'),
                 $version,
                 'var',
                 'db',

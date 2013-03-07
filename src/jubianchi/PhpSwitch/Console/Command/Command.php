@@ -61,7 +61,7 @@ abstract class Command extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if(false === is_dir($this->getApplication()->getService('app.workspace.path'))) {
+        if(false === is_dir($this->getApplication()->getParameter('app.workspace.path'))) {
             throw new \RuntimeException(
                 sprintf(
                     '%s is not initialized. Please run init command',

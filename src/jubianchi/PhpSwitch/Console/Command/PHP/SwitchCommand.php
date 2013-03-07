@@ -46,7 +46,7 @@ class SwitchCommand extends Command
         $version = ('off' === $version ? null : $version);
 
         if (null !== $version) {
-            $path = $this->getApplication()->getService('app.workspace.installed.path');
+            $path = $this->getApplication()->getParameter('app.workspace.installed.path');
             $finder = new Finder();
             $finder
                 ->in($path)

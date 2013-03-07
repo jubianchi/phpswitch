@@ -20,11 +20,11 @@ class InitCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $directories = array(
-            $workspace = $this->getApplication()->getService('app.workspace.path'),
-            $this->getApplication()->getService('app.workspace.downloads.path'),
-            $this->getApplication()->getService('app.workspace.sources.path'),
-            $installed = $this->getApplication()->getService('app.workspace.installed.path'),
-            $this->getApplication()->getService('app.workspace.doc.path'),
+            $workspace = $this->getApplication()->getParameter('app.workspace.path'),
+            $this->getApplication()->getParameter('app.workspace.downloads.path'),
+            $this->getApplication()->getParameter('app.workspace.sources.path'),
+            $installed = $this->getApplication()->getParameter('app.workspace.installed.path'),
+            $this->getApplication()->getParameter('app.workspace.doc.path'),
         );
 
         $status = 0;
@@ -46,7 +46,7 @@ class InitCommand extends Command
             $this->getApplication()->getService('app.twig')->render(
                 'phpswitchrc.twig',
                 array(
-                    'path' => $this->getApplication()->getService('app.path'),
+                    'path' => $this->getApplication()->getParameter('app.path'),
                     'installed' => $installed
                 )
             )
@@ -57,7 +57,7 @@ class InitCommand extends Command
             $this->getApplication()->getService('app.twig')->render(
                 'phpswitchprompt.twig',
                 array(
-                    'path' => $this->getApplication()->getService('app.path')
+                    'path' => $this->getApplication()->getParameter('app.path')
                 )
             )
         );

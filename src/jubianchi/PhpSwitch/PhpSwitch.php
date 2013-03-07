@@ -32,6 +32,7 @@ class PhpSwitch implements Runnable
     public function __construct($path, array $env = array())
     {
         $this->container = new \Pimple();
+        $this->container['parameters'] = new \Pimple();
 		$this->env = $env;
 
         $this
@@ -49,25 +50,25 @@ class PhpSwitch implements Runnable
 
     protected function initEnv($path, array $env = array())
     {
-        $this->container['app.path'] = $path;
-        $this->container['app.source.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . 'src';
-        $this->container['app.command.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
-        $this->container['app.templates.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Templates';
-        $this->container['app.php.option.path'] = $this->container['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
-        $this->container['app.user.path'] = getenv('HOME');
-        $this->container['app.workspace.path'] = $this->container['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
-        $this->container['app.config.name'] = '.phpswitch.yml';
-        $this->container['app.logger.output.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'phpswitch.log';
-        $this->container['app.logger.error.path'] = $this->container['app.logger.output.path'];
+        $this->container['parameters']['app.path'] = $path;
+        $this->container['parameters']['app.source.path'] = $this->container['parameters']['app.path'] . DIRECTORY_SEPARATOR . 'src';
+        $this->container['parameters']['app.command.path'] = $this->container['parameters']['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Console/Command';
+        $this->container['parameters']['app.templates.path'] = $this->container['parameters']['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Templates';
+        $this->container['parameters']['app.php.option.path'] = $this->container['parameters']['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
+        $this->container['parameters']['app.user.path'] = getenv('HOME');
+        $this->container['parameters']['app.workspace.path'] = $this->container['parameters']['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
+        $this->container['parameters']['app.config.name'] = '.phpswitch.yml';
+        $this->container['parameters']['app.logger.output.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'phpswitch.log';
+        $this->container['parameters']['app.logger.error.path'] = $this->container['parameters']['app.logger.output.path'];
 
         foreach ($env as $key => $value) {
-            $this->container[$key] = $value;
+            $this->container['parameters'][$key] = $value;
         }
 
-        $this->container['app.workspace.downloads.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
-        $this->container['app.workspace.sources.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
-        $this->container['app.workspace.installed.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
-        $this->container['app.workspace.doc.path'] = $this->container['app.workspace.path'] . DIRECTORY_SEPARATOR . 'doc';
+        $this->container['parameters']['app.workspace.downloads.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
+        $this->container['parameters']['app.workspace.sources.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
+        $this->container['parameters']['app.workspace.installed.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
+        $this->container['parameters']['app.workspace.doc.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'doc';
 
         return $this;
     }
@@ -88,18 +89,18 @@ class PhpSwitch implements Runnable
         };
 
         $this->container['app.command.finder'] = function(\Pimple $container) {
-            return new Finder($container['app.command.path'], $container['app.source.path']);
+            return new Finder($container['parameters']['app.command.path'], $container['parameters']['app.source.path']);
         };
 
         $this->container['app.logger'] = function(\Pimple $container) {
             $logger = new Logger('output');
             $formatter = new \Monolog\Formatter\LineFormatter();
 
-            $info = new StreamHandler($container['app.logger.output.path'], Logger::INFO);
+            $info = new StreamHandler($container['parameters']['app.logger.output.path'], Logger::INFO);
             $info->setFormatter($formatter);
             $logger->pushHandler($info);
 
-            $error = new StreamHandler($container['app.logger.error.path'], Logger::ERROR, false);
+            $error = new StreamHandler($container['parameters']['app.logger.error.path'], Logger::ERROR, false);
             $error->setFormatter($formatter);
             $logger->pushHandler($error);
 
@@ -107,7 +108,7 @@ class PhpSwitch implements Runnable
         };
 
         $this->container['app.twig'] = function(\Pimple $container) {
-            $loader = new \Twig_Loader_Filesystem($container['app.templates.path']);
+            $loader = new \Twig_Loader_Filesystem($container['parameters']['app.templates.path']);
             return new \Twig_Environment($loader);
         };
 
@@ -122,7 +123,7 @@ class PhpSwitch implements Runnable
     {
         $this->container['app.config'] = function(\Pimple $container) {
             return $container['app.config.loader']->load(
-                $container['app.config.name'],
+                $container['parameters']['app.config.name'],
                 new Config\Configuration(),
                 $container['app.config.dumper']
             );
@@ -131,7 +132,7 @@ class PhpSwitch implements Runnable
         $this->container['app.config.loader'] = function(\Pimple $container) {
             return new Config\Loader(
                 array(
-                    $container['app.user.path'],
+                    $container['parameters']['app.user.path'],
                     getcwd() => Config\Loader::DIRECTORY_BUBBLE,
                 ),
                 $container['app.config.validator']
@@ -139,13 +140,13 @@ class PhpSwitch implements Runnable
         };
 
         $this->container['app.config.validator'] = function(\Pimple $container) {
-            return new Config\Validator($container['app.path']);
+            return new Config\Validator($container['parameters']['app.path']);
         };
 
         $this->container['app.config.dumper'] = function(\Pimple $container) {
             return new Config\Dumper(
                 array(
-                    Config\Dumper::GLOBAL_DIR => $container['app.user.path'],
+                    Config\Dumper::GLOBAL_DIR => $container['parameters']['app.user.path'],
                     Config\Dumper::LOCAL_DIR => getcwd(),
                 )
             );
@@ -158,26 +159,26 @@ class PhpSwitch implements Runnable
     {
         $this->container['app.php.builder'] = function(\Pimple $container) {
             return new PHP\Builder(
-                $container['app.workspace.installed.path'],
+                $container['parameters']['app.workspace.installed.path'],
                 $container['app.process.builder']
             );
         };
 
         $this->container['app.php.extracter'] = function(\Pimple $container) {
             return new PHP\Extracter(
-                $container['app.workspace.sources.path'],
+                $container['parameters']['app.workspace.sources.path'],
                 $container['app.process.builder']
             );
         };
 
         $this->container['app.php.downloader'] = function(\Pimple $container) {
-            return new PHP\Downloader($container['app.workspace.downloads.path']);
+            return new PHP\Downloader($container['parameters']['app.workspace.downloads.path']);
         };
 
         $this->container['app.php.option.finder'] = function(\Pimple $container) {
             return new PHP\Option\Finder(
-                $container['app.php.option.path'],
-                $container['app.source.path']
+                $container['parameters']['app.php.option.path'],
+                $container['parameters']['app.source.path']
             );
         };
 

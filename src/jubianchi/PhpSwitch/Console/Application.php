@@ -135,4 +135,11 @@ class Application extends BaseApplication
 
         return $this->container[$service];
     }
+
+    public function getParameter($name)
+    {
+        $parameters = $this->getService('parameters');
+
+        return $parameters[$name];
+    }
 }
