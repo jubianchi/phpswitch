@@ -26,6 +26,7 @@ class Builder
      * @param \jubianchi\PhpSwitch\PHP\Version $version
      * @param string                           $source
      * @param array                            $options
+     * @param int                              $jobs
      * @param callable                         $callback
      */
     public function build(Version $version, $source, $options, $jobs = null, $callback = null)
@@ -97,6 +98,7 @@ class Builder
 
     /**
      * @param string   $source
+     * @param int      $jobs
      * @param callable $callback
      *
      * @throws \Symfony\Component\Process\Exception\ProcessFailedException

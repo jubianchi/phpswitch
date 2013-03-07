@@ -38,7 +38,7 @@ class Builder extends atoum\test
 
     public function testGetPhar()
     {
-        if(0 !== ini_get('phar.readonly')) {
+        if(false === in_array(ini_get('phar.readonly'), array(0, 'Off'))) {
             $this->skip('phar.readonly should be Off');
         }
 
@@ -118,7 +118,7 @@ class Builder extends atoum\test
             ->then
                 ->integer(count($builder))->isEqualTo(0)
             ->if($file = streams\file::get())
-            ->and($builder->addFile(new \SplFileObject((string) $file)))
+            ->and($builder->addFile((string) $file))
             ->then
                 ->integer(count($builder))->isEqualTo(1)
             ->if($finder = new \mock\Symfony\Component\Finder\Finder())
