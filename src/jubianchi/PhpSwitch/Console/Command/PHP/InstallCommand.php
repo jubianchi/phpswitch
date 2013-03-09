@@ -132,7 +132,6 @@ class InstallCommand extends Command
 
         foreach ($input->getOption('ini') as $ini) {
             if (false !== ($ini = parse_ini_string($ini))) {
-                var_dump($ini, key($ini), current($ini));
                 $this->getApplication()->getService('app.php.config')->setValue($version, key($ini), current($ini));
             }
         }
