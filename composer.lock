@@ -30,7 +30,7 @@
                     "Boris": "lib"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "time": "2013-03-07 01:31:05"
         },
         {
@@ -101,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "5a8936d9d31eb613f1a33753e5f22bffebe0bbc3"
+                "reference": "v1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/5a8936d9d31eb613f1a33753e5f22bffebe0bbc3",
-                "reference": "5a8936d9d31eb613f1a33753e5f22bffebe0bbc3",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/v1.0.2",
+                "reference": "v1.0.2",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
                     "Pimple": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -139,7 +139,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-02-09 15:33:26"
+            "time": "2013-03-08 08:21:40"
         },
         {
             "name": "psr/log",
@@ -181,17 +181,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.2.0",
+            "version": "2.2.x-dev",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "v2.2.0-RC3"
+                "reference": "3af40615f2d486847d3a9f939612f8e8d08653f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/3af40615f2d486847d3a9f939612f8e8d08653f0",
+                "reference": "3af40615f2d486847d3a9f939612f8e8d08653f0",
                 "shasum": ""
             },
             "require": {
@@ -224,21 +224,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2013-02-17 12:27:42"
+            "time": "2013-03-01 10:42:10"
         },
         {
             "name": "symfony/console",
-            "version": "v2.2.0",
+            "version": "2.2.x-dev",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "v2.2.0"
+                "reference": "7dc8d04604e6592665132e503aafde729eaf5611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/v2.2.0",
-                "reference": "v2.2.0",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/7dc8d04604e6592665132e503aafde729eaf5611",
+                "reference": "7dc8d04604e6592665132e503aafde729eaf5611",
                 "shasum": ""
             },
             "require": {
@@ -271,11 +271,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 06:43:14"
+            "time": "2013-03-01 14:42:44"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.2.0",
+            "version": "2.2.x-dev",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
@@ -322,7 +322,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.2.0",
+            "version": "2.2.x-dev",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
@@ -422,7 +422,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.2.0",
+            "version": "2.2.x-dev",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
@@ -469,7 +469,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.2.0",
+            "version": "2.2.x-dev",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
@@ -542,7 +542,7 @@
                     "Twig_": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "BSD-3"
             ],
@@ -571,12 +571,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/atoum/atoum.git",
-                "reference": "1b8658d09b4d1d6f71c727639a97b3afaccfaa0b"
+                "reference": "bf335a09863c2f5a47c0f91a4c98cc22b308e53d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atoum/atoum/zipball/1b8658d09b4d1d6f71c727639a97b3afaccfaa0b",
-                "reference": "1b8658d09b4d1d6f71c727639a97b3afaccfaa0b",
+                "url": "https://api.github.com/repos/atoum/atoum/zipball/bf335a09863c2f5a47c0f91a4c98cc22b308e53d",
+                "reference": "bf335a09863c2f5a47c0f91a4c98cc22b308e53d",
                 "shasum": ""
             },
             "require": {
@@ -599,7 +599,7 @@
                     "classes/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "BSD"
             ],
@@ -634,7 +634,7 @@
                 "test",
                 "unit testing"
             ],
-            "time": "2013-03-05 10:55:46"
+            "time": "2013-03-08 12:34:16"
         }
     ],
     "aliases": [
