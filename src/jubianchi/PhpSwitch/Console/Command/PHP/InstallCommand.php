@@ -40,6 +40,7 @@ class InstallCommand extends Command
             ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Use the same configuration as an existing version')
             ->addOption('jobs', 'j', InputOption::VALUE_REQUIRED, 'Number of jobs to run simultaneously')
+            ->addOption('ini', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'INI configuration directives')
         ;
     }
 
@@ -128,6 +129,13 @@ class InstallCommand extends Command
 
         foreach ($options as $option) {
             $option->postInstall($version, $input, $output);
+        }
+
+        foreach ($input->getOption('ini') as $ini) {
+            if (false !== ($ini = parse_ini_string($ini))) {
+                var_dump($ini, key($ini), current($ini));
+                $this->getApplication()->getService('app.php.config')->setValue($version, key($ini), current($ini));
+            }
         }
 
         $output->writeln(array(

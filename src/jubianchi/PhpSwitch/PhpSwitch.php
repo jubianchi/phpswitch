@@ -191,6 +191,12 @@ class PhpSwitch implements Runnable
             return new PHP\Option\Normalizer();
         };
 
+        $this->container['app.php.config'] = function(\Pimple $container) {
+            return new PHP\Config(
+                $container['parameters']['app.workspace.installed.path']
+            );
+        };
+
         return $this;
     }
 }

@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputArgument;
 use jubianchi\PhpSwitch\Console\Command\Command;
+use jubianchi\PhpSwitch\PHP\Version;
 
 class ConfigCommand extends Command
 {
@@ -36,54 +37,17 @@ class ConfigCommand extends Command
 
         $name = $input->getArgument('name');
         $value = $input->getArgument('value');
+        $version = Version::fromString($this->getConfiguration()->get('version'));
 
         if (null !== $value) {
-            $this->setValue($name, $value);
-        } else {
-            $this->getValue($name);
+            $this->getApplication()->getService('app.php.config')->setValue($version, $name, $value);
         }
-    }
 
-    public function getValue($name)
-    {
-        $path = $this->getConfigurationFilePath($name);
-
-        if (false === is_readable($path)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Configuration directive %s is not managed by %s',
+        $output->writeln(
+            sprintf(
+                '%s = %s',
                 $name,
-                $this->getApplication()->getName()
-            ));
-        }
-
-        $ini = parse_ini_string(file_get_contents($path));
-
-        return $ini[$name];
-    }
-
-    public function setValue($name, $value)
-    {
-        $path = $this->getConfigurationFilePath($name);
-
-        if (false === is_writable(dirname($path))) {
-            throw new \RuntimeException('You don\'t have the required permission to edit configuration');
-        }
-
-        file_put_contents($path, $name . ' = "' . $value . '"');
-    }
-
-    protected function getConfigurationFilePath($name)
-    {
-        $version = $this->getConfiguration()->get('version');
-
-        return implode(
-            DIRECTORY_SEPARATOR,
-            array(
-                $this->getApplication()->getParameter('app.workspace.installed.path'),
-                $version,
-                'var',
-                'db',
-                $name . '.ini'
+                $this->getApplication()->getService('app.php.config')->getValue($version, $name)
             )
         );
     }
