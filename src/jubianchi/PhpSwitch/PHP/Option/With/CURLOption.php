@@ -11,20 +11,15 @@ class CURLOption extends WithOption
     const MODE = InputOption::VALUE_OPTIONAL;
     const DEFAULT_VALUE = 'auto';
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return bool
-     */
-    public function isEnabled(InputInterface $input)
+    public function getValue()
     {
-        $enabled = parent::isEnabled($input);
+        $value = parent::getValue();
 
-        if ('auto' === $this->value) {
-            $this->value = $this->getCurlPrefix();
+        if ('auto' === $value) {
+            return $this->getCurlPrefix();
         }
 
-        return $enabled;
+        return $value;
     }
 
     protected function getCurlPrefix()

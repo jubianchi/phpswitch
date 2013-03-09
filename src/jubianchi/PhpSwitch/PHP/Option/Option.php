@@ -57,6 +57,10 @@ abstract class Option
 
     public function getValue()
     {
+        if (null === $this->value && $this->isEnabled()) {
+            return $this->getDefault();
+        }
+
         return $this->value;
     }
 
@@ -97,7 +101,7 @@ abstract class Option
                 null,
                 static::MODE,
                 $this->getDesc(),
-                static::DEFAULT_VALUE
+                null
             );
         }
 
@@ -109,12 +113,17 @@ abstract class Option
      *
      * @return bool
      */
-    public function isEnabled(InputInterface $input)
+    public function isEnabled(InputInterface $input = null)
     {
-        $value = $input->getOption($this->getName());
-        $enabled = (bool) $value;
+        $value = null;
+        $enabled = false;
 
-        if (null === $value && static::MODE === InputOption::VALUE_OPTIONAL) {
+        if (null !== $input) {
+            $value = $input->getOption($this->getName());
+            $enabled = (bool) $value;
+        }
+
+        if (null === $value && $this->getMode() === InputOption::VALUE_OPTIONAL) {
             $enabled = in_array('--' . $this->getName(), $_SERVER['argv']);
         }
 
@@ -152,6 +161,6 @@ abstract class Option
      */
     public function __toString()
     {
-        return $this->getAlias() . ($this->value ? '=' . $this->value : '');
+        return $this->getAlias() . ($this->getValue() ? '=' . $this->getValue() : '');
     }
 }

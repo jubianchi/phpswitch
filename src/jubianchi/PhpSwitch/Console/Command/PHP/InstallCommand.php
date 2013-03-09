@@ -89,7 +89,7 @@ class InstallCommand extends Command
         if (null !== ($config = $input->getOption('config'))) {
             try {
                 $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $config));
-            } catch(\InvalidArgumentException $exception) {
+            } catch (\InvalidArgumentException $exception) {
                 throw new \InvalidArgumentException(
                     sprintf('Configuration %s does not exist', $config),
                     $exception->getCode(),
@@ -266,7 +266,7 @@ class InstallCommand extends Command
             sprintf('%s<comment>To: %s</comment>', self::INDENT, $destination)
         ));
 
-        if(false === is_dir(dirname($destination))) {
+        if (false === is_dir(dirname($destination))) {
             mkdir(dirname($destination), 0755, true);
         }
 
@@ -307,10 +307,10 @@ class InstallCommand extends Command
 
         $this->startProgress($output, 100, '[%bar%] %percent%%');
 
-        return function($download_size, $downloaded_size, $upload_size, $uploaded_size) use($self) {
+        return function($download_size, $downloaded_size, $upload_size, $uploaded_size) use ($self) {
             static $previous = 0;
 
-            if($download_size > 0) {
+            if ($download_size > 0) {
                 $complete = ceil(($downloaded_size / $download_size) * 100);
 
                 $self->getHelper('progress')->advance($complete - $previous);

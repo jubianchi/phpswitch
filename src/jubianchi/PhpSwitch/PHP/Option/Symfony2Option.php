@@ -1,7 +1,7 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-class Symfony2Option extends AliasOption
+class Symfony2Option extends DefaultOption
 {
     const ARG = 'symfony2';
     const DESC = 'symfony2 configure options';
@@ -11,12 +11,14 @@ class Symfony2Option extends AliasOption
      */
     public function requires()
     {
-        return array(
-            new DefaultOption(),
-            new Enable\SessionOption(),
-            new With\PCREOption(),
-            new Enable\IntlOption(),
-            new With\PDOMySQLOption()
+        return array_merge(
+            parent::requires(),
+            array(
+                new Enable\SessionOption(),
+                new With\PCREOption(),
+                new Enable\IntlOption(),
+                new With\PDOMySQLOption()
+            )
         );
     }
 }
