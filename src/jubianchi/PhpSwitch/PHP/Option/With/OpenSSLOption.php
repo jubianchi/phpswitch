@@ -2,7 +2,6 @@
 namespace jubianchi\PhpSwitch\PHP\Option\With;
 
 use Symfony\Component\Console\Input\InputOption;
-use jubianchi\PhpSwitch\PHP\Option\Enable;
 
 class OpenSSLOption extends WithOption
 {

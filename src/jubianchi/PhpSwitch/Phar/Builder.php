@@ -53,7 +53,7 @@ class Builder implements \Countable
 
     public function addFile($file)
     {
-        if(false === file_exists($file)) {
+        if (false === file_exists($file)) {
             throw new \InvalidArgumentException(sprintf('File %s does not exist', $file));
         }
 

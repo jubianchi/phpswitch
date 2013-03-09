@@ -81,7 +81,7 @@ class Builder
             ->add('--with-pear=' . $prefix . '/lib/php')
         ;
 
-        foreach(explode(' ', $options) as $option) {
+        foreach (explode(' ', $options) as $option) {
             $builder->add((string) $option);
         }
 

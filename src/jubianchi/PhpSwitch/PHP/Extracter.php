@@ -22,9 +22,9 @@ class Extracter
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\PHP\Version   $version
-     * @param string                             $file
-     * @param callable                           $callback
+     * @param \jubianchi\PhpSwitch\PHP\Version $version
+     * @param string                           $file
+     * @param callable                         $callback
      *
      * @return \jubianchi\PhpSwitch\PHP\Extracter
      */

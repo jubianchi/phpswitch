@@ -127,7 +127,7 @@ class InstallCommand extends Command
             );
             $process->run($this->getProcessCallback($output));
 
-            if(file_exists($archive)) {
+            if (file_exists($archive)) {
                 unlink($archive);
             }
         } else {
@@ -198,10 +198,10 @@ class InstallCommand extends Command
 
         $this->startProgress($output, 100, '[%bar%] %percent%%');
 
-        return function($download_size, $downloaded_size, $upload_size, $uploaded_size) use($self) {
+        return function($download_size, $downloaded_size, $upload_size, $uploaded_size) use ($self) {
             static $previous = 0;
 
-            if($download_size > 0) {
+            if ($download_size > 0) {
                 $complete = ceil(($downloaded_size / $download_size) * 100);
 
                 $self->getHelper('progress')->advance($complete - $previous);

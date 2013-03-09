@@ -9,8 +9,8 @@ use jubianchi\PhpSwitch\Phar\Runnable;
 
 class PhpSwitch implements Runnable
 {
-	protected $container;
-	protected $env = array();
+    protected $container;
+    protected $env = array();
 
     protected static function getEnv($env = array())
     {
@@ -20,11 +20,11 @@ class PhpSwitch implements Runnable
             'PHPSWITCH_CONFIG' => 'app.config.name',
         );
 
-		foreach($map as $var => $key) {
-			if(false !== ($value = getenv($var))) {
-				$env[$key] = $value;
-			}
-		}
+        foreach ($map as $var => $key) {
+            if (false !== ($value = getenv($var))) {
+                $env[$key] = $value;
+            }
+        }
 
         return $env;
     }
@@ -33,7 +33,7 @@ class PhpSwitch implements Runnable
     {
         $this->container = new \Pimple();
         $this->container['parameters'] = new \Pimple();
-		$this->env = $env;
+        $this->env = $env;
 
         $this
             ->initEnv($path, static::getEnv($env))
@@ -108,7 +108,8 @@ class PhpSwitch implements Runnable
         };
 
         $this->container['app.twig'] = function(\Pimple $container) {
-            $loader = new \Twig_Loader_Filesystem($container['parameters']['app.templates.path']);
+            $loader = new \Twig_Loader_Filesystem($container['app.templates.path']);
+
             return new \Twig_Environment($loader);
         };
 

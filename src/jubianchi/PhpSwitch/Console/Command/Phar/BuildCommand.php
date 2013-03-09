@@ -77,26 +77,26 @@ class BuildCommand extends Command
             )
             ->addFilter(new Phar\Filter\CommentFilter())
             ->addFilter(new Phar\Filter\WhitespaceFilter())
-			->addRaw(
-				'bin/' . basename($name, '.phar'),
-				(string) new Phar\Bootstrap(
-					'\\jubianchi\\PhpSwitch\\PhpSwitch',
-					array(
-						'app.workspace.path' => './.phpswitch'
-					)
-				)
-			)
-			->setStub((string) new Phar\Stub())
+            ->addRaw(
+                'bin/' . basename($name, '.phar'),
+                (string) new Phar\Bootstrap(
+                    '\\jubianchi\\PhpSwitch\\PhpSwitch',
+                    array(
+                        'app.workspace.path' => './.phpswitch'
+                    )
+                )
+            )
+            ->setStub((string) new Phar\Stub())
             ->buildPhar(
-				function($total, $current, $previous) use ($output, $progress) {
-					if (0 === $current) {
-						$progress->setBarWidth(50);
-						$progress->start($output, $total);
-					} else {
-						$progress->advance($current - $previous);
-					}
-				}
-			)
+                function($total, $current, $previous) use ($output, $progress) {
+                    if (0 === $current) {
+                        $progress->setBarWidth(50);
+                        $progress->start($output, $total);
+                    } else {
+                        $progress->advance($current - $previous);
+                    }
+                }
+            )
         ;
 
         unset($phar);

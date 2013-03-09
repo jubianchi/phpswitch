@@ -3,24 +3,24 @@ namespace jubianchi\PhpSwitch\Phar;
 
 class Bootstrap
 {
-	protected $class;
-	protected $args;
+    protected $class;
+    protected $args;
 
-	public function __construct($class, array $args = array())
-	{
-		if (false === class_exists($class)) {
-			throw new \InvalidArgumentException(sprintf('Class %s does not exist', $class));
-		}
+    public function __construct($class, array $args = array())
+    {
+        if (false === class_exists($class)) {
+            throw new \InvalidArgumentException(sprintf('Class %s does not exist', $class));
+        }
 
-		$this->class = $class;
-		$this->args = $args;
-	}
+        $this->class = $class;
+        $this->args = $args;
+    }
 
     public function __toString()
-	{
-		$args = var_export($this->args, true);
+    {
+        $args = var_export($this->args, true);
 
-		return <<<EOF
+        return <<<EOF
 <?php
 
 \$basedir = __DIR__ . DIRECTORY_SEPARATOR . '..';
@@ -37,5 +37,5 @@ require_once implode(
 \$app = new $this->class(\$basedir, $args);
 \$app->run();
 EOF;
-	}
+    }
 }

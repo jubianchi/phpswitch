@@ -3,8 +3,6 @@ namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Finder\Finder;
 use jubianchi\PhpSwitch\Console\Command\Command;
 use jubianchi\PhpSwitch\PHP;
 

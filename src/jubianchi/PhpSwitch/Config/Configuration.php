@@ -38,7 +38,7 @@ class Configuration implements \IteratorAggregate
             $current .= $sep . $key;
 
             if (false === array_key_exists($key, $reference) || null === $reference[$key]) {
-                if(null === $default) {
+                if (null === $default) {
                     throw new \InvalidArgumentException(sprintf('Offset %s does not exist', $current));
                 } else {
                     return $default;

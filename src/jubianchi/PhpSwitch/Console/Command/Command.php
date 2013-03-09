@@ -2,7 +2,6 @@
 namespace jubianchi\PhpSwitch\Console\Command;
 
 use Symfony\Component\Console\Command\Command as BaseCommand;
-use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Monolog\Logger;
@@ -41,8 +40,8 @@ abstract class Command extends BaseCommand
     }
 
     /**
-     * @param string[]|string                                   $messages
-     * @param int                                               $level
+     * @param string[]|string $messages
+     * @param int             $level
      *
      * @return \jubianchi\PhpSwitch\Console\Command\Command
      */
@@ -61,7 +60,7 @@ abstract class Command extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if(false === is_dir($this->getApplication()->getParameter('app.workspace.path'))) {
+        if (false === is_dir($this->getApplication()->getParameter('app.workspace.path'))) {
             throw new \RuntimeException(
                 sprintf(
                     '%s is not initialized. Please run init command',

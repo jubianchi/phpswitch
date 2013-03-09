@@ -12,13 +12,8 @@ class Symfony2Option extends AliasOption
     public function requires()
     {
         return array(
-            new DisableAllOption(),
-            new Enable\JSONOption(),
+            new DefaultOption(),
             new Enable\SessionOption(),
-            new Enable\CTypeOption(),
-            new Enable\TokenizerOption(),
-            new Enable\XMLOption(),
-            new Enable\SimpleXMLOption(),
             new With\PCREOption(),
             new Enable\IntlOption(),
             new With\PDOMySQLOption()

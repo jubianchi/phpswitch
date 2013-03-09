@@ -24,14 +24,14 @@ class Iterator extends \FilterIterator
     {
         $className = $this->current();
 
-        try{
+        try {
             $reflector = $this->getReflector($className);
 
             return (
                 true === $reflector->isInstantiable() &&
                 true === $reflector->isSubclassOf('\\jubianchi\\PhpSwitch\\Console\\Command\\Command')
             );
-        } catch(\ReflectionException $exception) {
+        } catch (\ReflectionException $exception) {
             return false;
         }
     }

@@ -1,8 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use Symfony\Component\Console\Input\InputInterface;
-
 class Normalizer
 {
     /**
@@ -27,10 +25,10 @@ class Normalizer
         $aliases = explode(' ', trim($string));
 
         foreach ($aliases as $alias) {
-            if(preg_match('/(?P<alias>[a-z0-9_-]+)(?:=(?P<value>.+))?/', $alias, $matches)) {
+            if (preg_match('/(?P<alias>[a-z0-9_-]+)(?:=(?P<value>.+))?/', $alias, $matches)) {
                 foreach ($options as $option) {
-                    if($matches['alias'] === $option->getAlias()) {
-                        if(isset($matches['value'])) {
+                    if ($matches['alias'] === $option->getAlias()) {
+                        if (isset($matches['value'])) {
                             $option->setValue($matches['value']);
                         }
 

@@ -1,9 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use Symfony\Component\Console\Input\InputOption;
-use jubianchi\PhpSwitch\PHP\Option\Enable;
-
 abstract class AliasOption extends Option
 {
     const ARG = 'atoum';

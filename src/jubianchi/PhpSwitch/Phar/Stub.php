@@ -4,8 +4,8 @@ namespace jubianchi\PhpSwitch\Phar;
 class Stub
 {
     public function __toString()
-	{
-		return <<<'EOF'
+    {
+        return <<<'EOF'
 #!/usr/bin/env php
 <?php
 
@@ -15,11 +15,11 @@ $BIN = $ROOT . 'bin' . DIRECTORY_SEPARATOR . basename($PHAR, '.phar');
 
 Phar::mapPhar($PHAR);
 
-if(file_exists($BIN)) {
-	require $BIN;
+if (file_exists($BIN)) {
+    require $BIN;
 }
 
 __HALT_COMPILER();
 EOF;
-	}
+    }
 }

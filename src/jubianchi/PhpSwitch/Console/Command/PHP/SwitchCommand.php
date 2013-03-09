@@ -80,7 +80,8 @@ class SwitchCommand extends Command
         return 0;
     }
 
-    public function backupSystemModule(OutputInterface $output) {
+    public function backupSystemModule(OutputInterface $output)
+    {
         $path = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
 
         if (is_file($path)) {
@@ -98,11 +99,12 @@ class SwitchCommand extends Command
         }
     }
 
-    public function restoreSystemModule(OutputInterface $output) {
+    public function restoreSystemModule(OutputInterface $output)
+    {
         $original = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
         $backup = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so.system';
 
-        if(is_file($backup)) {
+        if (is_file($backup)) {
             if (is_file($original)) {
                 unlink($original);
             }
@@ -120,8 +122,8 @@ class SwitchCommand extends Command
         $original = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
         $module = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
 
-        if(is_file($module)) {
-            if(is_file($original)) {
+        if (is_file($module)) {
+            if (is_file($original)) {
                 $this->backupSystemModule($output);
 
                 unlink($original);
@@ -157,7 +159,7 @@ class SwitchCommand extends Command
     {
         static $command;
 
-        if(null === $command) {
+        if (null === $command) {
             $result = $status = null;
             exec('command -v apxs', $result, $status);
 

@@ -15,14 +15,14 @@ class ApxsOption extends WithOption
 
     public function preInstall(Version $version, InputInterface $input, OutputInterface $output)
     {
-        if(null !== $this->value) {
+        if (null !== $this->value) {
             $this->backupModule($output);
         }
     }
 
     public function postInstall(Version $version, InputInterface $input, OutputInterface $output)
     {
-        if(null !== $this->value) {
+        if (null !== $this->value) {
             $this->restoreModule($output);
 
             $this->installModule($output, $version);
@@ -60,7 +60,8 @@ class ApxsOption extends WithOption
         }
     }
 
-    public function installModule(OutputInterface $output, Version $version) {
+    public function installModule(OutputInterface $output, Version $version)
+    {
         $module = implode(
             DIRECTORY_SEPARATOR,
             array(
@@ -85,7 +86,8 @@ class ApxsOption extends WithOption
         }
     }
 
-    protected function getLibDir() {
+    protected function getLibDir()
+    {
         static $directory;
 
         if (null === $directory) {

@@ -3,7 +3,6 @@ namespace jubianchi\PhpSwitch\PHP\Option\With;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use jubianchi\PhpSwitch\PHP\Version;
 
 class CURLOption extends WithOption
 {
@@ -33,13 +32,13 @@ class CURLOption extends WithOption
         $result = $status = null;
         exec('command -v curl-config', $result, $status);
 
-        if(0 !== $status) {
+        if (0 !== $status) {
             throw new \RuntimeException('Could not find curl-config utility');
         }
 
         exec($result[0] . ' --prefix', $result, $status);
 
-        if(0 !== $status) {
+        if (0 !== $status) {
             throw new \RuntimeException('Could not find curl prefix');
         }
 

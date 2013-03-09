@@ -1,9 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use jubianchi\PhpSwitch\PHP\Option\Enable;
-use jubianchi\PhpSwitch\PHP\Option\With;
-
 class DefaultOption extends AliasOption
 {
     const ARG = 'default';

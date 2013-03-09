@@ -48,7 +48,7 @@ class Loader
                 $parts = explode(DIRECTORY_SEPARATOR, $matches['path']);
                 $basedir = isset($matches['protocol']) ? $matches['protocol'] : '';
                 $directory = array();
-                foreach($parts as $part) {
+                foreach ($parts as $part) {
                     $directory[] = $basedir . $part;
 
                     $basedir = $basedir . $part . DIRECTORY_SEPARATOR;
@@ -56,7 +56,7 @@ class Loader
                 unset($part);
             }
 
-            foreach($directory as $dir) {
+            foreach ($directory as $dir) {
                 $path = $dir . DIRECTORY_SEPARATOR . $name;
 
                 if (is_file($path)) {

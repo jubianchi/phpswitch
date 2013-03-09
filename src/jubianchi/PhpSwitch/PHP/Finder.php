@@ -43,7 +43,7 @@ class Finder implements \IteratorAggregate
     {
         $versions = array();
 
-        foreach($this->sites as $url => $regex) {
+        foreach ($this->sites as $url => $regex) {
             $this->crawler->clear();
             $this->crawler->addContent(file_get_contents($url));
 
@@ -54,7 +54,7 @@ class Finder implements \IteratorAggregate
                     $href = $elem->getAttribute('href');
                     $url = rtrim($url, '/');
 
-                    if(false == preg_match('/^https?:\/\//', $href)) {
+                    if (false == preg_match('/^https?:\/\//', $href)) {
                         if (0 === strpos($href, '/')) {
                             $parts = parse_url($url);
                             $url = $parts['scheme'] . '://' . $parts['host'] . (isset($parts['port']) ? ':' . $parts['port'] : '');
@@ -64,7 +64,7 @@ class Finder implements \IteratorAggregate
                     }
 
                     $version = $matches[2];
-                    if(false === array_key_exists($version, $versions)) {
+                    if (false === array_key_exists($version, $versions)) {
                         $versions[$version] = new Version($version, $href);
                     }
                 }

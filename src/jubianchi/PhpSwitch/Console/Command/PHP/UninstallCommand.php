@@ -91,11 +91,12 @@ class UninstallCommand extends Command
         return 0;
     }
 
-    private static function deleteDirectory($path) {
+    private static function deleteDirectory($path)
+    {
         $iterator = new \RecursiveDirectoryIterator($path);
 
-        foreach ($iterator as $file ) {
-            if($file->isDir()) {
+        foreach ($iterator as $file) {
+            if ($file->isDir()) {
                 static::deleteDirectory($file);
             } else {
                 unlink($file);
