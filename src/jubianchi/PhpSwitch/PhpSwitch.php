@@ -197,6 +197,16 @@ class PhpSwitch implements Runnable
             );
         };
 
+        $this->container['app.php.finder'] = function(\Pimple $container) {
+            return new PHP\Finder(
+                array(
+                    'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
+                    'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
+                    'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)\.tar\.bz2)/'
+                )
+            );
+        };
+
         return $this;
     }
 }

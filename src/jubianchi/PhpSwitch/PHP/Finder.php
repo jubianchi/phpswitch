@@ -12,20 +12,16 @@ class Finder implements \IteratorAggregate
     private $sites;
 
     /**
-     * @param array|null                                 $sites
+     * @param array                                      $sites
      * @param \Symfony\Component\DomCrawler\Crawler|null $crawler
      */
-    public function __construct(array $sites = null, Crawler $crawler = null)
+    public function __construct(array $sites, Crawler $crawler = null)
     {
         if (null === $crawler) {
             $this->crawler = new Crawler();
         }
 
-        $this->sites = $sites ?: array(
-            'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
-            'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
-            'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)\.tar\.bz2)/'
-        );
+        $this->sites = $sites;
     }
 
     /**
@@ -47,7 +43,7 @@ class Finder implements \IteratorAggregate
             $this->crawler->clear();
             $this->crawler->addContent(file_get_contents($url));
 
-            foreach (static::crawl($this->crawler) as $elem) {
+            foreach ($this->crawler->filter('ul li a') as $elem) {
                 $value = $elem->nodeValue;
 
                 if (false != preg_match($regex, $value, $matches)) {
@@ -90,15 +86,5 @@ class Finder implements \IteratorAggregate
         }
 
         return $versions[$name];
-    }
-
-    /**
-     * @param \Symfony\Component\DomCrawler\Crawler $crawler
-     *
-     * @return \Symfony\Component\DomCrawler\Crawler
-     */
-    private static function crawl(Crawler $crawler)
-    {
-        return $crawler->filter('ul li a');
     }
 }

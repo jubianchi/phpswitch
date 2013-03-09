@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Monolog\Logger;
-use jubianchi\PhpSwitch\PHP\Finder as PHPFinder;
 use jubianchi\PhpSwitch\PHP\Version;
 use jubianchi\PhpSwitch\Console\Command\Command;
 
@@ -73,7 +72,7 @@ class InstallCommand extends Command
     {
         parent::execute($input, $output);
 
-        $finder = new PHPFinder();
+        $finder = $this->getApplication()->getService('app.php.finder');
         $version = $finder->getVersion($input->getArgument('version'));
 
         if (null !== ($alias = $input->getOption('alias'))) {
@@ -151,6 +150,9 @@ class InstallCommand extends Command
         return $this->getApplication()->getOptionResolver();
     }
 
+    /**
+     * @return \jubianchi\PhpSwitch\PHP\Option\Normalizer
+     */
     public function getNormalizer()
     {
         return $this->getApplication()->getOptionNormalizer();
