@@ -108,7 +108,7 @@ class PhpSwitch implements Runnable
         };
 
         $this->container['app.twig'] = function(\Pimple $container) {
-            $loader = new \Twig_Loader_Filesystem($container['app.templates.path']);
+            $loader = new \Twig_Loader_Filesystem($container['parameters']['app.templates.path']);
 
             return new \Twig_Environment($loader);
         };
