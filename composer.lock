@@ -1,5 +1,5 @@
 {
-    "hash": "2e8578ba59ebbecb834dd52ed5b70827",
+    "hash": "586aba7927d55822c21d9a778e42dc89",
     "packages": [
         {
             "name": "d11wtq/boris",
@@ -74,7 +74,7 @@
                     "Monolog": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -161,7 +161,7 @@
                     "Psr\\Log\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -181,17 +181,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "2.2.x-dev",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "3af40615f2d486847d3a9f939612f8e8d08653f0"
+                "reference": "v2.2.0-RC3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/3af40615f2d486847d3a9f939612f8e8d08653f0",
-                "reference": "3af40615f2d486847d3a9f939612f8e8d08653f0",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/v2.2.0-RC3",
+                "reference": "v2.2.0-RC3",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                     "Symfony\\Component\\Config\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -224,21 +224,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 10:42:10"
+            "time": "2013-02-17 12:27:42"
         },
         {
             "name": "symfony/console",
-            "version": "2.2.x-dev",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "7dc8d04604e6592665132e503aafde729eaf5611"
+                "reference": "v2.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/7dc8d04604e6592665132e503aafde729eaf5611",
-                "reference": "7dc8d04604e6592665132e503aafde729eaf5611",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/v2.2.0",
+                "reference": "v2.2.0",
                 "shasum": ""
             },
             "require": {
@@ -255,7 +255,7 @@
                     "Symfony\\Component\\Console\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -271,11 +271,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 14:42:44"
+            "time": "2013-03-01 06:43:14"
         },
         {
             "name": "symfony/css-selector",
-            "version": "2.2.x-dev",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
@@ -302,7 +302,7 @@
                     "Symfony\\Component\\CssSelector\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -322,7 +322,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "2.2.x-dev",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
@@ -355,7 +355,7 @@
                     "Symfony\\Component\\DomCrawler\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -456,7 +456,7 @@
                     "Symfony\\Component\\Finder\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -476,7 +476,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "2.2.x-dev",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
@@ -503,7 +503,7 @@
                     "Symfony\\Component\\Process\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -523,7 +523,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "2.2.x-dev",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
@@ -550,7 +550,7 @@
                     "Symfony\\Component\\Yaml\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -574,12 +574,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "b6c2171579b4ab8c193322796ef757a185729cb8"
+                "reference": "ba67e2cf8e2ca6cada1de5a316a724df648c52ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/b6c2171579b4ab8c193322796ef757a185729cb8",
-                "reference": "b6c2171579b4ab8c193322796ef757a185729cb8",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ba67e2cf8e2ca6cada1de5a316a724df648c52ac",
+                "reference": "ba67e2cf8e2ca6cada1de5a316a724df648c52ac",
                 "shasum": ""
             },
             "require": {
@@ -615,7 +615,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-03-07 06:57:14"
+            "time": "2013-03-10 07:23:01"
         }
     ],
     "packages-dev": [
@@ -625,12 +625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/atoum/atoum.git",
-                "reference": "bf335a09863c2f5a47c0f91a4c98cc22b308e53d"
+                "reference": "a6441f7cbb7a9a26e13364d288f7308a93035578"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atoum/atoum/zipball/bf335a09863c2f5a47c0f91a4c98cc22b308e53d",
-                "reference": "bf335a09863c2f5a47c0f91a4c98cc22b308e53d",
+                "url": "https://api.github.com/repos/atoum/atoum/zipball/a6441f7cbb7a9a26e13364d288f7308a93035578",
+                "reference": "a6441f7cbb7a9a26e13364d288f7308a93035578",
                 "shasum": ""
             },
             "require": {
@@ -688,7 +688,7 @@
                 "test",
                 "unit testing"
             ],
-            "time": "2013-03-08 12:34:16"
+            "time": "2013-03-09 13:43:41"
         }
     ],
     "aliases": [
@@ -696,7 +696,13 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "symfony/console": 5,
         "symfony/finder": 5,
+        "symfony/config": 5,
+        "symfony/yaml": 5,
+        "symfony/process": 5,
+        "symfony/dom-crawler": 5,
+        "symfony/css-selector": 5,
         "pimple/pimple": 20,
         "monolog/monolog": 20,
         "twig/twig": 20,
