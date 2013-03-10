@@ -65,6 +65,8 @@ class PhpSwitch implements Runnable
             $this->container['parameters'][$key] = $value;
         }
 
+        $this->container['parameters']['app.workspace.path'] = realpath($this->container['parameters']['app.workspace.path']);
+
         $this->container['parameters']['app.workspace.downloads.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
         $this->container['parameters']['app.workspace.sources.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
         $this->container['parameters']['app.workspace.installed.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
@@ -75,50 +77,65 @@ class PhpSwitch implements Runnable
 
     protected function initApplication()
     {
-        $this->container['app'] = function(\Pimple $container) {
-            $application = new Console\Application();
+        $this->container['app'] = $this->container->share(
+            function(\Pimple $container) {
+                $application = new Console\Application();
 
-            return $container['app.loader']
-                ->load($application->setContainer($container))
-                ->setConfiguration($container['app.config'])
-            ;
-        };
+                return $container['app.loader']
+                    ->load($application->setContainer($container))
+                    ->setConfiguration($container['app.config'])
+                ;
+            }
+        );
 
-        $this->container['app.loader'] = function(\Pimple $container) {
-            return new Console\Loader($container['app.command.finder']);
-        };
+        $this->container['app.loader'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Console\Loader($container['app.command.finder']);
+            }
+        );
 
-        $this->container['app.command.finder'] = function(\Pimple $container) {
-            return new Finder($container['parameters']['app.command.path'], $container['parameters']['app.source.path']);
-        };
+        $this->container['app.command.finder'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Finder(
+                    $container['parameters']['app.command.path'],
+                    $container['parameters']['app.source.path']
+                );
+            }
+        );
 
-        $this->container['app.logger'] = function(\Pimple $container) {
-            $logger = new Logger('output');
-            $formatter = new \Monolog\Formatter\LineFormatter();
+        $this->container['app.logger'] = $this->container->share(
+            function(\Pimple $container) {
+                $logger = new Logger('output');
+                $formatter = new \Monolog\Formatter\LineFormatter();
 
-            $info = new StreamHandler($container['parameters']['app.logger.output.path'], Logger::INFO);
-            $info->setFormatter($formatter);
-            $logger->pushHandler($info);
+                $info = new StreamHandler($container['parameters']['app.logger.output.path'], Logger::INFO);
+                $info->setFormatter($formatter);
+                $logger->pushHandler($info);
 
-            $error = new StreamHandler($container['parameters']['app.logger.error.path'], Logger::ERROR, false);
-            $error->setFormatter($formatter);
-            $logger->pushHandler($error);
+                $error = new StreamHandler($container['parameters']['app.logger.error.path'], Logger::ERROR, false);
+                $error->setFormatter($formatter);
+                $logger->pushHandler($error);
 
-            return $logger;
-        };
+                return $logger;
+            }
+        );
 
-        $this->container['app.twig'] = function(\Pimple $container) {
-            $loader = new \Twig_Loader_Filesystem($container['parameters']['app.templates.path']);
+        $this->container['app.twig'] = $this->container->share(
+            function(\Pimple $container) {
+                $loader = new \Twig_Loader_Filesystem($container['parameters']['app.templates.path']);
 
-            return new \Twig_Environment($loader);
-        };
+                return new \Twig_Environment($loader);
+            }
+        );
 
-        $this->container['app.process.builder'] = function(\Pimple $container) {
-            return new Process\Builder();
-        };
+        $this->container['app.process.builder'] = $this->container->share(
+            function() {
+                return new Process\Builder();
+            }
+        );
 
         $this->container['app.event.dispatcher'] = $this->container->share(
-            function(\Pimple $container) {
+            function() {
                 return new Event\Dispatcher();
             }
         );
@@ -128,106 +145,132 @@ class PhpSwitch implements Runnable
 
     protected function initConfiguration()
     {
-        $this->container['app.config'] = function(\Pimple $container) {
-            return $container['app.config.loader']->load(
-                $container['parameters']['app.config.name'],
-                new Config\Configuration(),
-                $container['app.config.dumper']
-            );
-        };
+        $this->container['app.config'] = $this->container->share(
+            function(\Pimple $container) {
+                return $container['app.config.loader']->load(
+                    $container['parameters']['app.config.name'],
+                    new Config\Configuration(),
+                    $container['app.config.dumper']
+                );
+            }
+        );
 
-        $this->container['app.config.loader'] = function(\Pimple $container) {
-            return new Config\Loader(
-                array(
-                    $container['parameters']['app.user.path'],
-                    getcwd() => Config\Loader::DIRECTORY_BUBBLE,
-                ),
-                $container['app.config.validator']
-            );
-        };
+        $this->container['app.config.loader'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Config\Loader(
+                    array(
+                        $container['parameters']['app.user.path'],
+                        getcwd() => Config\Loader::DIRECTORY_BUBBLE,
+                    ),
+                    $container['app.config.validator']
+                );
+            }
+        );
 
-        $this->container['app.config.validator'] = function(\Pimple $container) {
-            return new Config\Validator($container['parameters']['app.path']);
-        };
+        $this->container['app.config.validator'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Config\Validator($container['parameters']['app.path']);
+            }
+        );
 
-        $this->container['app.config.dumper'] = function(\Pimple $container) {
-            return new Config\Dumper(
-                array(
-                    Config\Dumper::GLOBAL_DIR => $container['parameters']['app.user.path'],
-                    Config\Dumper::LOCAL_DIR => getcwd(),
-                )
-            );
-        };
+        $this->container['app.config.dumper'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Config\Dumper(
+                    array(
+                        Config\Dumper::GLOBAL_DIR => $container['parameters']['app.user.path'],
+                        Config\Dumper::LOCAL_DIR => getcwd(),
+                    )
+                );
+            }
+        );
 
         return $this;
     }
 
     protected function initPhp()
     {
-        $this->container['app.php.builder'] = function(\Pimple $container) {
-            return new PHP\Builder(
-                $container['parameters']['app.workspace.installed.path'],
-                $container['app.process.builder'],
-                $container['app.event.dispatcher']
-            );
-        };
+        $this->container['app.php.builder'] = $this->container->share(
+            function(\Pimple $container) {
+                return new PHP\Builder(
+                    $container['parameters']['app.workspace.installed.path'],
+                    $container['app.process.builder'],
+                    $container['app.event.dispatcher']
+                );
+            }
+        );
 
-        $this->container['app.php.extracter'] = function(\Pimple $container) {
-            return new PHP\Extracter(
-                $container['parameters']['app.workspace.sources.path'],
-                $container['app.process.builder'],
-                $container['app.event.dispatcher']
-            );
-        };
+        $this->container['app.php.extracter'] = $this->container->share(
+            function(\Pimple $container) {
+                return new PHP\Extracter(
+                    $container['parameters']['app.workspace.sources.path'],
+                    $container['app.process.builder'],
+                    $container['app.event.dispatcher']
+                );
+            }
+        );
 
-        $this->container['app.php.downloader'] = function(\Pimple $container) {
-            return new PHP\Downloader(
-                $container['parameters']['app.workspace.downloads.path'],
-                $container['app.event.dispatcher']
-            );
-        };
+        $this->container['app.php.downloader'] = $this->container->share(
+            function(\Pimple $container) {
+                return new PHP\Downloader(
+                    $container['parameters']['app.workspace.downloads.path'],
+                    $container['app.event.dispatcher']
+                );
+            }
+        );
 
-        $this->container['app.php.option.finder'] = function(\Pimple $container) {
-            return new PHP\Option\Finder(
-                $container['parameters']['app.php.option.path'],
-                $container['parameters']['app.source.path']
-            );
-        };
+        $this->container['app.php.option.finder'] = $this->container->share(
+            function(\Pimple $container) {
+                return new PHP\Option\Finder(
+                    $container['parameters']['app.php.option.path'],
+                    $container['parameters']['app.source.path']
+                );
+            }
+        );
 
-        $this->container['app.php.option.resolver'] = function(\Pimple $container) {
-            return new PHP\Option\Resolver();
-        };
+        $this->container['app.php.option.resolver'] = $this->container->share(
+            function() {
+                return new PHP\Option\Resolver();
+            }
+        );
 
-        $this->container['app.php.option.normalizer'] = function(\Pimple $container) {
-            return new PHP\Option\Normalizer();
-        };
+        $this->container['app.php.option.normalizer'] = $this->container->share(
+            function() {
+                return new PHP\Option\Normalizer();
+            }
+        );
 
-        $this->container['app.php.config'] = function(\Pimple $container) {
-            return new PHP\Config(
-                $container['parameters']['app.workspace.installed.path']
-            );
-        };
+        $this->container['app.php.config'] = $this->container->share(
+            function(\Pimple $container) {
+                return new PHP\Config(
+                    $container['parameters']['app.workspace.installed.path']
+                );
+            }
+        );
 
-        $this->container['app.php.installer'] = function(\Pimple $container) {
-            PHP\Option\OptionCollection::setNormalizer($container['app.php.option.normalizer']);
+        $this->container['app.php.installer'] = $this->container->share(
+            function(\Pimple $container) {
+                PHP\Option\OptionCollection::setNormalizer($container['app.php.option.normalizer']);
 
-            return new PHP\Installer(
-                $container['app.php.downloader'],
-                $container['app.php.extracter'],
-                $container['app.php.builder'],
-                $container['app.event.dispatcher']
-            );
-        };
+                return new PHP\Installer(
+                    $container['app.php.downloader'],
+                    $container['app.php.extracter'],
+                    $container['app.php.builder'],
+                    $container['app.event.dispatcher']
+                );
+            }
+        );
 
-        $this->container['app.php.finder'] = function(\Pimple $container) {
-            return new PHP\Finder(
-                array(
-                    'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
-                    'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
-                    'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)\.tar\.bz2)/'
-                )
-            );
-        };
+        $this->container['app.php.finder'] = $this->container->share(
+            function() {
+                return new PHP\Finder(
+                    array(
+                        'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
+                        'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
+                        'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)\.tar\.bz2)/'
+                    )
+                );
+            }
+        );
 
         return $this;
     }

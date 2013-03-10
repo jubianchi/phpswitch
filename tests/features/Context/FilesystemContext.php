@@ -23,6 +23,18 @@ class FilesystemContext extends BehatAtoumContext
     }
 
     /**
+     * @Given /^The directory "(?P<path>[^\"]*)" exists$/
+     */
+    public function theDirectoryExists($path)
+    {
+        $path = $this->root . DIRECTORY_SEPARATOR . $path;
+
+        $this->assert
+            ->boolean(mkdir($path, 0777, true))->isTrue()
+        ;
+    }
+
+    /**
      * @Then /^The directory "(?P<path>[^\"]*)" should exist$/
      */
     public function theDirectoryShouldExist($path)

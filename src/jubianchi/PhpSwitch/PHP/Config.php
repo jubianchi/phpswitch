@@ -20,7 +20,11 @@ class Config
         $path = $this->getConfigurationFilePath($version, $name);
 
         if (false === is_file($path)) {
-            return ini_get($name);
+            if (false === ($value = ini_get($name))) {
+                throw new \InvalidArgumentException(sprintf('Configuration directive %s is not managed by phpswitch', $name));
+            }
+
+            return $value;
         }
 
         $ini = parse_ini_string(file_get_contents($path));
