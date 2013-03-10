@@ -7,7 +7,7 @@ use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
-abstract class Option
+abstract class Option implements OptionInterface
 {
     const ARG = null;
     const ALIAS = null;

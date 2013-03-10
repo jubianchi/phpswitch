@@ -39,6 +39,6 @@ class Normalizer
             }
         }
 
-        return $denormalized;
+        return new OptionCollection($denormalized);
     }
 }

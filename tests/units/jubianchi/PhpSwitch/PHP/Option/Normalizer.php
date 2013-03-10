@@ -34,9 +34,9 @@ class Normalizer extends atoum\test
             ->and($otherOption = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($otherOption)->getAlias = '--otherOption')
             ->then
-                ->array($object->denormalize('', array($option, $otherOption)))->isEmpty()
-                ->array($object->denormalize('--option', array($option, $otherOption)))->isEqualTo(array($option))
-                ->array($object->denormalize('--option=value', array($option, $otherOption)))->isEqualTo(array($option))
+                ->object($object->denormalize('', array($option, $otherOption)))->isEmpty()
+                ->object($object->denormalize('--option', array($option, $otherOption)))->isEqualTo(new \jubianchi\PhpSwitch\PHP\Option\OptionCollection(array($option)))
+                ->object($object->denormalize('--option=value', array($option, $otherOption)))->isEqualTo(new \jubianchi\PhpSwitch\PHP\Option\OptionCollection(array($option)))
                 ->string($option->getValue())->isEqualTo('value')
         ;
     }

@@ -10,7 +10,7 @@ class Resolver
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \jubianchi\PhpSwitch\PHP\Option\Option[]        $options
      *
-     * @return \jubianchi\PhpSwitch\PHP\Option\Option[]
+     * @return \jubianchi\PhpSwitch\PHP\Option\OptionCollection
      */
     public function resolve(InputInterface $input, array $options)
     {
@@ -27,7 +27,7 @@ class Resolver
             }
         }
 
-        return array_unique($opts);
+        return new OptionCollection($opts);
     }
 
     /**
