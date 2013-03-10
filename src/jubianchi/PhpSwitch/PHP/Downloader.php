@@ -1,7 +1,11 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP;
 
-class Downloader
+use jubianchi\PhpSwitch\Event\Emitter;
+use jubianchi\PhpSwitch\Event\Dispatcher;
+use jubianchi\PhpSwitch\Event\Event;
+
+class Downloader extends Emitter
 {
     const EXTENSION = '.tar.bz2';
 
@@ -9,22 +13,34 @@ class Downloader
     private $directory;
 
     /**
-     * @param string $directory
+     * @param                                       $directory
+     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
      */
-    public function __construct($directory)
+    public function __construct($directory, Dispatcher $dispatcher = null)
     {
         $this->directory = $directory;
+
+        if (null !== $dispatcher) {
+            $this->setDispatcher($dispatcher);
+        }
     }
 
     /**
      * @param \jubianchi\PhpSwitch\PHP\Version $version
      * @param string                           $mirror
-     * @param callable                         $callback
      *
      * @return \jubianchi\PhpSwitch\PHP\Downloader
      */
-    public function download(Version $version, $mirror, $callback = null)
+    public function download(Version $version, $mirror)
     {
+        $this->emit(
+            'download.before',
+            $args = array(
+                'version' => $version,
+                'mirror' => $mirror
+            )
+        );
+
         $url  = sprintf($version->getUrl(), $mirror);
         $handle = fopen($this->getDestination($version), 'wb+');
 
@@ -34,14 +50,23 @@ class Downloader
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
-        if (null !== $callback) {
-            curl_setopt($ch, CURLOPT_NOPROGRESS, false);
-            curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, $callback);
-        }
+        $self = $this;
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function($size, $downloaded) use($self) {
+            $self->emit(
+                'download.progress',
+                array(
+                    'size' => $size,
+                    'downloaded' => $downloaded,
+                )
+            );
+        });
 
         curl_exec($ch);
         curl_close($ch);
         fclose($handle);
+
+        $this->emit('download.after', $args);
 
         return $this;
     }
