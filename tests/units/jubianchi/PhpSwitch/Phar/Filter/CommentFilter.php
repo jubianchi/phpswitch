@@ -4,6 +4,8 @@ namespace tests\units\jubianchi\PhpSwitch\Phar\Filter;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Phar\Filter\CommentFilter as TestedClass;
 
+require_once __DIR__ . '/../../../../bootstrap.php';
+
 class CommentFilter extends atoum\test
 {
     public function test__invoke()

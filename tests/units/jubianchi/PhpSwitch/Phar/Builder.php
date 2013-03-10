@@ -6,6 +6,8 @@ use mageekguy\atoum\mock;
 use mageekguy\atoum\mock\streams;
 use jubianchi\PhpSwitch\Phar\Builder as TestedClass;
 
+require_once __DIR__ . '/../../../bootstrap.php';
+
 class Builder extends atoum\test
 {
     public function test__construct()

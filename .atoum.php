@@ -1,45 +1,65 @@
 <?php
-use \mageekguy\atoum;
+use
+    mageekguy\atoum,
+    mageekguy\atoum\report\fields\runner
+;
+
+define('TESTALL_DIRECTORY', __DIR__ . '/tests/units');
+
+define('COVERAGE_TITLE', basename(__DIR__));
+define('COVERAGE_DIRECTORY', sys_get_temp_dir() . DIRECTORY_SEPARATOR . COVERAGE_TITLE . '_coverage');
+define('COVERAGE_WEB_PATH', 'file://' . COVERAGE_DIRECTORY);
+
+define('NOTIFIER_CLASS', '\\mageekguy\\atoum\\report\\fields\\runner\\result\\notifier\\image\\growl');
+define('NOTIFIER_IMG_PATH', __DIR__ . '/vendor/atoum/atoum/resources/images/logo');
 
 function colorized() {
     $color = -1;
-    if(false !== ($term = getenv('TERM'))) {
-        if(preg_match('/\d+/', $term, $matches) > 0) {
+    if (false !== ($term = getenv('TERM'))) {
+        if (preg_match('/\d+/', $term, $matches) > 0) {
             $color = $matches[0];
         }
     }
 
-    if($color < 0) {
+    if ($color < 0) {
         $color = system('tput colors');
     }
 
     return ($color >= 256);
 }
 
-define('COVERAGE_TITLE', 'phpswitch');
-define('COVERAGE_DIRECTORY', __DIR__ . '/coverage');
-define('COVERAGE_WEB_PATH', 'file://' . COVERAGE_DIRECTORY);
-define('COLORIZED', colorized());
-
-if(false === is_dir(COVERAGE_DIRECTORY))
-{
+if (false === is_dir(COVERAGE_DIRECTORY)) {
     mkdir(COVERAGE_DIRECTORY, 0777, true);
 }
 
-$stdOutWriter = new atoum\writers\std\out();
-$cliReport = new atoum\reports\realtime\cli();
-$cliReport->addWriter($stdOutWriter);
+$coverage = new runner\coverage\html(COVERAGE_TITLE, COVERAGE_DIRECTORY);
+$coverage->setRootUrl(COVERAGE_WEB_PATH);
 
-$coverageField = new atoum\report\fields\runner\coverage\html(COVERAGE_TITLE, COVERAGE_DIRECTORY);
-$coverageField->setRootUrl(COVERAGE_WEB_PATH);
-$cliReport->addField($coverageField, array(atoum\runner::runStop));
-
-if(COLORIZED)
+$notifier = null;
+if (class_exists(NOTIFIER_CLASS))
 {
-    $cliReport->addField(new atoum\report\fields\runner\atoum\logo());
-    $cliReport->addField(new atoum\report\fields\runner\result\logo());
+    $class = NOTIFIER_CLASS;
+    $notifier = new $class();
+
+    if($notifier instanceof runner\result\notifier\image) {
+        $notifier
+            ->setSuccessImage(NOTIFIER_IMG_PATH . DIRECTORY_SEPARATOR . 'success.png')
+            ->setFailureImage(NOTIFIER_IMG_PATH . DIRECTORY_SEPARATOR . 'failure.png')
+        ;
+    }
 }
 
-$runner->addReport($cliReport);
-$runner->setBootstrapFile(__DIR__ . '/tests/units/bootstrap.php');
-$script->addTestAllDirectory(__DIR__ . '/tests/units');
+$report = $script->AddDefaultReport();
+$report->addField($coverage, array(atoum\runner::runStop));
+
+if (null !== $notifier) {
+    $report->addField($notifier);
+}
+
+if(colorized())
+{
+    $report->addField(new runner\atoum\logo());
+    $report->addField(new runner\result\logo());
+}
+
+$script->addTestAllDirectory(TESTALL_DIRECTORY);
