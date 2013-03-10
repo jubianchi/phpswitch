@@ -53,10 +53,20 @@ class ListCommand extends Command
 
     protected function listAvailable(OutputInterface $output)
     {
-        foreach ($this->getApplication()->getService('app.php.finder') as  $version) {
+        $versions = $this->getApplication()->getService('app.php.finder')->getIterator();
+
+        $maxlength = 0;
+        array_walk(
+            $versions,
+            function($version) use(& $maxlength) {
+                $maxlength = ($length = strlen((string) $version)) > $maxlength ? $length : $maxlength;
+            }
+        );
+
+        foreach ($versions as  $version) {
             $output->writeln(
                 sprintf(
-                    '<info>%-15s</info> <comment>%s</comment>',
+                    '<info>%-' . ($maxlength + 2) . 's</info> <comment>%s</comment>',
                     $version,
                     sprintf($version->getUrl(), 'a')
                 )
@@ -76,15 +86,17 @@ class ListCommand extends Command
         ;
 
         $versions = array();
+        $maxlength = 0;
         foreach ($finder as $directory) {
-            $versions[$directory->getRealPath()] = $directory->getRelativePathname();
+            $version = $directory->getRelativePathname();
+            $versions[$directory->getRealPath()] = $version;
+            $maxlength = ($length = strlen((string) $version)) > $maxlength ? $length : $maxlength;
         }
 
+        $pattern = '/(5\.\d+\.\d+)$/';
         uasort(
             $versions,
-            function($a, $b) {
-                $pattern = '/(5\.\d+\.\d+)$/';
-
+            function($a, $b) use($pattern) {
                 preg_match($pattern, $a, $a);
                 preg_match($pattern, $b, $b);
 
@@ -95,7 +107,7 @@ class ListCommand extends Command
         foreach ($versions as $path => $version) {
             $output->writeln(
                 sprintf(
-                    '<info>%-15s</info> <comment>%s</comment>',
+                    '<info>%-' . ($maxlength + 2) . 's</info> <comment>%s</comment>',
                     $version,
                     $path
                 )
