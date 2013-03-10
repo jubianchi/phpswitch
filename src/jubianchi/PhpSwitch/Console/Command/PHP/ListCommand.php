@@ -53,9 +53,7 @@ class ListCommand extends Command
 
     protected function listAvailable(OutputInterface $output)
     {
-        $finder = new PHP\Finder();
-
-        foreach ($finder as  $version) {
+        foreach ($this->getApplication()->getService('app.php.finder') as  $version) {
             $output->writeln(
                 sprintf(
                     '<info>%-15s</info> <comment>%s</comment>',
