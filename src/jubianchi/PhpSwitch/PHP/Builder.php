@@ -1,10 +1,13 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP;
 
-use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
+use jubianchi\PhpSwitch\Event\Emitter;
+use jubianchi\PhpSwitch\Event\Dispatcher;
+use jubianchi\PhpSwitch\Event\Event;
 
-class Builder
+class Builder extends Emitter
 {
     /** @var string */
     private $directory;
@@ -13,13 +16,18 @@ class Builder
     private $builder;
 
     /**
-     * @param string                               $directory
-     * @param \jubianchi\PhpSwitch\Process\Builder $builder
+     * @param string                                $directory
+     * @param \jubianchi\PhpSwitch\Process\Builder  $builder
+     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
      */
-    public function __construct($directory, ProcessBuilder $builder = null)
+    public function __construct($directory, ProcessBuilder $builder = null, Dispatcher $dispatcher = null)
     {
         $this->directory = $directory;
         $this->builder = $builder ?: new ProcessBuilder();
+
+        if (null !== $dispatcher) {
+            $this->setDispatcher($dispatcher);
+        }
     }
 
     /**
@@ -27,15 +35,43 @@ class Builder
      * @param string                           $source
      * @param array                            $options
      * @param int                              $jobs
-     * @param callable                         $callback
      */
-    public function build(Version $version, $source, $options, $jobs = null, $callback = null)
+    public function build(Version $version, $source, $options, $jobs = null)
     {
+        $this->emit(
+            'build.before',
+            $args = array(
+                'version' => $version,
+                'source' => $source,
+                'option' => $options,
+                'jobs' => $jobs,
+                'prefix' => $this->getDestination($version)
+            )
+        );
+
+        $self = $this;
+        $callback = function($type, $buffer) use($self) {
+            $buffer = rtrim($buffer);
+            if (false === empty($buffer)) {
+                $self->emit(
+                    'build.progress',
+                    array(
+                        'type' => $type,
+                        'buffer' => $buffer,
+                    )
+                );
+            }
+        };
+
         $this
             ->clean($source, $callback)
             ->configure($version, $source, $options, $callback)
             ->make($source, $jobs, $callback)
         ;
+
+        $this->emit('build.after', $args);
+
+        return $this;
     }
 
     /**
@@ -72,6 +108,11 @@ class Builder
     public function configure(Version $version, $source, $options, $callback = null)
     {
         $prefix = $this->getDestination($version);
+
+        if(null !== $callback) {
+            $callback('init', $prefix);
+        }
+
         $builder = $this->builder->get()
             ->setWorkingDirectory($source)
             ->add('./configure')
