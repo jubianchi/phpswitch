@@ -117,6 +117,12 @@ class PhpSwitch implements Runnable
             return new Process\Builder();
         };
 
+        $this->container['app.event.dispatcher'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Event\Dispatcher();
+            }
+        );
+
         return $this;
     }
 
@@ -161,19 +167,24 @@ class PhpSwitch implements Runnable
         $this->container['app.php.builder'] = function(\Pimple $container) {
             return new PHP\Builder(
                 $container['parameters']['app.workspace.installed.path'],
-                $container['app.process.builder']
+                $container['app.process.builder'],
+                $container['app.event.dispatcher']
             );
         };
 
         $this->container['app.php.extracter'] = function(\Pimple $container) {
             return new PHP\Extracter(
                 $container['parameters']['app.workspace.sources.path'],
-                $container['app.process.builder']
+                $container['app.process.builder'],
+                $container['app.event.dispatcher']
             );
         };
 
         $this->container['app.php.downloader'] = function(\Pimple $container) {
-            return new PHP\Downloader($container['parameters']['app.workspace.downloads.path']);
+            return new PHP\Downloader(
+                $container['parameters']['app.workspace.downloads.path'],
+                $container['app.event.dispatcher']
+            );
         };
 
         $this->container['app.php.option.finder'] = function(\Pimple $container) {
@@ -194,6 +205,17 @@ class PhpSwitch implements Runnable
         $this->container['app.php.config'] = function(\Pimple $container) {
             return new PHP\Config(
                 $container['parameters']['app.workspace.installed.path']
+            );
+        };
+
+        $this->container['app.php.installer'] = function(\Pimple $container) {
+            PHP\Option\OptionCollection::setNormalizer($container['app.php.option.normalizer']);
+
+            return new PHP\Installer(
+                $container['app.php.downloader'],
+                $container['app.php.extracter'],
+                $container['app.php.builder'],
+                $container['app.event.dispatcher']
             );
         };
 
