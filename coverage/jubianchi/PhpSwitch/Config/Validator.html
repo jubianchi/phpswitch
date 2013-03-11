@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Config\Validator</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
+	</head>
+	<body>
+        <div id="header">
+            <img id="logo" src="http://docs.atoum.org/fr/images/logo.png"/>
+            <div id="title">
+                <h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Config\Validator</h1>
+                <h2>
+                    Class code coverage
+                    
+                    100%
+                </h2>
+            </div>
+        </div>
+
+		<div id="page">
+			<div id="content">
+                <h3>Methods</h3>
+				<ul class="summary">
+					
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#getConfigTreeBuilder">getConfigTreeBuilder</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#validate">validate</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+					
+				</ul>
+
+                <h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="load"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="load"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Config;
+</pre></td></tr><tr><td class="number"><a name="load"></a>3</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="load"></a>4</td><td><pre>use Symfony\Component\Config\Definition\ConfigurationInterface;
+</pre></td></tr><tr><td class="number"><a name="load"></a>5</td><td><pre>use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+</pre></td></tr><tr><td class="number"><a name="load"></a>6</td><td><pre>use Symfony\Component\Config\Definition\Processor;
+</pre></td></tr><tr><td class="number"><a name="load"></a>7</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="load"></a>8</td><td><pre>class Validator implements ConfigurationInterface
+</pre></td></tr><tr><td class="number"><a name="load"></a>9</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="load"></a>10</td><td><pre>    const ROOT = &#039;phpswitch&#039;;
+</pre></td></tr><tr><td class="number"><a name="load"></a>11</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="load"></a>12</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="load"></a>13</td><td><pre>     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
+</pre></td></tr><tr><td class="number"><a name="load"></a>14</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>15</td><td><pre>    public function getConfigTreeBuilder()
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>16</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>17</td><td><pre>        $treeBuilder = new TreeBuilder();
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>18</td><td><pre>        $rootNode = $treeBuilder-&gt;root(self::ROOT);
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>19</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>20</td><td><pre>        $rootNode
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>21</td><td><pre>            -&gt;children()
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>22</td><td><pre>                -&gt;scalarNode(&#039;version&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>23</td><td><pre>                    -&gt;defaultValue(&#039;&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>24</td><td><pre>                -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>25</td><td><pre>                -&gt;scalarNode(&#039;mirror&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>26</td><td><pre>                    -&gt;defaultValue(getenv(&#039;PHPSWITCH_MIRROR&#039;) ?: &#039;fr2.php.net&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>27</td><td><pre>                -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>28</td><td><pre>                -&gt;arrayNode(&#039;versions&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>29</td><td><pre>                    -&gt;prototype(&#039;scalar&#039;)-&gt;end()
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>30</td><td><pre>                -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>31</td><td><pre>            -&gt;end()
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>32</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>33</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>34</td><td><pre>        return $treeBuilder;
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>35</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>36</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>37</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>38</td><td><pre>     * @param array                                          $values
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>39</td><td><pre>     * @param \Symfony\Component\Config\Definition\Processor $processor
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>40</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>41</td><td><pre>     * @return array
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>42</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="validate"></a>43</td><td><pre>    public function validate(array $values, Processor $processor = null)
+</pre></td></tr><tr><td class="number"><a name="validate"></a>44</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>45</td><td><pre>        $processor = $processor ?: New Processor();
+</pre></td></tr><tr><td class="number"><a name="validate"></a>46</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>47</td><td><pre>        return $processor-&gt;processConfiguration($this, $values);
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>48</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="validate"></a>49</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

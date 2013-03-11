@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Config\Dumper</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
+	</head>
+	<body>
+        <div id="header">
+            <img id="logo" src="http://docs.atoum.org/fr/images/logo.png"/>
+            <div id="title">
+                <h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Config\Dumper</h1>
+                <h2>
+                    Class code coverage
+                    
+                    100%
+                </h2>
+            </div>
+        </div>
+
+		<div id="page">
+			<div id="content">
+                <h3>Methods</h3>
+				<ul class="summary">
+					
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#__construct">__construct</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#dump">dump</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+					
+				</ul>
+
+                <h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="getDumper"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Config;
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>3</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>4</td><td><pre>use Symfony\Component\Yaml\Yaml;
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>5</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>6</td><td><pre>class Dumper
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>7</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>8</td><td><pre>    const GLOBAL_DIR = 0;
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>9</td><td><pre>    const LOCAL_DIR = 1;
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>11</td><td><pre>    /** @var string[] */
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>12</td><td><pre>    private $directories;
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>13</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>14</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>15</td><td><pre>     * @param string[] $directories
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>16</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>17</td><td><pre>    public function __construct(array $directories)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>18</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">19</td><td><pre>        $this-&gt;directories = $directories;
+</pre></td></tr><tr class="covered"><td class="number">20</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>22</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>23</td><td><pre>     * @param string                                    $name
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>24</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>25</td><td><pre>     * @param int                                       $directory
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>26</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Dumper
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>28</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="dump"></a>29</td><td><pre>    public function dump($name, Configuration $configuration, $directory = null)
+</pre></td></tr><tr><td class="number"><a name="dump"></a>30</td><td><pre>    {
+</pre></td></tr><tr><td class="number"><a name="dump"></a>31</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">32</td><td><pre>        $path = $this-&gt;directories[$directory ?: self::GLOBAL_DIR] . DIRECTORY_SEPARATOR . $name;
+</pre></td></tr><tr><td class="number"><a name="dump"></a>33</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">34</td><td><pre>        file_put_contents(
+</pre></td></tr><tr class="covered"><td class="number">35</td><td><pre>            $path,
+</pre></td></tr><tr class="covered"><td class="number">36</td><td><pre>            Yaml::dump(array(Configuration::ROOT =&gt; $configuration-&gt;getValues()), 2, 2)
+</pre></td></tr><tr class="covered"><td class="number">37</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="dump"></a>38</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">39</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="dump"></a>40</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="dump"></a>41</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

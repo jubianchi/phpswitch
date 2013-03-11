@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Event\Emitter</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
+	</head>
+	<body>
+        <div id="header">
+            <img id="logo" src="http://docs.atoum.org/fr/images/logo.png"/>
+            <div id="title">
+                <h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Event\Emitter</h1>
+                <h2>
+                    Class code coverage
+                    
+                    100%
+                </h2>
+            </div>
+        </div>
+
+		<div id="page">
+			<div id="content">
+                <h3>Methods</h3>
+				<ul class="summary">
+					
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#setDispatcher">setDispatcher</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#emit">emit</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+					
+				</ul>
+
+                <h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="addEventSubscriber"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Event;
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>3</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>4</td><td><pre>abstract class Emitter
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>5</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>6</td><td><pre>    /** @var \jubianchi\PhpSwitch\Event\Dispatcher */
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>7</td><td><pre>    protected $dispatcher;
+</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>8</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>9</td><td><pre>    public function setDispatcher(Dispatcher $dispatcher)
+</pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>10</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>11</td><td><pre>        $this-&gt;dispatcher = $dispatcher;
+</pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>12</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>13</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>14</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>15</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="emit"></a>16</td><td><pre>    public function emit($name, array $args = array())
+</pre></td></tr><tr><td class="number"><a name="emit"></a>17</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>18</td><td><pre>        if (null !== $this-&gt;dispatcher) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>19</td><td><pre>            $this-&gt;dispatcher-&gt;dispatch($name, new Event($name, $this, $args));
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>20</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="emit"></a>21</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>22</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="emit"></a>23</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="emit"></a>24</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

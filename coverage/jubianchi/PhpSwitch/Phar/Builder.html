@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Phar\Builder</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
+	</head>
+	<body>
+        <div id="header">
+            <img id="logo" src="http://docs.atoum.org/fr/images/logo.png"/>
+            <div id="title">
+                <h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Phar\Builder</h1>
+                <h2>
+                    Class code coverage
+                    
+                    100%
+                </h2>
+            </div>
+        </div>
+
+		<div id="page">
+			<div id="content">
+                <h3>Methods</h3>
+				<ul class="summary">
+					
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#__construct">__construct</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#getFilters">getFilters</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#addFilter">addFilter</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#setName">setName</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#setBasedir">setBasedir</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#addFinder">addFinder</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#addFile">addFile</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#addRaw">addRaw</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#setStub">setStub</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#count">count</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#getPhar">getPhar</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+                            <li>
+                                
+                                
+                                    <div class="bar">
+                                        <div class="background"></div>
+                                        <div class="graph" style="width: 100%"></div>
+                                        <div class="label"><a href="#buildPhar">buildPhar</a> <span>100%</span></div>
+                                    </div>
+                                
+                            </li>
+                        
+					
+				</ul>
+
+                <h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="__toString"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Phar;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>3</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>4</td><td><pre>use Symfony\Component\Finder\Finder;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>5</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>6</td><td><pre>class Builder implements \Countable
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>7</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>8</td><td><pre>    protected $name;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>9</td><td><pre>    protected $basedir;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>10</td><td><pre>    protected $finders = array();
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>11</td><td><pre>    protected $filters;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>12</td><td><pre>    protected $raw = array();
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>13</td><td><pre>    protected $stub;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>14</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>15</td><td><pre>    public function __construct(Filter\FilterCollection $filters = null, array $files = array())
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>16</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>17</td><td><pre>        $this-&gt;filters = $filters ?: new Filter\FilterCollection();
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>18</td><td><pre>        $this-&gt;finders[&#039;files&#039;] = new \ArrayObject($files);
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>19</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>20</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getFilters"></a>21</td><td><pre>    public function getFilters()
+</pre></td></tr><tr><td class="number"><a name="getFilters"></a>22</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>23</td><td><pre>        return $this-&gt;filters;
+</pre></td></tr><tr><td class="number"><a name="getFilters"></a>24</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getFilters"></a>25</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="addFilter"></a>26</td><td><pre>    public function addFilter(Filter $filter)
+</pre></td></tr><tr><td class="number"><a name="addFilter"></a>27</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>28</td><td><pre>        $this-&gt;filters[] = $filter;
+</pre></td></tr><tr><td class="number"><a name="addFilter"></a>29</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>30</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="addFilter"></a>31</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="addFilter"></a>32</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setName"></a>33</td><td><pre>    public function setName($name)
+</pre></td></tr><tr><td class="number"><a name="setName"></a>34</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>35</td><td><pre>        $this-&gt;name = $name;
+</pre></td></tr><tr><td class="number"><a name="setName"></a>36</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>37</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setName"></a>38</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setName"></a>39</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>40</td><td><pre>    public function setBasedir($basedir)
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>41</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>42</td><td><pre>        $this-&gt;basedir = realpath($basedir);
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>43</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>44</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>45</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>46</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>47</td><td><pre>    public function addFinder(Finder $finder)
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>48</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>49</td><td><pre>        $this-&gt;finders[] = $finder;
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>50</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>51</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>52</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setBasedir"></a>53</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>54</td><td><pre>    public function addFile($file)
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>55</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>56</td><td><pre>        if (false === file_exists($file)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>57</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;File %s does not exist&#039;, $file));
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>58</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>59</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>60</td><td><pre>        $this-&gt;finders[&#039;files&#039;][] = $file;
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>61</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>62</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>63</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="addFile"></a>64</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="addRaw"></a>65</td><td><pre>    public function addRaw($name, $raw)
+</pre></td></tr><tr><td class="number"><a name="addRaw"></a>66</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>67</td><td><pre>        $this-&gt;raw[$name] = $raw;
+</pre></td></tr><tr><td class="number"><a name="addRaw"></a>68</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>69</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="addRaw"></a>70</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="addRaw"></a>71</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setStub"></a>72</td><td><pre>    public function setStub($stub)
+</pre></td></tr><tr><td class="number"><a name="setStub"></a>73</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>74</td><td><pre>        $this-&gt;stub = $stub;
+</pre></td></tr><tr><td class="number"><a name="setStub"></a>75</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>76</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setStub"></a>77</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setStub"></a>78</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="count"></a>79</td><td><pre>    public function count()
+</pre></td></tr><tr><td class="number"><a name="count"></a>80</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>81</td><td><pre>        $count = count($this-&gt;raw);
+</pre></td></tr><tr><td class="number"><a name="count"></a>82</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>83</td><td><pre>        foreach ($this-&gt;finders as $finder) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>84</td><td><pre>            $count += count($finder);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>85</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="count"></a>86</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>87</td><td><pre>        return $count;
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>88</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="count"></a>89</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>90</td><td><pre>    public function getPhar($name)
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>91</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>92</td><td><pre>        return new \Phar($name);
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>93</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>94</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>95</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>96</td><td><pre>     * @param callable $callback
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>97</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>98</td><td><pre>     * @throws \InvalidArgumentException
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>99</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>100</td><td><pre>     * @return \Phar
+</pre></td></tr><tr><td class="number"><a name="getPhar"></a>101</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>102</td><td><pre>    public function buildPhar($callback = null)
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>103</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>104</td><td><pre>        if (null !== $callback &amp;&amp; false === is_callable($callback)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>105</td><td><pre>            throw new \InvalidArgumentException(&#039;Callback is not callable&#039;);
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>106</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>107</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>108</td><td><pre>        $phar = $this-&gt;getPhar($this-&gt;name);
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>109</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>110</td><td><pre>        $phar-&gt;startBuffering();
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>111</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>112</td><td><pre>        $total = count($this);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>113</td><td><pre>        $current = $previous = 0;
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>114</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>115</td><td><pre>        if (null !== $callback) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>116</td><td><pre>            $callback($total, $current, $previous);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>117</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>118</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>119</td><td><pre>        foreach ($this-&gt;finders as $finder) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>120</td><td><pre>            foreach ($finder as $file) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>121</td><td><pre>                $file = is_string($file) ? new \SplFileObject($file) : $file;
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>122</td><td><pre>                $path = $file-&gt;getRealPath() ?: $file-&gt;getPathname();
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>123</td><td><pre>                $contents = file_get_contents($path);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>124</td><td><pre>                $contents = $this-&gt;filters-&gt;apply($contents);
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>125</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>126</td><td><pre>                $phar-&gt;addFromString(
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>127</td><td><pre>                    str_replace(
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>128</td><td><pre>                        realpath($this-&gt;basedir) . DIRECTORY_SEPARATOR,
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>129</td><td><pre>                        &#039;&#039;,
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>130</td><td><pre>                        $path
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>131</td><td><pre>                    ),
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>132</td><td><pre>                    $contents
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>133</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>134</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>135</td><td><pre>                if (null !== $callback) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>136</td><td><pre>                    $callback($total, ++$current, $previous);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>137</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>138</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>139</td><td><pre>                $previous = $current;
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>140</td><td><pre>            }
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>141</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>142</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>143</td><td><pre>        foreach ($this-&gt;raw as $file =&gt; $raw) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>144</td><td><pre>            $phar-&gt;addFromString($file, $raw);
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>145</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>146</td><td><pre>            if (null !== $callback) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>147</td><td><pre>                $callback($total, ++$current, $previous);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>148</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>149</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>150</td><td><pre>            $previous = $current;
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>151</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>152</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>153</td><td><pre>        if (null !== $this-&gt;stub) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>154</td><td><pre>            $phar-&gt;setStub($this-&gt;stub);
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>155</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>156</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>157</td><td><pre>        $phar-&gt;stopBuffering();
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>158</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>159</td><td><pre>        return $phar;
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>160</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="buildPhar"></a>161</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
