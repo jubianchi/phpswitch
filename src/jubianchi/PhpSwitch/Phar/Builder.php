@@ -92,6 +92,13 @@ class Builder implements \Countable
         return new \Phar($name);
     }
 
+    /**
+     * @param callable $callback
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return \Phar
+     */
     public function buildPhar($callback = null)
     {
         if (null !== $callback && false === is_callable($callback)) {

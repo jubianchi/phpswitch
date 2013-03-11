@@ -2,6 +2,7 @@
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
 use Symfony\Component\Finder\Finder;
+use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -46,16 +47,9 @@ class SwitchCommand extends Command
         $version = ('off' === $version ? null : $version);
 
         if (null !== $version) {
-            $path = $this->getApplication()->getParameter('app.workspace.installed.path');
-            $finder = new Finder();
-            $finder
-                ->in($path)
-                ->directories()
-                ->name($version)
-                ->depth(0)
-            ;
+            $version = Version::fromString($version);
 
-            if (0 === count($finder)) {
+            if (false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
                 throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
             }
         } else {

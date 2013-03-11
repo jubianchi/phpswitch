@@ -60,11 +60,11 @@ class Installer extends Emitter
                 'mirror' => $mirror,
                 'jobs' => $jobs,
                 'options' => $this->options,
-                'prefix' => $dest
+                'destination' => $dest
             )
         );
 
-        if (is_dir($dest)) {
+        if ($this->isInstalled($version)) {
             throw new \RuntimeException(sprintf('PHP version %s is already installed', $version));
         }
 
@@ -83,6 +83,10 @@ class Installer extends Emitter
         $this->emit('install.after', $args);
 
         return $this;
+    }
+
+    public function isInstalled(Version $version) {
+        return is_dir($this->builder->getDestination($version));
     }
 
     /**

@@ -1,10 +1,10 @@
+.vagrant
+
+vendor
 bin/atoum
 bin/behat
 bin/boris
-.vagrant
-vendor
-coverage
+
 .phpswitch
 .phpswitch.yml
-./phpswitch
 phpswitch.phar

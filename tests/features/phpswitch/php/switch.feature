@@ -36,12 +36,15 @@ Feature: php:switch
 
   Scenario:
     Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I have the following configuration in "phpswitch/.phpswitch.yml":
+      And The PHP version "php-5.3.15" is installed
+      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch php-5.3.15"
+     Then I should see
         """
-        phpswitch:
-            version: 5.3.15
+        PHP switched to php-5.3.15
+
         """
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch off"
+      And The command should exit with success status
+    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch off"
      Then I should see
         """
         PHP switched to system default version

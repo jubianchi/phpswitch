@@ -56,7 +56,7 @@ class InstallCommand extends Command
         $this
             ->addOption(
                 'format',
-                '-f',
+                'f',
                 InputOption::VALUE_OPTIONAL,
                 sprintf(
                     'Documentation format <comment>(%s)</comment>',
@@ -157,19 +157,19 @@ class InstallCommand extends Command
     {
         $handle = fopen($destination, 'wb+');
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_FILE, $handle);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $channel = curl_init($url);
+        curl_setopt($channel, CURLOPT_FILE, $handle);
+        curl_setopt($channel, CURLOPT_HEADER, 0);
+        curl_setopt($channel, CURLOPT_URL, $url);
+        curl_setopt($channel, CURLOPT_FOLLOWLOCATION, true);
 
         if (null !== $callback) {
-            curl_setopt($ch, CURLOPT_NOPROGRESS, false);
-            curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, $callback);
+            curl_setopt($channel, CURLOPT_NOPROGRESS, false);
+            curl_setopt($channel, CURLOPT_PROGRESSFUNCTION, $callback);
         }
 
-        curl_exec($ch);
-        curl_close($ch);
+        curl_exec($channel);
+        curl_close($channel);
         fclose($handle);
     }
 
@@ -198,11 +198,11 @@ class InstallCommand extends Command
 
         $this->startProgress($output, 100, '[%bar%] %percent%%');
 
-        return function($download_size, $downloaded_size, $upload_size, $uploaded_size) use ($self) {
+        return function($size, $downloaded) use ($self) {
             static $previous = 0;
 
-            if ($download_size > 0) {
-                $complete = ceil(($downloaded_size / $download_size) * 100);
+            if ($size > 0) {
+                $complete = ceil(($downloaded / $size) * 100);
 
                 $self->getHelper('progress')->advance($complete - $previous);
 

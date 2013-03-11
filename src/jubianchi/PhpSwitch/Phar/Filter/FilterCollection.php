@@ -9,10 +9,6 @@ class FilterCollection implements \Iterator, \ArrayAccess
 
     public function add(Phar\Filter $filter, $offset = null)
     {
-        if (false === is_callable($filter)) {
-            throw new \InvalidArgumentException('Filter is not callable');
-        }
-
         if (false === in_array($filter, $this->filters, true)) {
             $offset = $offset ?: count($this->filters);
 
