@@ -4,7 +4,6 @@ namespace jubianchi\PhpSwitch\PHP;
 use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
 use jubianchi\PhpSwitch\Event\Emitter;
 use jubianchi\PhpSwitch\Event\Dispatcher;
-use jubianchi\PhpSwitch\Event\Event;
 
 class Extracter extends Emitter
 {
@@ -49,7 +48,7 @@ class Extracter extends Emitter
         $dirname = dirname($archive);
 
         $self = $this;
-        $callback = function($type, $buffer) use($self) {
+        $callback = function($type, $buffer) use ($self) {
             $buffer = rtrim($buffer);
             if (false === empty($buffer)) {
                 $self->emit(

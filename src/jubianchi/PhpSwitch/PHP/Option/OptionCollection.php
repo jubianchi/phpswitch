@@ -4,7 +4,6 @@ namespace jubianchi\PhpSwitch\PHP\Option;
 use Symfony\Component\Console\Output\OutputInterface;
 use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 
 class OptionCollection implements OptionInterface, \Countable
 {

@@ -1,8 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\Event;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 class Subscriber
 {
     protected $handlers = array();

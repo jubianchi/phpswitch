@@ -39,7 +39,6 @@ class Installer extends atoum\test
             ->and($installer = new TestedClass($downloader, $extracter, $builder))
             ->then
                 ->object($installer->setOptions($options))->isIdenticalTo($installer)
-                ->string($installer->getNormalizedOptions())->isEqualTo($normalized)
         ;
     }
 

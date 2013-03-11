@@ -7,7 +7,7 @@ use jubianchi\PhpSwitch\PHP\Version;
 
 interface OptionInterface
 {
-    function preInstall(Version $version, InputInterface $input, OutputInterface $output);
-    function postInstall(Version $version, InputInterface $input, OutputInterface $output);
-    function __toString();
+    public function preInstall(Version $version, InputInterface $input, OutputInterface $output);
+    public function postInstall(Version $version, InputInterface $input, OutputInterface $output);
+    public function __toString();
 }

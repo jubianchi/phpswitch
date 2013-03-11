@@ -2,10 +2,10 @@
 namespace jubianchi\PhpSwitch\PHP;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use jubianchi\PhpSwitch\PHP\Option\OptionCollection;
 use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
 use jubianchi\PhpSwitch\Event\Emitter;
 use jubianchi\PhpSwitch\Event\Dispatcher;
-use jubianchi\PhpSwitch\Event\Event;
 
 class Builder extends Emitter
 {
@@ -31,12 +31,14 @@ class Builder extends Emitter
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\PHP\Version $version
-     * @param string                           $source
-     * @param array                            $options
-     * @param int                              $jobs
+     * @param \jubianchi\PhpSwitch\PHP\Version                 $version
+     * @param string                                           $source
+     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
+     * @param int                                              $jobs
+     *
+     * @return \jubianchi\PhpSwitch\PHP\Builder
      */
-    public function build(Version $version, $source, $options, $jobs = null)
+    public function build(Version $version, $source, OptionCollection $options, $jobs = null)
     {
         $this->emit(
             'build.before',
@@ -50,7 +52,7 @@ class Builder extends Emitter
         );
 
         $self = $this;
-        $callback = function($type, $buffer) use($self) {
+        $callback = function($type, $buffer) use ($self) {
             $buffer = rtrim($buffer);
             if (false === empty($buffer)) {
                 $self->emit(
@@ -109,7 +111,7 @@ class Builder extends Emitter
     {
         $prefix = $this->getDestination($version);
 
-        if(null !== $callback) {
+        if (null !== $callback) {
             $callback('init', $prefix);
         }
 

@@ -50,11 +50,6 @@ class Installer extends Emitter
         return $this;
     }
 
-    public function getNormalizedOptions()
-    {
-        return (string) $this->options;
-    }
-
     public function install(Version $version, $mirror, $jobs, InputInterface $input, OutputInterface $output)
     {
         $dest = $this->builder->getDestination($version);
@@ -79,7 +74,7 @@ class Installer extends Emitter
 
         $archive = $this->download($version, $mirror);
         $source = $this->extract($version, $archive);
-        $this->make($version, $source, $this->getNormalizedOptions(), $jobs);
+        $this->make($version, $source, $this->options, $jobs);
 
         if (null !== $this->options) {
             $this->options->postInstall($version, $input, $output);
@@ -125,16 +120,16 @@ class Installer extends Emitter
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\PHP\Version $version
-     * @param string                           $source
-     * @param string                           $options
-     * @param int                              $jobs
+     * @param \jubianchi\PhpSwitch\PHP\Version                 $version
+     * @param string                                           $source
+     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
+     * @param int                                              $jobs
      *
      * @throws \RuntimeException
      *
      * @return \jubianchi\PhpSwitch\PHP\Installer
      */
-    protected function make(Version $version, $source, $options, $jobs)
+    protected function make(Version $version, $source, OptionCollection $options, $jobs)
     {
         $prefix = $this->builder->getDestination($version);
         $this->builder->build($version, $source, $options, $jobs);

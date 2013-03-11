@@ -58,7 +58,7 @@ class ListCommand extends Command
         $maxlength = 0;
         array_walk(
             $versions,
-            function($version) use(& $maxlength) {
+            function($version) use (& $maxlength) {
                 $maxlength = ($length = strlen((string) $version)) > $maxlength ? $length : $maxlength;
             }
         );
@@ -96,7 +96,7 @@ class ListCommand extends Command
         $pattern = '/(5\.\d+\.\d+)$/';
         uasort(
             $versions,
-            function($a, $b) use($pattern) {
+            function($a, $b) use ($pattern) {
                 preg_match($pattern, $a, $a);
                 preg_match($pattern, $b, $b);
 

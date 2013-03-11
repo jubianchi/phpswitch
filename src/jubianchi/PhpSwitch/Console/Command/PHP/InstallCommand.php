@@ -41,7 +41,6 @@ class InstallCommand extends Command
     {
         parent::setApplication($application);
 
-
         if (null !== $application) {
             foreach ($application->getOptionFinder() as $option) {
                 $option = new $option();
@@ -57,14 +56,14 @@ class InstallCommand extends Command
         $subscriber = new \jubianchi\PhpSwitch\Event\Subscriber();
         $indent = self::INDENT;
 
-        $afterCallback = function() use($output) { $output->write(PHP_EOL); };
+        $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
         $processCallback = function($event) use ($self, $output) {
             $self->log($event['buffer'], 'err' === $event['type'] ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
             $self->getHelper('progress')->advance();
         };
 
         $subscriber
-            ->handle('install.before', function($event) use($output) {
+            ->handle('install.before', function($event) use ($output) {
                 $output->writeln(
                     array(
                         sprintf('Installing PHP <info>%s</info>', $event['version']->getVersion()),
@@ -73,13 +72,13 @@ class InstallCommand extends Command
                     )
                 );
             })
-            ->handle('install.after', function($event) use($output, $indent) {
+            ->handle('install.after', function($event) use ($output, $indent) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $event['version']),
                     sprintf('%s<comment>%s</comment>', $indent, $event['prefix'])
                 ));
             })
-            ->handle('download.before', function($event) use($self, $output, $indent) {
+            ->handle('download.before', function($event) use ($self, $output, $indent) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $event['version']->getVersion()),
                     sprintf('%s<comment>%s</comment>', $indent, sprintf($event['version']->getUrl(), $event['mirror']))
@@ -101,7 +100,7 @@ class InstallCommand extends Command
                 }
             })
             ->handle('download.after', $afterCallback)
-            ->handle('extract.before', function($event) use($self, $output, $indent) {
+            ->handle('extract.before', function($event) use ($self, $output, $indent) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'Extracting <info>%s</info>', $event['version']->getVersion()),
                     sprintf('%s<comment>%s</comment>', $indent, $event['archive'])
@@ -111,7 +110,7 @@ class InstallCommand extends Command
             })
             ->handle('extract.progress', $processCallback)
             ->handle('extract.after', $afterCallback)
-            ->handle('build.before', function($event) use($self, $output, $indent) {
+            ->handle('build.before', function($event) use ($self, $output, $indent) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'Building <info>%s</info>', $event['version']->getVersion()),
                     sprintf('%s<comment>%s</comment>', $indent, $event['prefix'])
