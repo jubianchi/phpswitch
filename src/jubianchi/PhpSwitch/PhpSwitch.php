@@ -65,7 +65,10 @@ class PhpSwitch implements Runnable
             $this->container['parameters'][$key] = $value;
         }
 
-        $this->container['parameters']['app.workspace.path'] = realpath($this->container['parameters']['app.workspace.path']);
+        $this->container['parameters']['app.workspace.path'] =
+            false !== ($path = realpath($this->container['parameters']['app.workspace.path']))
+                ? $path
+                : $this->container['parameters']['app.workspace.path'];
 
         $this->container['parameters']['app.workspace.downloads.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'downloads';
         $this->container['parameters']['app.workspace.sources.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
