@@ -94,7 +94,7 @@ class Version
      */
     public function setVersion($version)
     {
-        if (false == preg_match('/^([4-5]\.(?:\d+\.?)*)/', $version)) {
+        if (false == preg_match('/^(\d\.(?:\d+\.?)+)/', $version)) {
             throw new \InvalidArgumentException(sprintf('Wrong PHP version %s', $version));
         }
 

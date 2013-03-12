@@ -15,14 +15,14 @@ Feature: php:switch
 
   Scenario:
     Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch 6.6.6"
+      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch php-6.6.6"
      Then I should see
         """
 
 
 
           [InvalidArgumentException]
-          Version 6.6.6 is not installed
+          Version php-6.6.6 is not installed
 
 
 
