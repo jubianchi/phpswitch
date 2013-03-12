@@ -7,7 +7,7 @@ use
 define('TESTALL_DIRECTORY', __DIR__ . '/tests/units');
 
 define('COVERAGE_TITLE', basename(__DIR__));
-define('COVERAGE_DIRECTORY', sys_get_temp_dir() . DIRECTORY_SEPARATOR . COVERAGE_TITLE . '_coverage');
+define('COVERAGE_DIRECTORY', implode(DIRECTORY_SEPARATOR, array(__DIR__, 'doc', 'coverage')));
 define('COVERAGE_WEB_PATH', 'file://' . COVERAGE_DIRECTORY);
 
 define('NOTIFIER_CLASS', '\\mageekguy\\atoum\\report\\fields\\runner\\result\\notifier\\image\\growl');

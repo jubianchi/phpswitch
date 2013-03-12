@@ -85,7 +85,7 @@ class Installer extends atoum\test
                             'mirror' => $mirror,
                             'jobs' => null,
                             'options' => $options,
-                            'prefix' => $builder->getDestination($version)
+                            'destination' => $builder->getDestination($version)
                         )
                     )->once()
                     ->call('emit')->withArguments('install.after', $args)->once()
