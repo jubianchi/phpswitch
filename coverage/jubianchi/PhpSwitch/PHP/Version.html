@@ -227,7 +227,7 @@
 </pre></td></tr><tr><td class="number"><a name="getUrl"></a>94</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="setVersion"></a>95</td><td><pre>    public function setVersion($version)
 </pre></td></tr><tr><td class="number"><a name="setVersion"></a>96</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>97</td><td><pre>        if (false == preg_match(&#039;/^([4-5]\.(?:\d+\.?)*)/&#039;, $version)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>97</td><td><pre>        if (false == preg_match(&#039;/^(\d\.(?:\d+\.?)+)/&#039;, $version)) {
 </pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>98</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;Wrong PHP version %s&#039;, $version));
 </pre></td></tr><tr><td class="number"><a name="setVersion"></a>99</td><td><pre>        }
 </pre></td></tr><tr><td class="number"><a name="setVersion"></a>100</td><td><pre>
