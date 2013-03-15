@@ -75,7 +75,7 @@ class InstallCommand extends Command
             ->handle('install.after', function($event) use ($output, $indent) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $event['version']),
-                    sprintf('%s<comment>%s</comment>', $indent, $event['prefix'])
+                    sprintf('%s<comment>%s</comment>', $indent, $event['destination'])
                 ));
             })
             ->handle('download.before', function($event) use ($self, $output, $indent) {
@@ -88,16 +88,13 @@ class InstallCommand extends Command
                     $self->startProgress($output, 100, '[%bar%] %percent%%');
                 }
             })
-            ->handle('download.progress', function($size, $downloaded) use ($self) {
+            ->handle('download.progress', function($event) use ($self) {
                 static $previous = 0;
 
-                if ($size > 0) {
-                    $complete = ceil(($downloaded / $size) * 100);
+				$complete = ceil(($event['downloaded'] / $event['size']) * 100);
+				$self->getHelper('progress')->advance($complete - $previous);
 
-                    $self->getHelper('progress')->advance($complete - $previous);
-
-                    $previous = $complete;
-                }
+				$previous = $complete;
             })
             ->handle('download.after', $afterCallback)
             ->handle('extract.before', function($event) use ($self, $output, $indent) {
