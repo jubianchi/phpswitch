@@ -65,7 +65,7 @@ class SwitchCommand extends Command
         }
 
         $this->getConfiguration()
-            ->set('version', $version)
+            ->set('version', (string) $version)
             ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
         ;
 
