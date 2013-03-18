@@ -2,12 +2,14 @@
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Monolog\Logger;
 use jubianchi\PhpSwitch\PHP\Version;
+use jubianchi\PhpSwitch\PHP\Template;
 use jubianchi\PhpSwitch\Console\Command\Command;
 
 class InstallCommand extends Command
@@ -84,17 +86,23 @@ class InstallCommand extends Command
                     sprintf('%s<comment>%s</comment>', $indent, sprintf($event['version']->getUrl(), $event['mirror']))
                 ));
 
-                if (OutputInterface::VERBOSITY_VERBOSE !== $output->getVerbosity()) {
+                if (OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
                     $self->startProgress($output, 100, '[%bar%] %percent%%');
                 }
             })
-            ->handle('download.progress', function($event) use ($self) {
+            ->handle('download.progress', function(GenericEvent $event) use ($self) {
                 static $previous = 0;
+				static $size = 0;
 
-				$complete = ceil(($event['downloaded'] / $event['size']) * 100);
-				$self->getHelper('progress')->advance($complete - $previous);
+				if ($size > 0) {
+					$complete = ceil(($event->getArgument('downloaded') / $size) * 100);
 
-				$previous = $complete;
+					$self->getHelper('progress')->advance($complete - $previous);
+
+					$previous = $complete;
+				} else {
+					$size = $event->getArgument('size');
+				}
             })
             ->handle('download.after', $afterCallback)
             ->handle('extract.before', function($event) use ($self, $output, $indent) {
@@ -110,7 +118,8 @@ class InstallCommand extends Command
             ->handle('build.before', function($event) use ($self, $output, $indent) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'Building <info>%s</info>', $event['version']->getVersion()),
-                    sprintf('%s<comment>%s</comment>', $indent, $event['prefix'])
+					sprintf('%s<comment>%s</comment>', $indent, $event['source']),
+					sprintf('%s<comment>%s</comment>', $indent, $event['prefix'])
                 ));
 
                 $self->startProgress($output);
@@ -140,22 +149,40 @@ class InstallCommand extends Command
         if (null !== ($alias = $input->getOption('alias'))) {
             $version->setName($alias);
         }
-        $options = $this->resolveOptions($input);
+
+		$template = new Template($version);
+		$template
+			->setOptions($this->resolveOptions($input))
+			->setConfigs(call_user_func(
+				function($ini) {
+					$configs = array();
+
+					foreach ($ini as $directive) {
+						if (false !== ($directive = parse_ini_string($directive))) {
+							$key = key($directive);
+							$value = current($directive);
+
+							$configs[$key] = $value;
+						}
+					}
+
+					return $configs;
+				},
+				$input->getOption('ini')
+			))
+		;
 
         $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($this->getSubscriber($output));
-        $this->getInstaller()
-            ->setOptions($options)
-            ->install($version, $mirror, $input->getOption('jobs'), $input, $output)
-        ;
+        $this->getInstaller()->install($version, $mirror, $input->getOption('jobs'), $input, $output);
 
-        foreach ($input->getOption('ini') as $ini) {
-            if (false !== ($ini = parse_ini_string($ini))) {
-                $this->getApplication()->getService('app.php.config')->setValue($version, key($ini), current($ini));
-            }
+		$configs = $template->getConfigs();
+        foreach ($configs as $key => $value) {
+			$this->getApplication()->getService('app.php.config')->setValue($version, $key, $value);
         }
 
         $this->getConfiguration()
-            ->set('versions.' . str_replace('.', '-', $version), $options->normalize())
+            ->set('versions.' . str_replace('.', '-', $version) . '.options', $template->getOptions()->normalize())
+			->set('versions.' . str_replace('.', '-', $version) . '.config', $configs)
             ->dump()
         ;
 

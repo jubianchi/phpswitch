@@ -28,20 +28,6 @@ class Installer extends atoum\test
         ;
     }
 
-    public function testSetOptions()
-    {
-        $this
-            ->if($downloader = new \jubianchi\PhpSwitch\PHP\Downloader(uniqid()))
-            ->and($extracter = new \jubianchi\PhpSwitch\PHP\Extracter(uniqid()))
-            ->and($builder = new \jubianchi\PhpSwitch\PHP\Builder(uniqid()))
-            ->and($options = new \mock\jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
-            ->and($this->calling($options)->__toString = $normalized = uniqid())
-            ->and($installer = new TestedClass($downloader, $extracter, $builder))
-            ->then
-                ->object($installer->setOptions($options))->isIdenticalTo($installer)
-        ;
-    }
-
     public function testInstall()
     {
         $this
@@ -64,10 +50,11 @@ class Installer extends atoum\test
             ->and($this->calling($process)->run = 0)
             ->and($processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
             ->and($this->calling($processBuilder)->getProcess = $process)
+			->and($template = new \jubianchi\PhpSwitch\PHP\Template($version))
+			->and($template->setOptions($options))
             ->and($installer = new \mock\jubianchi\PhpSwitch\PHP\Installer($downloader, $extracter, $builder, $dispatcher))
-            ->and($installer->setOptions($options))
             ->then
-                ->object($installer->install($version, $mirror = uniqid(), null, $input, $output))
+                ->object($installer->install($template, $mirror = uniqid(), null, $input, $output))
                 ->mock($downloader)
                     ->call('download')->withArguments($version, $mirror)->once()
                 ->mock($extracter)
@@ -92,8 +79,8 @@ class Installer extends atoum\test
                 ->if($dir = stream::getSubStream($installDir, 'php-' . phpversion()))
                 ->and($dir->dir_opendir = true)
                 ->then
-                    ->exception(function() use($installer, $version, $input, $output) {
-                        $installer->install($version, uniqid(), null, $input, $output);
+                    ->exception(function() use($installer, $template, $input, $output) {
+                        $installer->install($template, uniqid(), null, $input, $output);
                     })
                         ->isInstanceOf('\\RuntimeException')
                         ->hasMessage(sprintf('PHP version %s is already installed', $version))

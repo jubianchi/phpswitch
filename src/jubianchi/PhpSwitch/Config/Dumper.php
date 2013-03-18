@@ -33,7 +33,7 @@ class Dumper
 
         file_put_contents(
             $path,
-            Yaml::dump(array(Configuration::ROOT => $configuration->getValues()), 2, 2)
+            Yaml::dump(array(Configuration::ROOT => $configuration->getValues()), 5, 2)
         );
 
         return $this;

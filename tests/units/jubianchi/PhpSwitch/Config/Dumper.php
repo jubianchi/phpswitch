@@ -32,7 +32,7 @@ class Dumper extends atoum\test
             ->then
                 ->object($object->dump($name, $configuration))
                 ->adapter($file)
-                    ->call('stream_write')->withArguments("phpswitch:\n  $key: $value\n  $otherKey: { $subKey: $subValue }\n")->once()
+                    ->call('stream_write')->withArguments("phpswitch:\n  $key: $value\n  $otherKey:\n    $subKey: $subValue\n")->once()
         ;
     }
 }

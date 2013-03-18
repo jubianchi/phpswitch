@@ -18,9 +18,6 @@ class Installer extends Emitter
     /** @var \jubianchi\PhpSwitch\PHP\Extracter */
     private $extracter;
 
-    /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
-    protected $options;
-
     /**
      * @param \jubianchi\PhpSwitch\PHP\Downloader   $downloader
      * @param \jubianchi\PhpSwitch\PHP\Extracter    $extracter
@@ -38,20 +35,11 @@ class Installer extends Emitter
         }
     }
 
-    /**
-     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
-     *
-     * @return \jubianchi\PhpSwitch\PHP\Installer
-     */
-    public function setOptions(OptionCollection $options)
+    public function install(Template $template, $mirror, $jobs, InputInterface $input, OutputInterface $output)
     {
-        $this->options = $options;
+		$version = $template->getVersion();
+		$options = $template->getOptions();
 
-        return $this;
-    }
-
-    public function install(Version $version, $mirror, $jobs, InputInterface $input, OutputInterface $output)
-    {
         $dest = $this->builder->getDestination($version);
         $this->emit(
             'install.before',
@@ -59,7 +47,7 @@ class Installer extends Emitter
                 'version' => $version,
                 'mirror' => $mirror,
                 'jobs' => $jobs,
-                'options' => $this->options,
+                'options' => $options,
                 'destination' => $dest
             )
         );
@@ -68,16 +56,16 @@ class Installer extends Emitter
             throw new \RuntimeException(sprintf('PHP version %s is already installed', $version));
         }
 
-        if (null !== $this->options) {
-            $this->options->preInstall($version, $input, $output);
+        if (null !== $options) {
+			$options->preInstall($version, $input, $output);
         }
 
         $archive = $this->download($version, $mirror);
         $source = $this->extract($version, $archive);
-        $this->make($version, $source, $this->options, $jobs);
+        $this->make($version, $source, $options, $jobs);
 
-        if (null !== $this->options) {
-            $this->options->postInstall($version, $input, $output);
+        if (null !== $options) {
+			$options->postInstall($version, $input, $output);
         }
 
         $this->emit('install.after', $args);
