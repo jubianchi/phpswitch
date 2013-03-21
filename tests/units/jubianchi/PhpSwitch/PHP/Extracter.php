@@ -41,7 +41,7 @@ class Extracter extends atoum\test
             ->and($directory->dir_opendir = true)
             ->and($archive = uniqid())
             ->and($options = new \mock\jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
-            ->and($this->calling($options)->normalize = $normalized = uniqid())
+            ->and($this->calling($options)->__toString = $normalized = uniqid())
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
             ->and($extracter = new \mock\jubianchi\PhpSwitch\PHP\Extracter($directory, $processBuilder, $dispatcher))
             ->then

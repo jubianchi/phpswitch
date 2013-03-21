@@ -21,11 +21,11 @@ class Builder
 		$this->normalizer = $normalizer;
 	}
 
-	public function build(Version $version, InputInterface $input, array $options)
+	public function build(Version $version, InputInterface $input)
 	{
 		$template = new Template($version);
 		$template
-			->setOptions($this->resolveOptions($input, $options))
+			->setOptions($this->resolveOptions($input))
 			->setConfigs(call_user_func(
 				function($ini) {
 					$configs = array();
@@ -48,9 +48,9 @@ class Builder
 		return $template;
 	}
 
-	protected function resolveOptions(InputInterface $input, array $options)
+	protected function resolveOptions(InputInterface $input)
 	{
-		$options = $this->resolver->resolve($input, $options);
+		$options = $this->resolver->resolve($input);
 
 		if (null !== ($config = $input->getOption('config'))) {
 			try {
@@ -63,7 +63,7 @@ class Builder
 				);
 			}
 
-			$options->addOptions($this->normalizer->denormalize($config, $options));
+			$options->addOptions($this->normalizer->denormalize($config));
 		}
 
 		return $options;

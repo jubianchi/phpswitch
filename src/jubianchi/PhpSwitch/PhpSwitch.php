@@ -230,15 +230,28 @@ class PhpSwitch implements Runnable
             }
         );
 
+		$this->container['app.php.options'] = $this->container->share(
+			function(\Pimple $container) {
+				$options = new PHP\Option\OptionCollection();
+
+				foreach ($container['app.php.option.finder'] as $option) {
+					$option = new $option();
+					$options->addOption($option);
+				}
+
+				return $options;
+			}
+		);
+
         $this->container['app.php.option.resolver'] = $this->container->share(
-            function() {
-                return new PHP\Option\Resolver();
+            function(\Pimple $container) {
+                return new PHP\Option\Resolver($container['app.php.options']);
             }
         );
 
         $this->container['app.php.option.normalizer'] = $this->container->share(
-            function() {
-                return new PHP\Option\Normalizer();
+            function(\Pimple $container) {
+                return new PHP\Option\Normalizer($container['app.php.options']);
             }
         );
 
@@ -252,8 +265,6 @@ class PhpSwitch implements Runnable
 
         $this->container['app.php.installer'] = $this->container->share(
             function(\Pimple $container) {
-                PHP\Option\OptionCollection::setNormalizer($container['app.php.option.normalizer']);
-
                 return new PHP\Installer(
                     $container['app.php.downloader'],
                     $container['app.php.extracter'],

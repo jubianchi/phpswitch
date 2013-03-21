@@ -3,6 +3,7 @@ namespace tests\units\jubianchi\PhpSwitch\PHP\Option;
 
 use mageekguy\atoum;
 use Symfony\Component\Console\Input\InputOption;
+use jubianchi\PhpSwitch\PHP\Option\OptionCollection;
 use jubianchi\PhpSwitch\PHP\Option\Normalizer as TestedClass;
 
 require_once __DIR__ . '/../../../../bootstrap.php';
@@ -12,31 +13,35 @@ class Normalizer extends atoum\test
     public function testNormalize()
     {
         $this
-            ->if($object = new TestedClass())
+            ->if($object = new TestedClass(new OptionCollection()))
             ->then
-                ->string($object->normalize(array()))->isEmpty()
+                ->string($object->normalize(new OptionCollection()))->isEmpty()
             ->if($option = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($option)->getAlias = '--option')
             ->and($otherOption = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($otherOption)->getAlias = '--otherOption')
+			->and($collection = new OptionCollection(array($option, $otherOption)))
             ->then
-                ->string($object->normalize(array($option, $otherOption)))->isEqualTo('--option --otherOption')
+                ->string($object->normalize($collection))->isEqualTo('--option --otherOption')
         ;
     }
 
     public function testDenormalize()
     {
         $this
-            ->if($object = new TestedClass())
-            ->and($option = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
+            ->if($option = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($option)->getAlias = '--option')
             ->and($this->calling($option)->getMode = InputOption::VALUE_OPTIONAL)
             ->and($otherOption = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($otherOption)->getAlias = '--otherOption')
+			->and($collection = new OptionCollection())
+			->and($collection->addOptions(array($option, $otherOption)))
+			->and($object = new TestedClass($collection))
             ->then
-                ->object($object->denormalize('', array($option, $otherOption)))->isEmpty()
-                ->object($object->denormalize('--option', array($option, $otherOption)))->isEqualTo(new \jubianchi\PhpSwitch\PHP\Option\OptionCollection(array($option)))
-                ->object($object->denormalize('--option=value', array($option, $otherOption)))->isEqualTo(new \jubianchi\PhpSwitch\PHP\Option\OptionCollection(array($option)))
+                ->object($object->denormalize(''))->isEmpty()
+                ->object($object->denormalize('--option'))->isEqualTo(new OptionCollection(array($option)))
+				->object($object->denormalize('--option --unknown'))->isEqualTo(new OptionCollection(array($option)))
+                ->object($object->denormalize('--option=value'))->isEqualTo(new OptionCollection(array($option)))
                 ->string($option->getValue())->isEqualTo('value')
         ;
     }

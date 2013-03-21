@@ -2,14 +2,12 @@
 namespace jubianchi\PhpSwitch\PHP\Option;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
+use jubianchi\PhpSwitch\PHP\Version;
+use jubianchi\PhpSwitch\Console\Command\Command;
 
-class OptionCollection implements OptionInterface, \Countable
+class OptionCollection implements OptionInterface, \Countable, \Iterator
 {
-    /** @var \jubianchi\PhpSwitch\PHP\Option\Normalizer */
-    protected static $normalizer;
-
     /** @var \jubianchi\PhpSwitch\PHP\Option\OptionInterface[] */
     protected $options = array();
 
@@ -20,19 +18,32 @@ class OptionCollection implements OptionInterface, \Countable
         }
     }
 
-    public static function setNormalizer(Normalizer $normalizer)
-    {
-        static::$normalizer = $normalizer;
-    }
+	public function setCommand(Command $command)
+	{
+		foreach($this->options as $option) {
+			$option->setCommand($command);
+		}
+
+		return $this;
+	}
 
     public function addOptions(array $options)
     {
-        $this->options = array_merge($options, $this->options);
-
-        $this->options = array_unique($this->options);
+        foreach ($options as $option) {
+			$this->addOption($option);
+		}
 
         return $this;
     }
+
+	public function addOption(Option $option)
+	{
+		if (false === array_key_exists($option->getAlias(), $this->options)) {
+			$this->options[$option->getAlias()] = $option;
+		}
+
+		return $this;
+	}
 
     public function merge(OptionCollection $collection)
     {
@@ -53,11 +64,6 @@ class OptionCollection implements OptionInterface, \Countable
         }
     }
 
-    public function normalize()
-    {
-        return static::$normalizer->normalize($this->options);
-    }
-
     public function count()
     {
         return count($this->options);
@@ -65,6 +71,31 @@ class OptionCollection implements OptionInterface, \Countable
 
     public function __toString()
     {
-        return $this->normalize();
+        return implode(' ', $this->options);
     }
+
+	public function current()
+	{
+		return current($this->options);
+	}
+
+	public function next()
+	{
+		next($this->options);
+	}
+
+	public function key()
+	{
+		return key($this->options);
+	}
+
+	public function valid()
+	{
+		return $this->key() !== null;
+	}
+
+	public function rewind()
+	{
+		reset($this->options);
+	}
 }

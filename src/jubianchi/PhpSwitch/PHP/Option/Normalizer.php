@@ -3,30 +3,37 @@ namespace jubianchi\PhpSwitch\PHP\Option;
 
 class Normalizer
 {
+	/** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
+	protected $options;
+
+	public function __construct(OptionCollection $options)
+	{
+		$this->options = $options;
+	}
+
     /**
-     * @param \jubianchi\PhpSwitch\PHP\Option\Option[] $options
+     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
      *
      * @return string
      */
-    public function normalize(array $options)
+    public function normalize(OptionCollection $options)
     {
-        return implode(' ', $options);
+        return (string) $options;
     }
 
     /**
-     * @param string                                   $string
-     * @param \jubianchi\PhpSwitch\PHP\Option\Option[] $options
+     * @param string $string
      *
-     * @return \jubianchi\PhpSwitch\PHP\Option\Option[]
+     * @return \jubianchi\PhpSwitch\PHP\Option\OptionCollection
      */
-    public function denormalize($string, array $options)
+    public function denormalize($string)
     {
         $denormalized = array();
         $aliases = explode(' ', trim($string));
 
         foreach ($aliases as $alias) {
             if (preg_match('/(?P<alias>[a-z0-9_-]+)(?:=(?P<value>.+))?/', $alias, $matches)) {
-                foreach ($options as $option) {
+                foreach ($this->options as $option) {
                     if ($matches['alias'] === $option->getAlias()) {
                         if (isset($matches['value'])) {
                             $option->setValue($matches['value']);

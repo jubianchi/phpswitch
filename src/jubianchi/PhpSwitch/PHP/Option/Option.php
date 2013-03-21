@@ -1,8 +1,8 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use jubianchi\PhpSwitch\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
+use jubianchi\PhpSwitch\Console\Command\Command;
 use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

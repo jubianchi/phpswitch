@@ -15,9 +15,6 @@ class InstallCommand extends Command
     const NAME = 'php:install';
     const DESC = 'Installs a PHP version';
 
-    /** @var \jubianchi\PhpSwitch\PHP\Option\Option[] */
-    private $options = array();
-
     /**
      * @param string $name
      */
@@ -42,11 +39,7 @@ class InstallCommand extends Command
         parent::setApplication($application);
 
         if (null !== $application) {
-            foreach ($application->getOptionFinder() as $option) {
-                $option = new $option();
-                $option->setCommand($this);
-                $this->options[] = $option;
-            }
+			$this->getApplication()->getService('app.php.options')->setCommand($this);
         }
     }
 
@@ -69,7 +62,7 @@ class InstallCommand extends Command
             $version->setName($alias);
         }
 
-        $template = $this->getApplication()->getService('app.php.template.builder')->build($version, $input, $this->options);
+        $template = $this->getApplication()->getService('app.php.template.builder')->build($version, $input);
 
         $subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
         $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($subscriber);
@@ -82,7 +75,7 @@ class InstallCommand extends Command
         }
 
         $this->getConfiguration()
-            ->set('versions.' . str_replace('.', '-', $version) . '.options', $template->getOptions()->normalize())
+            ->set('versions.' . str_replace('.', '-', $version) . '.options', (string) $template->getOptions())
             ->set('versions.' . str_replace('.', '-', $version) . '.config', $configs)
             ->dump()
         ;

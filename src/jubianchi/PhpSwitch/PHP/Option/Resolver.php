@@ -6,16 +6,23 @@ use jubianchi\PhpSwitch\PHP\Option\Option;
 
 class Resolver
 {
+	/** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
+	protected $options;
+
+	public function __construct(OptionCollection $options)
+	{
+		$this->options = $options;
+	}
+
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \jubianchi\PhpSwitch\PHP\Option\Option[]        $options
+     * @param \Symfony\Component\Console\Input\InputInterface  $input
      *
      * @return \jubianchi\PhpSwitch\PHP\Option\OptionCollection
      */
-    public function resolve(InputInterface $input, array $options)
+    public function resolve(InputInterface $input)
     {
         $opts = array();
-        foreach ($options as $option) {
+        foreach ($this->options as $option) {
             if ($option->isEnabled($input) && false === in_array($option, $opts)) {
                 $option->setValue($input->getOption($option->getName()));
 

@@ -42,7 +42,7 @@ class Installer extends atoum\test
             ->and($this->calling($builder)->build = $builder)
             ->and($dispatcher = new \mock\jubianchi\PhpSwitch\Event\Dispatcher())
             ->and($options = new \mock\jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
-            ->and($this->calling($options)->normalize = $normalized = uniqid())
+            ->and($this->calling($options)->__toString = $normalized = uniqid())
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
             ->and($input = new \mock\Symfony\Component\Console\Input\InputInterface())
             ->and($output = new \mock\Symfony\Component\Console\Output\OutputInterface())
