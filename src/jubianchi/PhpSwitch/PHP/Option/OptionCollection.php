@@ -38,8 +38,8 @@ class OptionCollection implements OptionInterface, \Countable, \Iterator
 
 	public function addOption(Option $option)
 	{
-		if (false === array_key_exists($option->getAlias(), $this->options)) {
-			$this->options[$option->getAlias()] = $option;
+		if (false === array_key_exists($option->getName(), $this->options)) {
+			$this->options[$option->getName()] = $option;
 		}
 
 		return $this;

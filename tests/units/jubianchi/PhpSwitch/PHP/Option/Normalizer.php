@@ -18,8 +18,10 @@ class Normalizer extends atoum\test
                 ->string($object->normalize(new OptionCollection()))->isEmpty()
             ->if($option = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($option)->getAlias = '--option')
+			->and($this->calling($option)->getName = 'option')
             ->and($otherOption = new \mock\jubianchi\PhpSwitch\PHP\Option\Option())
             ->and($this->calling($otherOption)->getAlias = '--otherOption')
+			->and($this->calling($option)->getName = 'otherOption')
 			->and($collection = new OptionCollection(array($option, $otherOption)))
             ->then
                 ->string($object->normalize($collection))->isEqualTo('--option --otherOption')

@@ -9,7 +9,6 @@ use jubianchi\PhpSwitch\PHP\Version;
 class ApxsOption extends WithOption
 {
     const ARG = 'apxs';
-    const ALIAS = '--with-apxs';
     const MODE = InputOption::VALUE_REQUIRED;
     const DESC = 'Build shared Apache module. FILE is the optional pathname to the Apache apxs tool; defaults to apxs. Make sure you specify the version of apxs that is actually installed on your system and NOT the one that is in the apache source tarball.';
 

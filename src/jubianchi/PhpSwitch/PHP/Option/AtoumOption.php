@@ -1,8 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\PHP\Option;
 
-use jubianchi\PhpSwitch\PHP\Option\Enable;
-
 class AtoumOption extends AliasOption
 {
     const ARG = 'atoum';

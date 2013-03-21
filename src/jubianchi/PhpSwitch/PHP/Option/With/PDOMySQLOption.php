@@ -7,7 +7,6 @@ use jubianchi\PhpSwitch\PHP\Option\Enable;
 class PDOMySQLOption extends WithOption
 {
     const ARG = 'pdo-mysql';
-    const ALIAS = '--with-pdo-mysql';
     const MODE = InputOption::VALUE_OPTIONAL;
     const DESC = 'Used to install the PDO MySQL extension, where the optional parameter is the MySQL base install directory. If mysqlnd is passed, then the MySQL native driver will be used.';
 

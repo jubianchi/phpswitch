@@ -14,14 +14,14 @@ class Downloader extends Event\Subscriber
         $self = $this;
 
         $this
-            ->handle('download.before', function(GenericEvent $event) use ($self, $output) {
+            ->handle('download.before', function(GenericEvent $event) use ($self, $output, $progress) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $event->getArgument('version')->getVersion()),
                     sprintf('    <comment>%s</comment>', sprintf($event->getArgument('version')->getUrl(), $event->getArgument('mirror')))
                 ));
 
                 if (OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
-                    $self->startProgress($output, 100, '[%bar%] %percent%%');
+                    $self->startProgress($progress, $output, 100, '[%bar%] %percent%%');
                 }
             })
             ->handle('download.progress', function(GenericEvent $event) use ($progress) {

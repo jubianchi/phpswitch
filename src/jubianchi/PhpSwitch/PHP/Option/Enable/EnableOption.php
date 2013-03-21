@@ -13,14 +13,6 @@ abstract class EnableOption extends Option
      */
     public function getAlias()
     {
-        return static::ALIAS ?: '--enable-' . static::ARG;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getAlias();
+        return static::ALIAS ?: ('--enable-' . static::ARG);
     }
 }

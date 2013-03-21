@@ -235,8 +235,7 @@ class PhpSwitch implements Runnable
 				$options = new PHP\Option\OptionCollection();
 
 				foreach ($container['app.php.option.finder'] as $option) {
-					$option = new $option();
-					$options->addOption($option);
+					$options->addOption(new $option());
 				}
 
 				return $options;

@@ -117,7 +117,8 @@ function download(array $args) {
     if(true === is_file($path . DIRECTORY_SEPARATOR . 'composer.phar')) {
         unlink($path . DIRECTORY_SEPARATOR . 'composer.phar');
     }
-    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist', $output);
+    var_dump($path);
+    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar && php composer.phar install --prefer-dist', $output);
 
     return true;
 }
@@ -152,6 +153,13 @@ function checkRequirements(array $args) {
         $error = true;
     } else {
         printfln('>>> <green>cURL extension is enabled');
+    }
+
+    if(false === extension_loaded('pcntl')) {
+        printfln('>>> <red>PCNTL extension is not enabled');
+        $error = true;
+    } else {
+        printfln('>>> <green>PCNTL extension is enabled');
     }
 
     if(false === checkPermissions($args)) {

@@ -30,13 +30,13 @@ class Extracter extends Event\Subscriber
         ;
     }
 
-    public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = '[%bar%]')
+    public function startProgress(ProgressHelper $progress, OutputInterface $output)
     {
         $progress->setBarWidth(50);
-        $progress->setEmptyBarCharacter($max ? '-' : '=');
+        $progress->setEmptyBarCharacter('=');
         $progress->setProgressCharacter('>');
-        $progress->setFormat($format);
+        $progress->setFormat('[%bar%]');
 
-        $progress->start($output, $max);
+        $progress->start($output);
     }
 }

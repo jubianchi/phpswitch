@@ -6,7 +6,6 @@ use Symfony\Component\Console\Input\InputOption;
 class CURLOption extends WithOption
 {
     const ARG = 'curl';
-    const ALIAS = '--with-curl';
     const MODE = InputOption::VALUE_OPTIONAL;
     const DEFAULT_VALUE = 'auto';
 
