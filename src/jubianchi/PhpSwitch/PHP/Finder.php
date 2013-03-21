@@ -43,7 +43,7 @@ class Finder implements \IteratorAggregate
             $this->crawler->clear();
             $this->crawler->addContent(file_get_contents($url));
 
-            foreach ($this->crawler->filter('ul li a') as $elem) {
+            foreach ($this->crawler->filter('a') as $elem) {
                 $value = $elem->nodeValue;
 
                 if (false != preg_match($regex, $value, $matches)) {

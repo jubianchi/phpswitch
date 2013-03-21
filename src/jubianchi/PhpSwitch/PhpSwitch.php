@@ -268,6 +268,8 @@ class PhpSwitch implements Runnable
                 return new PHP\Finder(
                     array(
                         'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
+						'http://php.net/downloads.php' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
+						'http://snaps.php.net/' => '/(php\-(?:([4-5]\.(?:\d+\.?)*\-dev)|\-trunk) \(tar\.bz2\))/',
                         'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
                         'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:alpha\d*)?)\.tar\.bz2)/'
                     )
