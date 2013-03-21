@@ -8,50 +8,49 @@
 		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
 	</head>
 	<body>
-        <div id="header">
-            <img id="logo" src="http://docs.atoum.org/fr/images/logo.png"/>
-            <div id="title">
-                <h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Config\Dumper</h1>
-                <h2>
-                    Class code coverage
-                    
-                    100%
-                </h2>
-            </div>
-        </div>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Config\Dumper</h1>
+			<h2>
+				Class code coverage
+				<span>
+					
+					100%
+				</span>
+			</h2>
+		</div>
 
 		<div id="page">
 			<div id="content">
-                <h3>Methods</h3>
+				<h3>Methods</h3>
 				<ul class="summary">
 					
-                        
-                            <li>
-                                
-                                
-                                    <div class="bar">
-                                        <div class="background"></div>
-                                        <div class="graph" style="width: 100%"></div>
-                                        <div class="label"><a href="#__construct">__construct</a> <span>100%</span></div>
-                                    </div>
-                                
-                            </li>
-                        
-                            <li>
-                                
-                                
-                                    <div class="bar">
-                                        <div class="background"></div>
-                                        <div class="graph" style="width: 100%"></div>
-                                        <div class="label"><a href="#dump">dump</a> <span>100%</span></div>
-                                    </div>
-                                
-                            </li>
-                        
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 100%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>100%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 100%"></div>
+										<div class="label"><a href="#dump">dump</a> <span>100%</span></div>
+									</div>
+								
+							</li>
+						
 					
 				</ul>
 
-                <h3>Source</h3>
+				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
 					<tr><td class="number"><a name="getDumper"></a>1</td><td><pre>&lt;?php
@@ -89,7 +88,7 @@
 </pre></td></tr><tr><td class="number"><a name="dump"></a>33</td><td><pre>
 </pre></td></tr><tr class="covered"><td class="number">34</td><td><pre>        file_put_contents(
 </pre></td></tr><tr class="covered"><td class="number">35</td><td><pre>            $path,
-</pre></td></tr><tr class="covered"><td class="number">36</td><td><pre>            Yaml::dump(array(Configuration::ROOT =&gt; $configuration-&gt;getValues()), 2, 2)
+</pre></td></tr><tr class="covered"><td class="number">36</td><td><pre>            Yaml::dump(array(Configuration::ROOT =&gt; $configuration-&gt;getValues()), 5, 2)
 </pre></td></tr><tr class="covered"><td class="number">37</td><td><pre>        );
 </pre></td></tr><tr><td class="number"><a name="dump"></a>38</td><td><pre>
 </pre></td></tr><tr class="covered"><td class="number">39</td><td><pre>        return $this;
@@ -98,6 +97,10 @@
 </pre></td></tr>
 				</table>
 			</div>
+		</div>
+
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
 		</div>
 	</body>
 </html>
