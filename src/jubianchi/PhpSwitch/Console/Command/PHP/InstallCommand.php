@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use jubianchi\PhpSwitch\PHP\Version;
-use jubianchi\PhpSwitch\PHP\Template;
 use jubianchi\PhpSwitch\Console\Command\Command;
 use jubianchi\PhpSwitch\Console\Subscriber;
 
@@ -70,27 +69,7 @@ class InstallCommand extends Command
             $version->setName($alias);
         }
 
-        $template = new Template($version);
-        $template
-            ->setOptions($this->resolveOptions($input))
-            ->setConfigs(call_user_func(
-                function($ini) {
-                    $configs = array();
-
-                    foreach ($ini as $directive) {
-                        if (false !== ($directive = parse_ini_string($directive))) {
-                            $key = key($directive);
-                            $value = current($directive);
-
-                            $configs[$key] = $value;
-                        }
-                    }
-
-                    return $configs;
-                },
-                $input->getOption('ini')
-            ))
-        ;
+        $template = $this->getApplication()->getService('app.php.template.builder')->build($version, $input, $this->options);
 
         $subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
         $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($subscriber);

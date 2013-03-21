@@ -277,6 +277,16 @@ class PhpSwitch implements Runnable
             }
         );
 
+		$this->container['app.php.template.builder'] = $this->container->share(
+			function(\Pimple $container) {
+				return new \jubianchi\PhpSwitch\Console\Template\Builder(
+					$container['app.php.option.resolver'],
+					$container['app.php.option.normalizer'],
+					$container['app.config']
+				);
+			}
+		);
+
         return $this;
     }
 }
