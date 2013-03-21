@@ -33,7 +33,7 @@ class Extracter extends Event\Subscriber
     public function startProgress(ProgressHelper $progress, OutputInterface $output)
     {
         $progress->setBarWidth(50);
-        $progress->setEmptyBarCharacter('=');
+        $progress->setEmptyBarCharacter('-');
         $progress->setProgressCharacter('>');
         $progress->setFormat('[%bar%]');
 

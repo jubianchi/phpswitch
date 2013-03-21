@@ -21,4 +21,18 @@ abstract class Emitter
 
         return $this;
     }
+
+	public function subscribe(Subscriber $subscriber)
+	{
+		$this->dispatcher->addEventSubscriber($subscriber);
+
+		return $this;
+	}
+
+	public function unsubscribe(Subscriber $subscriber)
+	{
+		$this->dispatcher->removeEventSubscriber($subscriber);
+
+		return $this;
+	}
 }

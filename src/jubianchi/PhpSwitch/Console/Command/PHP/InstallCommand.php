@@ -65,9 +65,11 @@ class InstallCommand extends Command
         $template = $this->getApplication()->getService('app.php.template.builder')->build($version, $input);
 
         $subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
-        $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($subscriber);
-        $this->getInstaller()->install($template, $mirror, $input->getOption('jobs'), $input, $output);
-        $this->getApplication()->getService('app.event.dispatcher')->removeEventSubscriber($subscriber);
+        $this->getInstaller()
+			->subscribe($subscriber)
+			->install($template, $mirror, $input->getOption('jobs'), $input, $output)
+			->unsubscribe($subscriber)
+		;
 
         $configs = $template->getConfigs();
         foreach ($configs as $key => $value) {
@@ -75,8 +77,13 @@ class InstallCommand extends Command
         }
 
         $this->getConfiguration()
-            ->set('versions.' . str_replace('.', '-', $version) . '.options', (string) $template->getOptions())
-            ->set('versions.' . str_replace('.', '-', $version) . '.config', $configs)
+            ->set(
+				'versions.' . $template->getName(),
+				array(
+					'options' => (string) $template->getOptions(),
+					'config' => $template->getConfigs()
+				)
+			)
             ->dump()
         ;
 
