@@ -7,10 +7,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Monolog\Logger;
 use jubianchi\PhpSwitch\PHP\Version;
 use jubianchi\PhpSwitch\PHP\Template;
 use jubianchi\PhpSwitch\Console\Command\Command;
+use jubianchi\PhpSwitch\Console\Subscriber;
 
 class InstallCommand extends Command
 {
@@ -50,85 +50,6 @@ class InstallCommand extends Command
                 $this->options[] = $option;
             }
         }
-    }
-
-    protected function getSubscriber(OutputInterface $output)
-    {
-        $self = $this;
-        $subscriber = new \jubianchi\PhpSwitch\Event\Subscriber();
-        $indent = self::INDENT;
-
-        $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
-        $processCallback = function($event) use ($self, $output) {
-            $self->log($event['buffer'], 'err' === $event['type'] ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
-            $self->getHelper('progress')->advance();
-        };
-
-        $subscriber
-            ->handle('install.before', function($event) use ($output) {
-                $output->writeln(
-                    array(
-                        sprintf('Installing PHP <info>%s</info>', $event['version']->getVersion()),
-                        sprintf('From mirror <info>%s</info>', $event['mirror']),
-                        sprintf('Configure options: <info>[%s]</info>', $event['options'])
-                    )
-                );
-            })
-            ->handle('install.after', function($event) use ($output, $indent) {
-                $output->writeln(array(
-                    sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $event['version']),
-                    sprintf('%s<comment>%s</comment>', $indent, $event['destination'])
-                ));
-            })
-            ->handle('download.before', function($event) use ($self, $output, $indent) {
-                $output->writeln(array(
-                    sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $event['version']->getVersion()),
-                    sprintf('%s<comment>%s</comment>', $indent, sprintf($event['version']->getUrl(), $event['mirror']))
-                ));
-
-                if (OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
-                    $self->startProgress($output, 100, '[%bar%] %percent%%');
-                }
-            })
-            ->handle('download.progress', function(GenericEvent $event) use ($self) {
-                static $previous = 0;
-				static $size = 0;
-
-				if ($size > 0) {
-					$complete = ceil(($event->getArgument('downloaded') / $size) * 100);
-
-					$self->getHelper('progress')->advance($complete - $previous);
-
-					$previous = $complete;
-				} else {
-					$size = $event->getArgument('size');
-				}
-            })
-            ->handle('download.after', $afterCallback)
-            ->handle('extract.before', function($event) use ($self, $output, $indent) {
-                $output->writeln(array(
-                    sprintf(PHP_EOL . 'Extracting <info>%s</info>', $event['version']->getVersion()),
-                    sprintf('%s<comment>%s</comment>', $indent, $event['archive'])
-                ));
-
-                $self->startProgress($output);
-            })
-            ->handle('extract.progress', $processCallback)
-            ->handle('extract.after', $afterCallback)
-            ->handle('build.before', function($event) use ($self, $output, $indent) {
-                $output->writeln(array(
-                    sprintf(PHP_EOL . 'Building <info>%s</info>', $event['version']->getVersion()),
-					sprintf('%s<comment>%s</comment>', $indent, $event['source']),
-					sprintf('%s<comment>%s</comment>', $indent, $event['prefix'])
-                ));
-
-                $self->startProgress($output);
-            })
-            ->handle('build.progress', $processCallback)
-            ->handle('build.after', $afterCallback)
-        ;
-
-        return $subscriber;
     }
 
     /**
@@ -172,8 +93,10 @@ class InstallCommand extends Command
 			))
 		;
 
-        $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($this->getSubscriber($output));
+		$subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
+        $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($subscriber);
         $this->getInstaller()->install($template, $mirror, $input->getOption('jobs'), $input, $output);
+		$this->getApplication()->getService('app.event.dispatcher')->removeEventSubscriber($subscriber);
 
 		$configs = $template->getConfigs();
         foreach ($configs as $key => $value) {
@@ -232,17 +155,5 @@ class InstallCommand extends Command
         }
 
         return $options;
-    }
-
-    public function startProgress(OutputInterface $output, $max = null, $format = '[%bar%]')
-    {
-        $progress = $this->getHelper('progress');
-
-        $progress->setBarWidth(50);
-        $progress->setEmptyBarCharacter($max ? '-' : '=');
-        $progress->setProgressCharacter('>');
-        $progress->setFormat($format);
-
-        $progress->start($output, $max);
     }
 }
