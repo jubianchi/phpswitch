@@ -53,7 +53,7 @@ $report = $script->AddDefaultReport();
 $report->addField($coverage, array(atoum\runner::runStop));
 
 if (null !== $notifier) {
-    $report->addField($notifier);
+    $report->addField($notifier, array(atoum\runner::runStop));
 }
 
 if(colorized())

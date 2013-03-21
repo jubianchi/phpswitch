@@ -173,7 +173,7 @@ class InstallCommand extends Command
 		;
 
         $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($this->getSubscriber($output));
-        $this->getInstaller()->install($version, $mirror, $input->getOption('jobs'), $input, $output);
+        $this->getInstaller()->install($template, $mirror, $input->getOption('jobs'), $input, $output);
 
 		$configs = $template->getConfigs();
         foreach ($configs as $key => $value) {
