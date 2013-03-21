@@ -117,8 +117,7 @@ function download(array $args) {
     if(true === is_file($path . DIRECTORY_SEPARATOR . 'composer.phar')) {
         unlink($path . DIRECTORY_SEPARATOR . 'composer.phar');
     }
-    var_dump($path);
-    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar && php composer.phar install --prefer-dist', $output);
+    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist', $output);
 
     return true;
 }

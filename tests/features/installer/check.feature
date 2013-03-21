@@ -7,6 +7,7 @@ Feature: Check
         >> Checking requirements...
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
         >>> cURL extension is enabled
+        >>> PCNTL extension is enabled
         >>> You have required permissions on \/tmp
         """
 
@@ -18,6 +19,7 @@ Feature: Check
         >> Checking requirements...
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
         >>> cURL extension is enabled
+        >>> PCNTL extension is enabled
         >>> You don't have required permissions on \/bin, \/opt
         """
 
@@ -29,6 +31,7 @@ Feature: Check
         >> Checking requirements...
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
         >>> cURL extension is enabled
+        >>> PCNTL extension is enabled
         >>> You don't have required permissions on \/usr\/local\/bin, \/usr\/share
         """
 
@@ -40,6 +43,7 @@ Feature: Check
         >> Checking requirements\.\.\.
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
         >>> cURL extension is enabled
+        >>> PCNTL extension is enabled
         >>> open_basedir restriction : \/tmp
         >>>> To fix this issue, try to run :
         >>>> PHPSWITCH_PATH=\/an\/allowed\/path .\/installer or curl https:\/\/raw\.github\.com\/jubianchi\/phpswitch\/master\/bin\/installer \| PHPSWITCH_PATH=\/an\/allowed\/path php
