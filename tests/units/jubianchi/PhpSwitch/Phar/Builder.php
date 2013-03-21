@@ -3,7 +3,7 @@ namespace tests\units\jubianchi\PhpSwitch\Phar;
 
 use mageekguy\atoum;
 use mageekguy\atoum\mock;
-use mageekguy\atoum\mock\streams;
+use mageekguy\atoum\mock\streams\fs\file;
 use jubianchi\PhpSwitch\Phar\Builder as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
@@ -82,7 +82,7 @@ class Builder extends atoum\test
     {
         $this
             ->if($builder = new TestedClass())
-            ->and($file = streams\file::get())
+            ->and($file = file::get())
             ->then
                 ->object($builder->addFile($file))->isIdenticalTo($builder)
             ->if($file = uniqid())
@@ -119,7 +119,7 @@ class Builder extends atoum\test
             ->if($builder = new TestedClass())
             ->then
                 ->integer(count($builder))->isEqualTo(0)
-            ->if($file = streams\file::get())
+            ->if($file = file::get())
             ->and($builder->addFile((string) $file))
             ->then
                 ->integer(count($builder))->isEqualTo(1)
@@ -154,7 +154,7 @@ class Builder extends atoum\test
                     ->call('stopBuffering')->afterMethodCall('startBuffering')->once()
                     ->call('addFile')->never()
                     ->call('addFromString')->never()
-            ->if($file = streams\file::get('foobar'))
+            ->if($file = file::get('foobar'))
             ->and($file->setContents($contents = 'contents'))
             ->and($builder->addFile((string) $file))
             ->then

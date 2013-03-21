@@ -3,7 +3,7 @@ namespace tests\units\jubianchi\PhpSwitch\Config;
 
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
-use mageekguy\atoum\mock\streams\file;
+use mageekguy\atoum\mock\streams\fs\file;
 use jubianchi\PhpSwitch\Config\Dumper as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
