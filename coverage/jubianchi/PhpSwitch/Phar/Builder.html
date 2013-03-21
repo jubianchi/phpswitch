@@ -179,34 +179,34 @@
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>14</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>15</td><td><pre>    public function __construct(Filter\FilterCollection $filters = null, array $files = array())
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>16</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>17</td><td><pre>        $this-&gt;filters = $filters ?: new Filter\FilterCollection();
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>18</td><td><pre>        $this-&gt;finders[&#039;files&#039;] = new \ArrayObject($files);
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>19</td><td><pre>    }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>17</td><td><pre>        $this-&gt;filters = $filters ?: new Filter\FilterCollection();
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>18</td><td><pre>        $this-&gt;finders[&#039;files&#039;] = new \ArrayObject($files);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>19</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>20</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getFilters"></a>21</td><td><pre>    public function getFilters()
 </pre></td></tr><tr><td class="number"><a name="getFilters"></a>22</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>23</td><td><pre>        return $this-&gt;filters;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>23</td><td><pre>        return $this-&gt;filters;
 </pre></td></tr><tr><td class="number"><a name="getFilters"></a>24</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="getFilters"></a>25</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="addFilter"></a>26</td><td><pre>    public function addFilter(Filter $filter)
 </pre></td></tr><tr><td class="number"><a name="addFilter"></a>27</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>28</td><td><pre>        $this-&gt;filters[] = $filter;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>28</td><td><pre>        $this-&gt;filters[] = $filter;
 </pre></td></tr><tr><td class="number"><a name="addFilter"></a>29</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>30</td><td><pre>        return $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>30</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="addFilter"></a>31</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="addFilter"></a>32</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="setName"></a>33</td><td><pre>    public function setName($name)
 </pre></td></tr><tr><td class="number"><a name="setName"></a>34</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>35</td><td><pre>        $this-&gt;name = $name;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>35</td><td><pre>        $this-&gt;name = $name;
 </pre></td></tr><tr><td class="number"><a name="setName"></a>36</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>37</td><td><pre>        return $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>37</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="setName"></a>38</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="setName"></a>39</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="setBasedir"></a>40</td><td><pre>    public function setBasedir($basedir)
 </pre></td></tr><tr><td class="number"><a name="setBasedir"></a>41</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>42</td><td><pre>        $this-&gt;basedir = realpath($basedir);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>42</td><td><pre>        $this-&gt;basedir = realpath($basedir);
 </pre></td></tr><tr><td class="number"><a name="setBasedir"></a>43</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>44</td><td><pre>        return $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>44</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="setBasedir"></a>45</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="setBasedir"></a>46</td><td><pre>
 </pre></td></tr><tr class="covered"><td class="number"><a name="addFinder"></a>47</td><td><pre>    public function addFinder(Finder $finder)

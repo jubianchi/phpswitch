@@ -62,14 +62,14 @@
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>7</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getHandlers"></a>8</td><td><pre>    public function getHandlers()
 </pre></td></tr><tr><td class="number"><a name="getHandlers"></a>9</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>10</td><td><pre>        return $this-&gt;handlers;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>10</td><td><pre>        return $this-&gt;handlers;
 </pre></td></tr><tr><td class="number"><a name="getHandlers"></a>11</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="getHandlers"></a>12</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="handle"></a>13</td><td><pre>    public function handle($event, $handler)
 </pre></td></tr><tr><td class="number"><a name="handle"></a>14</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>15</td><td><pre>        $this-&gt;handlers[$event] = $handler;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>15</td><td><pre>        $this-&gt;handlers[$event] = $handler;
 </pre></td></tr><tr><td class="number"><a name="handle"></a>16</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>17</td><td><pre>        return $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>17</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="handle"></a>18</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="handle"></a>19</td><td><pre>}
 </pre></td></tr>

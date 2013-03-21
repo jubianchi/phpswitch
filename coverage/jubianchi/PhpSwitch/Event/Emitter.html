@@ -14,7 +14,7 @@
 				Class code coverage
 				<span>
 					
-					100%
+					60%
 				</span>
 			</h2>
 		</div>
@@ -47,36 +47,72 @@
 								
 							</li>
 						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#subscribe">subscribe</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#unsubscribe">unsubscribe</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
 					
 				</ul>
 
 				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
-					<tr><td class="number"><a name="addEventSubscriber"></a>1</td><td><pre>&lt;?php
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Event;
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>3</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>4</td><td><pre>abstract class Emitter
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>5</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>6</td><td><pre>    /** @var \jubianchi\PhpSwitch\Event\Dispatcher */
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>7</td><td><pre>    protected $dispatcher;
-</pre></td></tr><tr><td class="number"><a name="addEventSubscriber"></a>8</td><td><pre>
+					<tr><td class="number"><a name="removeEventSubscriber"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Event;
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>3</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>4</td><td><pre>abstract class Emitter
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>5</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>6</td><td><pre>    /** @var \jubianchi\PhpSwitch\Event\Dispatcher */
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>7</td><td><pre>    protected $dispatcher;
+</pre></td></tr><tr><td class="number"><a name="removeEventSubscriber"></a>8</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>9</td><td><pre>    public function setDispatcher(Dispatcher $dispatcher)
 </pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>10</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>11</td><td><pre>        $this-&gt;dispatcher = $dispatcher;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>11</td><td><pre>        $this-&gt;dispatcher = $dispatcher;
 </pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>12</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>13</td><td><pre>        return $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>13</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>14</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="setDispatcher"></a>15</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="emit"></a>16</td><td><pre>    public function emit($name, array $args = array())
 </pre></td></tr><tr><td class="number"><a name="emit"></a>17</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>18</td><td><pre>        if (null !== $this-&gt;dispatcher) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>19</td><td><pre>            $this-&gt;dispatcher-&gt;dispatch($name, new Event($name, $this, $args));
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>20</td><td><pre>        }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>18</td><td><pre>        if (null !== $this-&gt;dispatcher) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>19</td><td><pre>            $this-&gt;dispatcher-&gt;dispatch($name, new Event($name, $this, $args));
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>20</td><td><pre>        }
 </pre></td></tr><tr><td class="number"><a name="emit"></a>21</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>22</td><td><pre>        return $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>22</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="emit"></a>23</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="emit"></a>24</td><td><pre>}
+</pre></td></tr><tr><td class="number"><a name="emit"></a>24</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="subscribe"></a>25</td><td><pre>	public function subscribe(Subscriber $subscriber)
+</pre></td></tr><tr><td class="number"><a name="subscribe"></a>26</td><td><pre>	{
+</pre></td></tr><tr class="notCovered"><td class="number">27</td><td><pre>		$this-&gt;dispatcher-&gt;addEventSubscriber($subscriber);
+</pre></td></tr><tr><td class="number"><a name="subscribe"></a>28</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">29</td><td><pre>		return $this;
+</pre></td></tr><tr><td class="number"><a name="subscribe"></a>30</td><td><pre>	}
+</pre></td></tr><tr><td class="number"><a name="subscribe"></a>31</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>32</td><td><pre>	public function unsubscribe(Subscriber $subscriber)
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>33</td><td><pre>	{
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>		$this-&gt;dispatcher-&gt;removeEventSubscriber($subscriber);
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>35</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>		return $this;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>37</td><td><pre>	}
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>38</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

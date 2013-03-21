@@ -31,6 +31,17 @@
 									<div class="bar">
 										<div class="background"></div>
 										<div class="graph" style="width: 100%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>100%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 100%"></div>
 										<div class="label"><a href="#normalize">normalize</a> <span>100%</span></div>
 									</div>
 								
@@ -58,45 +69,52 @@
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>3</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>4</td><td><pre>class Normalizer
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>5</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>6</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>7</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Option\Option[] $options
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>8</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>9</td><td><pre>     * @return string
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>10</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>11</td><td><pre>    public function normalize(array $options)
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>12</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>13</td><td><pre>        return implode(&#039; &#039;, $options);
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>14</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>15</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>16</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>17</td><td><pre>     * @param string                                   $string
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>18</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Option\Option[] $options
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>19</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>20</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Option[]
-</pre></td></tr><tr><td class="number"><a name="normalize"></a>21</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>22</td><td><pre>    public function denormalize($string, array $options)
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>23</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>24</td><td><pre>        $denormalized = array();
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>25</td><td><pre>        $aliases = explode(&#039; &#039;, trim($string));
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>26</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>27</td><td><pre>        foreach ($aliases as $alias) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>28</td><td><pre>            if (preg_match(&#039;/(?P&lt;alias&gt;[a-z0-9_-]+)(?:=(?P&lt;value&gt;.+))?/&#039;, $alias, $matches)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>29</td><td><pre>                foreach ($options as $option) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>30</td><td><pre>                    if ($matches[&#039;alias&#039;] === $option-&gt;getAlias()) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>31</td><td><pre>                        if (isset($matches[&#039;value&#039;])) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>32</td><td><pre>                            $option-&gt;setValue($matches[&#039;value&#039;]);
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>33</td><td><pre>                        }
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>34</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>35</td><td><pre>                        $denormalized[] = $option;
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>36</td><td><pre>                        break;
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>37</td><td><pre>                    }
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>38</td><td><pre>                }
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>39</td><td><pre>            }
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>40</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>6</td><td><pre>	/** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>7</td><td><pre>	protected $options;
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>8</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>9</td><td><pre>	public function __construct(OptionCollection $options)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>10</td><td><pre>	{
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>11</td><td><pre>		$this-&gt;options = $options;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>12</td><td><pre>	}
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>13</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>14</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>15</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>16</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>17</td><td><pre>     * @return string
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>18</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>19</td><td><pre>    public function normalize(OptionCollection $options)
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>20</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>21</td><td><pre>        return (string) $options;
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>22</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>23</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>24</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>25</td><td><pre>     * @param string $string
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>26</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>27</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\OptionCollection
+</pre></td></tr><tr><td class="number"><a name="normalize"></a>28</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>29</td><td><pre>    public function denormalize($string)
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>30</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>31</td><td><pre>        $denormalized = array();
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>32</td><td><pre>        $aliases = explode(&#039; &#039;, trim($string));
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>33</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>34</td><td><pre>        foreach ($aliases as $alias) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>35</td><td><pre>            if (preg_match(&#039;/(?P&lt;alias&gt;[a-zA-Z0-9_-]+)(?:=(?P&lt;value&gt;.+))?/&#039;, $alias, $matches)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>36</td><td><pre>                foreach ($this-&gt;options as $option) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>37</td><td><pre>                    if ($matches[&#039;alias&#039;] === $option-&gt;getAlias()) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>38</td><td><pre>                        if (isset($matches[&#039;value&#039;])) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>39</td><td><pre>                            $option-&gt;setValue($matches[&#039;value&#039;]);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>40</td><td><pre>                        }
 </pre></td></tr><tr><td class="number"><a name="denormalize"></a>41</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>42</td><td><pre>        return new OptionCollection($denormalized);
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>43</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="denormalize"></a>44</td><td><pre>}
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>42</td><td><pre>                        $denormalized[] = $option;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>43</td><td><pre>                        break;
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>44</td><td><pre>                    }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>45</td><td><pre>                }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>46</td><td><pre>            }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>47</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>48</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>49</td><td><pre>        return new OptionCollection($denormalized);
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>50</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="denormalize"></a>51</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>
