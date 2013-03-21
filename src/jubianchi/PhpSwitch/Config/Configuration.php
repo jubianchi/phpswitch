@@ -21,6 +21,7 @@ class Configuration implements \IteratorAggregate
 
     /**
      * @param string $offset
+	 * @param mixed  $default
      *
      * @throws \InvalidArgumentException
      *

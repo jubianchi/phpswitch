@@ -26,4 +26,25 @@ class Dispatcher extends atoum\test
                 ->boolean($otherHandled)->isTrue()
         ;
     }
+
+	public function testRemoveEventSubscriber()
+	{
+		$this
+			->if($dispatcher = new TestedClass())
+			->and($eventName = uniqid())
+			->and($handled = $otherHandled = false)
+			->and($subscriber = new \jubianchi\PhpSwitch\Event\Subscriber())
+			->and($subscriber->handle($eventName, $handler = function() use(& $handled) { $handled = true; }))
+			->if($otherSubscriber = new \jubianchi\PhpSwitch\Event\Subscriber())
+			->and($otherSubscriber->handle($eventName, $otherHandler = function() use(& $otherHandled) { $otherHandled = true; }))
+			->and($dispatcher->addEventSubscriber($otherSubscriber))
+			->and($dispatcher->dispatch($eventName))
+			->then
+				->object($dispatcher->removeEventSubscriber($subscriber))->isIdenticalTo($dispatcher)
+			->if($dispatcher->dispatch($eventName))
+			->then
+				->boolean($handled)->isFalse()
+				->boolean($otherHandled)->isTrue()
+		;
+	}
 }

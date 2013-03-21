@@ -48,7 +48,7 @@ class Builder
 				$config = $this->config->get('versions.' . str_replace('.', '-', $config));
 			} catch (\InvalidArgumentException $exception) {
 				throw new \InvalidArgumentException(
-					sprintf('Configuration %s does not exist', $config),
+					sprintf('Template configuration %s does not exist', $config),
 					$exception->getCode(),
 					$exception
 				);
@@ -57,7 +57,7 @@ class Builder
 			return array_merge(
 				array(
 					'options' => '',
-					'configs' => array()
+					'config' => array()
 				),
 				$config
 			);
@@ -69,7 +69,7 @@ class Builder
 	protected function getInis(InputInterface $input)
 	{
 		$configs = array();
-		$ini = $input->getOption('ini');
+		$ini = $input->getOption('ini') ?: array();
 
 		foreach ($ini as $directive) {
 			if (false !== ($directive = parse_ini_string($directive))) {

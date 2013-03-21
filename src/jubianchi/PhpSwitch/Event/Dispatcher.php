@@ -19,5 +19,7 @@ class Dispatcher extends EventDispatcher
         foreach ($subscriber->getHandlers() as $event => $handler) {
             $this->removeListener($event, $handler);
         }
+
+		return $this;
     }
 }

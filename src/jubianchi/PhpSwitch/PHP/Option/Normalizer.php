@@ -32,7 +32,7 @@ class Normalizer
         $aliases = explode(' ', trim($string));
 
         foreach ($aliases as $alias) {
-            if (preg_match('/(?P<alias>[a-z0-9_-]+)(?:=(?P<value>.+))?/', $alias, $matches)) {
+            if (preg_match('/(?P<alias>[a-zA-Z0-9_-]+)(?:=(?P<value>.+))?/', $alias, $matches)) {
                 foreach ($this->options as $option) {
                     if ($matches['alias'] === $option->getAlias()) {
                         if (isset($matches['value'])) {
