@@ -14,10 +14,10 @@ class Dispatcher extends EventDispatcher
         return $this;
     }
 
-	public function removeEventSubscriber(Subscriber $subscriber)
-	{
-		foreach ($subscriber->getHandlers() as $event => $handler) {
-			$this->removeListener($event, $handler);
-		}
-	}
+    public function removeEventSubscriber(Subscriber $subscriber)
+    {
+        foreach ($subscriber->getHandlers() as $event => $handler) {
+            $this->removeListener($event, $handler);
+        }
+    }
 }

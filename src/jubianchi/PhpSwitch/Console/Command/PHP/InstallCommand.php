@@ -2,7 +2,6 @@
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
 use Symfony\Component\Console\Application;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -71,41 +70,41 @@ class InstallCommand extends Command
             $version->setName($alias);
         }
 
-		$template = new Template($version);
-		$template
-			->setOptions($this->resolveOptions($input))
-			->setConfigs(call_user_func(
-				function($ini) {
-					$configs = array();
+        $template = new Template($version);
+        $template
+            ->setOptions($this->resolveOptions($input))
+            ->setConfigs(call_user_func(
+                function($ini) {
+                    $configs = array();
 
-					foreach ($ini as $directive) {
-						if (false !== ($directive = parse_ini_string($directive))) {
-							$key = key($directive);
-							$value = current($directive);
+                    foreach ($ini as $directive) {
+                        if (false !== ($directive = parse_ini_string($directive))) {
+                            $key = key($directive);
+                            $value = current($directive);
 
-							$configs[$key] = $value;
-						}
-					}
+                            $configs[$key] = $value;
+                        }
+                    }
 
-					return $configs;
-				},
-				$input->getOption('ini')
-			))
-		;
+                    return $configs;
+                },
+                $input->getOption('ini')
+            ))
+        ;
 
-		$subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
+        $subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
         $this->getApplication()->getService('app.event.dispatcher')->addEventSubscriber($subscriber);
         $this->getInstaller()->install($template, $mirror, $input->getOption('jobs'), $input, $output);
-		$this->getApplication()->getService('app.event.dispatcher')->removeEventSubscriber($subscriber);
+        $this->getApplication()->getService('app.event.dispatcher')->removeEventSubscriber($subscriber);
 
-		$configs = $template->getConfigs();
+        $configs = $template->getConfigs();
         foreach ($configs as $key => $value) {
-			$this->getApplication()->getService('app.php.config')->setValue($version, $key, $value);
+            $this->getApplication()->getService('app.php.config')->setValue($version, $key, $value);
         }
 
         $this->getConfiguration()
             ->set('versions.' . str_replace('.', '-', $version) . '.options', $template->getOptions()->normalize())
-			->set('versions.' . str_replace('.', '-', $version) . '.config', $configs)
+            ->set('versions.' . str_replace('.', '-', $version) . '.config', $configs)
             ->dump()
         ;
 

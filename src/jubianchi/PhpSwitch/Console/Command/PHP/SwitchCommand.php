@@ -1,7 +1,6 @@
 <?php
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
-use Symfony\Component\Finder\Finder;
 use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;

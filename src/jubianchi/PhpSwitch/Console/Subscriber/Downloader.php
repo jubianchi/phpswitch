@@ -8,47 +8,47 @@ use jubianchi\PhpSwitch\Event;
 
 class Downloader extends Event\Subscriber
 {
-	function __construct(OutputInterface $output, ProgressHelper $progress)
-	{
-		$afterCallback = function() use ($output) { $output->write(PHP_EOL); };
-		$self = $this;
+    public function __construct(OutputInterface $output, ProgressHelper $progress)
+    {
+        $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
+        $self = $this;
 
-		$this
-			->handle('download.before', function(GenericEvent $event) use ($self, $output) {
-				$output->writeln(array(
-					sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $event->getArgument('version')->getVersion()),
-					sprintf('    <comment>%s</comment>', sprintf($event->getArgument('version')->getUrl(), $event->getArgument('mirror')))
-				));
+        $this
+            ->handle('download.before', function(GenericEvent $event) use ($self, $output) {
+                $output->writeln(array(
+                    sprintf(PHP_EOL . 'Downloading PHP <info>%s</info>', $event->getArgument('version')->getVersion()),
+                    sprintf('    <comment>%s</comment>', sprintf($event->getArgument('version')->getUrl(), $event->getArgument('mirror')))
+                ));
 
-				if (OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
-					$self->startProgress($output, 100, '[%bar%] %percent%%');
-				}
-			})
-			->handle('download.progress', function(GenericEvent $event) use ($progress) {
-				static $previous = 0;
-				static $size = 0;
+                if (OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
+                    $self->startProgress($output, 100, '[%bar%] %percent%%');
+                }
+            })
+            ->handle('download.progress', function(GenericEvent $event) use ($progress) {
+                static $previous = 0;
+                static $size = 0;
 
-				if ($size > 0) {
-					$complete = ceil(($event->getArgument('downloaded') / $size) * 100);
+                if ($size > 0) {
+                    $complete = ceil(($event->getArgument('downloaded') / $size) * 100);
 
-					$progress->advance($complete - $previous);
+                    $progress->advance($complete - $previous);
 
-					$previous = $complete;
-				} else {
-					$size = $event->getArgument('size');
-				}
-			})
-			->handle('download.after', $afterCallback)
-		;
-	}
+                    $previous = $complete;
+                } else {
+                    $size = $event->getArgument('size');
+                }
+            })
+            ->handle('download.after', $afterCallback)
+        ;
+    }
 
-	public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = '[%bar%]')
-	{
-		$progress->setBarWidth(50);
-		$progress->setEmptyBarCharacter($max ? '-' : '=');
-		$progress->setProgressCharacter('>');
-		$progress->setFormat($format);
+    public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = '[%bar%]')
+    {
+        $progress->setBarWidth(50);
+        $progress->setEmptyBarCharacter($max ? '-' : '=');
+        $progress->setProgressCharacter('>');
+        $progress->setFormat($format);
 
-		$progress->start($output, $max);
-	}
+        $progress->start($output, $max);
+    }
 }

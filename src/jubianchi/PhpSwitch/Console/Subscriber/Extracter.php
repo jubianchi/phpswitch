@@ -8,35 +8,35 @@ use jubianchi\PhpSwitch\Event;
 
 class Extracter extends Event\Subscriber
 {
-	function __construct(OutputInterface $output, ProgressHelper $progress)
-	{
-		$afterCallback = function() use ($output) { $output->write(PHP_EOL); };
-		$processCallback = function() use ($progress, $output) {
-			$progress->advance();
-		};
-		$self = $this;
+    public function __construct(OutputInterface $output, ProgressHelper $progress)
+    {
+        $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
+        $processCallback = function() use ($progress, $output) {
+            $progress->advance();
+        };
+        $self = $this;
 
-		$this
-			->handle('extract.before', function(GenericEvent $event) use ($self, $output, $progress) {
-				$output->writeln(array(
-					sprintf(PHP_EOL . 'Extracting <info>%s</info>', $event->getArgument('version')->getVersion()),
-					sprintf('    <comment>%s</comment>', $event->getArgument('archive'))
-				));
+        $this
+            ->handle('extract.before', function(GenericEvent $event) use ($self, $output, $progress) {
+                $output->writeln(array(
+                    sprintf(PHP_EOL . 'Extracting <info>%s</info>', $event->getArgument('version')->getVersion()),
+                    sprintf('    <comment>%s</comment>', $event->getArgument('archive'))
+                ));
 
-				$self->startProgress($progress, $output);
-			})
-			->handle('extract.progress', $processCallback)
-			->handle('extract.after', $afterCallback)
-		;
-	}
+                $self->startProgress($progress, $output);
+            })
+            ->handle('extract.progress', $processCallback)
+            ->handle('extract.after', $afterCallback)
+        ;
+    }
 
-	public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = '[%bar%]')
-	{
-		$progress->setBarWidth(50);
-		$progress->setEmptyBarCharacter($max ? '-' : '=');
-		$progress->setProgressCharacter('>');
-		$progress->setFormat($format);
+    public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = '[%bar%]')
+    {
+        $progress->setBarWidth(50);
+        $progress->setEmptyBarCharacter($max ? '-' : '=');
+        $progress->setProgressCharacter('>');
+        $progress->setFormat($format);
 
-		$progress->start($output, $max);
-	}
+        $progress->start($output, $max);
+    }
 }

@@ -37,8 +37,8 @@ class Installer extends Emitter
 
     public function install(Template $template, $mirror, $jobs, InputInterface $input, OutputInterface $output)
     {
-		$version = $template->getVersion();
-		$options = $template->getOptions();
+        $version = $template->getVersion();
+        $options = $template->getOptions();
 
         $dest = $this->builder->getDestination($version);
         $this->emit(
@@ -57,7 +57,7 @@ class Installer extends Emitter
         }
 
         if (null !== $options) {
-			$options->preInstall($version, $input, $output);
+            $options->preInstall($version, $input, $output);
         }
 
         $archive = $this->download($version, $mirror);
@@ -65,7 +65,7 @@ class Installer extends Emitter
         $this->make($version, $source, $options, $jobs);
 
         if (null !== $options) {
-			$options->postInstall($version, $input, $output);
+            $options->postInstall($version, $input, $output);
         }
 
         $this->emit('install.after', $args);
@@ -73,7 +73,8 @@ class Installer extends Emitter
         return $this;
     }
 
-    public function isInstalled(Version $version) {
+    public function isInstalled(Version $version)
+    {
         return is_dir($this->builder->getDestination($version));
     }
 
