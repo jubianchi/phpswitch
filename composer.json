@@ -5,6 +5,8 @@
     "license": "MIT",
     "version": "0.1",
     "require": {
+        "php": ">=5.3.15",
+        "ext-curl": "*",
         "symfony/console": "2.2.*@RC",
         "symfony/finder": "2.2.*@RC",
         "symfony/config": "2.2.*@RC",
