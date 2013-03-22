@@ -46,10 +46,28 @@ class SwitchCommand extends Command
         $version = ('off' === $version ? null : $version);
 
         if (null !== $version) {
-            $version = Version::fromString($version);
+			try {
+				$version = Version::fromString($version === 'on' ? $this->getConfiguration()->get('version') : $version);
+			} catch(\InvalidArgumentException $exception) {
+				return 0;
+			}
 
-            if (false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
-                throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
+            if (null !== $version && false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
+				$confirm = $this->getHelper('dialog')->askConfirmation($output, sprintf('PHP version <info>%s</info> is not installed. Do you want to install it ? ', $version));
+
+				if (false === $confirm) {
+					throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
+				}
+
+				$args = new \Symfony\Component\Console\Input\ArrayInput(array(
+					'command' => InstallCommand::NAME,
+					'version' => $version->getVersion(),
+					'--config' => (string) $version,
+					'--alias' => $version->getName()
+				));
+				$install = new InstallCommand();
+				$install->setApplication($this->getApplication());
+				$install->run($args, $output);
             }
         } else {
             $this->restoreSystemModule($output);

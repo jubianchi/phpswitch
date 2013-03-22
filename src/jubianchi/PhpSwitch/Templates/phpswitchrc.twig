@@ -64,6 +64,9 @@ phpswitch_switchon() {
         /usr/bin/env php \
             {{ path }}/bin/phpswitch php:switch $1 $2
         STATUS=$?
+    else
+        /usr/bin/env php \
+            {{ path }}/bin/phpswitch php:switch on
     fi
 
     VERSION=$(/usr/bin/env php -ddisplay_errors=stderr \
@@ -134,6 +137,11 @@ php() {
 phpswitch_dir() {
     VERSION=$(/usr/bin/env php -ddisplay_errors=stderr \
         {{ path }}/bin/phpswitch php:current 2> /dev/null)
+
+    if [ ! $? -eq 0 ]
+    then
+        phpswitch_switchon on
+    fi
 
     [ "$_PHPSWITCH_CURRENT_VERSION" = "$VERSION" ] && return
 
