@@ -53,7 +53,11 @@ class SwitchCommand extends Command
 			}
 
             if (null !== $version && false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
-				$confirm = $this->getHelper('dialog')->askConfirmation($output, sprintf('PHP version <info>%s</info> is not installed. Do you want to install it ? ', $version));
+				$confirm = false;
+
+				if($input->isInteractive()) {
+					$confirm = $this->getHelper('dialog')->askConfirmation($output, sprintf('PHP version <info>%s</info> is not installed. Do you want to install it ? ', $version));
+				}
 
 				if (false === $confirm) {
 					throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));

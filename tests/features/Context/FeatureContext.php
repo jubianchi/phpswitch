@@ -7,7 +7,7 @@ class FeatureContext extends BehatContext
 {
     function __construct()
     {
-        $this->useContext('phpswitch', new PhpSwitchContext());
+        $this->useContext('phpswitch', new PhpSwitchContext(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch/sandbox'));
         $this->useContext('cli', new CLIContext(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch/sandbox'));
         $this->useContext('fs', new FilesystemContext(getcwd() . DIRECTORY_SEPARATOR . 'phpswitch'));
     }

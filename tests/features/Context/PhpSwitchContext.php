@@ -4,13 +4,22 @@ use Behat\Behat\Context\Step;
 
 class PhpSwitchContext extends BehatAtoumContext
 {
+	private $root;
+
+	public function __construct($root)
+	{
+		parent::__construct();
+
+		$this->root = $root;
+	}
+
     /**
      * @Given /^I have the following configuration in "(?P<path>[^\"]*)":$/
      */
     public function iHaveTheFollowingConfigurationInPhpswitch($path, PyStringNode $configuration)
     {
         $this->assert
-            ->integer(file_put_contents($path, (string)$configuration))
+            ->integer(file_put_contents($this->root . DIRECTORY_SEPARATOR . $path, (string)$configuration))
             ->isGreaterThan(0)
         ;
     }
@@ -29,7 +38,7 @@ class PhpSwitchContext extends BehatAtoumContext
     public function thePhpVersionIsEnabled($version)
     {
         $this->iHaveTheFollowingConfigurationInPhpswitch(
-            'phpswitch/.phpswitch.yml',
+            '.phpswitch.yml',
             new \Behat\Gherkin\Node\PyStringNode(
                 'phpswitch:
                     version: ' . $version . '
