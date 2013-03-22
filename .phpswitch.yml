@@ -5,3 +5,4 @@ phpswitch:
       options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session'
       config:
         date.timezone: Europe/Paris
+        phar.readonly: Off
