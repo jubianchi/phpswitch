@@ -6,5 +6,4 @@ bin/behat
 bin/boris
 
 .phpswitch
-.phpswitch.yml
 phpswitch.phar
