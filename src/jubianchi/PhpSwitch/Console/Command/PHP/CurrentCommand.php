@@ -22,14 +22,15 @@ class CurrentCommand extends Command
     {
         parent::execute($input, $output);
 
-        try {
-            $version = $this->getConfiguration()->get('version');
-		} catch (\InvalidArgumentException $exception) {
-			return $exception->getCode();
-		}
+		if ($this->getConfiguration()->get('enabled')) {
+			try {
+				$version = $this->getConfiguration()->get('version');
+			} catch (\InvalidArgumentException $exception) {
+				return $exception->getCode();
+			}
 
-		if (null !== $version) {
 			$version = Version::fromString($version);
+
 			if (true === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
 				$output->writeln((string) $version);
 			} else {
