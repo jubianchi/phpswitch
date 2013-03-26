@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DIR=$(dirname $0)
+ATOUM=$DIR/../vendor/atoum/atoum
+
+[ -f "$ATOUM/scripts/treemap.php" ] \
+    && /usr/bin/env php $ATOUM/scripts/treemap.php -c $DIR/../.atoum.treemap.php \
+    || exit 1
