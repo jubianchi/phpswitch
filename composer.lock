@@ -1,5 +1,5 @@
 {
-    "hash": "230cf6dbc578ef15f738cd3a4b44db55",
+    "hash": "e772e1463e73ddcaf703c49d1643585f",
     "packages": [
         {
             "name": "d11wtq/boris",
@@ -39,12 +39,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96"
+                "reference": "3f8c37b23c893ab72d85b6deb02cea9e215d2d3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
-                "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/3f8c37b23c893ab72d85b6deb02cea9e215d2d3c",
+                "reference": "3f8c37b23c893ab72d85b6deb02cea9e215d2d3c",
                 "shasum": ""
             },
             "require": {
@@ -93,7 +93,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-03-18 18:06:02"
+            "time": "2013-03-28 10:41:04"
         },
         {
             "name": "pimple/pimple",
@@ -574,12 +574,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "ba67e2cf8e2ca6cada1de5a316a724df648c52ac"
+                "reference": "e8991cc2f9c84b2b5c782203904898717d46e56a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ba67e2cf8e2ca6cada1de5a316a724df648c52ac",
-                "reference": "ba67e2cf8e2ca6cada1de5a316a724df648c52ac",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/e8991cc2f9c84b2b5c782203904898717d46e56a",
+                "reference": "e8991cc2f9c84b2b5c782203904898717d46e56a",
                 "shasum": ""
             },
             "require": {
@@ -615,7 +615,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-03-10 07:23:01"
+            "time": "2013-03-25 07:43:31"
         }
     ],
     "packages-dev": [
@@ -625,12 +625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/atoum/atoum.git",
-                "reference": "b366d485c47c4ce87c23bb3904bbec045af72485"
+                "reference": "8427ca90063b33e1da737844f75531ebe3b7fd3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atoum/atoum/zipball/b366d485c47c4ce87c23bb3904bbec045af72485",
-                "reference": "b366d485c47c4ce87c23bb3904bbec045af72485",
+                "url": "https://api.github.com/repos/atoum/atoum/zipball/8427ca90063b33e1da737844f75531ebe3b7fd3e",
+                "reference": "8427ca90063b33e1da737844f75531ebe3b7fd3e",
                 "shasum": ""
             },
             "require": {
@@ -688,7 +688,7 @@
                 "test",
                 "unit testing"
             ],
-            "time": "2013-03-26 15:34:57"
+            "time": "2013-03-29 21:42:39"
         }
     ],
     "aliases": [

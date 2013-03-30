@@ -15,6 +15,7 @@ before_script:
     - mkdir ~/.composer
     - "[ ! -z \"$GITHUB_TOKEN\" ] && echo \"{ \\\"config\\\": { \\\"github-oauth\\\": { \\\"github.com\\\": \\\"$GITHUB_TOKEN\\\" } } }\" > ~/.composer/config.json || true"
     - wget http://getcomposer.org/composer.phar
+    - php composer.phar validate || true
     - "if [ ! -z \"$GITHUB_TOKEN\" ]; then php composer.phar install --dev; else php composer.phar install --dev --prefer-source; fi;"
 
 script:

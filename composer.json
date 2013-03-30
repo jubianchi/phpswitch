@@ -1,7 +1,19 @@
 {
     "name": "jubianchi/phpswitch",
-    "author": "jubianchi",
-    "description": "PHP Switch",
+    "authors": [
+        {
+            "name": "Julien Bianchi",
+            "email": "contact@jubianchi.fr",
+            "homepage": "http://jubianchi.fr",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Community",
+            "homepage": "https://github.com/jubianchi/phpswitch/contributors",
+            "role": "Contributors"
+        }
+    ],
+    "description": "PHP version manger",
     "license": "MIT",
     "version": "0.1",
     "require": {
@@ -30,5 +42,10 @@
     },
     "config": {
         "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
