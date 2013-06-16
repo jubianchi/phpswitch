@@ -10,15 +10,8 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Application</h1>
-			<h2>
-				Class code coverage
-				<span>
-					
-					75%
-				</span>
-			</h2>
+			<h2>Class code coverage <span>76.19%</span></h2>
 		</div>
-
 		<div id="page">
 			<div id="content">
 				<h3>Methods</h3>
@@ -181,160 +174,167 @@
 						
 					
 				</ul>
-
 				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
 					<tr><td class="number"><a name="validate"></a>1</td><td><pre>&lt;?php
-</pre></td></tr><tr><td class="number"><a name="validate"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Console;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>3</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="validate"></a>4</td><td><pre>use Symfony\Component\Console\Application as BaseApplication;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>5</td><td><pre>use jubianchi\PhpSwitch\PHP\Builder;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>6</td><td><pre>use jubianchi\PhpSwitch\PHP\Extracter;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>7</td><td><pre>use jubianchi\PhpSwitch\PHP\Downloader;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>8</td><td><pre>use jubianchi\PhpSwitch\Config\Configuration;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>9</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="validate"></a>10</td><td><pre>class Application extends BaseApplication
-</pre></td></tr><tr><td class="number"><a name="validate"></a>11</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="validate"></a>12</td><td><pre>    /** @var \jubianchi\PhpSwitch\Config\Configuration */
-</pre></td></tr><tr><td class="number"><a name="validate"></a>13</td><td><pre>    private $configuration;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>14</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="validate"></a>15</td><td><pre>    /** @var \Pimple */
-</pre></td></tr><tr><td class="number"><a name="validate"></a>16</td><td><pre>    private $container;
-</pre></td></tr><tr><td class="number"><a name="validate"></a>17</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="validate"></a>18</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="validate"></a>19</td><td><pre>     * @param string $name
-</pre></td></tr><tr><td class="number"><a name="validate"></a>20</td><td><pre>     * @param string $version
-</pre></td></tr><tr><td class="number"><a name="validate"></a>21</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>22</td><td><pre>    public function __construct($name = &#039;phpswitch&#039;, $version = &#039;0.1&#039;)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>23</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>24</td><td><pre>        parent::__construct($name, $version);
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>25</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>26</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>28</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>29</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Application
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>32</td><td><pre>    public function setConfiguration(Configuration $configuration)
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>33</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>34</td><td><pre>        $this-&gt;configuration = $configuration;
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>35</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>36</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>37</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>38</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>39</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>40</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
-</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>41</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>42</td><td><pre>    public function getConfiguration()
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>43</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>44</td><td><pre>        return $this-&gt;configuration;
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>45</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>46</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>47</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>48</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Downloader
-</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>49</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>50</td><td><pre>    public function getDownloader()
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>51</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>52</td><td><pre>        return $this-&gt;getService(&#039;app.php.downloader&#039;);
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>53</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>54</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>55</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>56</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Extracter
-</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>57</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>58</td><td><pre>    public function getExtracter()
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>59</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>60</td><td><pre>        return $this-&gt;getService(&#039;app.php.extracter&#039;);
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>61</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>62</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>63</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>64</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Builder
-</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>65</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>66</td><td><pre>    public function getBuilder()
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>67</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>68</td><td><pre>        return $this-&gt;getService(&#039;app.php.builder&#039;);
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>69</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>70</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>71</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>72</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Finder
-</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>73</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>74</td><td><pre>    public function getOptionFinder()
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>75</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>76</td><td><pre>        return $this-&gt;getService(&#039;app.php.option.finder&#039;);
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>77</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>78</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>79</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>80</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Resolver
-</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>81</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>82</td><td><pre>    public function getOptionResolver()
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>83</td><td><pre>    {
-</pre></td></tr><tr class="notCovered"><td class="number">84</td><td><pre>        return $this-&gt;getService(&#039;app.php.option.resolver&#039;);
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>85</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>86</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>87</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>88</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Normalizer
-</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>89</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>90</td><td><pre>    public function getOptionNormalizer()
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>91</td><td><pre>    {
-</pre></td></tr><tr class="notCovered"><td class="number">92</td><td><pre>        return $this-&gt;getService(&#039;app.php.option.normalizer&#039;);
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>93</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>94</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>95</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>96</td><td><pre>     * @return \Monolog\Logger
-</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>97</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>98</td><td><pre>    public function getLogger()
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>99</td><td><pre>    {
-</pre></td></tr><tr class="notCovered"><td class="number">100</td><td><pre>        return $this-&gt;getService(&#039;app.logger&#039;);
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>101</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>102</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>103</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>104</td><td><pre>     * @param \Pimple $container
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>105</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>106</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Application
-</pre></td></tr><tr><td class="number"><a name="getLogger"></a>107</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>108</td><td><pre>    public function setContainer(\Pimple $container)
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>109</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>110</td><td><pre>        $this-&gt;container = $container;
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>111</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>112</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>113</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>114</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>115</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>116</td><td><pre>     * @return \Pimple
-</pre></td></tr><tr><td class="number"><a name="setContainer"></a>117</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>118</td><td><pre>    public function getContainer()
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>119</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>120</td><td><pre>        return $this-&gt;container;
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>121</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>122</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>123</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>124</td><td><pre>     * @param string $service
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>125</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>126</td><td><pre>     * @throws \RuntimeException
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>127</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>128</td><td><pre>     * @return mixed
-</pre></td></tr><tr><td class="number"><a name="getContainer"></a>129</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getService"></a>130</td><td><pre>    public function getService($service)
-</pre></td></tr><tr><td class="number"><a name="getService"></a>131</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>132</td><td><pre>        if (null === $this-&gt;container) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>133</td><td><pre>            throw new \RuntimeException(sprintf(&#039;No service container defined&#039;));
-</pre></td></tr><tr><td class="number"><a name="getService"></a>134</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="getService"></a>135</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>136</td><td><pre>        return $this-&gt;container[$service];
-</pre></td></tr><tr><td class="number"><a name="getService"></a>137</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getService"></a>138</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getParameter"></a>139</td><td><pre>    public function getParameter($name)
-</pre></td></tr><tr><td class="number"><a name="getParameter"></a>140</td><td><pre>    {
-</pre></td></tr><tr class="notCovered"><td class="number">141</td><td><pre>        $parameters = $this-&gt;getService(&#039;parameters&#039;);
-</pre></td></tr><tr><td class="number"><a name="getParameter"></a>142</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">143</td><td><pre>        return $parameters[$name];
-</pre></td></tr><tr><td class="number"><a name="getParameter"></a>144</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getParameter"></a>145</td><td><pre>}
+</pre></td></tr><tr><td class="number"><a name="validate"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="validate"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="validate"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="validate"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="validate"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="validate"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="validate"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="validate"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="validate"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="validate"></a>13</td><td><pre>use Symfony\Component\Console\Application as BaseApplication;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>14</td><td><pre>use jubianchi\PhpSwitch\PHP\Builder;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>15</td><td><pre>use jubianchi\PhpSwitch\PHP\Extracter;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>16</td><td><pre>use jubianchi\PhpSwitch\PHP\Downloader;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>17</td><td><pre>use jubianchi\PhpSwitch\Config\Configuration;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>18</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="validate"></a>19</td><td><pre>class Application extends BaseApplication
+</pre></td></tr><tr><td class="number"><a name="validate"></a>20</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="validate"></a>21</td><td><pre>    /** @var \jubianchi\PhpSwitch\Config\Configuration */
+</pre></td></tr><tr><td class="number"><a name="validate"></a>22</td><td><pre>    private $configuration;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>23</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="validate"></a>24</td><td><pre>    /** @var \Pimple */
+</pre></td></tr><tr><td class="number"><a name="validate"></a>25</td><td><pre>    private $container;
+</pre></td></tr><tr><td class="number"><a name="validate"></a>26</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="validate"></a>27</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="validate"></a>28</td><td><pre>     * @param string $name
+</pre></td></tr><tr><td class="number"><a name="validate"></a>29</td><td><pre>     * @param string $version
+</pre></td></tr><tr><td class="number"><a name="validate"></a>30</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    public function __construct($name = &#039;phpswitch&#039;, $version = &#039;0.1&#039;)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">33</td><td><pre>        parent::__construct($name, $version);
+</pre></td></tr><tr class="covered"><td class="number">34</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Application
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>41</td><td><pre>    public function setConfiguration(Configuration $configuration)
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>42</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">43</td><td><pre>        $this-&gt;configuration = $configuration;
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>44</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>46</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>47</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>48</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>49</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
+</pre></td></tr><tr><td class="number"><a name="setConfiguration"></a>50</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>51</td><td><pre>    public function getConfiguration()
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>52</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">53</td><td><pre>        return $this-&gt;configuration;
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>54</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>55</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>56</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>57</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Downloader
+</pre></td></tr><tr><td class="number"><a name="getConfiguration"></a>58</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>59</td><td><pre>    public function getDownloader()
+</pre></td></tr><tr class="covered"><td class="number">60</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">61</td><td><pre>        return $this-&gt;getService(&#039;app.php.downloader&#039;);
+</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>62</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>63</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>64</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>65</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Extracter
+</pre></td></tr><tr><td class="number"><a name="getDownloader"></a>66</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>67</td><td><pre>    public function getExtracter()
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>68</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">69</td><td><pre>        return $this-&gt;getService(&#039;app.php.extracter&#039;);
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>70</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>71</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>72</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>73</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Builder
+</pre></td></tr><tr><td class="number"><a name="getExtracter"></a>74</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>75</td><td><pre>    public function getBuilder()
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>76</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">77</td><td><pre>        return $this-&gt;getService(&#039;app.php.builder&#039;);
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>78</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>79</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>80</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>81</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Finder
+</pre></td></tr><tr><td class="number"><a name="getBuilder"></a>82</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>83</td><td><pre>    public function getOptionFinder()
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>84</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">85</td><td><pre>        return $this-&gt;getService(&#039;app.php.option.finder&#039;);
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>86</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>87</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>88</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>89</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Resolver
+</pre></td></tr><tr><td class="number"><a name="getOptionFinder"></a>90</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>91</td><td><pre>    public function getOptionResolver()
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>92</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">93</td><td><pre>        return $this-&gt;getService(&#039;app.php.option.resolver&#039;);
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>94</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>95</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>96</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>97</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Normalizer
+</pre></td></tr><tr><td class="number"><a name="getOptionResolver"></a>98</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>99</td><td><pre>    public function getOptionNormalizer()
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>100</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">101</td><td><pre>        return $this-&gt;getService(&#039;app.php.option.normalizer&#039;);
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>102</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>103</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>104</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>105</td><td><pre>     * @return \Monolog\Logger
+</pre></td></tr><tr><td class="number"><a name="getOptionNormalizer"></a>106</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>107</td><td><pre>    public function getLogger()
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>108</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">109</td><td><pre>        return $this-&gt;getService(&#039;app.logger&#039;);
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>110</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>111</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>112</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>113</td><td><pre>     * @param \Pimple $container
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>114</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>115</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Application
+</pre></td></tr><tr><td class="number"><a name="getLogger"></a>116</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>117</td><td><pre>    public function setContainer(\Pimple $container)
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>118</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">119</td><td><pre>        $this-&gt;container = $container;
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>120</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">121</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>122</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>123</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>124</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>125</td><td><pre>     * @return \Pimple
+</pre></td></tr><tr><td class="number"><a name="setContainer"></a>126</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>127</td><td><pre>    public function getContainer()
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>128</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">129</td><td><pre>        return $this-&gt;container;
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>130</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>131</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>132</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>133</td><td><pre>     * @param string $service
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>134</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>135</td><td><pre>     * @throws \RuntimeException
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>136</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>137</td><td><pre>     * @return mixed
+</pre></td></tr><tr><td class="number"><a name="getContainer"></a>138</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getService"></a>139</td><td><pre>    public function getService($service)
+</pre></td></tr><tr><td class="number"><a name="getService"></a>140</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">141</td><td><pre>        if (null === $this-&gt;container) {
+</pre></td></tr><tr class="covered"><td class="number">142</td><td><pre>            throw new \RuntimeException(sprintf(&#039;No service container defined&#039;));
+</pre></td></tr><tr><td class="number"><a name="getService"></a>143</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getService"></a>144</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">145</td><td><pre>        return $this-&gt;container[$service];
+</pre></td></tr><tr><td class="number"><a name="getService"></a>146</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getService"></a>147</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getParameter"></a>148</td><td><pre>    public function getParameter($name)
+</pre></td></tr><tr><td class="number"><a name="getParameter"></a>149</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">150</td><td><pre>        $parameters = $this-&gt;getService(&#039;parameters&#039;);
+</pre></td></tr><tr><td class="number"><a name="getParameter"></a>151</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">152</td><td><pre>        return $parameters[$name];
+</pre></td></tr><tr><td class="number"><a name="getParameter"></a>153</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getParameter"></a>154</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>
 		</div>
-
 		<div id="footer">
 			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
 		</div>

@@ -10,15 +10,8 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\Config</h1>
-			<h2>
-				Class code coverage
-				<span>
-					
-					87.1%
-				</span>
-			</h2>
+			<h2>Class code coverage <span>87.1%</span></h2>
 		</div>
-
 		<div id="page">
 			<div id="content">
 				<h3>Methods</h3>
@@ -82,89 +75,96 @@
 						
 					
 				</ul>
-
 				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
 					<tr><td class="number"><a name="getDestination"></a>1</td><td><pre>&lt;?php
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\PHP;
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>3</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>4</td><td><pre>class Config
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>5</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>6</td><td><pre>    protected $directory;
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>7</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>8</td><td><pre>    public function __construct($directory)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>9</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>10</td><td><pre>        $this-&gt;directory = $directory;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>11</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>12</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>13</td><td><pre>    public function getDirectory()
-</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>14</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>15</td><td><pre>        return $this-&gt;directory;
-</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>16</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>17</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>18</td><td><pre>    public function getValue(Version $version, $name)
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>19</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>20</td><td><pre>        $path = $this-&gt;getConfigurationFilePath($version, $name);
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>21</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>22</td><td><pre>        if (false === is_file($path)) {
-</pre></td></tr><tr class="notCovered"><td class="number">23</td><td><pre>            if (false === ($value = ini_get($name))) {
-</pre></td></tr><tr class="notCovered"><td class="number">24</td><td><pre>                throw new \InvalidArgumentException(sprintf(&#039;Configuration directive %s is not managed by phpswitch&#039;, $name));
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>25</td><td><pre>            }
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>26</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">27</td><td><pre>            return $value;
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>28</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>29</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>30</td><td><pre>        $ini = parse_ini_string(file_get_contents($path));
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>31</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>32</td><td><pre>        return $ini[$name];
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>33</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getValue"></a>34</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>35</td><td><pre>    public function setValue(Version $version, $name, $value)
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>36</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>37</td><td><pre>        $path = $this-&gt;getConfigurationFilePath($version, $name);
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>38</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>39</td><td><pre>        if (false === is_file($path)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>40</td><td><pre>            if (false === is_writable(dirname($path))) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>41</td><td><pre>                throw new \RuntimeException(&#039;You don\&#039;t have the required permission to edit configuration&#039;);
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>42</td><td><pre>            }
-</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>44</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>45</td><td><pre>        file_put_contents($path, $name . &#039; = &quot;&#039; . $value . &#039;&quot;&#039; . PHP_EOL);
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>46</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>47</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>48</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="setValue"></a>49</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>50</td><td><pre>    protected function getConfigurationFilePath(Version $version, $name)
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>51</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>52</td><td><pre>        $directory = implode(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>53</td><td><pre>            DIRECTORY_SEPARATOR,
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>54</td><td><pre>            array(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>55</td><td><pre>                $this-&gt;directory,
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>56</td><td><pre>                $version
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>57</td><td><pre>            )
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>58</td><td><pre>        );
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>59</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>60</td><td><pre>        if (false === is_dir($directory)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>61</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;PHP version %s is not installed&#039;, $version));
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>62</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>63</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>64</td><td><pre>        return implode(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>65</td><td><pre>            DIRECTORY_SEPARATOR,
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>66</td><td><pre>            array(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>67</td><td><pre>                $directory,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>68</td><td><pre>                &#039;var&#039;,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>69</td><td><pre>                &#039;db&#039;,
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>70</td><td><pre>                $name . &#039;.ini&#039;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>71</td><td><pre>            )
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>72</td><td><pre>        );
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>73</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>74</td><td><pre>}
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\PHP;
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>13</td><td><pre>class Config
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>14</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>15</td><td><pre>    protected $directory;
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>16</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>17</td><td><pre>    public function __construct($directory)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>18</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>19</td><td><pre>        $this-&gt;directory = $directory;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>20</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>22</td><td><pre>    public function getDirectory()
+</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>23</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>24</td><td><pre>        return $this-&gt;directory;
+</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>25</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getDirectory"></a>26</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>27</td><td><pre>    public function getValue(Version $version, $name)
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>28</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>29</td><td><pre>        $path = $this-&gt;getConfigurationFilePath($version, $name);
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>30</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>31</td><td><pre>        if (false === is_file($path)) {
+</pre></td></tr><tr class="notCovered"><td class="number">32</td><td><pre>            if (false === ($value = ini_get($name))) {
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>                throw new \InvalidArgumentException(sprintf(&#039;Configuration directive %s is not managed by phpswitch&#039;, $name));
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>34</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>35</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>            return $value;
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>37</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>38</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>39</td><td><pre>        $ini = parse_ini_string(file_get_contents($path));
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>40</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>41</td><td><pre>        return $ini[$name];
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>42</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>43</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>44</td><td><pre>    public function setValue(Version $version, $name, $value)
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>45</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>46</td><td><pre>        $path = $this-&gt;getConfigurationFilePath($version, $name);
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>47</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>48</td><td><pre>        if (false === is_file($path)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>49</td><td><pre>            if (false === is_writable(dirname($path))) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>50</td><td><pre>                throw new \RuntimeException(&#039;You don\&#039;t have the required permission to edit configuration&#039;);
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>51</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">52</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>53</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>54</td><td><pre>        file_put_contents($path, $name . &#039; = &quot;&#039; . $value . &#039;&quot;&#039; . PHP_EOL);
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>55</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>56</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>57</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setValue"></a>58</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>59</td><td><pre>    protected function getConfigurationFilePath(Version $version, $name)
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>60</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>61</td><td><pre>        $directory = implode(
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>62</td><td><pre>            DIRECTORY_SEPARATOR,
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>63</td><td><pre>            array(
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>64</td><td><pre>                $this-&gt;directory,
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>65</td><td><pre>                $version
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>66</td><td><pre>            )
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>67</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>68</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>69</td><td><pre>        if (false === is_dir($directory)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>70</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;PHP version %s is not installed&#039;, $version));
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>71</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>72</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>73</td><td><pre>        return implode(
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>74</td><td><pre>            DIRECTORY_SEPARATOR,
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>75</td><td><pre>            array(
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>76</td><td><pre>                $directory,
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>77</td><td><pre>                &#039;var&#039;,
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>78</td><td><pre>                &#039;db&#039;,
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>79</td><td><pre>                $name . &#039;.ini&#039;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>80</td><td><pre>            )
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>81</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>82</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>83</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>
 		</div>
-
 		<div id="footer">
 			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
 		</div>

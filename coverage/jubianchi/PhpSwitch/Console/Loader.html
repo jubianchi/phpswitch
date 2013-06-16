@@ -10,15 +10,8 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Loader</h1>
-			<h2>
-				Class code coverage
-				<span>
-					
-					85.71%
-				</span>
-			</h2>
+			<h2>Class code coverage <span>85.71%</span></h2>
 		</div>
-
 		<div id="page">
 			<div id="content">
 				<h3>Methods</h3>
@@ -60,59 +53,66 @@
 						
 					
 				</ul>
-
 				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
 					<tr><td class="number"><a name="getClassName"></a>1</td><td><pre>&lt;?php
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\Console;
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>3</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>4</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Finder;
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>5</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>6</td><td><pre>class Loader
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>7</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>8</td><td><pre>    /** @var \jubianchi\PhpSwitch\Console\Command\Finder */
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>9</td><td><pre>    private $finder;
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>9</td><td><pre> */
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>10</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>11</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>12</td><td><pre>     * @static
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>13</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>14</td><td><pre>     * @param \jubianchi\PhpSwitch\Console\Command\Finder $commands
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>15</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>16</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Loader
-</pre></td></tr><tr><td class="number"><a name="getClassName"></a>17</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="get"></a>18</td><td><pre>    public static function get(Finder $commands)
-</pre></td></tr><tr><td class="number"><a name="get"></a>19</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>20</td><td><pre>        return new static($commands);
-</pre></td></tr><tr><td class="number"><a name="get"></a>21</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="get"></a>22</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="get"></a>23</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="get"></a>24</td><td><pre>     * @param \jubianchi\PhpSwitch\Console\Command\Finder $commands
-</pre></td></tr><tr><td class="number"><a name="get"></a>25</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>26</td><td><pre>    public function __construct(Finder $commands)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>28</td><td><pre>        $this-&gt;finder = $commands;
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>29</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>     * @param \jubianchi\PhpSwitch\Console\Application $application
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Application
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="load"></a>36</td><td><pre>    public function load(Application $application)
-</pre></td></tr><tr><td class="number"><a name="load"></a>37</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>38</td><td><pre>        foreach ($this-&gt;finder as $command) {
-</pre></td></tr><tr class="notCovered"><td class="number">39</td><td><pre>            $application-&gt;add(new $command());
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>40</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="load"></a>41</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="parse"></a>42</td><td><pre>        return $application;
-</pre></td></tr><tr><td class="number"><a name="load"></a>43</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="load"></a>44</td><td><pre>}
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console;
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>13</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Finder;
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>14</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>15</td><td><pre>class Loader
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>16</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>17</td><td><pre>    /** @var \jubianchi\PhpSwitch\Console\Command\Finder */
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>18</td><td><pre>    private $finder;
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>19</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>20</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>21</td><td><pre>     * @static
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>22</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>23</td><td><pre>     * @param \jubianchi\PhpSwitch\Console\Command\Finder $commands
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>24</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>25</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Loader
+</pre></td></tr><tr><td class="number"><a name="getClassName"></a>26</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="get"></a>27</td><td><pre>    public static function get(Finder $commands)
+</pre></td></tr><tr><td class="number"><a name="get"></a>28</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">29</td><td><pre>        return new static($commands);
+</pre></td></tr><tr><td class="number"><a name="get"></a>30</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="get"></a>31</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="get"></a>32</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="get"></a>33</td><td><pre>     * @param \jubianchi\PhpSwitch\Console\Command\Finder $commands
+</pre></td></tr><tr><td class="number"><a name="get"></a>34</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>    public function __construct(Finder $commands)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">37</td><td><pre>        $this-&gt;finder = $commands;
+</pre></td></tr><tr class="covered"><td class="number">38</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     * @param \jubianchi\PhpSwitch\Console\Application $application
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>43</td><td><pre>     * @return \jubianchi\PhpSwitch\Console\Application
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>44</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="load"></a>45</td><td><pre>    public function load(Application $application)
+</pre></td></tr><tr><td class="number"><a name="load"></a>46</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">47</td><td><pre>        foreach ($this-&gt;finder as $command) {
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>            $application-&gt;add(new $command());
+</pre></td></tr><tr class="covered"><td class="number">49</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="load"></a>50</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">51</td><td><pre>        return $application;
+</pre></td></tr><tr><td class="number"><a name="load"></a>52</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="load"></a>53</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>
 		</div>
-
 		<div id="footer">
 			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
 		</div>

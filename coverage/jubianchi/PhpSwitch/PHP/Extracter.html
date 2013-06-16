@@ -10,15 +10,8 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\Extracter</h1>
-			<h2>
-				Class code coverage
-				<span>
-					
-					82.22%
-				</span>
-			</h2>
+			<h2>Class code coverage <span>83.72%</span></h2>
 		</div>
-
 		<div id="page">
 			<div id="content">
 				<h3>Methods</h3>
@@ -41,8 +34,8 @@
 								
 									<div class="bar">
 										<div class="background"></div>
-										<div class="graph" style="width: 78.38%"></div>
-										<div class="label"><a href="#extract">extract</a> <span>78.38%</span></div>
+										<div class="graph" style="width: 80.56%"></div>
+										<div class="label"><a href="#extract">extract</a> <span>80.56%</span></div>
 									</div>
 								
 							</li>
@@ -60,112 +53,119 @@
 						
 					
 				</ul>
-
 				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
 					<tr><td class="number"><a name="getConfigurationFilePath"></a>1</td><td><pre>&lt;?php
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>2</td><td><pre>namespace jubianchi\PhpSwitch\PHP;
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>3</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>4</td><td><pre>use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>5</td><td><pre>use jubianchi\PhpSwitch\Event\Emitter;
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>6</td><td><pre>use jubianchi\PhpSwitch\Event\Dispatcher;
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>7</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>8</td><td><pre>class Extracter extends Emitter
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>9</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>10</td><td><pre>    /** @var string */
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>11</td><td><pre>    private $directory;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\PHP;
 </pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>12</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>13</td><td><pre>    /** @var \jubianchi\PhpSwitch\Process\Builder */
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>14</td><td><pre>    private $builder;
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>15</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>16</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>17</td><td><pre>     * @param string                                $directory
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>18</td><td><pre>     * @param \jubianchi\PhpSwitch\Process\Builder  $builder
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>19</td><td><pre>     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>20</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>    public function __construct($directory, ProcessBuilder $builder = null, Dispatcher $dispatcher = null)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>22</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>23</td><td><pre>        $this-&gt;directory = $directory;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>24</td><td><pre>        $this-&gt;builder = $builder ?: new ProcessBuilder();
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>25</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>26</td><td><pre>        if (null !== $dispatcher) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>27</td><td><pre>            $this-&gt;setDispatcher($dispatcher);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>28</td><td><pre>        }
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>29</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>     * @param string                           $archive
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Extracter
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="extract"></a>37</td><td><pre>    public function extract(Version $version, $archive)
-</pre></td></tr><tr><td class="number"><a name="extract"></a>38</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>39</td><td><pre>        $this-&gt;emit(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>40</td><td><pre>            &#039;extract.before&#039;,
-</pre></td></tr><tr><td class="number"><a name="extract"></a>41</td><td><pre>            $args = array(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>42</td><td><pre>                &#039;version&#039; =&gt; $version,
-</pre></td></tr><tr><td class="number"><a name="extract"></a>43</td><td><pre>                &#039;archive&#039; =&gt; $archive
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>44</td><td><pre>            )
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>45</td><td><pre>        );
-</pre></td></tr><tr><td class="number"><a name="extract"></a>46</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>47</td><td><pre>        $basename = Version::DEFAULT_NAME . &#039;-&#039; . $version-&gt;getVersion();
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>48</td><td><pre>        $dirname = dirname($archive);
-</pre></td></tr><tr><td class="number"><a name="extract"></a>49</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>50</td><td><pre>        $self = $this;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>51</td><td><pre>        $callback = function($type, $buffer) use ($self) {
-</pre></td></tr><tr class="notCovered"><td class="number">52</td><td><pre>            $buffer = rtrim($buffer);
-</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>            if (false === empty($buffer)) {
-</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>                $self-&gt;emit(
-</pre></td></tr><tr class="notCovered"><td class="number">55</td><td><pre>                    &#039;extract.progress&#039;,
-</pre></td></tr><tr><td class="number"><a name="extract"></a>56</td><td><pre>                    array(
-</pre></td></tr><tr class="notCovered"><td class="number">57</td><td><pre>                        &#039;type&#039; =&gt; $type,
-</pre></td></tr><tr class="notCovered"><td class="number">58</td><td><pre>                        &#039;buffer&#039; =&gt; $buffer,
-</pre></td></tr><tr><td class="number"><a name="extract"></a>59</td><td><pre>                    )
-</pre></td></tr><tr class="notCovered"><td class="number">60</td><td><pre>                );
-</pre></td></tr><tr class="notCovered"><td class="number">61</td><td><pre>            }
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>62</td><td><pre>        };
-</pre></td></tr><tr><td class="number"><a name="extract"></a>63</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>64</td><td><pre>        $this-&gt;builder-&gt;get()
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>65</td><td><pre>            -&gt;setWorkingDirectory($dirname)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>66</td><td><pre>            -&gt;add(&#039;tar&#039;)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>67</td><td><pre>            -&gt;add(&#039;-xvf&#039;)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>68</td><td><pre>            -&gt;add($archive)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>69</td><td><pre>            -&gt;getProcess()
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>70</td><td><pre>                -&gt;run($callback)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>71</td><td><pre>        ;
-</pre></td></tr><tr><td class="number"><a name="extract"></a>72</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>13</td><td><pre>use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>14</td><td><pre>use jubianchi\PhpSwitch\Event\Emitter;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>15</td><td><pre>use jubianchi\PhpSwitch\Event\Dispatcher;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>16</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>17</td><td><pre>class Extracter extends Emitter
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>18</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>19</td><td><pre>    /** @var string */
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>20</td><td><pre>    private $directory;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>21</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>22</td><td><pre>    /** @var \jubianchi\PhpSwitch\Process\Builder */
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>23</td><td><pre>    private $builder;
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>24</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>25</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>26</td><td><pre>     * @param string                                $directory
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>27</td><td><pre>     * @param \jubianchi\PhpSwitch\Process\Builder  $builder
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>28</td><td><pre>     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>29</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>    public function __construct($directory, ProcessBuilder $builder = null, Dispatcher $dispatcher = null)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>32</td><td><pre>        $this-&gt;directory = $directory;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>33</td><td><pre>        $this-&gt;builder = $builder ?: new ProcessBuilder();
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>35</td><td><pre>        if (null !== $dispatcher) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>36</td><td><pre>            $this-&gt;setDispatcher($dispatcher);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>37</td><td><pre>        }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>38</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>     * @param string                           $archive
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>43</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>44</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Extracter
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>45</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="extract"></a>46</td><td><pre>    public function extract(Version $version, $archive)
+</pre></td></tr><tr><td class="number"><a name="extract"></a>47</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>48</td><td><pre>        $this-&gt;emit(
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>49</td><td><pre>            &#039;extract.before&#039;,
+</pre></td></tr><tr><td class="number"><a name="extract"></a>50</td><td><pre>            $args = array(
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>51</td><td><pre>                &#039;version&#039; =&gt; $version,
+</pre></td></tr><tr><td class="number"><a name="extract"></a>52</td><td><pre>                &#039;archive&#039; =&gt; $archive
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>53</td><td><pre>            )
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>54</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="extract"></a>55</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>56</td><td><pre>        $basename = Version::DEFAULT_NAME . &#039;-&#039; . $version-&gt;getVersion();
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>57</td><td><pre>        $dirname = dirname($archive);
+</pre></td></tr><tr><td class="number"><a name="extract"></a>58</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>59</td><td><pre>        $self = $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>60</td><td><pre>        $callback = function($type, $buffer) use ($self) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>61</td><td><pre>            $buffer = rtrim($buffer);
+</pre></td></tr><tr class="notCovered"><td class="number">62</td><td><pre>            if (false === empty($buffer)) {
+</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>                $self-&gt;emit(
+</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>                    &#039;extract.progress&#039;,
+</pre></td></tr><tr><td class="number"><a name="extract"></a>65</td><td><pre>                    array(
+</pre></td></tr><tr class="notCovered"><td class="number">66</td><td><pre>                        &#039;type&#039; =&gt; $type,
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>                        &#039;buffer&#039; =&gt; $buffer,
+</pre></td></tr><tr><td class="number"><a name="extract"></a>68</td><td><pre>                    )
+</pre></td></tr><tr class="notCovered"><td class="number">69</td><td><pre>                );
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>            }
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>71</td><td><pre>        };
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>72</td><td><pre>
 </pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>73</td><td><pre>        $this-&gt;builder-&gt;get()
 </pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>74</td><td><pre>            -&gt;setWorkingDirectory($dirname)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>75</td><td><pre>            -&gt;add(&#039;mv&#039;)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>76</td><td><pre>            -&gt;add(&#039;-f&#039;)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>77</td><td><pre>            -&gt;add($basename)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>78</td><td><pre>            -&gt;add($this-&gt;getDestination($version))
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>79</td><td><pre>            -&gt;getProcess()
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>80</td><td><pre>                -&gt;run($callback)
-</pre></td></tr><tr><td class="number"><a name="extract"></a>81</td><td><pre>        ;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>82</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>83</td><td><pre>        $this-&gt;emit(&#039;extract.after&#039;, $args);
-</pre></td></tr><tr><td class="number"><a name="extract"></a>84</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>85</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="extract"></a>86</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="extract"></a>87</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="extract"></a>88</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="extract"></a>89</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="extract"></a>90</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="extract"></a>91</td><td><pre>     * @return string
-</pre></td></tr><tr><td class="number"><a name="extract"></a>92</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>93</td><td><pre>    public function getDestination(Version $version)
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>94</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>95</td><td><pre>        return $this-&gt;directory . DIRECTORY_SEPARATOR . $version;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>96</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>97</td><td><pre>}
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>75</td><td><pre>            -&gt;add(&#039;tar&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>76</td><td><pre>            -&gt;add(&#039;-xvf&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>77</td><td><pre>            -&gt;add($archive)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>78</td><td><pre>            -&gt;getProcess()
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>79</td><td><pre>                -&gt;run($callback)
+</pre></td></tr><tr><td class="number"><a name="extract"></a>80</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="extract"></a>81</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>82</td><td><pre>        $this-&gt;builder-&gt;get()
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>83</td><td><pre>            -&gt;setWorkingDirectory($dirname)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>84</td><td><pre>            -&gt;add(&#039;mv&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>85</td><td><pre>            -&gt;add(&#039;-f&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>86</td><td><pre>            -&gt;add($basename)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>87</td><td><pre>            -&gt;add($this-&gt;getDestination($version))
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>88</td><td><pre>            -&gt;getProcess()
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>89</td><td><pre>                -&gt;run($callback)
+</pre></td></tr><tr><td class="number"><a name="extract"></a>90</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="extract"></a>91</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>92</td><td><pre>        $this-&gt;emit(&#039;extract.after&#039;, $args);
+</pre></td></tr><tr><td class="number"><a name="extract"></a>93</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>94</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="extract"></a>95</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="extract"></a>96</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="extract"></a>97</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="extract"></a>98</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="extract"></a>99</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="extract"></a>100</td><td><pre>     * @return string
+</pre></td></tr><tr><td class="number"><a name="extract"></a>101</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>102</td><td><pre>    public function getDestination(Version $version)
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>103</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>104</td><td><pre>        return $this-&gt;directory . DIRECTORY_SEPARATOR . $version;
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>105</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>106</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>
 		</div>
-
 		<div id="footer">
 			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
 		</div>

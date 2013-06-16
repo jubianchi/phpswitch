@@ -2,115 +2,134 @@
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="author" content="Julien Bianchi <contact@jubianchi.fr>">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-responsive.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/custom.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="http://jubianchi.fr/styles/style.css" media="screen" />
+    <style>
+        .nav-tabs li.active a {
+            color: #ffffff;
+            background-color: #0088cc;
+        }
 
+        @media (min-width: 1200px) {
+            #sidenav.affix {
+                width: 258px;
+                top: 20px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #sidenav.affix {
+                position: static;
+                width: auto;
+                top: 0;
+            }
+        }
+    </style>
     <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>phpswitch by jubianchi</title>
+    <title>jubianchi / phpswitch</title>
 </head>
 
-<body data-spy="scroll">
-    <header>
-        <div class="inner">
-            <h1><a href="index.html">phpswitch</a></h1>
-            <h2>A CLI utility to help you build and test PHP versions</h2>
-            <a href="https://github.com/jubianchi/phpswitch" class="button">
-                <small>View project on</small>
-                GitHub
-            </a>
-            <a href="https://github.com/jubianchi/phpswitch/issues" class="button issue">
-                <small>Found a bug ?</small>
-                Fill an issue
-            </a>
+<body data-spy="scroll" data-target="#sidenav">
+<div id="wrap">
+    <div class="container">
+        <div class="masthead">
+            <ul class="nav nav-pills pull-right">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="installer.html">Installer</a></li>
+                <li><a href="https://github.com/jubianchi/phpswitch" target="_blank">Github</a></li>
+            </ul>
+            <h3 class="muted">jubianchi / phpswitch</h3>
         </div>
-    </header>
 
-    <div class="navbar navbar-static">
-        <div class="navbar-inner">
-            <div class="container-fluid inner">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a href="#usage">Usage</a></li>
+        <div class="row-fluid">
+            <div class="span3">
+                <div id="sidenav">
+                    <ul class="nav nav-tabs nav-list nav-stacked">
+                        <li><a href="#using-the-install">Using the installer</a></li>
                         <li><a href="#default-installation">Default installation</a></li>
                         <li><a href="#global-installation">Global installation</a></li>
                         <li><a href="#custom-installation">Custom installation</a></li>
                     </ul>
                 </div>
-
             </div>
-        </div>
-    </div>
+            <div class="span9">
+                <section>
+                    <header>
+                        <h1 id="using-the-install">Using the installer</h1>
+                    </header>
 
-    <div id="content-wrapper">
-        <div class="inner clearfix">
-            <section id="main-content">
-                <h1 id="usage">Using the installer</h1>
+                    <article>
+                        <div class="highlight">
+                            <pre><span class="nv">$ </span>bin/installer --usage
+        > phpswitch installer
+        --global        : Install phpswitch as a global command
+        --check         : Only run system requirements check
 
-                <div class="highlight">
-                    <pre><span class="nv">$ </span>bin/installer --usage
-> phpswitch installer
---global        : Install phpswitch as a global command
---check         : Only run system requirements check
+        Environment :
+        PHPSWITCH_GIT_URL : Git repository (default : git://github.com/jubianchi/phpswitch.git)
+        PHPSWITCH_PATH : Installation directory (default : /usr/share)
+        PHPSWITCH_SYMLINK : phpswitch bin symlink path (default: /usr/local/bin)
 
-Environment :
-PHPSWITCH_GIT_URL : Git repository (default : git://github.com/jubianchi/phpswitch.git)
-PHPSWITCH_PATH : Installation directory (default : /usr/share)
-PHPSWITCH_SYMLINK : phpswitch bin symlink path (default: /usr/local/bin)
+        Examples :
+        $ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo php -- --global
+        $ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | PHPSWITCH_PREFIX=/home/me php</pre>
+                        </div>
+                    </article>
 
-Examples :
-$ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | sudo php -- --global
-$ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | PHPSWITCH_PREFIX=/home/me php</pre>
-                </div>
+                    <article>
+                        <header>
+                            <h2 id="default-installation">Default installation</h2>
+                        </header>
 
-                <h2 id="default-installation">Default installation</h2>
+                        <p>
+                            The default option is to install phpswitch in the current directory. The installer will check
+                            requirements and checkout if everything is ok. Once done, you wil be able to initalize phpswitch
+                            workspace :
+                        </p>
 
-                <p>
-                    The default option is to install phpswitch in the current directory. The installer will check
-                    requirements and checkout if everything is ok. Once done, you wil be able to initalize phpswitch
-                    workspace :
-                </p>
-
-                <div class="highlight">
+                        <div class="highlight">
                     <pre><span class="nv">$ </span>bin/installer
 
 <span class="c"># ...</span>
 
 <span class="nv">$ </span>./phpswitch/bin/phpswitch init</pre>
-                </div>
+                        </div>
+                    </article>
 
-                <h2 id="global-installation">Global installation</h2>
+                    <article>
+                        <header>
+                            <h2 id="global-installation">Global installation</h2>
+                        </header>
 
-                <p>
-                    The installer has an option to install phpswitch globally in <code>/usr/share/phpswitch</code>
-                    and link the executable to <code>/usr/local/bin/phpswitch</code> :
-                </p>
+                        <p>
+                            The installer has an option to install phpswitch globally in <code>/usr/share/phpswitch</code>
+                            and link the executable to <code>/usr/local/bin/phpswitch</code> :
+                        </p>
 
-                <div class="highlight">
-                    <pre><span class="nv">$ </span>bin/installer --global</pre>
-                </div>
+                        <div class="highlight">
+                            <pre><span class="nv">$ </span>bin/installer --global</pre>
+                        </div>
 
-                <p><strong>When using this method, you will have to ensure that you have write access to the directories.</strong></p>
+                        <p><strong>When using this method, you will have to ensure that you have write access to the directories.</strong></p>
+                    </article>
 
-                <h2 id="custom-installation">Custom installation</h2>
+                    <article>
+                        <header>
+                            <h2 id="custom-installation">Custom installation</h2>
+                        </header>
 
-                <p>If you want to install phpswitch in another directory, you can use the following variables :</p>
+                        <p>If you want to install phpswitch in another directory, you can use the following variables :</p>
 
-                <div class="highlight">
+                        <div class="highlight">
                     <pre><span class="c"># This will change the installation directory to /path/to/install/phpswitch</span>
 <span class="nv">$ </span>PHPSWITCH_PATH=/path/to/install bin/installer
 
@@ -123,27 +142,46 @@ $ curl https://raw.github.com/jubianchi/phpswitch/master/bin/installer | PHPSWIT
 <span class="c"># ...</span>
 
 <span class="nv">$ </span>phpswitch init</pre>
-                </div>
-            </section>
+                        </div>
+                    </article>
+                </section>
+            </div>
         </div>
     </div>
+    <div id="push"></div>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    
-    <script type="text/javascript">
+<div id="footer">
+    <div class="container">
+        <p class="muted credit">
+            &copy; <a href="https://twitter.com/jubianchi">@jubianchi</a> 2012<br/>
+            This website is powered by <a href="http://simonjodet.github.com/gumdrop/" title="Gumdrop">Gumdrop</a> and <a href="http://pages.github.com/">Github pages</a>
+        </p>
+    </div>
+</div>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-10349389-8']);
-  _gaq.push(['_setDomainName', 'jubianchi.fr']);
-  _gaq.push(['_trackPageview']);
+<script src="javascripts/jquery.js"></script>
+<script src="javascripts/bootstrap.js"></script>
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10349389-8']);
+    _gaq.push(['_setDomainName', 'jubianchi.fr']);
+    _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
 
+    $(function() {
+        $('#sidenav').affix({
+            offset: {
+                top: 65,
+                bottom: 0
+            }
+        })
+    });
 </script>
-    
 </body>
 </html>
