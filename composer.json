@@ -28,12 +28,14 @@
         "symfony/css-selector": "2.2.*@RC",
         "symfony/event-dispatcher": "2.2.*",
         "pimple/pimple": "1.0.*@dev",
-        "monolog/monolog": "1.4.*@dev",
-        "twig/twig": "dev-master",
-        "d11wtq/boris": "dev-master@dev"
+        "monolog/monolog": "1.4.*",
+        "twig/twig": "dev-master"
     },
     "require-dev": {
         "atoum/atoum": "dev-master"
+    },
+    "suggest": {
+        "d11wtq/boris": "To get a better PHP interactive shell via php repl command"
     },
     "autoload": {
         "psr-0": {

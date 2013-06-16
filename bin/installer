@@ -171,10 +171,15 @@ function checkRequirements(array $args) {
     }
 
     if(false === extension_loaded('pcntl')) {
-        printfln('>>> <red>PCNTL extension is not enabled');
-        $error = true;
+        printfln('>>> <yellow>PCNTL extension is not enabled');
     } else {
         printfln('>>> <green>PCNTL extension is enabled');
+    }
+
+	if(false === extension_loaded('readline')) {
+        printfln('>>> <yellow>readline extension is not enabled');
+    } else {
+        printfln('>>> <green>readline extension is enabled');
     }
 
     if(false === checkPermissions($args)) {
