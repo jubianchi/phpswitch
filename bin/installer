@@ -126,7 +126,14 @@ function download(array $args) {
     if(true === is_file($path . DIRECTORY_SEPARATOR . 'composer.phar')) {
         unlink($path . DIRECTORY_SEPARATOR . 'composer.phar');
     }
-    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist', $output);
+
+    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist 2>&1', $output, $status);
+    if($status !== 0) {
+    	printfln('>>> <red>Composer failed to install dependencies');
+    	printfln('>>> <red>' . str_replace('%', '%%', implode(PHP_EOL, $output)));
+
+    	return false;
+    }
 
     return true;
 }
