@@ -12,8 +12,8 @@
 define('INSTALLER_URL',             'https://raw.github.com/jubianchi/phpswitch/master/bin/installer');
 define('PHPSWITCH_GIT_URL',         (($url = getenv('PHPSWITCH_GIT_URL')) ? $url : 'git://github.com/jubianchi/phpswitch.git'));
 
-define('PHPSWITCH_PATH_DEFAULT',    '/usr/share');
-define('PHPSWITCH_PATH',            (($path = getenv('PHPSWITCH_PATH')) ? $path : PHPSWITCH_PATH_DEFAULT) . DIRECTORY_SEPARATOR . 'phpswitch');
+define('PHPSWITCH_PATH_DEFAULT',    '/usr/share/phpswitch');
+define('PHPSWITCH_PATH',            (($path = getenv('PHPSWITCH_PATH')) ? $path : PHPSWITCH_PATH_DEFAULT));
 define('PHPSWITCH_SYMLINK_DEFAULT', '/usr/local/bin');
 define('PHPSWITCH_SYMLINK',         (($symlink = getenv('PHPSWITCH_SYMLINK')) ? $symlink : PHPSWITCH_SYMLINK_DEFAULT) . DIRECTORY_SEPARATOR . 'phpswitch');
 
