@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f65f7ac3ebefee99efdc61a54f1d4f64",
+    "hash": "ead50b7a4242b43d76a8f892e8ac4c04",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -200,17 +200,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.2.2",
+            "version": "v2.2.0",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "v2.2.2"
+                "reference": "v2.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/v2.2.0",
+                "reference": "v2.2.0",
                 "shasum": ""
             },
             "require": {
@@ -243,7 +243,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-27 14:47:40"
+            "time": "2013-03-01 06:43:14"
         },
         {
             "name": "symfony/css-selector",
@@ -671,7 +671,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/console": 5,
         "symfony/finder": 5,
         "symfony/config": 5,
         "symfony/yaml": 5,

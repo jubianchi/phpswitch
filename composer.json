@@ -19,7 +19,7 @@
     "require": {
         "php": ">=5.3.15",
         "ext-curl": "*",
-        "symfony/console": "2.2.*@RC",
+        "symfony/console": "2.2.0",
         "symfony/finder": "2.2.*@RC",
         "symfony/config": "2.2.*@RC",
         "symfony/yaml": "2.2.*@RC",
