@@ -1,25 +1,27 @@
 Feature: Check
   Scenario: Default PHP config (no php.ini)
-    Given I run "PHPSWITCH_PATH=/tmp PHPSWITCH_SYMLINK=/tmp php -n ../../bin/installer --check"
+    Given I run "PHPSWITCH_PATH=/tmp/phpswitch PHPSWITCH_SYMLINK=/tmp php -n ../../bin/installer --check"
      Then I should see output matching
         """
         > phpswitch installer
         >> Checking requirements...
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
-        >>> cURL extension is enabled
-        >>> PCNTL extension is enabled
+        >>> cURL extension is (?:not )?enabled
+        >>> PCNTL extension is (?:not )?enabled
+        >>> readline extension is (?:not )?enabled
         >>> You have required permissions on \/tmp
         """
 
   Scenario: Two differents target directories (no php.ini)
-    Given I run "PHPSWITCH_PATH=/opt PHPSWITCH_SYMLINK=/bin php -n ../../bin/installer --check"
+    Given I run "PHPSWITCH_PATH=/opt/phpswitch PHPSWITCH_SYMLINK=/bin php -n ../../bin/installer --check"
      Then I should see output matching
         """
         > phpswitch installer
         >> Checking requirements...
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
-        >>> cURL extension is enabled
-        >>> PCNTL extension is enabled
+        >>> cURL extension is (?:not )?enabled
+        >>> PCNTL extension is (?:not )?enabled
+        >>> readline extension is (?:not )?enabled
         >>> You don't have required permissions on \/bin, \/opt
         """
 
@@ -30,8 +32,9 @@ Feature: Check
         > phpswitch installer
         >> Checking requirements...
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
-        >>> cURL extension is enabled
-        >>> PCNTL extension is enabled
+        >>> cURL extension is (?:not )?enabled
+        >>> PCNTL extension is (?:not )?enabled
+        >>> readline extension is (?:not )?enabled
         >>> You don't have required permissions on \/usr\/local\/bin, \/usr\/share
         """
 
@@ -42,8 +45,9 @@ Feature: Check
         > phpswitch installer
         >> Checking requirements\.\.\.
         >>> Actual PHP version is 5\.[0-9a-zA-Z\-\.]*
-        >>> cURL extension is enabled
-        >>> PCNTL extension is enabled
+        >>> cURL extension is (?:not )?enabled
+        >>> PCNTL extension is (?:not )?enabled
+        >>> readline extension is (?:not )?enabled
         >>> open_basedir restriction : \/tmp
         >>>> To fix this issue, try to run :
         >>>> PHPSWITCH_PATH=\/an\/allowed\/path .\/installer or curl https:\/\/raw\.github\.com\/jubianchi\/phpswitch\/master\/bin\/installer \| PHPSWITCH_PATH=\/an\/allowed\/path php

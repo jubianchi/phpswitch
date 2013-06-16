@@ -9,7 +9,7 @@ Feature: Usage
 
         Environment :
         PHPSWITCH_GIT_URL : Git repository (default : git://github.com/jubianchi/phpswitch.git)
-        PHPSWITCH_PATH  : Installation directory (default : /usr/share)
+        PHPSWITCH_PATH  : Installation directory (default : /usr/share/phpswitch)
         PHPSWITCH_SYMLINK : phpswitch bin symlink path (default: /usr/local/bin)
 
         Examples :
