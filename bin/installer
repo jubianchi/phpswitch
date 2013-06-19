@@ -127,12 +127,19 @@ function download(array $args) {
         unlink($path . DIRECTORY_SEPARATOR . 'composer.phar');
     }
 
-    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1 && php composer.phar install --prefer-dist 2>&1', $output, $status);
-    if($status !== 0) {
-    	printfln('>>> <red>Composer failed to install dependencies');
-    	printfln('>>> <red>' . str_replace('%', '%%', implode(PHP_EOL, $output)));
+    if( !downloadComposer($path) ) {
+        printfln('>>> <red>Impossible to download Composer');
+        printfln('>>> <red>Check if wget is correctly installed on your system');
 
-    	return false;
+        return false;
+    }
+
+    exec('cd '.$path.' && php composer.phar install --prefer-dist 2>&1', $output, $status);
+    if($status !== 0) {
+        printfln('>>> <red>Composer failed to install dependencies');
+        printfln('>>> <red>' . str_replace('%', '%%', implode(PHP_EOL, $output)));
+
+        return false;
     }
 
     return true;
@@ -176,7 +183,7 @@ function checkRequirements(array $args) {
         printfln('>>> <green>PCNTL extension is enabled');
     }
 
-	if(false === extension_loaded('readline')) {
+    if(false === extension_loaded('readline')) {
         printfln('>>> <yellow>readline extension is not enabled');
     } else {
         printfln('>>> <green>readline extension is enabled');
@@ -268,6 +275,20 @@ function checkLinkExists($file) {
     }
 
     return $exists;
+}
+
+function downloadComposer($path) {
+    exec('cd ' . $path . ' && wget http://getcomposer.org/composer.phar > /dev/null 2>&1', $output, $status);
+    if( $status == 0 ) {
+        return true;
+    }
+
+    exec('curl -f http://getcomposer.org/composer.phar > '.$path.'/composer.phar 2>/dev/null', $output, $status);
+    if($status == 0) {
+        return true;
+    }
+
+    return false;
 }
 
 function ppassthru($cmd) {
