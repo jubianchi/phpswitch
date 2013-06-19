@@ -136,10 +136,10 @@ function download(array $args) {
 
     exec('cd '.$path.' && php composer.phar install --prefer-dist 2>&1', $output, $status);
     if($status !== 0) {
-    	printfln('>>> <red>Composer failed to install dependencies');
-    	printfln('>>> <red>' . str_replace('%', '%%', implode(PHP_EOL, $output)));
+        printfln('>>> <red>Composer failed to install dependencies');
+        printfln('>>> <red>' . str_replace('%', '%%', implode(PHP_EOL, $output)));
 
-    	return false;
+        return false;
     }
 
     return true;
@@ -183,7 +183,7 @@ function checkRequirements(array $args) {
         printfln('>>> <green>PCNTL extension is enabled');
     }
 
-	if(false === extension_loaded('readline')) {
+    if(false === extension_loaded('readline')) {
         printfln('>>> <yellow>readline extension is not enabled');
     } else {
         printfln('>>> <green>readline extension is enabled');
