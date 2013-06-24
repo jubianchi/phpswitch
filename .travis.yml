@@ -12,7 +12,7 @@ env:
 before_script:
     - sudo apt-get update
     - sudo apt-get install -y apache2-prefork-dev
-    - mkdir ~/.composer
+    - mkdir -p ~/.composer
     - "[ ! -z \"$GITHUB_TOKEN\" ] && echo \"{ \\\"config\\\": { \\\"github-oauth\\\": { \\\"github.com\\\": \\\"$GITHUB_TOKEN\\\" } } }\" > ~/.composer/config.json || true"
     - wget http://getcomposer.org/composer.phar
     - php composer.phar validate || true
