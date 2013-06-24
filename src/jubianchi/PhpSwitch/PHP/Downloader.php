@@ -36,7 +36,7 @@ class Downloader extends Emitter
     /**
      * @param \jubianchi\PhpSwitch\PHP\Version $version
      * @param string                           $mirror
-     *
+	 *
      * @return \jubianchi\PhpSwitch\PHP\Downloader
      */
     public function download(Version $version, $mirror)
@@ -50,7 +50,7 @@ class Downloader extends Emitter
         );
 
         $url  = sprintf($version->getUrl(), $mirror);
-        $handle = fopen($this->getDestination($version), 'wb+');
+		$handle = $this->getDestinationHandle($version);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_FILE, $handle);
@@ -87,4 +87,21 @@ class Downloader extends Emitter
     {
         return $this->directory . DIRECTORY_SEPARATOR . Version::DEFAULT_NAME . '-' . $version->getVersion() . self::EXTENSION;
     }
+
+	/**
+	 * @param \jubianchi\PhpSwitch\PHP\Version $version
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return resource
+	 */
+	public function getDestinationHandle(Version $version)
+	{
+		$destination = $this->getDestination($version);
+		if(($handle = @fopen($destination, 'wb+')) === false) {
+			throw new \RuntimeException('Could not write to ' . $destination);
+		}
+
+		return $handle;
+	}
 }
