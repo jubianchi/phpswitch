@@ -62,7 +62,9 @@ class ListCommand extends Command
 
     protected function listAvailable(OutputInterface $output)
     {
-        $versions = $this->getApplication()->getService('app.php.finder')->getIterator();
+        $versions = $this->getApplication()->getService('app.php.finder')->getIterator(function($a, $b) {
+			return version_compare((string) $a, (string) $b);
+		});
 
         $maxlength = 0;
         array_walk(

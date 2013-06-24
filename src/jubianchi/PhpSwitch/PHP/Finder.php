@@ -33,12 +33,19 @@ class Finder implements \IteratorAggregate
         $this->sites = $sites;
     }
 
-    /**
-     * @return \Traversable
-     */
-    public function getIterator()
+	/**
+	 * @param callable $sort
+	 *
+	 * @return \ArrayIterator|\Traversable
+	 */
+	public function getIterator(\Closure $sort = null)
     {
-        return new \ArrayIterator($this->getVersions());
+		$items = $this->getVersions();
+		if($sort !== null) {
+			usort($items, $sort);
+		}
+
+        return new \ArrayIterator($items);
     }
 
     /**
