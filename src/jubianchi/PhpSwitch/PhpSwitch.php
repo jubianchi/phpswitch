@@ -239,17 +239,17 @@ class PhpSwitch implements Runnable
             }
         );
 
-		$this->container['app.php.options'] = $this->container->share(
-			function(\Pimple $container) {
-				$options = new PHP\Option\OptionCollection();
+        $this->container['app.php.options'] = $this->container->share(
+            function(\Pimple $container) {
+                $options = new PHP\Option\OptionCollection();
 
-				foreach ($container['app.php.option.finder'] as $option) {
-					$options->addOption(new $option());
-				}
+                foreach ($container['app.php.option.finder'] as $option) {
+                    $options->addOption(new $option());
+                }
 
-				return $options;
-			}
-		);
+                return $options;
+            }
+        );
 
         $this->container['app.php.option.resolver'] = $this->container->share(
             function(\Pimple $container) {
@@ -288,7 +288,6 @@ class PhpSwitch implements Runnable
                     array(
                         'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
                         'http://php.net/downloads.php' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
-                        'http://snaps.php.net/' => '/(php\-(?:([4-5]\.(?:\d+\.?)*\-dev)|\-trunk) \(tar\.bz2\))/',
                         'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
                         'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:(?:alpha|beta)\d*)?)\.tar\.bz2)/'
                     )
@@ -296,15 +295,15 @@ class PhpSwitch implements Runnable
             }
         );
 
-		$this->container['app.php.template.builder'] = $this->container->share(
-			function(\Pimple $container) {
-				return new \jubianchi\PhpSwitch\Console\Template\Builder(
-					$container['app.php.option.resolver'],
-					$container['app.php.option.normalizer'],
-					$container['app.config']
-				);
-			}
-		);
+        $this->container['app.php.template.builder'] = $this->container->share(
+            function(\Pimple $container) {
+                return new \jubianchi\PhpSwitch\Console\Template\Builder(
+                    $container['app.php.option.resolver'],
+                    $container['app.php.option.normalizer'],
+                    $container['app.config']
+                );
+            }
+        );
 
         return $this;
     }
