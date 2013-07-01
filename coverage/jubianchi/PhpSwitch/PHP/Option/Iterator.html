@@ -100,33 +100,33 @@
 </pre></td></tr><tr><td class="number"><a name="make"></a>20</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>    public function __construct(\Iterator $iterator, $directory)
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>22</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>23</td><td><pre>        parent::__construct($iterator);
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>23</td><td><pre>        parent::__construct($iterator);
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>24</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>25</td><td><pre>        $this-&gt;directory = $directory;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>26</td><td><pre>    }
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>25</td><td><pre>        $this-&gt;directory = $directory;
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>26</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>28</td><td><pre>    /**
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>29</td><td><pre>     * @return bool
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="accept"></a>31</td><td><pre>    public function accept()
 </pre></td></tr><tr><td class="number"><a name="accept"></a>32</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>33</td><td><pre>        $className = $this-&gt;current();
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>33</td><td><pre>        $className = $this-&gt;current();
 </pre></td></tr><tr><td class="number"><a name="accept"></a>34</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="accept"></a>35</td><td><pre>        try {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>36</td><td><pre>            $reflector = $this-&gt;getReflector($className);
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>36</td><td><pre>            $reflector = $this-&gt;getReflector($className);
 </pre></td></tr><tr><td class="number"><a name="accept"></a>37</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="accept"></a>38</td><td><pre>            return (
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>39</td><td><pre>                $reflector-&gt;isInstantiable() &amp;&amp;
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>40</td><td><pre>                $reflector-&gt;isSubclassOf(&#039;\\jubianchi\\PhpSwitch\\PHP\\Option\\Option&#039;)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>41</td><td><pre>            );
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>42</td><td><pre>        } catch (\ReflectionException $exception) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>43</td><td><pre>            return false;
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>39</td><td><pre>                $reflector-&gt;isInstantiable() &amp;&amp;
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>40</td><td><pre>                $reflector-&gt;isSubclassOf(&#039;\\jubianchi\\PhpSwitch\\PHP\\Option\\Option&#039;)
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>41</td><td><pre>            );
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>42</td><td><pre>        } catch (\ReflectionException $exception) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>43</td><td><pre>            return false;
 </pre></td></tr><tr><td class="number"><a name="accept"></a>44</td><td><pre>        }
 </pre></td></tr><tr><td class="number"><a name="accept"></a>45</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="accept"></a>46</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getReflector"></a>47</td><td><pre>    public function getReflector($className)
 </pre></td></tr><tr><td class="number"><a name="getReflector"></a>48</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>49</td><td><pre>        return new \ReflectionClass($className);
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>49</td><td><pre>        return new \ReflectionClass($className);
 </pre></td></tr><tr><td class="number"><a name="getReflector"></a>50</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="getReflector"></a>51</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getReflector"></a>52</td><td><pre>    /**
@@ -134,7 +134,7 @@
 </pre></td></tr><tr><td class="number"><a name="getReflector"></a>54</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="current"></a>55</td><td><pre>    public function current()
 </pre></td></tr><tr><td class="number"><a name="current"></a>56</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>57</td><td><pre>        return $this-&gt;getClassName(parent::current());
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>57</td><td><pre>        return $this-&gt;getClassName(parent::current());
 </pre></td></tr><tr><td class="number"><a name="current"></a>58</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="current"></a>59</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="current"></a>60</td><td><pre>    /**
@@ -144,15 +144,15 @@
 </pre></td></tr><tr><td class="number"><a name="current"></a>64</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>65</td><td><pre>    protected function getClassName($file)
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>66</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>67</td><td><pre>        $className = pathinfo($file, PATHINFO_FILENAME);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>68</td><td><pre>        $path = preg_replace(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>69</td><td><pre>            &#039;/&#039; . preg_quote($this-&gt;directory, &#039;/&#039;) . &#039;/&#039;,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>70</td><td><pre>            &#039;&#039;,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>71</td><td><pre>            dirname($file)
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>72</td><td><pre>        );
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>73</td><td><pre>        $namespace = &#039;\\&#039; . str_replace(&#039;/&#039;, &#039;\\&#039;, trim($path, &#039;/&#039;));
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>67</td><td><pre>        $className = pathinfo($file, PATHINFO_FILENAME);
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>68</td><td><pre>        $path = preg_replace(
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>69</td><td><pre>            &#039;/&#039; . preg_quote($this-&gt;directory, &#039;/&#039;) . &#039;/&#039;,
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>70</td><td><pre>            &#039;&#039;,
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>71</td><td><pre>            dirname($file)
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>72</td><td><pre>        );
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>73</td><td><pre>        $namespace = &#039;\\&#039; . str_replace(&#039;/&#039;, &#039;\\&#039;, trim($path, &#039;/&#039;));
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>74</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>75</td><td><pre>        return $namespace . &#039;\\&#039; . $className;
+</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>75</td><td><pre>        return $namespace . &#039;\\&#039; . $className;
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>76</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="getClassName"></a>77</td><td><pre>}
 </pre></td></tr>
