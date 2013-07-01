@@ -32,7 +32,8 @@ class Installer extends Event\Subscriber
             ->handle('install.after', function(GenericEvent $event) use ($output) {
                 $output->writeln(array(
                     sprintf(PHP_EOL . 'PHP version <info>%s</info> was installed:', $event->getArgument('version')),
-                    sprintf('    <comment>%s</comment>', $event->getArgument('destination'))
+                    sprintf('    <comment>%s</comment>', $event->getArgument('destination')),
+                    sprintf(PHP_EOL . 'Use <info>php switch %s</info> to enable it', $event->getArgument('version'))
                 ));
             })
         ;

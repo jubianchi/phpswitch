@@ -19,23 +19,36 @@ class Fetcher extends Event\Subscriber
 {
     public function __construct(OutputInterface $output)
     {
-		$string = '';
-		$clear = function() use(& $string, $output) { $output->write("\r" . str_repeat(' ', strlen($string)) . "\r"); };
+        $string = '';
+        $clear = function($newstring = null) use(& $string, $output) {
+            $length = max(strlen($string) - strlen($newstring), 0);
+            $newstring = str_pad($newstring, strlen($string), ' ');
+
+            $output->write(
+                str_repeat("\010", strlen($string)) .
+                $newstring .
+                str_repeat("\010", $length)
+            );
+
+            $string = $newstring;
+        };
 
         $this
             ->handle('fetch.start', function(GenericEvent $event) use (& $string, $clear, $output) {
-				$clear();
-				$output->write($string = sprintf('   Fetching <info>%s</info>', $event->getArgument('url')));
+                $clear(sprintf('   Fetching <info>%s</info>', $event->getArgument('url')));
+                //$output->write($string = sprintf('   Fetching <info>%s</info>', $event->getArgument('url')));
             })
-			->handle('fetch.parsing', function(GenericEvent $event) use (& $string, $clear, $output) {
-				$clear();
-				$output->write($string = sprintf('   Parsing <info>%s</info>', $event->getArgument('url')));
-			})
-			->handle('fetch.failed', function(GenericEvent $event) use (& $string, $clear, $output) {
-				$clear();
-				$output->writeln(sprintf('   <error>Failed fetching %s</error>', $event->getArgument('url')));
-			})
-			->handle('fetch.end', $clear);
+            ->handle('fetch.parsing', function(GenericEvent $event) use (& $string, $clear, $output) {
+                $clear(sprintf('   Parsing <info>%s</info>', $event->getArgument('url')));
+                //$output->write($string = sprintf('   Parsing <info>%s</info>', $event->getArgument('url')));
+            })
+            ->handle('fetch.failed', function(GenericEvent $event) use ($clear, $output) {
+                $clear();
+                $output->writeln(sprintf('   <error>Failed to fetch %s</error>', $event->getArgument('url')));
+            })
+            ->handle('fetch.end', function() use ($clear) {
+                $clear();
+            });
         ;
     }
 }

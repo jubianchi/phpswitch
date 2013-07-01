@@ -10,6 +10,7 @@
 
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
+use jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -48,7 +49,7 @@ class InstallCommand extends Command
         parent::setApplication($application);
 
         if (null !== $application) {
-			$this->getApplication()->getService('app.php.options')->setCommand($this);
+            $this->getApplication()->getService('app.php.options')->setCommand($this);
         }
     }
 
@@ -74,11 +75,20 @@ class InstallCommand extends Command
         $template = $this->getApplication()->getService('app.php.template.builder')->build($version, $input);
 
         $subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
-        $this->getInstaller()
-			->subscribe($subscriber)
-			->install($template, $mirror, $input->getOption('jobs'), $input, $output)
-			->unsubscribe($subscriber)
-		;
+
+        try {
+            $this->getInstaller()
+                ->subscribe($subscriber)
+                ->install($template, $mirror, $input->getOption('jobs'), $input, $output)
+                ->unsubscribe($subscriber)
+            ;
+        } catch(AlreadyInstalledException $exception) {
+            throw new AlreadyInstalledException(
+                $exception->getMessage() . PHP_EOL . 'Use --alias to install using a different name',
+                $exception->getCode(),
+                $exception
+            );
+        }
 
         $configs = $template->getConfigs();
         foreach ($configs as $key => $value) {
@@ -87,12 +97,12 @@ class InstallCommand extends Command
 
         $this->getConfiguration()
             ->set(
-				'versions.' . $template->getName(),
-				array(
-					'options' => (string) $template->getOptions(),
-					'config' => $template->getConfigs()
-				)
-			)
+                'versions.' . $template->getName(),
+                array(
+                    'options' => (string) $template->getOptions(),
+                    'config' => $template->getConfigs()
+                )
+            )
             ->dump()
         ;
 

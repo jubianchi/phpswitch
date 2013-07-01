@@ -87,12 +87,13 @@ class CLIContext extends BehatAtoumContext
     public function iShouldSeeOutputMatching(PyStringNode $string)
     {
         $actual = preg_replace("/\033\[[0-9]+;?[0-9]*m/", '', $this->output);
+        $actual = preg_replace("/\010+/", PHP_EOL, $actual);
         $expected = (string) $string;
 
         $this->assert
             ->string($actual)
             ->match(
-                '/' . $expected . '/',
+                '/' . $expected . '/s',
                 sprintf(
                     'String %s%sDoes not match %s',
                     sprintf('string (%d)%s%s', strlen($actual), PHP_EOL, $actual),

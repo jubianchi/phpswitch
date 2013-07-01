@@ -12,9 +12,9 @@ Feature: php:list
       And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:list"
      Then I should see output matching
         """
-         Installed versions
          Available versions
-        (?:php-(?:[0-9]\.?)*\s+http:\/\/.*\n)+
+           (?:(?:Fetching|Parsing) http:\/\/.*?)
+        (?:php-(?:[0-9]\.?)*\s+http:\/\/.*)+
         """
       And The command should exit with success status
 
@@ -24,7 +24,8 @@ Feature: php:list
      Then I should see output matching
         """
         ^ Available versions
-        (?:php-(?:[0-9]\.?)*\s+http:\/\/.*\n)+
+           (?:(?:Fetching|Parsing) http:\/\/.*?)
+        (?:php-(?:[0-9]\.?)*\s+http:\/\/.*)+
         """
       And The command should exit with success status
 

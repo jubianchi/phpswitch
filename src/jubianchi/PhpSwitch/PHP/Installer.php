@@ -10,6 +10,7 @@
 
 namespace jubianchi\PhpSwitch\PHP;
 
+use jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use jubianchi\PhpSwitch\PHP\Option\OptionCollection;
@@ -62,7 +63,7 @@ class Installer extends Emitter
         );
 
         if ($this->isInstalled($version)) {
-            throw new \RuntimeException(sprintf('PHP version %s is already installed', $version));
+            throw new AlreadyInstalledException(sprintf('PHP version %s is already installed', $version));
         }
 
         if (null !== $options) {

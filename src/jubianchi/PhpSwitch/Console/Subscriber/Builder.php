@@ -19,24 +19,20 @@ class Builder extends Event\Subscriber
 {
     public function __construct(OutputInterface $output, ProgressHelper $progress)
     {
-        $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
-        $processCallback = function() use ($progress, $output) {
-            $progress->advance();
-        };
         $self = $this;
 
         $this
             ->handle('build.before', function(GenericEvent $event) use ($self, $output, $progress) {
                 $output->writeln(array(
-                    sprintf(PHP_EOL . 'Building <info>%s</info>', $event->getArgument('version')->getVersion()),
+                    sprintf(PHP_EOL . 'Building <info>%s</info>', $event->getArgument('version')),
                     sprintf('    <comment>%s</comment>', $event->getArgument('source')),
                     sprintf('    <comment>%s</comment>', $event->getArgument('prefix'))
                 ));
 
                 $self->startProgress($progress, $output);
             })
-            ->handle('build.progress', $processCallback)
-            ->handle('build.after', $afterCallback)
+            ->handle('build.progress', function() use ($progress, $output) { $progress->advance(); })
+            ->handle('build.after', function() use ($output) { $output->write(PHP_EOL); })
         ;
     }
 
