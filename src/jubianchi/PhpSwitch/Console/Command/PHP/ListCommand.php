@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Finder\Finder;
 use jubianchi\PhpSwitch\Console\Command\Command;
 use jubianchi\PhpSwitch\PHP;
+use jubianchi\PhpSwitch\Console\Subscriber;
 
 class ListCommand extends Command
 {
@@ -62,7 +63,11 @@ class ListCommand extends Command
 
     protected function listAvailable(OutputInterface $output)
     {
-        $versions = $this->getApplication()->getService('app.php.finder')->getIterator(function($a, $b) {
+		$finder = $this->getApplication()->getService('app.php.finder');
+		$subscriber = new Subscriber\Fetcher($output);
+		$finder->subscribe($subscriber);
+
+        $versions = $finder->getIterator(function($a, $b) {
 			return version_compare((string) $a, (string) $b);
 		});
 
