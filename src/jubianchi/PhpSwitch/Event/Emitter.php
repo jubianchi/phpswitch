@@ -31,17 +31,17 @@ abstract class Emitter
         return $this;
     }
 
-	public function subscribe(Subscriber $subscriber)
-	{
-		$this->dispatcher->addEventSubscriber($subscriber);
+    public function subscribe(Subscriber $subscriber)
+    {
+        $this->dispatcher->addEventSubscriber($subscriber);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function unsubscribe(Subscriber $subscriber)
-	{
-		$this->dispatcher->removeEventSubscriber($subscriber);
+    public function unsubscribe(Subscriber $subscriber)
+    {
+        $this->dispatcher->removeEventSubscriber($subscriber);
 
-		return $this;
-	}
+        return $this;
+    }
 }

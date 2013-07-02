@@ -65,7 +65,7 @@ class InstallCommand extends Command
     {
         parent::execute($input, $output);
 
-        $finder = $this->getApplication()->getService('app.php.finder');
+        $finder = $this->getApplication()->getService('app.php.finder.cached');
         $version = $finder->getVersion($input->getArgument('version'));
         $mirror = $this->getConfiguration()->get('mirror');
         if (null !== ($alias = $input->getOption('alias'))) {

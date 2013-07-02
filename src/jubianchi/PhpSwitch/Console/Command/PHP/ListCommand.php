@@ -34,6 +34,7 @@ class ListCommand extends Command
             ->addOption('installed', 'i', InputOption::VALUE_NONE, 'Version name alias')
             ->addOption('available', 'l', InputOption::VALUE_NONE, 'Version name alias')
             ->addOption('all', 'a', InputOption::VALUE_NONE, 'Version name alias')
+            ->addOption('update', 'u', InputOption::VALUE_NONE, 'Update cached versions list')
         ;
     }
 
@@ -55,21 +56,26 @@ class ListCommand extends Command
 
         if ($all || $input->getOption('available')) {
             $output->writeln($this->getHelper('formatter')->formatBlock('Available versions', 'info'));
-            $this->listAvailable($output);
+            $this->listAvailable($output, ($input->getOption('update') === false));
         }
 
         return 0;
     }
 
-    protected function listAvailable(OutputInterface $output)
+    protected function listAvailable(OutputInterface $output, $cached = true)
     {
-		$finder = $this->getApplication()->getService('app.php.finder');
-		$subscriber = new Subscriber\Fetcher($output);
-		$finder->subscribe($subscriber);
+        if (true === $cached) {
+            $finder = $this->getApplication()->getService('app.php.finder.cached');
+        } else {
+            $finder = $this->getApplication()->getService('app.php.finder');
+        }
+
+        $subscriber = new Subscriber\Fetcher($output);
+        $finder->subscribe($subscriber);
 
         $versions = $finder->getIterator(function($a, $b) {
-			return version_compare((string) $a, (string) $b);
-		});
+            return version_compare((string) $a, (string) $b);
+        });
 
         $maxlength = 0;
         array_walk(

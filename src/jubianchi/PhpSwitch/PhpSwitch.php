@@ -83,6 +83,7 @@ class PhpSwitch implements Runnable
         $this->container['parameters']['app.workspace.sources.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'sources';
         $this->container['parameters']['app.workspace.installed.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'installed';
         $this->container['parameters']['app.workspace.doc.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'doc';
+        $this->container['parameters']['app.workspace.cache.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'phpswitch.cache';
 
         return $this;
     }
@@ -239,17 +240,17 @@ class PhpSwitch implements Runnable
             }
         );
 
-		$this->container['app.php.options'] = $this->container->share(
-			function(\Pimple $container) {
-				$options = new PHP\Option\OptionCollection();
+        $this->container['app.php.options'] = $this->container->share(
+            function(\Pimple $container) {
+                $options = new PHP\Option\OptionCollection();
 
-				foreach ($container['app.php.option.finder'] as $option) {
-					$options->addOption(new $option());
-				}
+                foreach ($container['app.php.option.finder'] as $option) {
+                    $options->addOption(new $option());
+                }
 
-				return $options;
-			}
-		);
+                return $options;
+            }
+        );
 
         $this->container['app.php.option.resolver'] = $this->container->share(
             function(\Pimple $container) {
@@ -283,8 +284,9 @@ class PhpSwitch implements Runnable
         );
 
         $this->container['app.php.finder'] = $this->container->share(
-            function() {
-                return new PHP\Finder(
+            function(\Pimple $container) {
+                return new PHP\CachingFinder(
+                    $container['parameters']['app.workspace.cache.path'],
                     array(
                         'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
                         'http://php.net/downloads.php' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
@@ -296,15 +298,24 @@ class PhpSwitch implements Runnable
             }
         );
 
-		$this->container['app.php.template.builder'] = $this->container->share(
-			function(\Pimple $container) {
-				return new \jubianchi\PhpSwitch\Console\Template\Builder(
-					$container['app.php.option.resolver'],
-					$container['app.php.option.normalizer'],
-					$container['app.config']
-				);
-			}
-		);
+        $this->container['app.php.finder.cached'] = $this->container->share(
+            function(\Pimple $container) {
+                return new PHP\CachedFinder(
+                    $container['app.php.finder'],
+                    $container['parameters']['app.workspace.cache.path']
+                );
+            }
+        );
+
+        $this->container['app.php.template.builder'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Console\Template\Builder(
+                    $container['app.php.option.resolver'],
+                    $container['app.php.option.normalizer'],
+                    $container['app.config']
+                );
+            }
+        );
 
         return $this;
     }
