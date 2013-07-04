@@ -99,6 +99,8 @@ class Version
     /**
      * @param string $version
      *
+     * @throws \InvalidArgumentException
+     *
      * @return \jubianchi\PhpSwitch\PHP\Version
      */
     public function setVersion($version)

@@ -49,7 +49,8 @@ class UninstallCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $version = $input->getArgument('version');
-        if ($version === $this->getConfiguration()->get('version', false)) {
+
+        if ($this->getConfiguration()->get('enabled') &&  $version === $this->getConfiguration()->get('version', false)) {
             throw new \InvalidArgumentException('Cannot uninstall current php version');
         }
 

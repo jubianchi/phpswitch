@@ -57,9 +57,9 @@ Feature: php:switch
       And I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch on"
      Then I should see output matching
         """
-        PHP 5\.[0-9a-zA-Z\-\.]*.* \(cli\) \(built: .*\)
+        Version phpswitch-5\.[0-9a-zA-Z\-\.]*.* is not installed
         """
-      And The command should exit with success status
+      And The command should exit with failure status
     Given I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch off"
      Then I should see output matching
         """

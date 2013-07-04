@@ -52,7 +52,7 @@ phpswitch_switchoff() {
     export PATH=$_PHPSWITCH_ORIG_PATH
 
     /usr/bin/env php -ddisplay_errors=stderr \
-        {{ path }}/bin/phpswitch php:switch off 2> /dev/null
+        {{ path }}/bin/phpswitch php:switch off $1 2> /dev/null
 }
 
 phpswitch_switchon() {
@@ -63,11 +63,12 @@ phpswitch_switchon() {
     then
         /usr/bin/env php \
             {{ path }}/bin/phpswitch php:switch $1 $2
-        STATUS=$?
     else
         /usr/bin/env php \
-            {{ path }}/bin/phpswitch php:switch on
+            {{ path }}/bin/phpswitch php:switch on $2
     fi
+
+    STATUS=$?
 
     VERSION=$(/usr/bin/env php -ddisplay_errors=stderr \
         {{ path }}/bin/phpswitch php:current 2> /dev/null)
@@ -118,7 +119,8 @@ php() {
         switch)
             if [ "$2" = "off" ]
             then
-                phpswitch_switchoff
+                shift 2
+                phpswitch_switchoff $@
             else
                 shift 1
                 phpswitch_switchon $@
@@ -138,16 +140,19 @@ phpswitch_dir() {
     VERSION=$(/usr/bin/env php -ddisplay_errors=stderr \
         {{ path }}/bin/phpswitch php:current 2> /dev/null)
 
-    if [ ! $? -eq 0 ]
+    if [[ ! $? -eq 0 && $ASK -eq 0 ]]
     then
-        phpswitch_switchon on
+        phpswitch_switchon on --local
+
+        if [ ! $? -eq 0 ]
+        then
+            export ASK=1
+        fi
     fi
 
-    [ "$_PHPSWITCH_CURRENT_VERSION" = "$VERSION" ] && return
-
-    if [ $? ] && [ ! -z "$VERSION" ]
+    if [ -n "$VERSION" ]
     then
-        phpswitch_switchon $VERSION 1 > /dev/null 2>&1
+        phpswitch_switchon $VERSION --local > /dev/null 2>&1
     else
         phpswitch_switchoff 1 > /dev/null 2>&1
     fi
@@ -158,3 +163,4 @@ if [ $(echo $SHELL | grep zsh) ]
 then
     precmd_functions=($precmd_functions phpswitch_dir)
 fi
+export ASK=0

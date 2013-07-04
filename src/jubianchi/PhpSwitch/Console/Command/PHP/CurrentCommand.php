@@ -23,30 +23,30 @@ class CurrentCommand extends Command
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-	 * @throws \InvalidArgumentException
-	 *
+     * @throws \InvalidArgumentException
+     *
      * @return int
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
         parent::execute($input, $output);
 
-		if ($this->getConfiguration()->get('enabled')) {
-			try {
-				$version = $this->getConfiguration()->get('version');
-			} catch (\InvalidArgumentException $exception) {
-				return $exception->getCode();
-			}
+        if ($this->getConfiguration()->get('enabled')) {
+            try {
+                $version = $this->getConfiguration()->get('version');
+            } catch (\InvalidArgumentException $exception) {
+                return $exception->getCode();
+            }
 
-			$version = Version::fromString($version);
+            $version = Version::fromString($version);
 
-			if (true === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
-				$output->writeln((string) $version);
-			} else {
-				return 1;
-			}
-		}
+            if (true === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
+                $output->writeln((string) $version);
 
-        return 0;
+                return 0;
+            }
+        }
+
+        return 1;
     }
 }

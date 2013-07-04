@@ -124,6 +124,8 @@ class Configuration implements \IteratorAggregate
     }
 
     /**
+     * @param int $type
+     *
      * @throws \RuntimeException
      *
      * @return \jubianchi\PhpSwitch\Config\Configuration

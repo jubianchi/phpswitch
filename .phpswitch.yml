@@ -1,8 +1,35 @@
 phpswitch:
   version: phpswitch-5.3.21
+  enabled: true
+  mirror: fr2.php.net
   versions:
+    def_5_3_21:
+      options: '--enable-libxml --disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --with-curl=/usr --with-libedit'
+      config:
+        date.timezone: Europe/Paris
+    php_5_3_21:
+      options: '--enable-libxml --disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --with-curl=/usr --with-libedit --enable-mbstring --enable-posix --enable-session'
+      config:
+        date.timezone: Europe/Paris
+    phpp_5_3_21:
+      options: '--enable-libxml --disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --with-curl=/usr --with-libedit'
+      config:
+        date.timezone: Europe/Paris
+    phppp_5_3_21:
+      options: '--enable-libxml --disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --with-curl=/usr --with-libedit'
+      config:
+        date.timezone: Europe/Paris
     phpswitch_5_3_21:
       options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session'
       config:
         date.timezone: Europe/Paris
         phar.readonly: Off
+    php_5_4_11:
+      options: '--enable-libxml --disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-simplexml --enable-xml --enable-tokenizer --with-xsl --enable-hash --enable-posix --enable-session'
+      config: {  }
+    php_5_5_0:
+      options: '--enable-libxml --disable-all --enable-cli --enable-phar --enable-hash --enable-json --enable-xml --enable-session --enable-tokenizer --enable-posix --enable-dom --enable-mbstring --enable-ctype --enable-simplexml --with-xsl --enable-pcntl --with-curl=/usr --with-libedit'
+      config: {  }
+    php_5_4_4:
+      options: '--enable-libxml --disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-simplexml --enable-xml --enable-tokenizer --with-xsl'
+      config: {  }

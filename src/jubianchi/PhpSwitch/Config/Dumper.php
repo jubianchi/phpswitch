@@ -37,9 +37,7 @@ class Dumper
      */
     public function dump($name, Configuration $configuration, $directory = null)
     {
-
         $path = $this->directories[$directory ?: self::GLOBAL_DIR] . DIRECTORY_SEPARATOR . $name;
-
         file_put_contents(
             $path,
             Yaml::dump(array(Configuration::ROOT => $configuration->getValues()), 5, 2)

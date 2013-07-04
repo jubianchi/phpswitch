@@ -10,6 +10,7 @@
 
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
+use jubianchi\PhpSwitch\Config\Dumper;
 use jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,6 +35,8 @@ class InstallCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
+            ->addOption('local', 'l', InputOption::VALUE_NONE, 'Switch PHP version locally')
+            ->addOption('global', 'g', InputOption::VALUE_NONE, 'Switch PHP version globaly')
             ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Use the same configuration as an existing version')
             ->addOption('jobs', 'j', InputOption::VALUE_REQUIRED, 'Number of jobs to run simultaneously')
@@ -57,7 +60,7 @@ class InstallCommand extends Command
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @throws \InvalidArgumentException
+     * @throws \jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException
      *
      * @return int|void
      */
@@ -103,7 +106,7 @@ class InstallCommand extends Command
                     'config' => $template->getConfigs()
                 )
             )
-            ->dump()
+            ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
         ;
 
         return 0;

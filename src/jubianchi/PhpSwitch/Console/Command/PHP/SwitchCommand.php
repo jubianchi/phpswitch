@@ -54,42 +54,45 @@ class SwitchCommand extends Command
         $version = $input->getArgument('version');
 
         if (null !== $version) {
-			if ('off' === $version) {
-				$this->getConfiguration()
-					->set('enabled', false)
-					->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
-				;
+            if ('off' === $version) {
+                $this->getConfiguration()
+                    ->set('enabled', false)
+                    ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
+                ;
 
-				$version = null;
-			} else {
-				try {
-					$version = Version::fromString($version === 'on' ? $this->getConfiguration()->get('version') : $version);
-				} catch(\InvalidArgumentException $exception) {
-					return 0;
-				}
+                $version = null;
+            } else {
+                try {
+                    $version = Version::fromString($version === 'on' ? $this->getConfiguration()->get('version') : $version);
+                } catch(\InvalidArgumentException $exception) {
+                    return 0;
+                }
 
-				if (null !== $version && false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
-					$confirm = false;
+                if (null !== $version && false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
+                    $confirm = false;
 
-					if($input->isInteractive()) {
-						$confirm = $this->getHelper('dialog')->askConfirmation($output, sprintf('PHP version <info>%s</info> is not installed. Do you want to install it ? ', $version));
-					}
+                    if($input->isInteractive()) {
+                        $confirm = $this->getHelper('dialog')->askConfirmation($output, sprintf('PHP version <info>%s</info> is not installed. Do you want to install it ? ', $version));
+                    }
 
-					if (false === $confirm) {
-						throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
-					}
+                    if (false === $confirm) {
+                        throw new \InvalidArgumentException(sprintf('Version %s is not installed', $version));
+                    }
 
-					$args = new \Symfony\Component\Console\Input\ArrayInput(array(
-						'command' => InstallCommand::NAME,
-						'version' => $version->getVersion(),
-						'--config' => (string) $version,
-						'--alias' => $version->getName()
-					));
-					$install = new InstallCommand();
-					$install->setApplication($this->getApplication());
-					$install->run($args, $output);
-				}
-			}
+                    $args = new \Symfony\Component\Console\Input\ArrayInput(array(
+                        'command' => InstallCommand::NAME,
+                        'version' => $version->getVersion(),
+                        '--config' => (string) $version,
+                        '--alias' => $version->getName(),
+                        '--local' => $input->getOption('local')
+                    ));
+
+                    $install = new InstallCommand();
+                    $install->setApplication($this->getApplication());
+
+                    $install->run($args, $output);
+                }
+            }
         } else {
             $this->restoreSystemModule($output);
         }
@@ -104,7 +107,7 @@ class SwitchCommand extends Command
 
         $this->getConfiguration()
             ->set('version', (string) $version)
-			->set('enabled', true)
+            ->set('enabled', $version !== null)
             ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
         ;
 
