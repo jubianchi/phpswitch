@@ -14,69 +14,65 @@ use Symfony\Component\Yaml\Yaml;
 
 class Loader
 {
-    const DIRECTORY_LOCAL = 0;
-    const DIRECTORY_BUBBLE = 1;
-
-    /** @var string */
-    private $directories;
-
     /** @var \jubianchi\PhpSwitch\Config\Validator */
     private $validator;
 
+    /** @var string */
+    protected $name;
+
     /**
-     * @param array                                 $directories
+     * @param string                                $name
      * @param \jubianchi\PhpSwitch\Config\Validator $validator
      */
-    public function __construct(array $directories, Validator $validator)
+    public function __construct($name, Validator $validator)
     {
-        $this->directories = $directories;
+        $this->name = $name;
         $this->validator = $validator;
     }
 
     /**
-     * @param array                                     $directories
-     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
-     * @param \jubianchi\PhpSwitch\Config\Dumper        $dumper
+     * @param string                             $directory
+     * @param \jubianchi\PhpSwitch\Config\Dumper $dumper
+     * @param bool                               $bubble
+     * @param array                              $exclude
      *
      * @return \jubianchi\PhpSwitch\Config\Configuration
      */
-    public function load($name, Configuration $configuration, Dumper $dumper)
+    public function load($directory, Dumper $dumper, $bubble = false, array $exclude = array())
     {
         $values = array();
-        foreach ($this->directories as $directory => $type) {
-            if (is_numeric($directory)) {
-                $directory = $type;
-                $type = self::DIRECTORY_LOCAL;
-            }
+        if (false === $bubble) {
+            $directory = array($directory);
+        } else {
+            preg_match('/^(?:(?P<protocol>[a-z]+\:\/\/))?(?P<path>.*)$/', $directory, $matches);
 
-            if ($type === self::DIRECTORY_LOCAL) {
-                $directory = array($directory);
-            } else {
-                preg_match('/^(?:(?P<protocol>[a-z]+\:\/\/))?(?P<path>.*)$/', $directory, $matches);
+            $parts = explode(DIRECTORY_SEPARATOR, $matches['path']);
+            $basedir = isset($matches['protocol']) ? $matches['protocol'] : '';
+            $directory = array();
+            foreach ($parts as $part) {
+                $dirpath = $basedir . $part;
 
-                $parts = explode(DIRECTORY_SEPARATOR, $matches['path']);
-                $basedir = isset($matches['protocol']) ? $matches['protocol'] : '';
-                $directory = array();
-                foreach ($parts as $part) {
-                    $directory[] = $basedir . $part;
-
-                    $basedir = $basedir . $part . DIRECTORY_SEPARATOR;
+                if(false === in_array($dirpath, $exclude)) {
+                    $directory[] = $dirpath;
                 }
-                unset($part);
-            }
 
-            foreach ($directory as $dir) {
-                $path = $dir . DIRECTORY_SEPARATOR . $name;
-
-                if (is_file($path)) {
-                    $config = $this->parse($path) ?: array();
-
-                    $values = array_replace_recursive($values, $config);
-                }
+                $basedir = $dirpath . DIRECTORY_SEPARATOR;
             }
         }
 
+        foreach ($directory as $dir) {
+            $path = $dir . DIRECTORY_SEPARATOR . $this->name;
+
+            if (is_file($path)) {
+                $config = $this->parse($path) ?: array();
+
+                $values = array_replace_recursive($values, $config);
+            }
+        }
+
+        $configuration = new Configuration();
         $values = $this->validator->validate($values);
+        $configuration->setPath($path);
         $configuration->setValues($values);
         $configuration->setDumper($dumper);
 

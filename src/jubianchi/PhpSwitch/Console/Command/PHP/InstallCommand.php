@@ -35,7 +35,6 @@ class InstallCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
-            ->addOption('local', 'l', InputOption::VALUE_NONE, 'Switch PHP version locally')
             ->addOption('global', 'g', InputOption::VALUE_NONE, 'Switch PHP version globaly')
             ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Use the same configuration as an existing version')
@@ -104,9 +103,9 @@ class InstallCommand extends Command
                 array(
                     'options' => (string) $template->getOptions(),
                     'config' => $template->getConfigs()
-                )
+                ),
+                !$input->getOption('global')
             )
-            ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
         ;
 
         return 0;

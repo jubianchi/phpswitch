@@ -16,10 +16,10 @@ class Dumper extends atoum\test
             ->if($file = file::getSubStream($directory, $name = uniqid()))
             ->and($file->isWritable(true))
             ->and($directory->readdir[1] = $file)
-            ->and($object = new TestedClass(array(TestedClass::GLOBAL_DIR => $directory)))
+            ->and($object = new TestedClass())
             ->and($configuration = new \mock\jubianchi\PhpSwitch\Config\Configuration())
             ->then
-                ->object($object->dump($name, $configuration))
+                ->object($object->dump((string) $file, $configuration))
                 ->adapter($file)
                     ->call('stream_write')->withArguments("phpswitch: {  }\n")->once()
             ->if($values = array(
@@ -30,7 +30,7 @@ class Dumper extends atoum\test
             ))
             ->and($configuration->setValues($values))
             ->then
-                ->object($object->dump($name, $configuration))
+                ->object($object->dump((string) $file, $configuration))
                 ->adapter($file)
                     ->call('stream_write')->withArguments("phpswitch:\n  $key: $value\n  $otherKey:\n    $subKey: $subValue\n")->once()
         ;

@@ -32,7 +32,6 @@ class SwitchCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)')
-            ->addOption('local', 'l', InputOption::VALUE_NONE, 'Switch PHP version locally')
             ->addOption('global', 'g', InputOption::VALUE_NONE, 'Switch PHP version globaly')
             ->addOption('apache2', 'a', InputOption::VALUE_NONE)
         ;
@@ -55,10 +54,7 @@ class SwitchCommand extends Command
 
         if (null !== $version) {
             if ('off' === $version) {
-                $this->getConfiguration()
-                    ->set('enabled', false)
-                    ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
-                ;
+                $this->getConfiguration()->set('enabled', false, !$input->getOption('global'));
 
                 $version = null;
             } else {
@@ -84,7 +80,7 @@ class SwitchCommand extends Command
                         'version' => $version->getVersion(),
                         '--config' => (string) $version,
                         '--alias' => $version->getName(),
-                        '--local' => $input->getOption('local')
+                        '--global' => $input->getOption('global')
                     ));
 
                     $install = new InstallCommand();
@@ -105,11 +101,13 @@ class SwitchCommand extends Command
             $this->switchModule($output, $version);
         }
 
-        $this->getConfiguration()
-            ->set('version', (string) $version)
-            ->set('enabled', $version !== null)
-            ->dump($input->getOption('local') ? Dumper::LOCAL_DIR : Dumper::GLOBAL_DIR)
-        ;
+        if($version !== null) {
+            $this->getConfiguration()
+                ->set('version', (string) $version, !$input->getOption('global'))
+            ;
+        }
+
+        $this->getConfiguration()->set('enabled', $version !== null, !$input->getOption('global'));
 
         $output->writeln(sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'));
 

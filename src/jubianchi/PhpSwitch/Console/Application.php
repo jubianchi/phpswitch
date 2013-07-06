@@ -14,11 +14,11 @@ use Symfony\Component\Console\Application as BaseApplication;
 use jubianchi\PhpSwitch\PHP\Builder;
 use jubianchi\PhpSwitch\PHP\Extracter;
 use jubianchi\PhpSwitch\PHP\Downloader;
-use jubianchi\PhpSwitch\Config\Configuration;
+use jubianchi\PhpSwitch\Console\Application\Configuration;
 
 class Application extends BaseApplication
 {
-    /** @var \jubianchi\PhpSwitch\Config\Configuration */
+    /** @var \jubianchi\PhpSwitch\Console\Application\Configuration */
     private $configuration;
 
     /** @var \Pimple */
@@ -34,7 +34,7 @@ class Application extends BaseApplication
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+     * @param \jubianchi\PhpSwitch\Console\Application\Configuration $configuration
      *
      * @return \jubianchi\PhpSwitch\Console\Application
      */

@@ -15,37 +15,31 @@ class Loader extends atoum\test
         $this
             ->if($directory = stream::get('directory'))
             ->and($file = file::getSubStream($directory, $name = uniqid()))
-            ->and($configuration = new \mock\jubianchi\PhpSwitch\Config\Configuration())
-            ->and($configuration->getMockController()->getValues = array())
             ->and($validator = new \mock\jubianchi\PhpSwitch\Config\Validator())
             ->and($validator->getMockController()->validate = function($values) { return $values; })
-            ->and($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper(array($directory)))
+            ->and($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
             ->and($dumper->getMockController()->dump = $dumper)
-            ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader(array($directory), $validator))
+            ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader($name, $validator))
             ->then
-                ->object($object->load($name, $configuration, $dumper))->isIdenticalTo($configuration)
+                ->object($configuration = $object->load($directory, $dumper))->isInstanceOf('\\jubianchi\\PhpSwitch\\Config\\Configuration')
             ->if($file->setContents("phpswitch:\n    version: php-5.5.5\n"))
             ->then
-                ->object($object->load($name, $configuration, $dumper))->isIdenticalTo($configuration)
-                ->mock($configuration)
-                    ->call('setValues')->withArguments($validator->validate(array('phpswitch' => array('version' => 'php-5.5.5'))))->once()
+                ->object($otherConfiguration = $object->load($directory, $dumper))
+                    ->isInstanceOf('\\jubianchi\\PhpSwitch\\Config\\Configuration')
+                    ->IsNotIdenticalTo($configuration)
             ->if($otherDirectory = stream::get('otherDirectory'))
             ->and($otherFile = file::getSubStream($otherDirectory, $name))
             ->and($otherFile->setContents("phpswitch:\n    version: php-5.4.4\n    mirror: foobar\n"))
             ->and($otherFile->setContents("phpswitch:\n    version: php-5.4.4\n    mirror: foobar\n"))
-            ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader(array($directory, $otherDirectory), $validator))
+            ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader($name, $validator))
             ->then
-                ->object($object->load($name, $configuration, $dumper))->isIdenticalTo($configuration)
-                ->mock($configuration)
-                    ->call('setValues')->withArguments($validator->validate(array('phpswitch' => array('version' => 'php-5.4.4', 'mirror' => 'foobar'))))->once()
+                ->object($object->load(array($directory, $otherDirectory), $dumper))->isInstanceOf('\\jubianchi\\PhpSwitch\\Config\\Configuration')
             ->if($subDirectory = stream::getSubStream($otherDirectory, 'subDirectory'))
             ->and($thirdFile = file::getSubStream($subDirectory, $name))
             ->and($thirdFile->setContents("phpswitch:\n    version: php-5.4.5\n"))
-            ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader(array($directory, (string) $subDirectory => TestedClass::DIRECTORY_BUBBLE), $validator))
+            ->and($object = new \mock\jubianchi\PhpSwitch\Config\Loader($name, $validator))
             ->then
-                ->object($object->load($name, $configuration, $dumper))->isIdenticalTo($configuration)
-                ->mock($configuration)
-                    ->call('setValues')->withArguments($validator->validate(array('phpswitch' => array('version' => 'php-5.4.5', 'mirror' => 'foobar'))))->once()
+                ->object($object->load($subDirectory, $dumper, true))->isInstanceOf('\\jubianchi\\PhpSwitch\\Config\\Configuration')
         ;
     }
 

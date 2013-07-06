@@ -2,6 +2,7 @@
 namespace tests\units\jubianchi\PhpSwitch\Console;
 
 use mageekguy\atoum;
+use jubianchi\PhpSwitch\Console\Application\Configuration;
 use jubianchi\PhpSwitch\Console\Application as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
@@ -30,7 +31,10 @@ class Application extends atoum\test
     {
         $this
             ->if($object = new TestedClass())
-            ->and($config = new \mock\jubianchi\PhpSwitch\Config\Configuration())
+            ->and($config = new Configuration(
+                new \mock\jubianchi\PhpSwitch\Config\Configuration(),
+                new \mock\jubianchi\PhpSwitch\Config\Configuration()
+            ))
             ->then
                 ->object($object->setConfiguration($config))->isIdenticalTo($object)
                 ->object($object->getConfiguration())->isIdenticalTo($config)

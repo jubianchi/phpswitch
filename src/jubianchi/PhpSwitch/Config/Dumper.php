@@ -17,27 +17,14 @@ class Dumper
     const GLOBAL_DIR = 0;
     const LOCAL_DIR = 1;
 
-    /** @var string[] */
-    private $directories;
-
     /**
-     * @param string[] $directories
-     */
-    public function __construct(array $directories)
-    {
-        $this->directories = $directories;
-    }
-
-    /**
-     * @param string                                    $name
+     * @param string                                    $path
      * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
-     * @param int                                       $directory
      *
      * @return \jubianchi\PhpSwitch\Config\Dumper
      */
-    public function dump($name, Configuration $configuration, $directory = null)
+    public function dump($path, Configuration $configuration)
     {
-        $path = $this->directories[$directory ?: self::GLOBAL_DIR] . DIRECTORY_SEPARATOR . $name;
         file_put_contents(
             $path,
             Yaml::dump(array(Configuration::ROOT => $configuration->getValues()), 5, 2)

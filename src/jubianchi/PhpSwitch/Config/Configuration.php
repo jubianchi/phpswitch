@@ -17,6 +17,9 @@ class Configuration implements \IteratorAggregate
     /** @var string */
     protected $name;
 
+    /** @var string */
+    protected $path;
+
     /** @var array */
     private $configuration = array();
 
@@ -124,19 +127,17 @@ class Configuration implements \IteratorAggregate
     }
 
     /**
-     * @param int $type
-     *
      * @throws \RuntimeException
      *
      * @return \jubianchi\PhpSwitch\Config\Configuration
      */
-    public function dump($type = null)
+    public function dump()
     {
         if (null === $this->dumper) {
             throw new \RuntimeException('No dumper available');
         }
 
-        $this->dumper->dump($this->name, $this, $type);
+        $this->dumper->dump($this->path, $this);
 
         return $this;
     }
@@ -159,5 +160,23 @@ class Configuration implements \IteratorAggregate
     public function getDumper()
     {
         return $this->dumper;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

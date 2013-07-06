@@ -103,12 +103,13 @@ class Configuration extends atoum\test
                     ->isInstanceOf('\\RuntimeException')
                     ->hasMessage('No dumper available')
             ->mockGenerator->shuntParentClassCalls()
-            ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper(array(uniqid())))
+            ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
+            ->and($object->setPath($path = uniqid()))
             ->and($object->setDumper($dumper))
             ->then
                 ->object($object->dump())->isIdenticalTo($object)
                 ->mock($dumper)
-                    ->call('dump')->withArguments('.phpswitch.yml', $object, null)->once()
+                    ->call('dump')->withArguments($path, $object)->once()
         ;
     }
 
@@ -116,7 +117,7 @@ class Configuration extends atoum\test
     {
         $this
             ->if($object = new TestedClass())
-            ->and($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper(array(uniqid())))
+            ->and($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
             ->then
                 ->object($object->setDumper($dumper))->isIdenticalTo($object)
                 ->object($object->getDumper())->isIdenticalTo($dumper)
@@ -129,7 +130,7 @@ class Configuration extends atoum\test
             ->if($object = new TestedClass())
             ->then
                 ->variable($object->getDumper())->isNull()
-            ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper(array(uniqid())))
+            ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
             ->and($object->setDumper($dumper))
             ->then
                 ->object($object->getDumper())->isIdenticalTo($dumper)

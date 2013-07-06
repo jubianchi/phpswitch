@@ -33,7 +33,7 @@ abstract class Command extends BaseCommand
     }
 
     /**
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Console\Application\Configuration
      */
     public function getConfiguration()
     {

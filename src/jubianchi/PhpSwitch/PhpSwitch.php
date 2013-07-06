@@ -10,6 +10,7 @@
 
 namespace jubianchi\PhpSwitch;
 
+use jubianchi\PhpSwitch\Console\Application\Configuration;
 use jubianchi\PhpSwitch\Console\Command\Finder;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -160,21 +161,19 @@ class PhpSwitch implements Runnable
     {
         $this->container['app.config'] = $this->container->share(
             function(\Pimple $container) {
-                return $container['app.config.loader']->load(
-                    $container['parameters']['app.config.name'],
-                    new Config\Configuration(),
-                    $container['app.config.dumper']
-                );
+                $dumper =  $container['app.config.dumper'];
+
+                $global = $container['app.config.loader']->load($container['parameters']['app.user.path'], $dumper);
+                $local = $container['app.config.loader']->load(getcwd(), $dumper, true, array($container['parameters']['app.user.path']));
+
+                return new Configuration($local, $global);
             }
         );
 
         $this->container['app.config.loader'] = $this->container->share(
             function(\Pimple $container) {
                 return new Config\Loader(
-                    array(
-                        $container['parameters']['app.user.path'],
-                        getcwd() => Config\Loader::DIRECTORY_BUBBLE,
-                    ),
+                    $container['parameters']['app.config.name'],
                     $container['app.config.validator']
                 );
             }
@@ -187,13 +186,8 @@ class PhpSwitch implements Runnable
         );
 
         $this->container['app.config.dumper'] = $this->container->share(
-            function(\Pimple $container) {
-                return new Config\Dumper(
-                    array(
-                        Config\Dumper::GLOBAL_DIR => $container['parameters']['app.user.path'],
-                        Config\Dumper::LOCAL_DIR => getcwd(),
-                    )
-                );
+            function() {
+                return new Config\Dumper();
             }
         );
 
