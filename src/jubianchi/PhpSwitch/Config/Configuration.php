@@ -26,9 +26,10 @@ class Configuration implements \IteratorAggregate
     /** @var \jubianchi\PhpSwitch\Config\Dumper */
     private $dumper;
 
-    public function __construct($name = '.phpswitch.yml')
+    public function __construct($name = '.phpswitch.yml', Dumper $dumper = null)
     {
         $this->name = $name;
+        $this->setDumper($dumper ?: new Dumper());
     }
 
     /**
@@ -133,10 +134,6 @@ class Configuration implements \IteratorAggregate
      */
     public function dump()
     {
-        if (null === $this->dumper) {
-            throw new \RuntimeException('No dumper available');
-        }
-
         $this->dumper->dump($this->path, $this);
 
         return $this;

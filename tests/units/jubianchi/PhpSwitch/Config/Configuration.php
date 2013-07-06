@@ -95,15 +95,9 @@ class Configuration extends atoum\test
     public function testDump()
     {
         $this
-            ->if($object = new TestedClass())
-            ->then
-                ->exception(function() use($object) {
-                    $object->dump();
-                })
-                    ->isInstanceOf('\\RuntimeException')
-                    ->hasMessage('No dumper available')
             ->mockGenerator->shuntParentClassCalls()
             ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
+            ->if($object = new TestedClass(uniqid(), $dumper))
             ->and($object->setPath($path = uniqid()))
             ->and($object->setDumper($dumper))
             ->then
@@ -129,7 +123,7 @@ class Configuration extends atoum\test
         $this
             ->if($object = new TestedClass())
             ->then
-                ->variable($object->getDumper())->isNull()
+                ->object($object->getDumper())->isInstanceOf('\\jubianchi\\PhpSwitch\\Config\\Dumper')
             ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
             ->and($object->setDumper($dumper))
             ->then
