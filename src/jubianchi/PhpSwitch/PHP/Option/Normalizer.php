@@ -12,13 +12,13 @@ namespace jubianchi\PhpSwitch\PHP\Option;
 
 class Normalizer
 {
-	/** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
-	protected $options;
+    /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
+    protected $options;
 
-	public function __construct(OptionCollection $options)
-	{
-		$this->options = $options;
-	}
+    public function __construct(OptionCollection $options)
+    {
+        $this->options = $options;
+    }
 
     /**
      * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options

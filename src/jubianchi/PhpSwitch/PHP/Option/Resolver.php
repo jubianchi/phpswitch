@@ -15,13 +15,13 @@ use jubianchi\PhpSwitch\PHP\Option\Option;
 
 class Resolver
 {
-	/** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
-	protected $options;
+    /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection */
+    protected $options;
 
-	public function __construct(OptionCollection $options)
-	{
-		$this->options = $options;
-	}
+    public function __construct(OptionCollection $options)
+    {
+        $this->options = $options;
+    }
 
     /**
      * @param \Symfony\Component\Console\Input\InputInterface  $input

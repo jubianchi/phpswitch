@@ -40,9 +40,7 @@ class Installer extends Emitter
         $this->extracter = $extracter;
         $this->builder = $builder;
 
-        if (null !== $dispatcher) {
-            $this->setDispatcher($dispatcher);
-        }
+        $this->setDispatcher(null === $dispatcher ? new Dispatcher() : $dispatcher);
     }
 
     public function install(Template $template, $mirror, $jobs, InputInterface $input, OutputInterface $output)

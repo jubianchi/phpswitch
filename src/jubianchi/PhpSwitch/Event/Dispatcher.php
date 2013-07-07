@@ -29,6 +29,6 @@ class Dispatcher extends EventDispatcher
             $this->removeListener($event, $handler);
         }
 
-		return $this;
+        return $this;
     }
 }

@@ -27,32 +27,32 @@ class OptionCollection implements OptionInterface, \Countable, \Iterator
         }
     }
 
-	public function setCommand(Command $command)
-	{
-		foreach($this->options as $option) {
-			$option->setCommand($command);
-		}
-
-		return $this;
-	}
-
-    public function addOptions(array $options)
+    public function setCommand(Command $command)
     {
-        foreach ($options as $option) {
-			$this->addOption($option);
-		}
+        foreach($this->options as $option) {
+            $option->setCommand($command);
+        }
 
         return $this;
     }
 
-	public function addOption(Option $option)
-	{
-		if (false === array_key_exists($option->getName(), $this->options)) {
-			$this->options[$option->getName()] = $option;
-		}
+    public function addOptions(array $options)
+    {
+        foreach ($options as $option) {
+            $this->addOption($option);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
+
+    public function addOption(Option $option)
+    {
+        if (false === array_key_exists($option->getName(), $this->options)) {
+            $this->options[$option->getName()] = $option;
+        }
+
+        return $this;
+    }
 
     public function merge(OptionCollection $collection)
     {
@@ -83,28 +83,28 @@ class OptionCollection implements OptionInterface, \Countable, \Iterator
         return implode(' ', $this->options);
     }
 
-	public function current()
-	{
-		return current($this->options);
-	}
+    public function current()
+    {
+        return current($this->options);
+    }
 
-	public function next()
-	{
-		next($this->options);
-	}
+    public function next()
+    {
+        next($this->options);
+    }
 
-	public function key()
-	{
-		return key($this->options);
-	}
+    public function key()
+    {
+        return key($this->options);
+    }
 
-	public function valid()
-	{
-		return $this->key() !== null;
-	}
+    public function valid()
+    {
+        return $this->key() !== null;
+    }
 
-	public function rewind()
-	{
-		reset($this->options);
-	}
+    public function rewind()
+    {
+        reset($this->options);
+    }
 }

@@ -12,6 +12,7 @@ namespace jubianchi\PhpSwitch\Event;
 
 class Subscriber
 {
+    /** @var callable[] */
     protected $handlers = array();
 
     public function getHandlers()

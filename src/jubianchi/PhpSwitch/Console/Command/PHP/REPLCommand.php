@@ -36,9 +36,9 @@ class REPLCommand extends Command
             throw new \RuntimeException('PCNTL extension is not enabled');
         }
 
-		if (false === class_exists('\\Boris\\Boris')) {
-			throw new \RuntimeException('php repl is not available');
-		}
+        if (false === class_exists('\\Boris\\Boris')) {
+            throw new \RuntimeException('php repl is not available');
+        }
 
         $version = $this->getConfiguration()->get('version', phpversion());
         $boris = new \Boris\Boris($output->getFormatter()->format(sprintf('<info>%s →</info> ', $version)));

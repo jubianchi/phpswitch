@@ -3,7 +3,7 @@
 DIR=$(dirname $0)
 PHP="php -d phar.readonly=Off"
 
-$PHP $DIR/atoum --test-all -nccfns Symfony || exit 1
+$PHP $DIR/atoum --test-all -ncc || exit 1
 $PHP $DIR/behat.phar $DIR/../tests/features || exit 1
 
 $PHP bin/phpswitch phar:build

@@ -142,7 +142,7 @@ class Configuration implements \IteratorAggregate
     /**
      * @param \jubianchi\PhpSwitch\Config\Dumper $dumper
      *
-     * @return Configuration
+     * @return \jubianchi\PhpSwitch\Config\Configuration
      */
     public function setDumper(Dumper $dumper)
     {
@@ -161,6 +161,8 @@ class Configuration implements \IteratorAggregate
 
     /**
      * @param string $path
+     *
+     * @return \jubianchi\PhpSwitch\Config\Configuration
      */
     public function setPath($path)
     {

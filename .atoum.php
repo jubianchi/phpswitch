@@ -34,6 +34,12 @@ if (false === is_dir(COVERAGE_DIRECTORY)) {
 
 $coverage = new runner\coverage\html(COVERAGE_TITLE, COVERAGE_DIRECTORY);
 $coverage->setRootUrl(COVERAGE_WEB_PATH);
+$coverage->addSrcDirectory(
+    __DIR__ . '/src/jubianchi',
+    function(\SplFileInfo $file) {
+        return $file->isDir() || $file->getExtension() === 'php';
+    }
+);
 
 $notifier = null;
 if (class_exists(NOTIFIER_CLASS))
@@ -62,4 +68,6 @@ if(colorized())
     $report->addField(new runner\result\logo());
 }
 
+$runner->setBootstrapFile(__DIR__ . '/tests/units/bootstrap.php');
+$script->noCodeCoverageForNamespaces('Symfony');
 $script->addTestAllDirectory(TESTALL_DIRECTORY);

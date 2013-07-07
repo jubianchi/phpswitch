@@ -57,8 +57,8 @@ class Template
         return $this->configs;
     }
 
-	public function getName()
-	{
-		return str_replace('.', '-', $this->version);
-	}
+    public function getName()
+    {
+        return str_replace('.', '-', $this->version);
+    }
 }
