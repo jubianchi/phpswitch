@@ -31,7 +31,7 @@ class CurrentCommand extends Command
     {
         parent::execute($input, $output);
 
-        if ($this->getConfiguration()->get('enabled')) {
+        if ($this->getConfiguration()->get('enabled', true)) {
             try {
                 $version = $this->getConfiguration()->get('version');
             } catch (\InvalidArgumentException $exception) {
