@@ -1,6 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant::Config.run do |config|
     config.vm.box = "php-ci"
     config.vm.box_url = "http://static.jubianchi.fr/boxes/php-ci.box"

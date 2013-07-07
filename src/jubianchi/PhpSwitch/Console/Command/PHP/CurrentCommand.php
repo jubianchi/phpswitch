@@ -35,7 +35,7 @@ class CurrentCommand extends Command
             try {
                 $version = $this->getConfiguration()->get('version');
             } catch (\InvalidArgumentException $exception) {
-                return $exception->getCode();
+                return 255;
             }
 
             $version = Version::fromString($version);

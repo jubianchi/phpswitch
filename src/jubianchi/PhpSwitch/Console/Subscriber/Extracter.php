@@ -17,7 +17,7 @@ use jubianchi\PhpSwitch\Event;
 
 class Extracter extends Event\Subscriber
 {
-    public function __construct(OutputInterface $output, ProgressHelper $progress)
+    public function __construct(OutputInterface $output, ProgressHelper $progress = null)
     {
         $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
         $processCallback = function() use ($progress, $output) {
@@ -32,11 +32,17 @@ class Extracter extends Event\Subscriber
                     sprintf('    <comment>%s</comment>', $event->getArgument('archive'))
                 ));
 
-                $self->startProgress($progress, $output);
+                if(null !== $progress) {
+                    $self->startProgress($progress, $output);
+                }
             })
-            ->handle('extract.progress', $processCallback)
             ->handle('extract.after', $afterCallback)
         ;
+
+
+        if(null !== $progress) {
+            $this->handle('extract.progress', $processCallback);
+        }
     }
 
     public function startProgress(ProgressHelper $progress, OutputInterface $output)

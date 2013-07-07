@@ -3,26 +3,18 @@ use Behat\Gherkin\Node\PyStringNode;
 
 class CLIContext extends BehatAtoumContext
 {
-    private $cwd;
     private $output;
     private $status;
-
-    public function __construct($cwd)
-    {
-        parent::__construct();
-
-        $this->cwd = $cwd;
-    }
 
     /**
      * @Given /^I run \"(?P<command>[^\"]*)\"$/
      */
-    public function iRun($command)
+    public function iRun($command, $cwd = null, $env = null)
     {
         $this->output = null;
         $this->status = -1;
 
-        $process = new \Symfony\Component\Process\Process('bash -c "' . $command . '"', $this->cwd);
+        $process = new \Symfony\Component\Process\Process('bash -c "' . $command . '"', $cwd, $env, null, 3600);
         $process->run(function($type, $buffer) use(& $output) {
             $output .= $buffer;
         });
@@ -50,7 +42,7 @@ class CLIContext extends BehatAtoumContext
 
         $this->assert
             ->string($actual)
-            ->isEqualTo(
+            ->contains(
                 $expected,
                 sprintf(
                     'Expected %s%sGot %s',

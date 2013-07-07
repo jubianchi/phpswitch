@@ -1,12 +1,12 @@
 Feature: php:switch
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch on"
+    Given I run the "php:switch on" command
      Then I should see output matching
         """
         phpswitch is not initialized. Please run init command
         """
       And The command should exit with failure status
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch off"
+      And I run the "php:switch off" command
      Then I should see output matching
         """
         phpswitch is not initialized. Please run init command
@@ -14,8 +14,8 @@ Feature: php:switch
       And The command should exit with failure status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch php-6.6.6"
+    Given I run the "init" command
+      And I run the "php:switch php-6.6.6" command
      Then I should see
         """
 
@@ -35,16 +35,16 @@ Feature: php:switch
       And The command should exit with failure status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
+    Given I run the "init" command
       And The PHP version "php-5.3.15" is installed
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch php-5.3.15"
+      And I run the "php:switch php-5.3.15" command
      Then I should see
         """
         PHP switched to php-5.3.15
 
         """
       And The command should exit with success status
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:switch off"
+    Given I run the "php:switch off" command
      Then I should see
         """
         PHP switched to system default version
@@ -53,14 +53,19 @@ Feature: php:switch
       And The command should exit with success status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch on"
+    Given I run the "init" command
+      And I have the following configuration in "sandbox/.phpswitch.yml":
+        """
+        phpswitch:
+            version: phpswitch-5.3.21
+        """
+      And I run "source ../workspace/.phpswitchrc && php switch on"
      Then I should see output matching
         """
-        Version phpswitch-5\.[0-9a-zA-Z\-\.]*.* is not installed
+        Version phpswitch-5\.3\.21 is not installed
         """
       And The command should exit with failure status
-    Given I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php switch off"
+    Given I run "source ../workspace/.phpswitchrc && php switch off"
      Then I should see output matching
         """
         PHP switched to system default version

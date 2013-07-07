@@ -17,7 +17,7 @@ use jubianchi\PhpSwitch\Event;
 
 class Downloader extends Event\Subscriber
 {
-    public function __construct(OutputInterface $output, ProgressHelper $progress)
+    public function __construct(OutputInterface $output, ProgressHelper $progress = null)
     {
         $afterCallback = function() use ($output) { $output->write(PHP_EOL); };
         $self = $this;
@@ -29,26 +29,31 @@ class Downloader extends Event\Subscriber
                     sprintf('    <comment>%s</comment>', sprintf($event->getArgument('version')->getUrl(), $event->getArgument('mirror')))
                 ));
 
-                if (OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
+                if (null !== $progress && OutputInterface::VERBOSITY_QUIET !== $output->getVerbosity()) {
                     $self->startProgress($progress, $output, 100, '[%bar%] %percent%%');
-                }
-            })
-            ->handle('download.progress', function(GenericEvent $event) use ($progress) {
-                static $previous = 0;
-                static $size = 0;
-
-                if ($size > 0) {
-                    $complete = ceil(($event->getArgument('downloaded') / $size) * 100);
-
-                    $progress->advance($complete - $previous);
-
-                    $previous = $complete;
-                } else {
-                    $size = $event->getArgument('size');
                 }
             })
             ->handle('download.after', $afterCallback)
         ;
+
+        if(null !== $progress) {
+            $this
+                ->handle('download.progress', function(GenericEvent $event) use ($progress) {
+                    static $previous = 0;
+                    static $size = 0;
+
+                    if ($size > 0) {
+                        $complete = ceil(($event->getArgument('downloaded') / $size) * 100);
+
+                        $progress->advance($complete - $previous);
+
+                        $previous = $complete;
+                    } else {
+                        $size = $event->getArgument('size');
+                    }
+                })
+            ;
+        }
     }
 
     public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = '[%bar%]')

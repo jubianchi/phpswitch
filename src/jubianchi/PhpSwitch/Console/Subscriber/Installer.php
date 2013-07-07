@@ -17,7 +17,7 @@ use jubianchi\PhpSwitch\Event;
 
 class Installer extends Event\Subscriber
 {
-    public function __construct(OutputInterface $output, ProgressHelper $progress)
+    public function __construct(OutputInterface $output, ProgressHelper $progress = null)
     {
         $this
             ->handle('install.before', function(GenericEvent $event) use ($output) {

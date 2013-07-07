@@ -28,12 +28,10 @@ class Validator implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('version')
-                    ->defaultValue('')
+                ->scalarNode('version')->defaultNull()->end()
+                ->booleanNode('enabled')
+                    ->defaultValue(true)
                 ->end()
-				->booleanNode('enabled')
-					->defaultValue(true)
-				->end()
                 ->scalarNode('mirror')
                     ->defaultValue(getenv('PHPSWITCH_MIRROR') ?: 'fr2.php.net')
                 ->end()

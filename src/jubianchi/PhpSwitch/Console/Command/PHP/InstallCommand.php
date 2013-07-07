@@ -76,7 +76,7 @@ class InstallCommand extends Command
 
         $template = $this->getApplication()->getService('app.php.template.builder')->build($version, $input);
 
-        $subscriber = new Subscriber\Installer($output, $this->getHelper('progress'));
+        $subscriber = new Subscriber\Installer($output, $input->isInteractive() ? $this->getHelper('progress') : null);
 
         try {
             $this->getInstaller()

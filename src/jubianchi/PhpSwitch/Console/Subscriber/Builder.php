@@ -17,7 +17,7 @@ use jubianchi\PhpSwitch\Event;
 
 class Builder extends Event\Subscriber
 {
-    public function __construct(OutputInterface $output, ProgressHelper $progress)
+    public function __construct(OutputInterface $output, ProgressHelper $progress = null)
     {
         $self = $this;
 
@@ -29,11 +29,18 @@ class Builder extends Event\Subscriber
                     sprintf('    <comment>%s</comment>', $event->getArgument('prefix'))
                 ));
 
-                $self->startProgress($progress, $output);
+                if(null !== $progress) {
+                    $self->startProgress($progress, $output);
+                }
             })
-            ->handle('build.progress', function() use ($progress, $output) { $progress->advance(); })
             ->handle('build.after', function() use ($output) { $output->write(PHP_EOL); })
         ;
+
+        if(null !== $progress) {
+            $this
+                ->handle('build.progress', function() use ($progress, $output) { $progress->advance(); })
+            ;
+        }
     }
 
     public function startProgress(ProgressHelper $progress, OutputInterface $output)

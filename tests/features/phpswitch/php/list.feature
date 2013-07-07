@@ -1,6 +1,6 @@
 Feature: php:list
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:list"
+    Given I run the "php:list" command
      Then I should see output matching
         """
         phpswitch is not initialized. Please run init command
@@ -8,8 +8,8 @@ Feature: php:list
       And The command should exit with failure status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:list"
+    Given I run the "init" command
+      And I run the "php:list" command
      Then I should see output matching
         """
          Available versions
@@ -17,10 +17,11 @@ Feature: php:list
         (?:php-(?:[0-9]\.?)*\s+http:\/\/.*)+
         """
       And The command should exit with success status
+      And The file "workspace/phpswitch.cache" should exist
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:list --available"
+    Given I run the "init" command
+      And I run the "php:list --available" command
      Then I should see output matching
         """
         ^ Available versions
@@ -30,8 +31,8 @@ Feature: php:list
       And The command should exit with success status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch php:list --installed"
+    Given I run the "init" command
+      And I run the "php:list --installed" command
      Then I should see output matching
         """
         ^ Installed versions
@@ -40,8 +41,8 @@ Feature: php:list
       And The command should exit with success status
 
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php list"
+    Given I run the "init" command
+      And I run "source ../workspace/.phpswitchrc && php list"
      Then I should see output matching
         """
         ^ Installed versions

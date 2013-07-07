@@ -1,19 +1,25 @@
 Feature: init
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-     Then I should see
+    Given I run the "init" command
+     Then I should see output matching
         """
-        Directory ../prefix was created
-        Directory ../prefix/downloads was created
-        Directory ../prefix/sources was created
-        Directory ../prefix/installed was created
-        Directory ../prefix/doc was created
-        You should source ../prefix/.phpswitchrc to use phpswitch
+        Directory .*\/workspace was created
+        Directory .*\/workspace\/downloads was created
+        Directory .*\/workspace\/sources was created
+        Directory .*\/workspace\/installed was created
+        Directory .*\/workspace\/doc was created
+        You should source .*\/workspace\/\.phpswitchrc to use phpswitch
 
         """
+     And The directory "workspace" should exist
+     And The directory "workspace/downloads" should exist
+     And The directory "workspace/sources" should exist
+     And The directory "workspace/installed" should exist
+     And The directory "workspace/doc" should exist
+     And The file "workspace/.phpswitchrc" should exist
   Scenario:
-    Given I run "PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home ../../bin/phpswitch init"
-      And I run "source ../prefix/.phpswitchrc && PHPSWITCH_PREFIX=../prefix PHPSWITCH_HOME=../home php -h"
+    Given I run the "init" command
+      And I run "source ../workspace/.phpswitchrc && php -h"
      Then I should see output matching
         """
         phpswitch commands:

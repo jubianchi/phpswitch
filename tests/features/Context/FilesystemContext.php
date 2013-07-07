@@ -1,21 +1,12 @@
 <?php
 class FilesystemContext extends BehatAtoumContext
 {
-    private $root;
-
-    public function __construct($root)
-    {
-        parent::__construct();
-
-        $this->root = $root;
-    }
-
     /**
      * @Then /^The file "(?P<path>[^\"]*)" should exist$/
      */
     public function theFileShouldExist($path)
     {
-        $path = $this->root . DIRECTORY_SEPARATOR . $path;
+        $path = $this->getMainContext()->getSubcontext('phpswitch')->getRoot() . DIRECTORY_SEPARATOR . $path;
 
         $this->assert
             ->boolean(is_file($path))->isTrue()
@@ -27,7 +18,7 @@ class FilesystemContext extends BehatAtoumContext
      */
     public function theDirectoryExists($path)
     {
-        $path = $this->root . DIRECTORY_SEPARATOR . $path;
+        $path = $this->getMainContext()->getSubcontext('phpswitch')->getRoot() . DIRECTORY_SEPARATOR . $path;
 
         $this->assert
             ->boolean(mkdir($path, 0777, true))->isTrue()
@@ -39,7 +30,7 @@ class FilesystemContext extends BehatAtoumContext
      */
     public function theDirectoryShouldExist($path)
     {
-        $path = $this->root . DIRECTORY_SEPARATOR . $path;
+        $path = $this->getMainContext()->getSubcontext('phpswitch')->getRoot() . DIRECTORY_SEPARATOR . $path;
 
         $this->assert
             ->boolean(is_dir($path))->isTrue()
