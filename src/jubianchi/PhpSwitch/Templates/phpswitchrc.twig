@@ -142,7 +142,7 @@ phpswitch_dir() {
 
     if [[ ! $? -eq 0 && $ASK -eq 0 ]]
     then
-        phpswitch_switchon on --local
+        phpswitch_switchon on
 
         if [ ! $? -eq 0 ]
         then
@@ -152,7 +152,7 @@ phpswitch_dir() {
 
     if [ -n "$VERSION" ]
     then
-        phpswitch_switchon $VERSION --local > /dev/null 2>&1
+        phpswitch_switchon $VERSION > /dev/null 2>&1
     else
         phpswitch_switchoff 1 > /dev/null 2>&1
     fi

@@ -11,6 +11,15 @@ class CLIContext extends BehatAtoumContext
      */
     public function iRun($command, $cwd = null, $env = null)
     {
+        exec('env', $envout);
+        foreach($envout as & $line) {
+            $line = preg_replace('/=(.*)$/', '="$1"', $line);
+        }
+        $env = array_merge(
+            parse_ini_string(implode(PHP_EOL, $envout)),
+            $env ?: array()
+        );
+
         $this->output = null;
         $this->status = -1;
 

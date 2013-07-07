@@ -88,7 +88,7 @@ class PhpSwitchContext extends CLIContext
             sprintf(__DIR__ . '/../../../bin/installer %s', $command),
             static::$sandbox,
             array(
-                'HOME' => static::$home,
+                'PHPSWITCH_GIT_URL' => realpath(__DIR__ . '/../../..'),
                 'COMPOSER_HOME' => getenv('HOME') . DIRECTORY_SEPARATOR . '.composer',
                 'PHPSWITCH_PATH' => static::$workspace,
                 'PHPSWITCH_SYMLINK' => static::$root,
@@ -104,7 +104,7 @@ class PhpSwitchContext extends CLIContext
         $this->iRun(
             sprintf(__DIR__ . '/../../../bin/installer %s', $command),
             static::$sandbox,
-            parse_ini_string($env)
+            array_merge(array('PATH' => getenv('PATH')), parse_ini_string($env))
         );
     }
 

@@ -57,5 +57,5 @@ Feature: Check
         >>>> PHPSWITCH_PATH=\/an\/allowed\/path .\/installer or curl https:\/\/raw\.github\.com\/jubianchi\/phpswitch\/master\/bin\/installer \| PHPSWITCH_PATH=\/an\/allowed\/path php
         >>>> or
         >>>> php \-dopen_basedir= \.\/installer or curl https:\/\/raw\.github\.com\/jubianchi\/phpswitch\/master\/bin\/installer \| php \-dopen_basedir=
-        >>> You don't have required permissions on .*?
+        >>> You (?:don't |)have required permissions on .*?
         """
