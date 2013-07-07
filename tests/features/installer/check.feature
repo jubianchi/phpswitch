@@ -1,6 +1,6 @@
 Feature: Check
   Scenario: Default PHP config (no php.ini)
-    Given I run "PHPSWITCH_PATH=/tmp/phpswitch PHPSWITCH_SYMLINK=/tmp php -n ../../bin/installer --check"
+    Given I run the installer "--check" command
      Then I should see output matching
         """
         > phpswitch installer
@@ -9,11 +9,15 @@ Feature: Check
         >>> cURL extension is (?:not )?enabled
         >>> PCNTL extension is (?:not )?enabled
         >>> readline extension is (?:not )?enabled
-        >>> You have required permissions on \/tmp
+        >>> You have required permissions on .*?
         """
 
   Scenario: Two differents target directories (no php.ini)
-    Given I run "PHPSWITCH_PATH=/opt/phpswitch PHPSWITCH_SYMLINK=/bin php -n ../../bin/installer --check"
+    Given I run the installer "--check" command with env:
+        """
+        PHPSWITCH_PATH=/opt/phpswitch
+        PHPSWITCH_SYMLINK=/bin
+        """
      Then I should see output matching
         """
         > phpswitch installer
@@ -26,7 +30,7 @@ Feature: Check
         """
 
   Scenario: Global install (no php.ini)
-    Given I run "php -n ../../bin/installer --check --global"
+    Given I run the installer "--check --global" command without env
      Then I should see output matching
         """
         > phpswitch installer
@@ -39,8 +43,8 @@ Feature: Check
         """
 
   Scenario: open_basedir restriction (no php.ini)
-    Given I run "php -n -dopen_basedir=/tmp ../../bin/installer --check --global"
-     Then I should see output matching
+    Given I run the installer "--check --global" command with PHP options "-n -dopen_basedir=/tmp"
+    Then I should see output matching
         """
         > phpswitch installer
         >> Checking requirements\.\.\.
@@ -53,5 +57,5 @@ Feature: Check
         >>>> PHPSWITCH_PATH=\/an\/allowed\/path .\/installer or curl https:\/\/raw\.github\.com\/jubianchi\/phpswitch\/master\/bin\/installer \| PHPSWITCH_PATH=\/an\/allowed\/path php
         >>>> or
         >>>> php \-dopen_basedir= \.\/installer or curl https:\/\/raw\.github\.com\/jubianchi\/phpswitch\/master\/bin\/installer \| php \-dopen_basedir=
-        >>> You don't have required permissions on \/usr\/local\/bin, \/usr\/share
+        >>> You don't have required permissions on .*?
         """

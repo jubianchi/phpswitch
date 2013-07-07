@@ -65,7 +65,7 @@ class PhpSwitchContext extends CLIContext
     /**
      * @Given /^I run \"(?P<command>[^\"]*)\" without env$/
      */
-    public function iRunWithoutEnv($command, $cwd = null, $env = null)
+    public function iRunWithoutEnv($command, $cwd = null)
     {
         parent::iRun($command, $cwd ?: static::$sandbox);
     }
@@ -77,6 +77,58 @@ class PhpSwitchContext extends CLIContext
     public function iRunTheCommand($command)
     {
         $this->iRun(sprintf(__DIR__ . '/../../../bin/phpswitch %s', $command));
+    }
+
+    /**
+     * @Given /^I run the installer \"(?P<command>[^\"]*)\" command$/
+     */
+    public function iRunTheInstallerCommand($command)
+    {
+        $this->iRun(
+            sprintf(__DIR__ . '/../../../bin/installer %s', $command),
+            static::$sandbox,
+            array(
+                'HOME' => static::$home,
+                'COMPOSER_HOME' => getenv('HOME') . DIRECTORY_SEPARATOR . '.composer',
+                'PHPSWITCH_PATH' => static::$workspace,
+                'PHPSWITCH_SYMLINK' => static::$root,
+            )
+        );
+    }
+
+    /**
+     * @Given /^I run the installer \"(?P<command>[^\"]*)\" command with env:$/
+     */
+    public function iRunTheInstallerCommandWithEnv($command, PyStringNode $env)
+    {
+        $this->iRun(
+            sprintf(__DIR__ . '/../../../bin/installer %s', $command),
+            static::$sandbox,
+            parse_ini_string($env)
+        );
+    }
+
+    /**
+     * @Given /^I run the installer \"(?P<command>[^\"]*)\" command with PHP options \"(?P<options>[^\"]*)\"$/
+     */
+    public function iRunTheInstallerCommandWithPhpOptions($command, $options)
+    {
+        $this->iRun(
+            sprintf('php %s ' . __DIR__ . '/../../../bin/installer %s', $options, $command),
+            static::$sandbox,
+            array(
+                'PHPSWITCH_PATH' => static::$workspace,
+                'PHPSWITCH_SYMLINK' => static::$root,
+            )
+        );
+    }
+
+    /**
+     * @Given /^I run the installer \"(?P<command>[^\"]*)\" command without env$/
+     */
+    public function iRunTheInstallerCommandWithoutEnv($command, $cwd = null)
+    {
+        parent::iRun(sprintf(__DIR__ . '/../../../bin/installer %s', $command), $cwd ?: static::$sandbox);
     }
 
     /**

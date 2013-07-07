@@ -1,6 +1,6 @@
 Feature: Usage
   Scenario:
-    Given I run "../../bin/installer --usage"
+    Given I run the installer "--usage" command
      Then I should see
         """
         > phpswitch installer
