@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\PHP\Finder</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\Finder</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getIterator">getIterator</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getVersions">getVersions</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getVersion">getVersion</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="__toString"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\PHP;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>13</td><td><pre>use jubianchi\PhpSwitch\Event\Dispatcher;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>14</td><td><pre>use jubianchi\PhpSwitch\Event\Emitter;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>15</td><td><pre>use Symfony\Component\DomCrawler\Crawler;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>16</td><td><pre>use Symfony\Component\EventDispatcher\Event;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>17</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>18</td><td><pre>class Finder extends Emitter implements \IteratorAggregate
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>19</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>20</td><td><pre>    /** @var \Symfony\Component\DomCrawler\Crawler */
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>21</td><td><pre>    private $crawler;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>22</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>23</td><td><pre>    /** @var \Symfony\Component\DomCrawler\Crawler */
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>24</td><td><pre>    private $sites;
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>25</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>26</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>27</td><td><pre>     * @param array                                      $sites
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>28</td><td><pre>     * @param \Symfony\Component\DomCrawler\Crawler|null $crawler
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>29</td><td><pre>     * @param \jubianchi\PhpSwitch\Event\Dispatcher      $dispatcher
+</pre></td></tr><tr><td class="number"><a name="__toString"></a>30</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    public function __construct(array $sites, Crawler $crawler = null, Dispatcher $dispatcher = null)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>        $this-&gt;sites = $sites;
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>        $this-&gt;crawler = null === $crawler ? new Crawler() : $crawler;
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>        $this-&gt;setDispatcher(null === $dispatcher ? new Dispatcher() : $dispatcher);
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     * @param callable $sort
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     * @return \ArrayIterator|\Traversable
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>43</td><td><pre>    public function getIterator(\Closure $sort = null)
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>44</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>        $items = $this-&gt;getVersions();
+</pre></td></tr><tr class="notCovered"><td class="number">46</td><td><pre>        if($sort !== null) {
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>            usort($items, $sort);
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>49</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>        return new \ArrayIterator($items);
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>51</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>52</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>53</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>54</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Version[]
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>55</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>56</td><td><pre>    protected function getVersions()
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>57</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">58</td><td><pre>        $versions = array();
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>59</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">60</td><td><pre>        foreach ($this-&gt;sites as $url =&gt; $regex) {
+</pre></td></tr><tr class="notCovered"><td class="number">61</td><td><pre>            $this-&gt;crawler-&gt;clear();
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>62</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>            $this-&gt;emit(&#039;fetch.start&#039;, array(&#039;url&#039; =&gt; $url));
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>64</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">65</td><td><pre>            $context = stream_context_create(array(&#039;http&#039; =&gt; array(&#039;timeout&#039; =&gt; 5)));
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>66</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>            if ($content = @file_get_contents($url, false, $context)) {
+</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>                $this-&gt;crawler-&gt;addContent($content);
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>69</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>                $this-&gt;emit(&#039;fetch.parsing&#039;, array(&#039;url&#039; =&gt; $url));
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>71</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>                foreach ($this-&gt;crawler-&gt;filter(&#039;a&#039;) as $elem) {
+</pre></td></tr><tr class="notCovered"><td class="number">73</td><td><pre>                    $value = $elem-&gt;nodeValue;
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>74</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">75</td><td><pre>                    if (false != preg_match($regex, $value, $matches)) {
+</pre></td></tr><tr class="notCovered"><td class="number">76</td><td><pre>                        $href = $elem-&gt;getAttribute(&#039;href&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">77</td><td><pre>                        $url = rtrim($url, &#039;/&#039;);
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>78</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">79</td><td><pre>                        if (false == preg_match(&#039;/^https?:\/\//&#039;, $href)) {
+</pre></td></tr><tr class="notCovered"><td class="number">80</td><td><pre>                            if (0 === strpos($href, &#039;/&#039;)) {
+</pre></td></tr><tr class="notCovered"><td class="number">81</td><td><pre>                                $parts = parse_url($url);
+</pre></td></tr><tr class="notCovered"><td class="number">82</td><td><pre>                                $url = $parts[&#039;scheme&#039;] . &#039;://&#039; . $parts[&#039;host&#039;] . (isset($parts[&#039;port&#039;]) ? &#039;:&#039; . $parts[&#039;port&#039;] : &#039;&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">83</td><td><pre>                            }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>84</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">85</td><td><pre>                            $href = $url . &#039;/&#039; . ltrim($href, &#039;/&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">86</td><td><pre>                        }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>87</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">88</td><td><pre>                        $version = $matches[2];
+</pre></td></tr><tr class="notCovered"><td class="number">89</td><td><pre>                        if (false === array_key_exists($version, $versions)) {
+</pre></td></tr><tr class="notCovered"><td class="number">90</td><td><pre>                            $versions[$version] = new Version($version, $href);
+</pre></td></tr><tr class="notCovered"><td class="number">91</td><td><pre>                        }
+</pre></td></tr><tr class="notCovered"><td class="number">92</td><td><pre>                    }
+</pre></td></tr><tr class="notCovered"><td class="number">93</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>94</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">95</td><td><pre>                $this-&gt;emit(&#039;fetch.end&#039;, array(&#039;url&#039; =&gt; $url));
+</pre></td></tr><tr class="notCovered"><td class="number">96</td><td><pre>            } else {
+</pre></td></tr><tr class="notCovered"><td class="number">97</td><td><pre>                $this-&gt;emit(&#039;fetch.failed&#039;, array(&#039;url&#039; =&gt; $url));
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>98</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">99</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>100</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">101</td><td><pre>        return $versions;
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>102</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>103</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>104</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>105</td><td><pre>     * @param string $name
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>106</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>107</td><td><pre>     * @throws \InvalidArgumentException
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>108</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>109</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Version
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>110</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>111</td><td><pre>    public function getVersion($name)
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>112</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">113</td><td><pre>        $versions = $this-&gt;getVersions();
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>114</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">115</td><td><pre>        if (false === array_key_exists($name, $versions)) {
+</pre></td></tr><tr class="notCovered"><td class="number">116</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;Version %s does not exist&#039;, $name));
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>117</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>118</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">119</td><td><pre>        return $versions[$name];
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>120</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getVersion"></a>121</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

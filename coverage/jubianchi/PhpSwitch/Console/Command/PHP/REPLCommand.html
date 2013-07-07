@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Command\PHP\REPLCommand</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Command\PHP\REPLCommand</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#execute">execute</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="listInstalled"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Command\PHP;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>13</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>14</td><td><pre>use Symfony\Component\Console\Input\InputInterface;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>15</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Command;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>16</td><td><pre>use jubianchi\PhpSwitch\PHP;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>17</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>18</td><td><pre>class REPLCommand extends Command
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>19</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>20</td><td><pre>    const NAME = &#039;php:repl&#039;;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>21</td><td><pre>    const DESC = &#039;Enters PHP REPL&#039;;
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>22</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>23</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>24</td><td><pre>     * @param \Symfony\Component\Console\Input\InputInterface   $input
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>25</td><td><pre>     * @param \Symfony\Component\Console\Output\OutputInterface $output
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>26</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>27</td><td><pre>     * @throws \RuntimeException
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>28</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>29</td><td><pre>     * @return int
+</pre></td></tr><tr><td class="number"><a name="listInstalled"></a>30</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="execute"></a>31</td><td><pre>    protected function execute(InputInterface $input, OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="execute"></a>32</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>        parent::execute($input, $output);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>34</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>        if (false === extension_loaded(&#039;pcntl&#039;)) {
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>            throw new \RuntimeException(&#039;PCNTL extension is not enabled&#039;);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>37</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>38</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">39</td><td><pre>        if (false === class_exists(&#039;\\Boris\\Boris&#039;)) {
+</pre></td></tr><tr class="notCovered"><td class="number">40</td><td><pre>            throw new \RuntimeException(&#039;php repl is not available&#039;);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>41</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>42</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>        $version = $this-&gt;getConfiguration()-&gt;get(&#039;version&#039;, phpversion());
+</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>        $boris = new \Boris\Boris($output-&gt;getFormatter()-&gt;format(sprintf(&#039;&lt;info&gt;%s &rarr;&lt;/info&gt; &#039;, $version)));
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>        $boris-&gt;start();
+</pre></td></tr><tr><td class="number"><a name="execute"></a>46</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>        return 0;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>48</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>49</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

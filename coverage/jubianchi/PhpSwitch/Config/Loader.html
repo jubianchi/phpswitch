@@ -72,85 +72,81 @@
 </pre></td></tr><tr><td class="number"><a name="dump"></a>14</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="dump"></a>15</td><td><pre>class Loader
 </pre></td></tr><tr><td class="number"><a name="dump"></a>16</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="dump"></a>17</td><td><pre>    const DIRECTORY_LOCAL = 0;
-</pre></td></tr><tr><td class="number"><a name="dump"></a>18</td><td><pre>    const DIRECTORY_BUBBLE = 1;
+</pre></td></tr><tr><td class="number"><a name="dump"></a>17</td><td><pre>    /** @var \jubianchi\PhpSwitch\Config\Validator */
+</pre></td></tr><tr><td class="number"><a name="dump"></a>18</td><td><pre>    private $validator;
 </pre></td></tr><tr><td class="number"><a name="dump"></a>19</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="dump"></a>20</td><td><pre>    /** @var string */
-</pre></td></tr><tr><td class="number"><a name="dump"></a>21</td><td><pre>    private $directories;
+</pre></td></tr><tr><td class="number"><a name="dump"></a>21</td><td><pre>    protected $name;
 </pre></td></tr><tr><td class="number"><a name="dump"></a>22</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="dump"></a>23</td><td><pre>    /** @var \jubianchi\PhpSwitch\Config\Validator */
-</pre></td></tr><tr><td class="number"><a name="dump"></a>24</td><td><pre>    private $validator;
-</pre></td></tr><tr><td class="number"><a name="dump"></a>25</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="dump"></a>26</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="dump"></a>27</td><td><pre>     * @param array                                 $directories
-</pre></td></tr><tr><td class="number"><a name="dump"></a>28</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Validator $validator
-</pre></td></tr><tr><td class="number"><a name="dump"></a>29</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>    public function __construct(array $directories, Validator $validator)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">32</td><td><pre>        $this-&gt;directories = $directories;
-</pre></td></tr><tr class="covered"><td class="number">33</td><td><pre>        $this-&gt;validator = $validator;
-</pre></td></tr><tr class="covered"><td class="number">34</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     * @param array                                     $directories
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Dumper        $dumper
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="load"></a>43</td><td><pre>    public function load($name, Configuration $configuration, Dumper $dumper)
-</pre></td></tr><tr><td class="number"><a name="load"></a>44</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>        $values = array();
-</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>        foreach ($this-&gt;directories as $directory =&gt; $type) {
-</pre></td></tr><tr class="covered"><td class="number">47</td><td><pre>            if (is_numeric($directory)) {
-</pre></td></tr><tr class="covered"><td class="number">48</td><td><pre>                $directory = $type;
-</pre></td></tr><tr class="covered"><td class="number">49</td><td><pre>                $type = self::DIRECTORY_LOCAL;
-</pre></td></tr><tr class="covered"><td class="number">50</td><td><pre>            }
-</pre></td></tr><tr><td class="number"><a name="load"></a>51</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">52</td><td><pre>            if ($type === self::DIRECTORY_LOCAL) {
-</pre></td></tr><tr class="covered"><td class="number">53</td><td><pre>                $directory = array($directory);
-</pre></td></tr><tr class="covered"><td class="number">54</td><td><pre>            } else {
-</pre></td></tr><tr class="covered"><td class="number">55</td><td><pre>                preg_match(&#039;/^(?:(?P&lt;protocol&gt;[a-z]+\:\/\/))?(?P&lt;path&gt;.*)$/&#039;, $directory, $matches);
-</pre></td></tr><tr><td class="number"><a name="load"></a>56</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">57</td><td><pre>                $parts = explode(DIRECTORY_SEPARATOR, $matches[&#039;path&#039;]);
-</pre></td></tr><tr class="covered"><td class="number">58</td><td><pre>                $basedir = isset($matches[&#039;protocol&#039;]) ? $matches[&#039;protocol&#039;] : &#039;&#039;;
-</pre></td></tr><tr class="covered"><td class="number">59</td><td><pre>                $directory = array();
-</pre></td></tr><tr class="covered"><td class="number">60</td><td><pre>                foreach ($parts as $part) {
-</pre></td></tr><tr class="covered"><td class="number">61</td><td><pre>                    $directory[] = $basedir . $part;
+</pre></td></tr><tr><td class="number"><a name="dump"></a>23</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="dump"></a>24</td><td><pre>     * @param string                                $name
+</pre></td></tr><tr><td class="number"><a name="dump"></a>25</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Validator $validator
+</pre></td></tr><tr><td class="number"><a name="dump"></a>26</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>    public function __construct($name, Validator $validator)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>28</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">29</td><td><pre>        $this-&gt;name = $name;
+</pre></td></tr><tr class="covered"><td class="number">30</td><td><pre>        $this-&gt;validator = $validator;
+</pre></td></tr><tr class="covered"><td class="number">31</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>     * @param string                             $directory
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Dumper $dumper
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>     * @param bool                               $bubble
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     * @param array                              $exclude
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="load"></a>41</td><td><pre>    public function load($directory, Dumper $dumper, $bubble = false, array $exclude = array())
+</pre></td></tr><tr><td class="number"><a name="load"></a>42</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">43</td><td><pre>        $values = array();
+</pre></td></tr><tr class="covered"><td class="number">44</td><td><pre>        if (false === $bubble) {
+</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>            $directory = array($directory);
+</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>        } else {
+</pre></td></tr><tr class="covered"><td class="number">47</td><td><pre>            preg_match(&#039;/^(?:(?P&lt;protocol&gt;[a-z]+\:\/\/))?(?P&lt;path&gt;.*)$/&#039;, $directory, $matches);
+</pre></td></tr><tr><td class="number"><a name="load"></a>48</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">49</td><td><pre>            $parts = explode(DIRECTORY_SEPARATOR, $matches[&#039;path&#039;]);
+</pre></td></tr><tr class="covered"><td class="number">50</td><td><pre>            $basedir = isset($matches[&#039;protocol&#039;]) ? $matches[&#039;protocol&#039;] : &#039;&#039;;
+</pre></td></tr><tr class="covered"><td class="number">51</td><td><pre>            $directory = array();
+</pre></td></tr><tr class="covered"><td class="number">52</td><td><pre>            foreach ($parts as $part) {
+</pre></td></tr><tr class="covered"><td class="number">53</td><td><pre>                $dirpath = $basedir . $part;
+</pre></td></tr><tr><td class="number"><a name="load"></a>54</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">55</td><td><pre>                if(false === in_array($dirpath, $exclude)) {
+</pre></td></tr><tr class="covered"><td class="number">56</td><td><pre>                    $directory[] = $dirpath;
+</pre></td></tr><tr class="covered"><td class="number">57</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="load"></a>58</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">59</td><td><pre>                $basedir = $dirpath . DIRECTORY_SEPARATOR;
+</pre></td></tr><tr class="covered"><td class="number">60</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="load"></a>61</td><td><pre>        }
 </pre></td></tr><tr><td class="number"><a name="load"></a>62</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">63</td><td><pre>                    $basedir = $basedir . $part . DIRECTORY_SEPARATOR;
-</pre></td></tr><tr class="covered"><td class="number">64</td><td><pre>                }
-</pre></td></tr><tr class="covered"><td class="number">65</td><td><pre>                unset($part);
-</pre></td></tr><tr><td class="number"><a name="load"></a>66</td><td><pre>            }
-</pre></td></tr><tr><td class="number"><a name="load"></a>67</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">68</td><td><pre>            foreach ($directory as $dir) {
-</pre></td></tr><tr class="covered"><td class="number">69</td><td><pre>                $path = $dir . DIRECTORY_SEPARATOR . $name;
-</pre></td></tr><tr><td class="number"><a name="load"></a>70</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">71</td><td><pre>                if (is_file($path)) {
-</pre></td></tr><tr class="covered"><td class="number">72</td><td><pre>                    $config = $this-&gt;parse($path) ?: array();
-</pre></td></tr><tr><td class="number"><a name="load"></a>73</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">74</td><td><pre>                    $values = array_replace_recursive($values, $config);
-</pre></td></tr><tr class="covered"><td class="number">75</td><td><pre>                }
-</pre></td></tr><tr class="covered"><td class="number">76</td><td><pre>            }
-</pre></td></tr><tr class="covered"><td class="number">77</td><td><pre>        }
+</pre></td></tr><tr class="covered"><td class="number">63</td><td><pre>        foreach ($directory as $dir) {
+</pre></td></tr><tr class="covered"><td class="number">64</td><td><pre>            $path = $dir . DIRECTORY_SEPARATOR . $this-&gt;name;
+</pre></td></tr><tr><td class="number"><a name="load"></a>65</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">66</td><td><pre>            if (is_file($path)) {
+</pre></td></tr><tr class="covered"><td class="number">67</td><td><pre>                $config = $this-&gt;parse($path) ?: array();
+</pre></td></tr><tr><td class="number"><a name="load"></a>68</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">69</td><td><pre>                $values = array_replace_recursive($values, $config);
+</pre></td></tr><tr class="covered"><td class="number">70</td><td><pre>            }
+</pre></td></tr><tr class="covered"><td class="number">71</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="load"></a>72</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">73</td><td><pre>        $configuration = new Configuration();
+</pre></td></tr><tr class="covered"><td class="number">74</td><td><pre>        $values = $this-&gt;validator-&gt;validate($values);
+</pre></td></tr><tr class="covered"><td class="number">75</td><td><pre>        $configuration-&gt;setPath($path);
+</pre></td></tr><tr class="covered"><td class="number">76</td><td><pre>        $configuration-&gt;setValues($values);
+</pre></td></tr><tr class="covered"><td class="number">77</td><td><pre>        $configuration-&gt;setDumper($dumper);
 </pre></td></tr><tr><td class="number"><a name="load"></a>78</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">79</td><td><pre>        $values = $this-&gt;validator-&gt;validate($values);
-</pre></td></tr><tr class="covered"><td class="number">80</td><td><pre>        $configuration-&gt;setValues($values);
-</pre></td></tr><tr class="covered"><td class="number">81</td><td><pre>        $configuration-&gt;setDumper($dumper);
-</pre></td></tr><tr><td class="number"><a name="load"></a>82</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">83</td><td><pre>        return $configuration;
-</pre></td></tr><tr><td class="number"><a name="load"></a>84</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="load"></a>85</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="load"></a>86</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="load"></a>87</td><td><pre>     * @param string $path
-</pre></td></tr><tr><td class="number"><a name="load"></a>88</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="load"></a>89</td><td><pre>     * @return array
-</pre></td></tr><tr><td class="number"><a name="load"></a>90</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="parse"></a>91</td><td><pre>    public function parse($path)
-</pre></td></tr><tr><td class="number"><a name="parse"></a>92</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">93</td><td><pre>        return Yaml::parse($path);
-</pre></td></tr><tr><td class="number"><a name="parse"></a>94</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="parse"></a>95</td><td><pre>}
+</pre></td></tr><tr class="covered"><td class="number">79</td><td><pre>        return $configuration;
+</pre></td></tr><tr><td class="number"><a name="load"></a>80</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="load"></a>81</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="load"></a>82</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="load"></a>83</td><td><pre>     * @param string $path
+</pre></td></tr><tr><td class="number"><a name="load"></a>84</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="load"></a>85</td><td><pre>     * @return array
+</pre></td></tr><tr><td class="number"><a name="load"></a>86</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="parse"></a>87</td><td><pre>    public function parse($path)
+</pre></td></tr><tr><td class="number"><a name="parse"></a>88</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">89</td><td><pre>        return Yaml::parse($path);
+</pre></td></tr><tr><td class="number"><a name="parse"></a>90</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="parse"></a>91</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

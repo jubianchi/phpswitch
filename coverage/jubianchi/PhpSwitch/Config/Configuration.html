@@ -10,7 +10,7 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\Config\Configuration</h1>
-			<h2>Class code coverage <span>97.73%</span></h2>
+			<h2>Class code coverage <span>95.56%</span></h2>
 		</div>
 		<div id="page">
 			<div id="content">
@@ -34,8 +34,8 @@
 								
 									<div class="bar">
 										<div class="background"></div>
-										<div class="graph" style="width: 93.75%"></div>
-										<div class="label"><a href="#get">get</a> <span>93.75%</span></div>
+										<div class="graph" style="width: 93.33%"></div>
+										<div class="label"><a href="#get">get</a> <span>93.33%</span></div>
 									</div>
 								
 							</li>
@@ -117,6 +117,28 @@
 								
 							</li>
 						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 100%"></div>
+										<div class="label"><a href="#setPath">setPath</a> <span>100%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getPath">getPath</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
 					
 				</ul>
 				<h3>Source</h3>
@@ -141,124 +163,124 @@
 </pre></td></tr><tr><td class="number">17</td><td><pre>    /** @var string */
 </pre></td></tr><tr><td class="number">18</td><td><pre>    protected $name;
 </pre></td></tr><tr><td class="number">19</td><td><pre>
-</pre></td></tr><tr><td class="number">20</td><td><pre>    /** @var array */
-</pre></td></tr><tr><td class="number">21</td><td><pre>    private $configuration = array();
+</pre></td></tr><tr><td class="number">20</td><td><pre>    /** @var string */
+</pre></td></tr><tr><td class="number">21</td><td><pre>    protected $path;
 </pre></td></tr><tr><td class="number">22</td><td><pre>
-</pre></td></tr><tr><td class="number">23</td><td><pre>    /** @var \jubianchi\PhpSwitch\Config\Dumper */
-</pre></td></tr><tr><td class="number">24</td><td><pre>    private $dumper;
+</pre></td></tr><tr><td class="number">23</td><td><pre>    /** @var array */
+</pre></td></tr><tr><td class="number">24</td><td><pre>    private $configuration = array();
 </pre></td></tr><tr><td class="number">25</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>26</td><td><pre>    public function __construct($name = &#039;.phpswitch.yml&#039;)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">28</td><td><pre>        $this-&gt;name = $name;
-</pre></td></tr><tr class="covered"><td class="number">29</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>     * @param string $offset
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>	 * @param mixed  $default
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>     * @throws \InvalidArgumentException
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     * @return array
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="get"></a>39</td><td><pre>    public function get($offset, $default = null)
-</pre></td></tr><tr><td class="number"><a name="get"></a>40</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">41</td><td><pre>        $offset = str_replace(&#039;-&#039;, &#039;_&#039;, $offset);
-</pre></td></tr><tr class="covered"><td class="number">42</td><td><pre>        $offset = preg_split(&#039;/(?&lt;!\\\)\./&#039;, $offset);
-</pre></td></tr><tr class="covered"><td class="number">43</td><td><pre>        $reference = $this-&gt;configuration;
-</pre></td></tr><tr class="covered"><td class="number">44</td><td><pre>        $current = $sep = &#039;&#039;;
-</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>        foreach ($offset as $key) {
-</pre></td></tr><tr class="covered"><td class="number">47</td><td><pre>            $key = preg_replace(&#039;/\\\\./&#039;, &#039;.&#039;, $key);
-</pre></td></tr><tr class="covered"><td class="number">48</td><td><pre>            $current .= $sep . $key;
+</pre></td></tr><tr><td class="number">26</td><td><pre>    /** @var \jubianchi\PhpSwitch\Config\Dumper */
+</pre></td></tr><tr><td class="number">27</td><td><pre>    private $dumper;
+</pre></td></tr><tr><td class="number">28</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>29</td><td><pre>    public function __construct($name = &#039;.phpswitch.yml&#039;, Dumper $dumper = null)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">31</td><td><pre>        $this-&gt;name = $name;
+</pre></td></tr><tr class="covered"><td class="number">32</td><td><pre>        $this-&gt;setDumper($dumper ?: new Dumper());
+</pre></td></tr><tr class="covered"><td class="number">33</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>     * @param string $offset
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     * @param mixed  $default
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     * @throws \InvalidArgumentException
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     * @return array
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="get"></a>43</td><td><pre>    public function get($offset, $default = null)
+</pre></td></tr><tr><td class="number"><a name="get"></a>44</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>        $offset = str_replace(&#039;-&#039;, &#039;_&#039;, $offset);
+</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>        $offset = preg_split(&#039;/(?&lt;!\\\)\./&#039;, $offset);
+</pre></td></tr><tr class="covered"><td class="number">47</td><td><pre>        $reference = $this-&gt;configuration;
+</pre></td></tr><tr class="covered"><td class="number">48</td><td><pre>        $current = $sep = &#039;&#039;;
 </pre></td></tr><tr><td class="number"><a name="get"></a>49</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">50</td><td><pre>            if (false === array_key_exists($key, $reference) || null === $reference[$key]) {
-</pre></td></tr><tr class="covered"><td class="number">51</td><td><pre>                if (null === $default) {
-</pre></td></tr><tr class="covered"><td class="number">52</td><td><pre>                    throw new \InvalidArgumentException(sprintf(&#039;Offset %s does not exist&#039;, $current));
-</pre></td></tr><tr><td class="number"><a name="get"></a>53</td><td><pre>                } else {
-</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>                    return $default;
-</pre></td></tr><tr><td class="number"><a name="get"></a>55</td><td><pre>                }
-</pre></td></tr><tr><td class="number"><a name="get"></a>56</td><td><pre>            }
-</pre></td></tr><tr><td class="number"><a name="get"></a>57</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">58</td><td><pre>            $reference = &amp; $reference[$key];
-</pre></td></tr><tr><td class="number"><a name="get"></a>59</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">60</td><td><pre>            $sep = &#039;.&#039;;
-</pre></td></tr><tr class="covered"><td class="number">61</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="get"></a>62</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">63</td><td><pre>        return $reference;
-</pre></td></tr><tr><td class="number"><a name="get"></a>64</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="get"></a>65</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="get"></a>66</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="get"></a>67</td><td><pre>     * @param string $offset
-</pre></td></tr><tr><td class="number"><a name="get"></a>68</td><td><pre>     * @param mixed  $value
-</pre></td></tr><tr><td class="number"><a name="get"></a>69</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="get"></a>70</td><td><pre>     * @throws \InvalidArgumentException
-</pre></td></tr><tr><td class="number"><a name="get"></a>71</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="get"></a>72</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
-</pre></td></tr><tr><td class="number"><a name="get"></a>73</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="set"></a>74</td><td><pre>    public function set($offset, $value)
-</pre></td></tr><tr><td class="number"><a name="set"></a>75</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">76</td><td><pre>        $offset = str_replace(&#039;-&#039;, &#039;_&#039;, $offset);
-</pre></td></tr><tr class="covered"><td class="number">77</td><td><pre>        $offset = preg_split(&#039;/(?&lt;!\\\)\./&#039;, $offset);
-</pre></td></tr><tr class="covered"><td class="number">78</td><td><pre>        $reference = &amp; $this-&gt;configuration;
-</pre></td></tr><tr class="covered"><td class="number">79</td><td><pre>        $current = $sep = &#039;&#039;;
-</pre></td></tr><tr><td class="number"><a name="set"></a>80</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">81</td><td><pre>        foreach ($offset as $key) {
-</pre></td></tr><tr class="covered"><td class="number">82</td><td><pre>            $key = preg_replace(&#039;/\\\\./&#039;, &#039;.&#039;, $key);
-</pre></td></tr><tr class="covered"><td class="number">83</td><td><pre>            $current .= $sep . $key;
-</pre></td></tr><tr class="covered"><td class="number">84</td><td><pre>            if (false === isset($reference[$key])) {
-</pre></td></tr><tr class="covered"><td class="number">85</td><td><pre>                $reference[$key] = null;
-</pre></td></tr><tr class="covered"><td class="number">86</td><td><pre>            }
-</pre></td></tr><tr><td class="number"><a name="set"></a>87</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">88</td><td><pre>            $reference = &amp; $reference[$key];
-</pre></td></tr><tr><td class="number"><a name="set"></a>89</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">90</td><td><pre>            $sep = &#039;.&#039;;
-</pre></td></tr><tr class="covered"><td class="number">91</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="set"></a>92</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">93</td><td><pre>        $reference = $value;
-</pre></td></tr><tr><td class="number"><a name="set"></a>94</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">95</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="set"></a>96</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="set"></a>97</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="set"></a>98</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="set"></a>99</td><td><pre>     * @param array $values
-</pre></td></tr><tr><td class="number"><a name="set"></a>100</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="set"></a>101</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
-</pre></td></tr><tr><td class="number"><a name="set"></a>102</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>103</td><td><pre>    public function setValues(array $values)
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>104</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">105</td><td><pre>        $this-&gt;configuration = $values;
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>106</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">107</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>108</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>109</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>110</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>111</td><td><pre>     * @return array
-</pre></td></tr><tr><td class="number"><a name="setValues"></a>112</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>113</td><td><pre>    public function getValues()
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>114</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">115</td><td><pre>        return $this-&gt;configuration;
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>116</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>117</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>118</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>119</td><td><pre>     * @return \RecursiveArrayIterator
-</pre></td></tr><tr><td class="number"><a name="getValues"></a>120</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>121</td><td><pre>    public function getIterator()
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>122</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">123</td><td><pre>    return new \RecursiveArrayIterator($this-&gt;configuration);
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>124</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>125</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>126</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>127</td><td><pre>     * @throws \RuntimeException
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>128</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>129</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
-</pre></td></tr><tr><td class="number"><a name="getIterator"></a>130</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="dump"></a>131</td><td><pre>    public function dump($type = null)
-</pre></td></tr><tr><td class="number"><a name="dump"></a>132</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">133</td><td><pre>        if (null === $this-&gt;dumper) {
-</pre></td></tr><tr class="covered"><td class="number">134</td><td><pre>            throw new \RuntimeException(&#039;No dumper available&#039;);
-</pre></td></tr><tr><td class="number"><a name="dump"></a>135</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="dump"></a>136</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">137</td><td><pre>        $this-&gt;dumper-&gt;dump($this-&gt;name, $this, $type);
+</pre></td></tr><tr class="covered"><td class="number">50</td><td><pre>        foreach ($offset as $key) {
+</pre></td></tr><tr class="covered"><td class="number">51</td><td><pre>            $key = preg_replace(&#039;/\\\\./&#039;, &#039;.&#039;, $key);
+</pre></td></tr><tr class="covered"><td class="number">52</td><td><pre>            $current .= $sep . $key;
+</pre></td></tr><tr><td class="number"><a name="get"></a>53</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">54</td><td><pre>            if (false === array_key_exists($key, $reference) || null === $reference[$key]) {
+</pre></td></tr><tr class="covered"><td class="number">55</td><td><pre>                if (null === $default) {
+</pre></td></tr><tr class="covered"><td class="number">56</td><td><pre>                    throw new \InvalidArgumentException(sprintf(&#039;Offset %s does not exist&#039;, $current));
+</pre></td></tr><tr><td class="number"><a name="get"></a>57</td><td><pre>                } else {
+</pre></td></tr><tr class="notCovered"><td class="number">58</td><td><pre>                    return $default;
+</pre></td></tr><tr><td class="number"><a name="get"></a>59</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="get"></a>60</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="get"></a>61</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">62</td><td><pre>            $reference = &amp; $reference[$key];
+</pre></td></tr><tr><td class="number"><a name="get"></a>63</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">64</td><td><pre>            $sep = &#039;.&#039;;
+</pre></td></tr><tr class="covered"><td class="number">65</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="get"></a>66</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">67</td><td><pre>        return $reference;
+</pre></td></tr><tr><td class="number"><a name="get"></a>68</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="get"></a>69</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="get"></a>70</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="get"></a>71</td><td><pre>     * @param string $offset
+</pre></td></tr><tr><td class="number"><a name="get"></a>72</td><td><pre>     * @param mixed  $value
+</pre></td></tr><tr><td class="number"><a name="get"></a>73</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="get"></a>74</td><td><pre>     * @throws \InvalidArgumentException
+</pre></td></tr><tr><td class="number"><a name="get"></a>75</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="get"></a>76</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
+</pre></td></tr><tr><td class="number"><a name="get"></a>77</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="set"></a>78</td><td><pre>    public function set($offset, $value)
+</pre></td></tr><tr><td class="number"><a name="set"></a>79</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">80</td><td><pre>        $offset = str_replace(&#039;-&#039;, &#039;_&#039;, $offset);
+</pre></td></tr><tr class="covered"><td class="number">81</td><td><pre>        $offset = preg_split(&#039;/(?&lt;!\\\)\./&#039;, $offset);
+</pre></td></tr><tr class="covered"><td class="number">82</td><td><pre>        $reference = &amp; $this-&gt;configuration;
+</pre></td></tr><tr class="covered"><td class="number">83</td><td><pre>        $current = $sep = &#039;&#039;;
+</pre></td></tr><tr><td class="number"><a name="set"></a>84</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">85</td><td><pre>        foreach ($offset as $key) {
+</pre></td></tr><tr class="covered"><td class="number">86</td><td><pre>            $key = preg_replace(&#039;/\\\\./&#039;, &#039;.&#039;, $key);
+</pre></td></tr><tr class="covered"><td class="number">87</td><td><pre>            $current .= $sep . $key;
+</pre></td></tr><tr class="covered"><td class="number">88</td><td><pre>            if (false === isset($reference[$key])) {
+</pre></td></tr><tr class="covered"><td class="number">89</td><td><pre>                $reference[$key] = null;
+</pre></td></tr><tr class="covered"><td class="number">90</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="set"></a>91</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">92</td><td><pre>            $reference = &amp; $reference[$key];
+</pre></td></tr><tr><td class="number"><a name="set"></a>93</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">94</td><td><pre>            $sep = &#039;.&#039;;
+</pre></td></tr><tr class="covered"><td class="number">95</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="set"></a>96</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">97</td><td><pre>        $reference = $value;
+</pre></td></tr><tr><td class="number"><a name="set"></a>98</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">99</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="set"></a>100</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="set"></a>101</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="set"></a>102</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="set"></a>103</td><td><pre>     * @param array $values
+</pre></td></tr><tr><td class="number"><a name="set"></a>104</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="set"></a>105</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
+</pre></td></tr><tr><td class="number"><a name="set"></a>106</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>107</td><td><pre>    public function setValues(array $values)
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>108</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">109</td><td><pre>        $this-&gt;configuration = $values;
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>110</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">111</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>112</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>113</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>114</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>115</td><td><pre>     * @return array
+</pre></td></tr><tr><td class="number"><a name="setValues"></a>116</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>117</td><td><pre>    public function getValues()
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>118</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">119</td><td><pre>        return $this-&gt;configuration;
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>120</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>121</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>122</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>123</td><td><pre>     * @return \RecursiveArrayIterator
+</pre></td></tr><tr><td class="number"><a name="getValues"></a>124</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>125</td><td><pre>    public function getIterator()
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>126</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">127</td><td><pre>    return new \RecursiveArrayIterator($this-&gt;configuration);
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>128</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>129</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>130</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>131</td><td><pre>     * @throws \RuntimeException
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>132</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>133</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
+</pre></td></tr><tr><td class="number"><a name="getIterator"></a>134</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="dump"></a>135</td><td><pre>    public function dump()
+</pre></td></tr><tr><td class="number"><a name="dump"></a>136</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">137</td><td><pre>        $this-&gt;dumper-&gt;dump($this-&gt;path, $this);
 </pre></td></tr><tr><td class="number"><a name="dump"></a>138</td><td><pre>
 </pre></td></tr><tr class="covered"><td class="number">139</td><td><pre>        return $this;
 </pre></td></tr><tr><td class="number"><a name="dump"></a>140</td><td><pre>    }
@@ -266,7 +288,7 @@
 </pre></td></tr><tr><td class="number"><a name="dump"></a>142</td><td><pre>    /**
 </pre></td></tr><tr><td class="number"><a name="dump"></a>143</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Dumper $dumper
 </pre></td></tr><tr><td class="number"><a name="dump"></a>144</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="dump"></a>145</td><td><pre>     * @return Configuration
+</pre></td></tr><tr><td class="number"><a name="dump"></a>145</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
 </pre></td></tr><tr><td class="number"><a name="dump"></a>146</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="setDumper"></a>147</td><td><pre>    public function setDumper(Dumper $dumper)
 </pre></td></tr><tr><td class="number"><a name="setDumper"></a>148</td><td><pre>    {
@@ -282,7 +304,27 @@
 </pre></td></tr><tr><td class="number"><a name="getDumper"></a>158</td><td><pre>    {
 </pre></td></tr><tr class="covered"><td class="number">159</td><td><pre>        return $this-&gt;dumper;
 </pre></td></tr><tr><td class="number"><a name="getDumper"></a>160</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>161</td><td><pre>}
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>161</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>162</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>163</td><td><pre>     * @param string $path
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>164</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>165</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Configuration
+</pre></td></tr><tr><td class="number"><a name="getDumper"></a>166</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>167</td><td><pre>    public function setPath($path)
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>168</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">169</td><td><pre>        $this-&gt;path = $path;
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>170</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">171</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>172</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>173</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>174</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>175</td><td><pre>     * @return string
+</pre></td></tr><tr><td class="number"><a name="setPath"></a>176</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>177</td><td><pre>    public function getPath()
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>178</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">179</td><td><pre>        return $this-&gt;path;
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>180</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>181</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

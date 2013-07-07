@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Phar\Filter\FilterCollection</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../">phpswitch</a>: jubianchi\PhpSwitch\Phar\Filter\FilterCollection</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#add">add</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#apply">apply</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#current">current</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#next">next</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#key">key</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#valid">valid</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#rewind">rewind</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#offsetExists">offsetExists</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#offsetGet">offsetGet</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#offsetSet">offsetSet</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#offsetUnset">offsetUnset</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="__construct"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Phar\Filter;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>13</td><td><pre>use jubianchi\PhpSwitch\Phar;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>14</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>15</td><td><pre>class FilterCollection implements \Iterator, \ArrayAccess
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>16</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>17</td><td><pre>    protected $filters = array();
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>18</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="add"></a>19</td><td><pre>    public function add(Phar\Filter $filter, $offset = null)
+</pre></td></tr><tr><td class="number"><a name="add"></a>20</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">21</td><td><pre>        if (false === in_array($filter, $this-&gt;filters, true)) {
+</pre></td></tr><tr class="notCovered"><td class="number">22</td><td><pre>            $offset = $offset ?: count($this-&gt;filters);
+</pre></td></tr><tr><td class="number"><a name="add"></a>23</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">24</td><td><pre>            $this-&gt;filters[$offset] = $filter;
+</pre></td></tr><tr class="notCovered"><td class="number">25</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="add"></a>26</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">27</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="add"></a>28</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="add"></a>29</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="apply"></a>30</td><td><pre>    public function apply($contents)
+</pre></td></tr><tr><td class="number"><a name="apply"></a>31</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">32</td><td><pre>        if (!function_exists(&#039;token_get_all&#039;)) {
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>            return $contents;
+</pre></td></tr><tr><td class="number"><a name="apply"></a>34</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="apply"></a>35</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>        if (0 === sizeof($tokens = @token_get_all($contents))) {
+</pre></td></tr><tr class="notCovered"><td class="number">37</td><td><pre>            return $contents;
+</pre></td></tr><tr><td class="number"><a name="apply"></a>38</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="apply"></a>39</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">40</td><td><pre>        foreach ($this-&gt;filters as $filter) {
+</pre></td></tr><tr class="notCovered"><td class="number">41</td><td><pre>            $contents = call_user_func_array($filter, array($contents, $tokens));
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="apply"></a>43</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>        return $contents;
+</pre></td></tr><tr><td class="number"><a name="apply"></a>45</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="apply"></a>46</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="current"></a>47</td><td><pre>    public function current()
+</pre></td></tr><tr><td class="number"><a name="current"></a>48</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">49</td><td><pre>        return current($this-&gt;filters);
+</pre></td></tr><tr><td class="number"><a name="current"></a>50</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="current"></a>51</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="next"></a>52</td><td><pre>    public function next()
+</pre></td></tr><tr><td class="number"><a name="next"></a>53</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>        next($this-&gt;filters);
+</pre></td></tr><tr class="notCovered"><td class="number">55</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="next"></a>56</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="key"></a>57</td><td><pre>    public function key()
+</pre></td></tr><tr><td class="number"><a name="key"></a>58</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">59</td><td><pre>        return key($this-&gt;filters);
+</pre></td></tr><tr><td class="number"><a name="key"></a>60</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="key"></a>61</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="valid"></a>62</td><td><pre>    public function valid()
+</pre></td></tr><tr><td class="number"><a name="valid"></a>63</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>        return $this-&gt;key() !== null;
+</pre></td></tr><tr><td class="number"><a name="valid"></a>65</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="valid"></a>66</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="rewind"></a>67</td><td><pre>    public function rewind()
+</pre></td></tr><tr><td class="number"><a name="rewind"></a>68</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">69</td><td><pre>        reset($this-&gt;filters);
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="rewind"></a>71</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="offsetExists"></a>72</td><td><pre>    public function offsetExists($offset)
+</pre></td></tr><tr><td class="number"><a name="offsetExists"></a>73</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">74</td><td><pre>        return array_key_exists($offset, $this-&gt;filters);
+</pre></td></tr><tr><td class="number"><a name="offsetExists"></a>75</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="offsetExists"></a>76</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="offsetGet"></a>77</td><td><pre>    public function offsetGet($offset)
+</pre></td></tr><tr><td class="number"><a name="offsetGet"></a>78</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">79</td><td><pre>        return $this-&gt;filters[$offset];
+</pre></td></tr><tr><td class="number"><a name="offsetGet"></a>80</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="offsetGet"></a>81</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="offsetSet"></a>82</td><td><pre>    public function offsetSet($offset, $value)
+</pre></td></tr><tr><td class="number"><a name="offsetSet"></a>83</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">84</td><td><pre>        $this-&gt;add($value, $offset);
+</pre></td></tr><tr class="notCovered"><td class="number">85</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="offsetSet"></a>86</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="offsetUnset"></a>87</td><td><pre>    public function offsetUnset($offset)
+</pre></td></tr><tr><td class="number"><a name="offsetUnset"></a>88</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">89</td><td><pre>        unset($this-&gt;filters[$offset]);
+</pre></td></tr><tr class="notCovered"><td class="number">90</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="offsetUnset"></a>91</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

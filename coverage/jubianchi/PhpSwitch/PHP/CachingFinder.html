@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\PHP\CachingFinder</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\CachingFinder</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getVersions">getVersions</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="unsubscribe"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\PHP;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>13</td><td><pre>use jubianchi\PhpSwitch\Event\Dispatcher;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>14</td><td><pre>use jubianchi\PhpSwitch\Event\Emitter;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>15</td><td><pre>use jubianchi\PhpSwitch\Event\Subscriber;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>16</td><td><pre>use Symfony\Component\DomCrawler\Crawler;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>17</td><td><pre>use Symfony\Component\EventDispatcher\Event;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>18</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>19</td><td><pre>class CachingFinder extends Finder
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>20</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>21</td><td><pre>    /** @var  string */
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>22</td><td><pre>    private $cache;
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>23</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>24</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>25</td><td><pre>     * @param array                                      $cache
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>26</td><td><pre>     * @param array                                      $sites
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>27</td><td><pre>     * @param \Symfony\Component\DomCrawler\Crawler|null $crawler
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>28</td><td><pre>     * @param \jubianchi\PhpSwitch\Event\Dispatcher      $dispatcher
+</pre></td></tr><tr><td class="number"><a name="unsubscribe"></a>29</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>    public function __construct($cache, array $sites, Crawler $crawler = null, Dispatcher $dispatcher = null)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">32</td><td><pre>        parent::__construct($sites, $crawler, $dispatcher);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>        $this-&gt;cache = $cache;
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Version[]
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>40</td><td><pre>    protected function getVersions()
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>41</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>        $versions = parent::getVersions();
+</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>        $cache = array();
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>44</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>        foreach ($versions as $number =&gt; $version) {
+</pre></td></tr><tr class="notCovered"><td class="number">46</td><td><pre>            if (false === array_key_exists($number, $cache)) {
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>                $cache[$number] = $version-&gt;getUrl();
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">49</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>50</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>        file_put_contents($this-&gt;cache, json_encode($cache));
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>52</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>        return $versions;
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>54</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getVersions"></a>55</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

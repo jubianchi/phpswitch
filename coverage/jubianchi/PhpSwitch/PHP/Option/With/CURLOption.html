@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\PHP\Option\With\CURLOption</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\Option\With\CURLOption</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getValue">getValue</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getCurlPrefix">getCurlPrefix</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="getLibDir"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\PHP\Option\With;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>13</td><td><pre>use Symfony\Component\Console\Input\InputOption;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>14</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>15</td><td><pre>class CURLOption extends WithOption
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>16</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>17</td><td><pre>    const ARG = &#039;curl&#039;;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>18</td><td><pre>    const MODE = InputOption::VALUE_OPTIONAL;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>19</td><td><pre>    const DEFAULT_VALUE = &#039;auto&#039;;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>20</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>21</td><td><pre>    public function getValue()
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>22</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">23</td><td><pre>        $value = parent::getValue();
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>24</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">25</td><td><pre>        if (&#039;auto&#039; === $value) {
+</pre></td></tr><tr class="notCovered"><td class="number">26</td><td><pre>            return $this-&gt;getCurlPrefix();
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>27</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>28</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">29</td><td><pre>        return $value;
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>30</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getValue"></a>31</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>32</td><td><pre>    protected function getCurlPrefix()
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>33</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>        $result = $status = null;
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>        exec(&#039;command -v curl-config&#039;, $result, $status);
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>36</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">37</td><td><pre>        if (0 !== $status) {
+</pre></td></tr><tr class="notCovered"><td class="number">38</td><td><pre>            throw new \RuntimeException(&#039;Could not find curl-config utility&#039;);
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>39</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>40</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">41</td><td><pre>        exec($result[0] . &#039; --prefix&#039;, $result, $status);
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>42</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>        if (0 !== $status) {
+</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>            throw new \RuntimeException(&#039;Could not find curl prefix&#039;);
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>45</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>46</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>        return $result[1];
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>48</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getCurlPrefix"></a>49</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

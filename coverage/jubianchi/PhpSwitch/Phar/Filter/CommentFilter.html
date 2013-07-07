@@ -52,16 +52,16 @@
 </pre></td></tr><tr><td class="number"><a name="buildPhar"></a>16</td><td><pre>{
 </pre></td></tr><tr><td class="number"><a name="__invoke"></a>17</td><td><pre>    public function __invoke($contents, array $tokens)
 </pre></td></tr><tr><td class="number"><a name="__invoke"></a>18</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>19</td><td><pre>        $contents = &#039;&#039;;
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>20</td><td><pre>        foreach ($tokens as $token) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>21</td><td><pre>            if (is_array($token) &amp;&amp; in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>22</td><td><pre>                $contents .= &quot;\n&quot;;
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>23</td><td><pre>            } else {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>24</td><td><pre>                $contents .= is_array($token) ? $token[1] : $token;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>19</td><td><pre>        $contents = &#039;&#039;;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>20</td><td><pre>        foreach ($tokens as $token) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>21</td><td><pre>            if (is_array($token) &amp;&amp; in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>22</td><td><pre>                $contents .= &quot;\n&quot;;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>23</td><td><pre>            } else {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>24</td><td><pre>                $contents .= is_array($token) ? $token[1] : $token;
 </pre></td></tr><tr><td class="number"><a name="__invoke"></a>25</td><td><pre>            }
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>26</td><td><pre>        }
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>26</td><td><pre>        }
 </pre></td></tr><tr><td class="number"><a name="__invoke"></a>27</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>28</td><td><pre>        return $contents;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>28</td><td><pre>        return $contents;
 </pre></td></tr><tr><td class="number"><a name="__invoke"></a>29</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="__invoke"></a>30</td><td><pre>}
 </pre></td></tr>

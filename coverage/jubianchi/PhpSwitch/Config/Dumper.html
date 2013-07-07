@@ -24,17 +24,6 @@
 									<div class="bar">
 										<div class="background"></div>
 										<div class="graph" style="width: 100%"></div>
-										<div class="label"><a href="#__construct">__construct</a> <span>100%</span></div>
-									</div>
-								
-							</li>
-						
-							<li>
-								
-								
-									<div class="bar">
-										<div class="background"></div>
-										<div class="graph" style="width: 100%"></div>
 										<div class="label"><a href="#dump">dump</a> <span>100%</span></div>
 									</div>
 								
@@ -45,56 +34,41 @@
 				<h3>Source</h3>
 				<table cellpadding="0" cellspacing="0" class="source">
 					<tr><th class="number">Line</th><th>Code</th></tr>
-					<tr><td class="number"><a name="getDumper"></a>1</td><td><pre>&lt;?php
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>2</td><td><pre>/**
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>3</td><td><pre> * This file is part of phpswitch.
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>4</td><td><pre> *
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>6</td><td><pre> *
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>8</td><td><pre> * file that was distributed with this source code.
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>9</td><td><pre> */
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>10</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Config;
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>12</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>13</td><td><pre>use Symfony\Component\Yaml\Yaml;
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>14</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>15</td><td><pre>class Dumper
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>16</td><td><pre>{
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>17</td><td><pre>    const GLOBAL_DIR = 0;
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>18</td><td><pre>    const LOCAL_DIR = 1;
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>19</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>20</td><td><pre>    /** @var string[] */
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>21</td><td><pre>    private $directories;
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>22</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>23</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>24</td><td><pre>     * @param string[] $directories
-</pre></td></tr><tr><td class="number"><a name="getDumper"></a>25</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>26</td><td><pre>    public function __construct(array $directories)
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">28</td><td><pre>        $this-&gt;directories = $directories;
-</pre></td></tr><tr class="covered"><td class="number">29</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>     * @param string                                    $name
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>     * @param int                                       $directory
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Dumper
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="dump"></a>38</td><td><pre>    public function dump($name, Configuration $configuration, $directory = null)
-</pre></td></tr><tr><td class="number"><a name="dump"></a>39</td><td><pre>    {
-</pre></td></tr><tr><td class="number"><a name="dump"></a>40</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">41</td><td><pre>        $path = $this-&gt;directories[$directory ?: self::GLOBAL_DIR] . DIRECTORY_SEPARATOR . $name;
-</pre></td></tr><tr><td class="number"><a name="dump"></a>42</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">43</td><td><pre>        file_put_contents(
-</pre></td></tr><tr class="covered"><td class="number">44</td><td><pre>            $path,
-</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>            Yaml::dump(array(Configuration::ROOT =&gt; $configuration-&gt;getValues()), 5, 2)
-</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>        );
-</pre></td></tr><tr><td class="number"><a name="dump"></a>47</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">48</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="dump"></a>49</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="dump"></a>50</td><td><pre>}
+					<tr><td class="number"><a name="getPath"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Config;
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>13</td><td><pre>use Symfony\Component\Yaml\Yaml;
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>14</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>15</td><td><pre>class Dumper
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>16</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>17</td><td><pre>    const GLOBAL_DIR = 0;
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>18</td><td><pre>    const LOCAL_DIR = 1;
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>19</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>20</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>21</td><td><pre>     * @param string                                    $path
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>22</td><td><pre>     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>23</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>24</td><td><pre>     * @return \jubianchi\PhpSwitch\Config\Dumper
+</pre></td></tr><tr><td class="number"><a name="getPath"></a>25</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="dump"></a>26</td><td><pre>    public function dump($path, Configuration $configuration)
+</pre></td></tr><tr><td class="number"><a name="dump"></a>27</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">28</td><td><pre>        file_put_contents(
+</pre></td></tr><tr class="covered"><td class="number">29</td><td><pre>            $path,
+</pre></td></tr><tr class="covered"><td class="number">30</td><td><pre>            Yaml::dump(array(Configuration::ROOT =&gt; $configuration-&gt;getValues()), 5, 2)
+</pre></td></tr><tr class="covered"><td class="number">31</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="dump"></a>32</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">33</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="dump"></a>34</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="dump"></a>35</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

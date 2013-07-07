@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Subscriber\Downloader</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Subscriber\Downloader</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#startProgress">startProgress</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="startProgress"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Subscriber;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>13</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>14</td><td><pre>use Symfony\Component\EventDispatcher\GenericEvent;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>15</td><td><pre>use Symfony\Component\Console\Helper\ProgressHelper;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>16</td><td><pre>use jubianchi\PhpSwitch\Event;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>17</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>18</td><td><pre>class Downloader extends Event\Subscriber
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>19</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>20</td><td><pre>    public function __construct(OutputInterface $output, ProgressHelper $progress = null)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">22</td><td><pre>        $afterCallback = function() use ($output) { $output-&gt;write(PHP_EOL); };
+</pre></td></tr><tr class="notCovered"><td class="number">23</td><td><pre>        $self = $this;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>24</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">25</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">26</td><td><pre>            -&gt;handle(&#039;download.before&#039;, function(GenericEvent $event) use ($self, $output, $progress) {
+</pre></td></tr><tr class="notCovered"><td class="number">27</td><td><pre>                $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">28</td><td><pre>                    sprintf(PHP_EOL . &#039;Downloading PHP &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;version&#039;)-&gt;getVersion()),
+</pre></td></tr><tr class="notCovered"><td class="number">29</td><td><pre>                    sprintf(&#039;    &lt;comment&gt;%s&lt;/comment&gt;&#039;, sprintf($event-&gt;getArgument(&#039;version&#039;)-&gt;getUrl(), $event-&gt;getArgument(&#039;mirror&#039;)))
+</pre></td></tr><tr class="notCovered"><td class="number">30</td><td><pre>                ));
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>31</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">32</td><td><pre>                if (null !== $progress &amp;&amp; OutputInterface::VERBOSITY_QUIET !== $output-&gt;getVerbosity()) {
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>                    $self-&gt;startProgress($progress, $output, 100, &#039;[%bar%] %percent%%&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>                }
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>            })
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>            -&gt;handle(&#039;download.after&#039;, $afterCallback)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">39</td><td><pre>        if(null !== $progress) {
+</pre></td></tr><tr class="notCovered"><td class="number">40</td><td><pre>            $this
+</pre></td></tr><tr class="notCovered"><td class="number">41</td><td><pre>                -&gt;handle(&#039;download.progress&#039;, function(GenericEvent $event) use ($progress) {
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>                    static $previous = 0;
+</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>                    static $size = 0;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>44</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>                    if ($size &gt; 0) {
+</pre></td></tr><tr class="notCovered"><td class="number">46</td><td><pre>                        $complete = ceil(($event-&gt;getArgument(&#039;downloaded&#039;) / $size) * 100);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>47</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>                        $progress-&gt;advance($complete - $previous);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>49</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>                        $previous = $complete;
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>                    } else {
+</pre></td></tr><tr class="notCovered"><td class="number">52</td><td><pre>                        $size = $event-&gt;getArgument(&#039;size&#039;);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>53</td><td><pre>                    }
+</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>                })
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>55</td><td><pre>            ;
+</pre></td></tr><tr class="notCovered"><td class="number">56</td><td><pre>        }
+</pre></td></tr><tr class="notCovered"><td class="number">57</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>58</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>59</td><td><pre>    public function startProgress(ProgressHelper $progress, OutputInterface $output, $max = null, $format = &#039;[%bar%]&#039;)
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>60</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">61</td><td><pre>        $progress-&gt;setBarWidth(50);
+</pre></td></tr><tr class="notCovered"><td class="number">62</td><td><pre>        $progress-&gt;setEmptyBarCharacter($max ? &#039;-&#039; : &#039;=&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>        $progress-&gt;setProgressCharacter(&#039;&gt;&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>        $progress-&gt;setFormat($format);
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>65</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">66</td><td><pre>        $progress-&gt;start($output, $max);
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>68</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

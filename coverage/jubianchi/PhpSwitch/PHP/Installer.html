@@ -10,7 +10,7 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\Installer</h1>
-			<h2>Class code coverage <span>96.49%</span></h2>
+			<h2>Class code coverage <span>96.36%</span></h2>
 		</div>
 		<div id="page">
 			<div id="content">
@@ -131,118 +131,116 @@
 </pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>40</td><td><pre>        $this-&gt;extracter = $extracter;
 </pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>41</td><td><pre>        $this-&gt;builder = $builder;
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>43</td><td><pre>        if (null !== $dispatcher) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>44</td><td><pre>            $this-&gt;setDispatcher($dispatcher);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>45</td><td><pre>        }
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>46</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>47</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="install"></a>48</td><td><pre>    public function install(Template $template, $mirror, $jobs, InputInterface $input, OutputInterface $output)
-</pre></td></tr><tr><td class="number"><a name="install"></a>49</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>50</td><td><pre>        $version = $template-&gt;getVersion();
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>51</td><td><pre>        $options = $template-&gt;getOptions();
-</pre></td></tr><tr><td class="number"><a name="install"></a>52</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>53</td><td><pre>        $dest = $this-&gt;builder-&gt;getDestination($version);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>54</td><td><pre>        $this-&gt;emit(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>55</td><td><pre>            &#039;install.before&#039;,
-</pre></td></tr><tr><td class="number"><a name="install"></a>56</td><td><pre>            $args = array(
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>57</td><td><pre>                &#039;version&#039; =&gt; $version,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>58</td><td><pre>                &#039;mirror&#039; =&gt; $mirror,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>59</td><td><pre>                &#039;jobs&#039; =&gt; $jobs,
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>60</td><td><pre>                &#039;options&#039; =&gt; $options,
-</pre></td></tr><tr><td class="number"><a name="install"></a>61</td><td><pre>                &#039;destination&#039; =&gt; $dest
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>62</td><td><pre>            )
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>63</td><td><pre>        );
-</pre></td></tr><tr><td class="number"><a name="install"></a>64</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>65</td><td><pre>        if ($this-&gt;isInstalled($version)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>66</td><td><pre>            throw new AlreadyInstalledException(sprintf(&#039;PHP version %s is already installed&#039;, $version));
-</pre></td></tr><tr><td class="number"><a name="install"></a>67</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="install"></a>68</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>69</td><td><pre>        if (null !== $options) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>70</td><td><pre>            $options-&gt;preInstall($version, $input, $output);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>71</td><td><pre>        }
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>72</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>73</td><td><pre>        $archive = $this-&gt;download($version, $mirror);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>74</td><td><pre>        $source = $this-&gt;extract($version, $archive);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>75</td><td><pre>        $this-&gt;make($version, $source, $options, $jobs);
-</pre></td></tr><tr><td class="number"><a name="install"></a>76</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>77</td><td><pre>        if (null !== $options) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>78</td><td><pre>            $options-&gt;postInstall($version, $input, $output);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>79</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="install"></a>80</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>81</td><td><pre>        $this-&gt;emit(&#039;install.after&#039;, $args);
-</pre></td></tr><tr><td class="number"><a name="install"></a>82</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>83</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="install"></a>84</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="install"></a>85</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>86</td><td><pre>    public function isInstalled(Version $version)
-</pre></td></tr><tr><td class="number"><a name="install"></a>87</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>88</td><td><pre>        return is_dir($this-&gt;builder-&gt;getDestination($version));
-</pre></td></tr><tr><td class="number"><a name="install"></a>89</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="install"></a>90</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="install"></a>91</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="install"></a>92</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="install"></a>93</td><td><pre>     * @param string                           $mirror
-</pre></td></tr><tr><td class="number"><a name="install"></a>94</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="install"></a>95</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
-</pre></td></tr><tr><td class="number"><a name="install"></a>96</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="download"></a>97</td><td><pre>    protected function download(Version $version, $mirror)
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>98</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>99</td><td><pre>        $archive = $this-&gt;downloader-&gt;getDestination($version);
-</pre></td></tr><tr><td class="number"><a name="download"></a>100</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>101</td><td><pre>        if (false === file_exists($archive)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>102</td><td><pre>            $this-&gt;downloader-&gt;download($version, $mirror);
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>103</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="download"></a>104</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>105</td><td><pre>        return $archive;
-</pre></td></tr><tr><td class="number"><a name="download"></a>106</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="download"></a>107</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="download"></a>108</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="download"></a>109</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="download"></a>110</td><td><pre>     * @param string                           $archive
-</pre></td></tr><tr><td class="number"><a name="download"></a>111</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="download"></a>112</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
-</pre></td></tr><tr><td class="number"><a name="download"></a>113</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="extract"></a>114</td><td><pre>    protected function extract(Version $version, $archive)
-</pre></td></tr><tr><td class="number"><a name="extract"></a>115</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>116</td><td><pre>        $source = $this-&gt;extracter-&gt;getDestination($version);
-</pre></td></tr><tr><td class="number"><a name="extract"></a>117</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>118</td><td><pre>        if (false === file_exists($source)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>119</td><td><pre>            $this-&gt;extracter-&gt;extract($version, $archive);
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>120</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="extract"></a>121</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>122</td><td><pre>        return $source;
-</pre></td></tr><tr><td class="number"><a name="extract"></a>123</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="extract"></a>124</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="extract"></a>125</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="extract"></a>126</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version                 $version
-</pre></td></tr><tr><td class="number"><a name="extract"></a>127</td><td><pre>     * @param string                                           $source
-</pre></td></tr><tr><td class="number"><a name="extract"></a>128</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
-</pre></td></tr><tr><td class="number"><a name="extract"></a>129</td><td><pre>     * @param int                                              $jobs
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>43</td><td><pre>        $this-&gt;setDispatcher(null === $dispatcher ? new Dispatcher() : $dispatcher);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>44</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>45</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>46</td><td><pre>    public function install(Template $template, $mirror, $jobs, InputInterface $input, OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>47</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>48</td><td><pre>        $version = $template-&gt;getVersion();
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>49</td><td><pre>        $options = $template-&gt;getOptions();
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>50</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>51</td><td><pre>        $dest = $this-&gt;builder-&gt;getDestination($version);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>52</td><td><pre>        $this-&gt;emit(
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>53</td><td><pre>            &#039;install.before&#039;,
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>54</td><td><pre>            $args = array(
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>55</td><td><pre>                &#039;version&#039; =&gt; $version,
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>56</td><td><pre>                &#039;mirror&#039; =&gt; $mirror,
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>57</td><td><pre>                &#039;jobs&#039; =&gt; $jobs,
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>58</td><td><pre>                &#039;options&#039; =&gt; $options,
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>59</td><td><pre>                &#039;destination&#039; =&gt; $dest
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>60</td><td><pre>            )
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>61</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>62</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>63</td><td><pre>        if ($this-&gt;isInstalled($version)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>64</td><td><pre>            throw new AlreadyInstalledException(sprintf(&#039;PHP version %s is already installed&#039;, $version));
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>65</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>66</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>67</td><td><pre>        if (null !== $options) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>68</td><td><pre>            $options-&gt;preInstall($version, $input, $output);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>69</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>70</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>71</td><td><pre>        $archive = $this-&gt;download($version, $mirror);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>72</td><td><pre>        $source = $this-&gt;extract($version, $archive);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>73</td><td><pre>        $this-&gt;make($version, $source, $options, $jobs);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>74</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>75</td><td><pre>        if (null !== $options) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>76</td><td><pre>            $options-&gt;postInstall($version, $input, $output);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>77</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>78</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>79</td><td><pre>        $this-&gt;emit(&#039;install.after&#039;, $args);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>80</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>81</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>82</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>83</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>84</td><td><pre>    public function isInstalled(Version $version)
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>85</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>86</td><td><pre>        return is_dir($this-&gt;builder-&gt;getDestination($version));
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>87</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>88</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>89</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>90</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>91</td><td><pre>     * @param string                           $mirror
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>92</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>93</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
+</pre></td></tr><tr><td class="number"><a name="isInstalled"></a>94</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="download"></a>95</td><td><pre>    protected function download(Version $version, $mirror)
+</pre></td></tr><tr><td class="number"><a name="download"></a>96</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>97</td><td><pre>        $archive = $this-&gt;downloader-&gt;getDestination($version);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>98</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>99</td><td><pre>        if (false === file_exists($archive)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>100</td><td><pre>            $this-&gt;downloader-&gt;download($version, $mirror);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>101</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="download"></a>102</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>103</td><td><pre>        return $archive;
+</pre></td></tr><tr><td class="number"><a name="download"></a>104</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="download"></a>105</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="download"></a>106</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="download"></a>107</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="download"></a>108</td><td><pre>     * @param string                           $archive
+</pre></td></tr><tr><td class="number"><a name="download"></a>109</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="download"></a>110</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
+</pre></td></tr><tr><td class="number"><a name="download"></a>111</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="extract"></a>112</td><td><pre>    protected function extract(Version $version, $archive)
+</pre></td></tr><tr><td class="number"><a name="extract"></a>113</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>114</td><td><pre>        $source = $this-&gt;extracter-&gt;getDestination($version);
+</pre></td></tr><tr><td class="number"><a name="extract"></a>115</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>116</td><td><pre>        if (false === file_exists($source)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>117</td><td><pre>            $this-&gt;extracter-&gt;extract($version, $archive);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>118</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="extract"></a>119</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>120</td><td><pre>        return $source;
+</pre></td></tr><tr><td class="number"><a name="extract"></a>121</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="extract"></a>122</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="extract"></a>123</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="extract"></a>124</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version                 $version
+</pre></td></tr><tr><td class="number"><a name="extract"></a>125</td><td><pre>     * @param string                                           $source
+</pre></td></tr><tr><td class="number"><a name="extract"></a>126</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
+</pre></td></tr><tr><td class="number"><a name="extract"></a>127</td><td><pre>     * @param int                                              $jobs
+</pre></td></tr><tr><td class="number"><a name="extract"></a>128</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="extract"></a>129</td><td><pre>     * @throws \RuntimeException
 </pre></td></tr><tr><td class="number"><a name="extract"></a>130</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="extract"></a>131</td><td><pre>     * @throws \RuntimeException
-</pre></td></tr><tr><td class="number"><a name="extract"></a>132</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="extract"></a>133</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
-</pre></td></tr><tr><td class="number"><a name="extract"></a>134</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="make"></a>135</td><td><pre>    protected function make(Version $version, $source, OptionCollection $options, $jobs)
-</pre></td></tr><tr><td class="number"><a name="make"></a>136</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>137</td><td><pre>        $prefix = $this-&gt;builder-&gt;getDestination($version);
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>138</td><td><pre>        $this-&gt;builder-&gt;build($version, $source, $options, $jobs);
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>139</td><td><pre>        mkdir($prefix . &#039;/var/db&#039;, 0755, true);
-</pre></td></tr><tr><td class="number"><a name="make"></a>140</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>141</td><td><pre>        $ini = $source . DIRECTORY_SEPARATOR . &#039;php.ini-development&#039;;
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>142</td><td><pre>        $destination = $prefix . DIRECTORY_SEPARATOR . &#039;etc&#039; . DIRECTORY_SEPARATOR . &#039;php.ini&#039;;
-</pre></td></tr><tr><td class="number"><a name="make"></a>143</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>144</td><td><pre>        if (false === is_dir(dirname($destination))) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>145</td><td><pre>            mkdir(dirname($destination), 0755, true);
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>146</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="make"></a>147</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>148</td><td><pre>        if (is_file($ini)) {
-</pre></td></tr><tr class="notCovered"><td class="number">149</td><td><pre>            copy($ini, $destination);
-</pre></td></tr><tr class="notCovered"><td class="number">150</td><td><pre>        }
-</pre></td></tr><tr><td class="number"><a name="make"></a>151</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>152</td><td><pre>        return $prefix;
-</pre></td></tr><tr><td class="number"><a name="make"></a>153</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="make"></a>154</td><td><pre>}
+</pre></td></tr><tr><td class="number"><a name="extract"></a>131</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
+</pre></td></tr><tr><td class="number"><a name="extract"></a>132</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="make"></a>133</td><td><pre>    protected function make(Version $version, $source, OptionCollection $options, $jobs)
+</pre></td></tr><tr><td class="number"><a name="make"></a>134</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>135</td><td><pre>        $prefix = $this-&gt;builder-&gt;getDestination($version);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>136</td><td><pre>        $this-&gt;builder-&gt;build($version, $source, $options, $jobs);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>137</td><td><pre>        mkdir($prefix . &#039;/var/db&#039;, 0755, true);
+</pre></td></tr><tr><td class="number"><a name="make"></a>138</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>139</td><td><pre>        $ini = $source . DIRECTORY_SEPARATOR . &#039;php.ini-development&#039;;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>140</td><td><pre>        $destination = $prefix . DIRECTORY_SEPARATOR . &#039;etc&#039; . DIRECTORY_SEPARATOR . &#039;php.ini&#039;;
+</pre></td></tr><tr><td class="number"><a name="make"></a>141</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>142</td><td><pre>        if (false === is_dir(dirname($destination))) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>143</td><td><pre>            mkdir(dirname($destination), 0755, true);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>144</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="make"></a>145</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>146</td><td><pre>        if (is_file($ini)) {
+</pre></td></tr><tr class="notCovered"><td class="number">147</td><td><pre>            copy($ini, $destination);
+</pre></td></tr><tr class="notCovered"><td class="number">148</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="make"></a>149</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>150</td><td><pre>        return $prefix;
+</pre></td></tr><tr><td class="number"><a name="make"></a>151</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="make"></a>152</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

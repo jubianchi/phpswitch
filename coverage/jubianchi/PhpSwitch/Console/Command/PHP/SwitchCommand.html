@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Command\PHP\SwitchCommand</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Command\PHP\SwitchCommand</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#execute">execute</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#backupSystemModule">backupSystemModule</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#restoreSystemModule">restoreSystemModule</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#switchModule">switchModule</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getLibDir">getLibDir</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getApxsPath">getApxsPath</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#promptApacheRestart">promptApacheRestart</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getSynopsis">getSynopsis</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="execute"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="execute"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="execute"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="execute"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="execute"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="execute"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="execute"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="execute"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="execute"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Command\PHP;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>13</td><td><pre>use jubianchi\PhpSwitch\PHP\Version;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>14</td><td><pre>use Symfony\Component\Console\Input\InputInterface;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>15</td><td><pre>use Symfony\Component\Console\Input\InputArgument;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>16</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>17</td><td><pre>use Symfony\Component\Console\Input\InputOption;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>18</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Command;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>19</td><td><pre>use jubianchi\PhpSwitch\Config\Dumper;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>20</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>21</td><td><pre>class SwitchCommand extends Command
+</pre></td></tr><tr><td class="number"><a name="execute"></a>22</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="execute"></a>23</td><td><pre>    const NAME = &#039;php:switch&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>24</td><td><pre>    const DESC = &#039;Switch PHP version&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>25</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>26</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="execute"></a>27</td><td><pre>     * @param string $name
+</pre></td></tr><tr><td class="number"><a name="execute"></a>28</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>29</td><td><pre>    public function __construct($name = self::NAME)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">31</td><td><pre>        parent::__construct($name);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>            -&gt;addArgument(&#039;version&#039;, InputArgument::REQUIRED, &#039;Switch PHP version (alias-x.y.z)&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>            -&gt;addOption(&#039;global&#039;, &#039;g&#039;, InputOption::VALUE_NONE, &#039;Switch PHP version globaly&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>            -&gt;addOption(&#039;apache2&#039;, &#039;a&#039;, InputOption::VALUE_NONE)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>        ;
+</pre></td></tr><tr class="notCovered"><td class="number">38</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     * @param \Symfony\Component\Console\Input\InputInterface   $input
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>     * @param \Symfony\Component\Console\Output\OutputInterface $output
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>43</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>44</td><td><pre>     * @throws \InvalidArgumentException
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>45</td><td><pre>     * @throws \RuntimeException
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>46</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>47</td><td><pre>     * @return int
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>48</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="execute"></a>49</td><td><pre>    protected function execute(InputInterface $input, OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="execute"></a>50</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>        parent::execute($input, $output);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>52</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>        $version = $input-&gt;getArgument(&#039;version&#039;);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>54</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">55</td><td><pre>        if (null !== $version) {
+</pre></td></tr><tr class="notCovered"><td class="number">56</td><td><pre>            if (&#039;off&#039; === $version) {
+</pre></td></tr><tr class="notCovered"><td class="number">57</td><td><pre>                $this-&gt;getConfiguration()-&gt;set(&#039;enabled&#039;, false, !$input-&gt;getOption(&#039;global&#039;));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>58</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">59</td><td><pre>                $version = null;
+</pre></td></tr><tr class="notCovered"><td class="number">60</td><td><pre>            } else {
+</pre></td></tr><tr><td class="number"><a name="execute"></a>61</td><td><pre>                try {
+</pre></td></tr><tr class="notCovered"><td class="number">62</td><td><pre>                    $version = Version::fromString($version === &#039;on&#039; ? $this-&gt;getConfiguration()-&gt;get(&#039;version&#039;) : $version);
+</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>                } catch(\InvalidArgumentException $exception) {
+</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>                    return 0;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>65</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>66</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>                if (null !== $version &amp;&amp; false === $this-&gt;getApplication()-&gt;getService(&#039;app.php.installer&#039;)-&gt;isInstalled($version)) {
+</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>                    $confirm = false;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>69</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>                    if($input-&gt;isInteractive()) {
+</pre></td></tr><tr class="notCovered"><td class="number">71</td><td><pre>                        $confirm = $this-&gt;getHelper(&#039;dialog&#039;)-&gt;askConfirmation($output, sprintf(&#039;PHP version &lt;info&gt;%s&lt;/info&gt; is not installed. Do you want to install it ? &#039;, $version));
+</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>                    }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>73</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">74</td><td><pre>                    if (false === $confirm) {
+</pre></td></tr><tr class="notCovered"><td class="number">75</td><td><pre>                        throw new \InvalidArgumentException(sprintf(&#039;Version %s is not installed&#039;, $version));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>76</td><td><pre>                    }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>77</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">78</td><td><pre>                    $args = new \Symfony\Component\Console\Input\ArrayInput(array(
+</pre></td></tr><tr class="notCovered"><td class="number">79</td><td><pre>                        &#039;command&#039; =&gt; InstallCommand::NAME,
+</pre></td></tr><tr class="notCovered"><td class="number">80</td><td><pre>                        &#039;version&#039; =&gt; $version-&gt;getVersion(),
+</pre></td></tr><tr class="notCovered"><td class="number">81</td><td><pre>                        &#039;--config&#039; =&gt; (string) $version,
+</pre></td></tr><tr class="notCovered"><td class="number">82</td><td><pre>                        &#039;--alias&#039; =&gt; $version-&gt;getName(),
+</pre></td></tr><tr class="notCovered"><td class="number">83</td><td><pre>                        &#039;--global&#039; =&gt; $input-&gt;getOption(&#039;global&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">84</td><td><pre>                    ));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>85</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">86</td><td><pre>                    $install = new InstallCommand();
+</pre></td></tr><tr class="notCovered"><td class="number">87</td><td><pre>                    $install-&gt;setApplication($this-&gt;getApplication());
+</pre></td></tr><tr><td class="number"><a name="execute"></a>88</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">89</td><td><pre>                    $install-&gt;run($args, $output);
+</pre></td></tr><tr class="notCovered"><td class="number">90</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>91</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">92</td><td><pre>        } else {
+</pre></td></tr><tr class="notCovered"><td class="number">93</td><td><pre>            $this-&gt;restoreSystemModule($output);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>94</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>95</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">96</td><td><pre>        if ($input-&gt;getOption(&#039;apache2&#039;)) {
+</pre></td></tr><tr class="notCovered"><td class="number">97</td><td><pre>            if (false === is_writable($this-&gt;getLibDir())) {
+</pre></td></tr><tr class="notCovered"><td class="number">98</td><td><pre>                throw new \RuntimeException(sprintf(&#039;%s is not writable&#039;, $this-&gt;getLibDir()));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>99</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>100</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">101</td><td><pre>            $this-&gt;switchModule($output, $version);
+</pre></td></tr><tr class="notCovered"><td class="number">102</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>103</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">104</td><td><pre>        if($version !== null) {
+</pre></td></tr><tr class="notCovered"><td class="number">105</td><td><pre>            $this-&gt;getConfiguration()
+</pre></td></tr><tr class="notCovered"><td class="number">106</td><td><pre>                -&gt;set(&#039;version&#039;, (string) $version, !$input-&gt;getOption(&#039;global&#039;))
+</pre></td></tr><tr><td class="number"><a name="execute"></a>107</td><td><pre>            ;
+</pre></td></tr><tr class="notCovered"><td class="number">108</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>109</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">110</td><td><pre>        $this-&gt;getConfiguration()-&gt;set(&#039;enabled&#039;, $version !== null, !$input-&gt;getOption(&#039;global&#039;));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>111</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">112</td><td><pre>        $output-&gt;writeln(sprintf(&#039;PHP switched to &lt;info&gt;%s&lt;/info&gt;&#039;, $version ?: &#039;system default version&#039;));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>113</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">114</td><td><pre>        return 0;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>115</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>116</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="backupSystemModule"></a>117</td><td><pre>    public function backupSystemModule(OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="backupSystemModule"></a>118</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">119</td><td><pre>        $path = $this-&gt;getLibDir() . DIRECTORY_SEPARATOR . &#039;libphp5.so&#039;;
+</pre></td></tr><tr><td class="number"><a name="backupSystemModule"></a>120</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">121</td><td><pre>        if (is_file($path)) {
+</pre></td></tr><tr class="notCovered"><td class="number">122</td><td><pre>            $backup = $path . &#039;.system&#039;;
+</pre></td></tr><tr><td class="number"><a name="backupSystemModule"></a>123</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">124</td><td><pre>            if (false === is_file($backup)) {
+</pre></td></tr><tr class="notCovered"><td class="number">125</td><td><pre>                $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">126</td><td><pre>                    PHP_EOL . &#039;Backuping &lt;info&gt;system default&lt;/info&gt; Apache2 module&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">127</td><td><pre>                    sprintf(&#039;    &lt;comment&gt;From: %s&lt;/comment&gt;&#039;, $path),
+</pre></td></tr><tr class="notCovered"><td class="number">128</td><td><pre>                    sprintf(&#039;    &lt;comment&gt;To: %s&lt;/comment&gt;&#039;, $backup)
+</pre></td></tr><tr class="notCovered"><td class="number">129</td><td><pre>                ));
+</pre></td></tr><tr><td class="number"><a name="backupSystemModule"></a>130</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">131</td><td><pre>                copy($path, $backup);
+</pre></td></tr><tr class="notCovered"><td class="number">132</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">133</td><td><pre>        }
+</pre></td></tr><tr class="notCovered"><td class="number">134</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="backupSystemModule"></a>135</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="restoreSystemModule"></a>136</td><td><pre>    public function restoreSystemModule(OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="restoreSystemModule"></a>137</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">138</td><td><pre>        $original = $this-&gt;getLibDir() . DIRECTORY_SEPARATOR . &#039;libphp5.so&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">139</td><td><pre>        $backup = $this-&gt;getLibDir() . DIRECTORY_SEPARATOR . &#039;libphp5.so.system&#039;;
+</pre></td></tr><tr><td class="number"><a name="restoreSystemModule"></a>140</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">141</td><td><pre>        if (is_file($backup)) {
+</pre></td></tr><tr class="notCovered"><td class="number">142</td><td><pre>            if (is_file($original)) {
+</pre></td></tr><tr class="notCovered"><td class="number">143</td><td><pre>                unlink($original);
+</pre></td></tr><tr class="notCovered"><td class="number">144</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="restoreSystemModule"></a>145</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">146</td><td><pre>            $output-&gt;writeln(&#039;Restoring &lt;info&gt;system default&lt;/info&gt; Apache2 module&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">147</td><td><pre>            copy($backup, $original);
+</pre></td></tr><tr class="notCovered"><td class="number">148</td><td><pre>            chmod($original, 0755);
+</pre></td></tr><tr><td class="number"><a name="restoreSystemModule"></a>149</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">150</td><td><pre>            $this-&gt;promptApacheRestart($output);
+</pre></td></tr><tr class="notCovered"><td class="number">151</td><td><pre>        }
+</pre></td></tr><tr class="notCovered"><td class="number">152</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="restoreSystemModule"></a>153</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>154</td><td><pre>    public function switchModule(OutputInterface $output, $version)
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>155</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">156</td><td><pre>        $original = $this-&gt;getLibDir() . DIRECTORY_SEPARATOR . &#039;libphp5.so&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">157</td><td><pre>        $module = $this-&gt;getLibDir() . DIRECTORY_SEPARATOR . &#039;libphp5-&#039; . $version . &#039;.so&#039;;
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>158</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">159</td><td><pre>        if (is_file($module)) {
+</pre></td></tr><tr class="notCovered"><td class="number">160</td><td><pre>            if (is_file($original)) {
+</pre></td></tr><tr class="notCovered"><td class="number">161</td><td><pre>                $this-&gt;backupSystemModule($output);
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>162</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">163</td><td><pre>                unlink($original);
+</pre></td></tr><tr class="notCovered"><td class="number">164</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>165</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">166</td><td><pre>            $output-&gt;writeln(sprintf(&#039;Switching Apache2 module to &lt;info&gt;%s&lt;/info&gt;&#039;, $version));
+</pre></td></tr><tr class="notCovered"><td class="number">167</td><td><pre>            copy($module, $original);
+</pre></td></tr><tr class="notCovered"><td class="number">168</td><td><pre>            chmod($original, 0755);
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>169</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">170</td><td><pre>            $this-&gt;promptApacheRestart($output);
+</pre></td></tr><tr class="notCovered"><td class="number">171</td><td><pre>        }
+</pre></td></tr><tr class="notCovered"><td class="number">172</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="switchModule"></a>173</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>174</td><td><pre>    protected function getLibDir()
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>175</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">176</td><td><pre>        static $directory;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>177</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">178</td><td><pre>        if (null === $directory) {
+</pre></td></tr><tr class="notCovered"><td class="number">179</td><td><pre>            $result = $status = null;
+</pre></td></tr><tr class="notCovered"><td class="number">180</td><td><pre>            exec($this-&gt;getApxsPath() . &#039; -q LIBEXECDIR&#039;, $result, $status);
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>181</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">182</td><td><pre>            if (0 !== $status) {
+</pre></td></tr><tr class="notCovered"><td class="number">183</td><td><pre>                throw new \RuntimeException(&#039;Could not find Apache2 modules directory&#039;);
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>184</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>185</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">186</td><td><pre>            $directory = $result[0];
+</pre></td></tr><tr class="notCovered"><td class="number">187</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>188</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">189</td><td><pre>        return $directory;
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>190</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getLibDir"></a>191</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>192</td><td><pre>    protected function getApxsPath()
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>193</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">194</td><td><pre>        static $command;
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>195</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">196</td><td><pre>        if (null === $command) {
+</pre></td></tr><tr class="notCovered"><td class="number">197</td><td><pre>            $result = $status = null;
+</pre></td></tr><tr class="notCovered"><td class="number">198</td><td><pre>            exec(&#039;command -v apxs&#039;, $result, $status);
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>199</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">200</td><td><pre>            if (0 !== $status) {
+</pre></td></tr><tr class="notCovered"><td class="number">201</td><td><pre>                exec(&#039;command -v apxs2&#039;, $result, $status);
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>202</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">203</td><td><pre>                if (0 !== $status) {
+</pre></td></tr><tr class="notCovered"><td class="number">204</td><td><pre>                    throw new \RuntimeException(&#039;Could not find apxs command&#039;);
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>205</td><td><pre>                }
+</pre></td></tr><tr class="notCovered"><td class="number">206</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>207</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">208</td><td><pre>            $command = $result[0];
+</pre></td></tr><tr class="notCovered"><td class="number">209</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>210</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">211</td><td><pre>        return $command;
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>212</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getApxsPath"></a>213</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="promptApacheRestart"></a>214</td><td><pre>    protected function promptApacheRestart(OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="promptApacheRestart"></a>215</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">216</td><td><pre>        $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">217</td><td><pre>            &#039;You should &lt;info&gt;restart apache2&lt;/info&gt; using one of:&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">218</td><td><pre>            &#039;    &lt;comment&gt;- sudo /etc/init.d/apache2 restart&lt;/comment&gt;&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">219</td><td><pre>            &#039;    &lt;comment&gt;- sudo service apache2 restart&lt;/comment&gt;&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">220</td><td><pre>            &#039;    &lt;comment&gt;- sudo apachectl restart&lt;/comment&gt;&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">221</td><td><pre>            &#039;    &lt;comment&gt;- ...&lt;/comment&gt;&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">222</td><td><pre>        ));
+</pre></td></tr><tr class="notCovered"><td class="number">223</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="promptApacheRestart"></a>224</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getSynopsis"></a>225</td><td><pre>    public function getSynopsis()
+</pre></td></tr><tr><td class="number"><a name="getSynopsis"></a>226</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">227</td><td><pre>        $synopsis = parent::getSynopsis();
+</pre></td></tr><tr class="notCovered"><td class="number">228</td><td><pre>        $parts = explode(&#039; &#039;, $synopsis, 2);
+</pre></td></tr><tr class="notCovered"><td class="number">229</td><td><pre>        $synopsis .= PHP_EOL . trim(sprintf(&#039;%s %s&#039;, &#039;php switch&#039;, $parts[1]));
+</pre></td></tr><tr><td class="number"><a name="getSynopsis"></a>230</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">231</td><td><pre>        return $synopsis;
+</pre></td></tr><tr><td class="number"><a name="getSynopsis"></a>232</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getSynopsis"></a>233</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

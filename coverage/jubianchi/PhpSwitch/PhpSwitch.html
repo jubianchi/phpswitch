@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\PhpSwitch</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../">phpswitch</a>: jubianchi\PhpSwitch\PhpSwitch</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getEnv">getEnv</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#run">run</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#initEnv">initEnv</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#initApplication">initApplication</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#initConfiguration">initConfiguration</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#initPhp">initPhp</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="requires"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="requires"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="requires"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="requires"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="requires"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="requires"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="requires"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="requires"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="requires"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="requires"></a>11</td><td><pre>namespace jubianchi\PhpSwitch;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="requires"></a>13</td><td><pre>use jubianchi\PhpSwitch\Console\Application\Configuration;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>14</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Finder;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>15</td><td><pre>use Monolog\Logger;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>16</td><td><pre>use Monolog\Handler\StreamHandler;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>17</td><td><pre>use Monolog\Formatter\LineFormatter;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>18</td><td><pre>use jubianchi\PhpSwitch\Phar\Runnable;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>19</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="requires"></a>20</td><td><pre>class PhpSwitch implements Runnable
+</pre></td></tr><tr><td class="number"><a name="requires"></a>21</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="requires"></a>22</td><td><pre>    protected $container;
+</pre></td></tr><tr><td class="number"><a name="requires"></a>23</td><td><pre>    protected $env = array();
+</pre></td></tr><tr><td class="number"><a name="requires"></a>24</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>25</td><td><pre>    protected static function getEnv($env = array())
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>26</td><td><pre>    {
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>27</td><td><pre>        $map = array(
+</pre></td></tr><tr class="notCovered"><td class="number">28</td><td><pre>            &#039;PHPSWITCH_PREFIX&#039; =&gt; &#039;app.workspace.path&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">29</td><td><pre>            &#039;PHPSWITCH_HOME&#039; =&gt; &#039;app.user.path&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">30</td><td><pre>            &#039;PHPSWITCH_CONFIG&#039; =&gt; &#039;app.config.name&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">31</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>32</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>        foreach ($map as $var =&gt; $key) {
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>            if (false !== ($value = getenv($var))) {
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>                $env[$key] = $value;
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">37</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>38</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">39</td><td><pre>        return $env;
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>40</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getEnv"></a>41</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>42</td><td><pre>    public function __construct($path, array $env = array())
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>43</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>        $this-&gt;container = new \Pimple();
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>        $this-&gt;container[&#039;parameters&#039;] = new \Pimple();
+</pre></td></tr><tr class="notCovered"><td class="number">46</td><td><pre>        $this-&gt;env = $env;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>47</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">49</td><td><pre>            -&gt;initEnv($path, static::getEnv($env))
+</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>            -&gt;initApplication()
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>            -&gt;initConfiguration()
+</pre></td></tr><tr class="notCovered"><td class="number">52</td><td><pre>            -&gt;initPhp()
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>53</td><td><pre>        ;
+</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>55</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="run"></a>56</td><td><pre>    public function run()
+</pre></td></tr><tr><td class="number"><a name="run"></a>57</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">58</td><td><pre>        $this-&gt;container[&#039;app&#039;]-&gt;run();
+</pre></td></tr><tr class="notCovered"><td class="number">59</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="run"></a>60</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>61</td><td><pre>    protected function initEnv($path, array $env = array())
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>62</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.path&#039;] = $path;
+</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.source.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.path&#039;] . DIRECTORY_SEPARATOR . &#039;src&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">65</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.command.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.source.path&#039;] . DIRECTORY_SEPARATOR . &#039;jubianchi/PhpSwitch/Console/Command&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">66</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.templates.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.source.path&#039;] . DIRECTORY_SEPARATOR . &#039;jubianchi/PhpSwitch/Templates&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.php.option.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.source.path&#039;] . DIRECTORY_SEPARATOR . &#039;/jubianchi/PhpSwitch/PHP/Option&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.user.path&#039;] = getenv(&#039;HOME&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">69</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.path&#039;] . DIRECTORY_SEPARATOR . &#039;.phpswitch&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.config.name&#039;] = &#039;.phpswitch.yml&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">71</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.logger.output.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] . DIRECTORY_SEPARATOR . &#039;phpswitch.log&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.logger.error.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.logger.output.path&#039;];
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>73</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">74</td><td><pre>        foreach ($env as $key =&gt; $value) {
+</pre></td></tr><tr class="notCovered"><td class="number">75</td><td><pre>            $this-&gt;container[&#039;parameters&#039;][$key] = $value;
+</pre></td></tr><tr class="notCovered"><td class="number">76</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>77</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">78</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] =
+</pre></td></tr><tr class="notCovered"><td class="number">79</td><td><pre>            false !== ($path = realpath($this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;]))
+</pre></td></tr><tr class="notCovered"><td class="number">80</td><td><pre>                ? $path
+</pre></td></tr><tr class="notCovered"><td class="number">81</td><td><pre>                : $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;];
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>82</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">83</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.downloads.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] . DIRECTORY_SEPARATOR . &#039;downloads&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">84</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.sources.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] . DIRECTORY_SEPARATOR . &#039;sources&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">85</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.installed.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] . DIRECTORY_SEPARATOR . &#039;installed&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">86</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.doc.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] . DIRECTORY_SEPARATOR . &#039;doc&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">87</td><td><pre>        $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.cache.path&#039;] = $this-&gt;container[&#039;parameters&#039;][&#039;app.workspace.path&#039;] . DIRECTORY_SEPARATOR . &#039;phpswitch.cache&#039;;
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>88</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">89</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>90</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="initEnv"></a>91</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>92</td><td><pre>    protected function initApplication()
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>93</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">94</td><td><pre>        $this-&gt;container[&#039;app&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">95</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">96</td><td><pre>                $application = new Console\Application();
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>97</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">98</td><td><pre>                return $container[&#039;app.loader&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">99</td><td><pre>                    -&gt;load($application-&gt;setContainer($container))
+</pre></td></tr><tr class="notCovered"><td class="number">100</td><td><pre>                    -&gt;setConfiguration($container[&#039;app.config&#039;])
+</pre></td></tr><tr class="notCovered"><td class="number">101</td><td><pre>                ;
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>102</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">103</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>104</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">105</td><td><pre>        $this-&gt;container[&#039;app.loader&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">106</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">107</td><td><pre>                return new Console\Loader($container[&#039;app.command.finder&#039;]);
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>108</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">109</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>110</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">111</td><td><pre>        $this-&gt;container[&#039;app.command.finder&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">112</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">113</td><td><pre>                return new Finder(
+</pre></td></tr><tr class="notCovered"><td class="number">114</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.command.path&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">115</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.source.path&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">116</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>117</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">118</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>119</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">120</td><td><pre>        $this-&gt;container[&#039;app.logger&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">121</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">122</td><td><pre>                $logger = new Logger(&#039;output&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">123</td><td><pre>                $formatter = new \Monolog\Formatter\LineFormatter();
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>124</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">125</td><td><pre>                $info = new StreamHandler($container[&#039;parameters&#039;][&#039;app.logger.output.path&#039;], Logger::INFO);
+</pre></td></tr><tr class="notCovered"><td class="number">126</td><td><pre>                $info-&gt;setFormatter($formatter);
+</pre></td></tr><tr class="notCovered"><td class="number">127</td><td><pre>                $logger-&gt;pushHandler($info);
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>128</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">129</td><td><pre>                $error = new StreamHandler($container[&#039;parameters&#039;][&#039;app.logger.error.path&#039;], Logger::ERROR, false);
+</pre></td></tr><tr class="notCovered"><td class="number">130</td><td><pre>                $error-&gt;setFormatter($formatter);
+</pre></td></tr><tr class="notCovered"><td class="number">131</td><td><pre>                $logger-&gt;pushHandler($error);
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>132</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">133</td><td><pre>                return $logger;
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>134</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">135</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>136</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">137</td><td><pre>        $this-&gt;container[&#039;app.twig&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">138</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">139</td><td><pre>                $loader = new \Twig_Loader_Filesystem($container[&#039;parameters&#039;][&#039;app.templates.path&#039;]);
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>140</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">141</td><td><pre>                return new \Twig_Environment($loader);
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>142</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">143</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>144</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">145</td><td><pre>        $this-&gt;container[&#039;app.process.builder&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">146</td><td><pre>            function() {
+</pre></td></tr><tr class="notCovered"><td class="number">147</td><td><pre>                return new Process\Builder();
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>148</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">149</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>150</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">151</td><td><pre>        $this-&gt;container[&#039;app.event.dispatcher&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">152</td><td><pre>            function() {
+</pre></td></tr><tr class="notCovered"><td class="number">153</td><td><pre>                return new Event\Dispatcher();
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>154</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">155</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>156</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">157</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>158</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="initApplication"></a>159</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>160</td><td><pre>    protected function initConfiguration()
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>161</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">162</td><td><pre>        $this-&gt;container[&#039;app.config&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">163</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">164</td><td><pre>                $dumper =  $container[&#039;app.config.dumper&#039;];
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>165</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">166</td><td><pre>                $global = $container[&#039;app.config.loader&#039;]-&gt;load($container[&#039;parameters&#039;][&#039;app.user.path&#039;], $dumper);
+</pre></td></tr><tr class="notCovered"><td class="number">167</td><td><pre>                $local = $container[&#039;app.config.loader&#039;]-&gt;load(getcwd(), $dumper, true, array($container[&#039;parameters&#039;][&#039;app.user.path&#039;]));
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>168</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">169</td><td><pre>                return new Configuration($local, $global);
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>170</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">171</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>172</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">173</td><td><pre>        $this-&gt;container[&#039;app.config.loader&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">174</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">175</td><td><pre>                return new Config\Loader(
+</pre></td></tr><tr class="notCovered"><td class="number">176</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.config.name&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">177</td><td><pre>                    $container[&#039;app.config.validator&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">178</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>179</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">180</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>181</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">182</td><td><pre>        $this-&gt;container[&#039;app.config.validator&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">183</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">184</td><td><pre>                return new Config\Validator($container[&#039;parameters&#039;][&#039;app.path&#039;]);
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>185</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">186</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>187</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">188</td><td><pre>        $this-&gt;container[&#039;app.config.dumper&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">189</td><td><pre>            function() {
+</pre></td></tr><tr class="notCovered"><td class="number">190</td><td><pre>                return new Config\Dumper();
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>191</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">192</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>193</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">194</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>195</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="initConfiguration"></a>196</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>197</td><td><pre>    protected function initPhp()
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>198</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">199</td><td><pre>        $this-&gt;container[&#039;app.php.builder&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">200</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">201</td><td><pre>                return new PHP\Builder(
+</pre></td></tr><tr class="notCovered"><td class="number">202</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.workspace.installed.path&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">203</td><td><pre>                    $container[&#039;app.process.builder&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">204</td><td><pre>                    $container[&#039;app.event.dispatcher&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">205</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>206</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">207</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>208</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">209</td><td><pre>        $this-&gt;container[&#039;app.php.extracter&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">210</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">211</td><td><pre>                return new PHP\Extracter(
+</pre></td></tr><tr class="notCovered"><td class="number">212</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.workspace.sources.path&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">213</td><td><pre>                    $container[&#039;app.process.builder&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">214</td><td><pre>                    $container[&#039;app.event.dispatcher&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">215</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>216</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">217</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>218</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">219</td><td><pre>        $this-&gt;container[&#039;app.php.downloader&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">220</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">221</td><td><pre>                return new PHP\Downloader(
+</pre></td></tr><tr class="notCovered"><td class="number">222</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.workspace.downloads.path&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">223</td><td><pre>                    $container[&#039;app.event.dispatcher&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">224</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>225</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">226</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>227</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">228</td><td><pre>        $this-&gt;container[&#039;app.php.option.finder&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">229</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">230</td><td><pre>                return new PHP\Option\Finder(
+</pre></td></tr><tr class="notCovered"><td class="number">231</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.php.option.path&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">232</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.source.path&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">233</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>234</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">235</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>236</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">237</td><td><pre>        $this-&gt;container[&#039;app.php.options&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">238</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">239</td><td><pre>                $options = new PHP\Option\OptionCollection();
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>240</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">241</td><td><pre>                foreach ($container[&#039;app.php.option.finder&#039;] as $option) {
+</pre></td></tr><tr class="notCovered"><td class="number">242</td><td><pre>                    $options-&gt;addOption(new $option());
+</pre></td></tr><tr class="notCovered"><td class="number">243</td><td><pre>                }
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>244</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">245</td><td><pre>                return $options;
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>246</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">247</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>248</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">249</td><td><pre>        $this-&gt;container[&#039;app.php.option.resolver&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">250</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">251</td><td><pre>                return new PHP\Option\Resolver($container[&#039;app.php.options&#039;]);
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>252</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">253</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>254</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">255</td><td><pre>        $this-&gt;container[&#039;app.php.option.normalizer&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">256</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">257</td><td><pre>                return new PHP\Option\Normalizer($container[&#039;app.php.options&#039;]);
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>258</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">259</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>260</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">261</td><td><pre>        $this-&gt;container[&#039;app.php.config&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">262</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">263</td><td><pre>                return new PHP\Config(
+</pre></td></tr><tr class="notCovered"><td class="number">264</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.workspace.installed.path&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">265</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>266</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">267</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>268</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">269</td><td><pre>        $this-&gt;container[&#039;app.php.installer&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">270</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">271</td><td><pre>                return new PHP\Installer(
+</pre></td></tr><tr class="notCovered"><td class="number">272</td><td><pre>                    $container[&#039;app.php.downloader&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">273</td><td><pre>                    $container[&#039;app.php.extracter&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">274</td><td><pre>                    $container[&#039;app.php.builder&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">275</td><td><pre>                    $container[&#039;app.event.dispatcher&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">276</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>277</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">278</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>279</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">280</td><td><pre>        $this-&gt;container[&#039;app.php.finder&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">281</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">282</td><td><pre>                return new PHP\CachingFinder(
+</pre></td></tr><tr class="notCovered"><td class="number">283</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.workspace.cache.path&#039;],
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>284</td><td><pre>                    array(
+</pre></td></tr><tr class="notCovered"><td class="number">285</td><td><pre>                        &#039;http://php.net/releases&#039; =&gt; &#039;/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">286</td><td><pre>                        &#039;http://php.net/downloads.php&#039; =&gt; &#039;/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">287</td><td><pre>                        &#039;http://snaps.php.net/&#039; =&gt; &#039;/(php\-(?:([4-5]\.(?:\d+\.?)*\-dev)|\-trunk) \(tar\.bz2\))/&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">288</td><td><pre>                        &#039;http://downloads.php.net/stas&#039; =&gt; &#039;/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/&#039;,
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>289</td><td><pre>                        &#039;http://downloads.php.net/dsp&#039; =&gt; &#039;/(php-([4-5]\.(?:\d+\.?)*(?:(?:alpha|beta)\d*)?)\.tar\.bz2)/&#039;
+</pre></td></tr><tr class="notCovered"><td class="number">290</td><td><pre>                    )
+</pre></td></tr><tr class="notCovered"><td class="number">291</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>292</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">293</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>294</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">295</td><td><pre>        $this-&gt;container[&#039;app.php.finder.cached&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">296</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">297</td><td><pre>                return new PHP\CachedFinder(
+</pre></td></tr><tr class="notCovered"><td class="number">298</td><td><pre>                    $container[&#039;app.php.finder&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">299</td><td><pre>                    $container[&#039;parameters&#039;][&#039;app.workspace.cache.path&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">300</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>301</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">302</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>303</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">304</td><td><pre>        $this-&gt;container[&#039;app.php.template.builder&#039;] = $this-&gt;container-&gt;share(
+</pre></td></tr><tr class="notCovered"><td class="number">305</td><td><pre>            function(\Pimple $container) {
+</pre></td></tr><tr class="notCovered"><td class="number">306</td><td><pre>                return new Console\Template\Builder(
+</pre></td></tr><tr class="notCovered"><td class="number">307</td><td><pre>                    $container[&#039;app.php.option.resolver&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">308</td><td><pre>                    $container[&#039;app.php.option.normalizer&#039;],
+</pre></td></tr><tr class="notCovered"><td class="number">309</td><td><pre>                    $container[&#039;app.config&#039;]
+</pre></td></tr><tr class="notCovered"><td class="number">310</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>311</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">312</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>313</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">314</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>315</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="initPhp"></a>316</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

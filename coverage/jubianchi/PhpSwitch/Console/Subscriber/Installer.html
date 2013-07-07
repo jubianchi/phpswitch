@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Subscriber\Installer</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Subscriber\Installer</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="__construct"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Subscriber;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>13</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>14</td><td><pre>use Symfony\Component\EventDispatcher\GenericEvent;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>15</td><td><pre>use Symfony\Component\Console\Helper\ProgressHelper;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>16</td><td><pre>use jubianchi\PhpSwitch\Event;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>17</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>18</td><td><pre>class Installer extends Event\Subscriber
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>19</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>20</td><td><pre>    public function __construct(OutputInterface $output, ProgressHelper $progress = null)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">22</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">23</td><td><pre>            -&gt;handle(&#039;install.before&#039;, function(GenericEvent $event) use ($output) {
+</pre></td></tr><tr class="notCovered"><td class="number">24</td><td><pre>                $output-&gt;writeln(
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>25</td><td><pre>                    array(
+</pre></td></tr><tr class="notCovered"><td class="number">26</td><td><pre>                        sprintf(&#039;Installing PHP &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;version&#039;)-&gt;getVersion()),
+</pre></td></tr><tr class="notCovered"><td class="number">27</td><td><pre>                        sprintf(&#039;From mirror &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;mirror&#039;)),
+</pre></td></tr><tr class="notCovered"><td class="number">28</td><td><pre>                        sprintf(&#039;Configure options: &lt;info&gt;[%s]&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;options&#039;))
+</pre></td></tr><tr class="notCovered"><td class="number">29</td><td><pre>                    )
+</pre></td></tr><tr class="notCovered"><td class="number">30</td><td><pre>                );
+</pre></td></tr><tr class="notCovered"><td class="number">31</td><td><pre>            })
+</pre></td></tr><tr class="notCovered"><td class="number">32</td><td><pre>            -&gt;handle(&#039;install.after&#039;, function(GenericEvent $event) use ($output) {
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>                $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>                    sprintf(PHP_EOL . &#039;PHP version &lt;info&gt;%s&lt;/info&gt; was installed:&#039;, $event-&gt;getArgument(&#039;version&#039;)),
+</pre></td></tr><tr class="notCovered"><td class="number">35</td><td><pre>                    sprintf(&#039;    &lt;comment&gt;%s&lt;/comment&gt;&#039;, $event-&gt;getArgument(&#039;destination&#039;)),
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>                    sprintf(PHP_EOL . &#039;Use &lt;info&gt;php switch %s&lt;/info&gt; to enable it&#039;, $event-&gt;getArgument(&#039;version&#039;))
+</pre></td></tr><tr class="notCovered"><td class="number">37</td><td><pre>                ));
+</pre></td></tr><tr class="notCovered"><td class="number">38</td><td><pre>            })
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">41</td><td><pre>        $downloader = new Downloader($output, $progress);
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>        $extracter = new Extracter($output, $progress);
+</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>        $builder = new Builder($output, $progress);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>44</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>        $this-&gt;handlers = array_merge(
+</pre></td></tr><tr class="notCovered"><td class="number">46</td><td><pre>            $this-&gt;handlers,
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>            $downloader-&gt;getHandlers(),
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>            $extracter-&gt;getHandlers(),
+</pre></td></tr><tr class="notCovered"><td class="number">49</td><td><pre>            $builder-&gt;getHandlers()
+</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>        );
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>52</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

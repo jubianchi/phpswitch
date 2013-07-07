@@ -75,44 +75,40 @@
 </pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>28</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>29</td><td><pre>        $rootNode
 </pre></td></tr><tr class="covered"><td class="number">30</td><td><pre>            -&gt;children()
-</pre></td></tr><tr class="covered"><td class="number">31</td><td><pre>                -&gt;scalarNode(&#039;version&#039;)
-</pre></td></tr><tr class="covered"><td class="number">32</td><td><pre>                    -&gt;defaultValue(&#039;&#039;)
-</pre></td></tr><tr class="covered"><td class="number">33</td><td><pre>                -&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">34</td><td><pre>				-&gt;booleanNode(&#039;enabled&#039;)
-</pre></td></tr><tr class="covered"><td class="number">35</td><td><pre>					-&gt;defaultValue(true)
-</pre></td></tr><tr class="covered"><td class="number">36</td><td><pre>				-&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">37</td><td><pre>                -&gt;scalarNode(&#039;mirror&#039;)
-</pre></td></tr><tr class="covered"><td class="number">38</td><td><pre>                    -&gt;defaultValue(getenv(&#039;PHPSWITCH_MIRROR&#039;) ?: &#039;fr2.php.net&#039;)
-</pre></td></tr><tr class="covered"><td class="number">39</td><td><pre>                -&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">40</td><td><pre>                -&gt;arrayNode(&#039;versions&#039;)
-</pre></td></tr><tr class="covered"><td class="number">41</td><td><pre>                    -&gt;prototype(&#039;array&#039;)
-</pre></td></tr><tr class="covered"><td class="number">42</td><td><pre>                        -&gt;children()
-</pre></td></tr><tr class="covered"><td class="number">43</td><td><pre>                            -&gt;scalarNode(&#039;options&#039;)-&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">44</td><td><pre>                            -&gt;arrayNode(&#039;config&#039;)
-</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>                                -&gt;prototype(&#039;scalar&#039;)-&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>                            -&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">47</td><td><pre>                        -&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">48</td><td><pre>                    -&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">49</td><td><pre>                -&gt;end()
-</pre></td></tr><tr class="covered"><td class="number">50</td><td><pre>            -&gt;end()
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>51</td><td><pre>        ;
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>52</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">53</td><td><pre>        return $treeBuilder;
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>54</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>55</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>56</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>57</td><td><pre>     * @param array                                          $values
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>58</td><td><pre>     * @param \Symfony\Component\Config\Definition\Processor $processor
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>59</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>60</td><td><pre>     * @return array
-</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>61</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="validate"></a>62</td><td><pre>    public function validate(array $values, Processor $processor = null)
-</pre></td></tr><tr><td class="number"><a name="validate"></a>63</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number">64</td><td><pre>        $processor = $processor ?: New Processor();
-</pre></td></tr><tr><td class="number"><a name="validate"></a>65</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number">66</td><td><pre>        return $processor-&gt;processConfiguration($this, $values);
-</pre></td></tr><tr><td class="number"><a name="validate"></a>67</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="validate"></a>68</td><td><pre>}
+</pre></td></tr><tr class="covered"><td class="number">31</td><td><pre>                -&gt;scalarNode(&#039;version&#039;)-&gt;defaultNull()-&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">32</td><td><pre>                -&gt;booleanNode(&#039;enabled&#039;)-&gt;defaultNull()-&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">33</td><td><pre>                -&gt;scalarNode(&#039;mirror&#039;)
+</pre></td></tr><tr class="covered"><td class="number">34</td><td><pre>                    -&gt;defaultValue(getenv(&#039;PHPSWITCH_MIRROR&#039;) ?: &#039;fr2.php.net&#039;)
+</pre></td></tr><tr class="covered"><td class="number">35</td><td><pre>                -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">36</td><td><pre>                -&gt;arrayNode(&#039;versions&#039;)
+</pre></td></tr><tr class="covered"><td class="number">37</td><td><pre>                    -&gt;prototype(&#039;array&#039;)
+</pre></td></tr><tr class="covered"><td class="number">38</td><td><pre>                        -&gt;children()
+</pre></td></tr><tr class="covered"><td class="number">39</td><td><pre>                            -&gt;scalarNode(&#039;options&#039;)-&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">40</td><td><pre>                            -&gt;arrayNode(&#039;config&#039;)
+</pre></td></tr><tr class="covered"><td class="number">41</td><td><pre>                                -&gt;prototype(&#039;scalar&#039;)-&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">42</td><td><pre>                            -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">43</td><td><pre>                        -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">44</td><td><pre>                    -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">45</td><td><pre>                -&gt;end()
+</pre></td></tr><tr class="covered"><td class="number">46</td><td><pre>            -&gt;end()
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>47</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>48</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">49</td><td><pre>        return $treeBuilder;
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>50</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>51</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>52</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>53</td><td><pre>     * @param array                                          $values
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>54</td><td><pre>     * @param \Symfony\Component\Config\Definition\Processor $processor
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>55</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>56</td><td><pre>     * @return array
+</pre></td></tr><tr><td class="number"><a name="getConfigTreeBuilder"></a>57</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="validate"></a>58</td><td><pre>    public function validate(array $values, Processor $processor = null)
+</pre></td></tr><tr><td class="number"><a name="validate"></a>59</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number">60</td><td><pre>        $processor = $processor ?: New Processor();
+</pre></td></tr><tr><td class="number"><a name="validate"></a>61</td><td><pre>
+</pre></td></tr><tr class="covered"><td class="number">62</td><td><pre>        return $processor-&gt;processConfiguration($this, $values);
+</pre></td></tr><tr><td class="number"><a name="validate"></a>63</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="validate"></a>64</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

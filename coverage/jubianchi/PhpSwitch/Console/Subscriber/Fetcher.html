@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Subscriber\Fetcher</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Subscriber\Fetcher</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="startProgress"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Subscriber;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>13</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>14</td><td><pre>use Symfony\Component\EventDispatcher\GenericEvent;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>15</td><td><pre>use Symfony\Component\Console\Helper\ProgressHelper;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>16</td><td><pre>use jubianchi\PhpSwitch\Event;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>17</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>18</td><td><pre>class Fetcher extends Event\Subscriber
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>19</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>20</td><td><pre>    public function __construct(OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>21</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">22</td><td><pre>        $string = &#039;&#039;;
+</pre></td></tr><tr class="notCovered"><td class="number">23</td><td><pre>        $clear = function($newstring = null) use(&amp; $string, $output) {
+</pre></td></tr><tr class="notCovered"><td class="number">24</td><td><pre>            $length = max(strlen($string) - strlen($newstring), 0);
+</pre></td></tr><tr class="notCovered"><td class="number">25</td><td><pre>            $newstring = str_pad($newstring, strlen($string), &#039; &#039;);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>26</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">27</td><td><pre>            $output-&gt;write(
+</pre></td></tr><tr class="notCovered"><td class="number">28</td><td><pre>                str_repeat(&quot;\010&quot;, strlen($string)) .
+</pre></td></tr><tr class="notCovered"><td class="number">29</td><td><pre>                $newstring .
+</pre></td></tr><tr class="notCovered"><td class="number">30</td><td><pre>                str_repeat(&quot;\010&quot;, $length)
+</pre></td></tr><tr class="notCovered"><td class="number">31</td><td><pre>            );
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">33</td><td><pre>            $string = $newstring;
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>        };
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">37</td><td><pre>            -&gt;handle(&#039;fetch.start&#039;, function(GenericEvent $event) use (&amp; $string, $clear, $output) {
+</pre></td></tr><tr class="notCovered"><td class="number">38</td><td><pre>                $clear(sprintf(&#039;   Fetching &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;url&#039;)));
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>                //$output-&gt;write($string = sprintf(&#039;   Fetching &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;url&#039;)));
+</pre></td></tr><tr class="notCovered"><td class="number">40</td><td><pre>            })
+</pre></td></tr><tr class="notCovered"><td class="number">41</td><td><pre>            -&gt;handle(&#039;fetch.parsing&#039;, function(GenericEvent $event) use (&amp; $string, $clear, $output) {
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>                $clear(sprintf(&#039;   Parsing &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;url&#039;)));
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>43</td><td><pre>                //$output-&gt;write($string = sprintf(&#039;   Parsing &lt;info&gt;%s&lt;/info&gt;&#039;, $event-&gt;getArgument(&#039;url&#039;)));
+</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>            })
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>            -&gt;handle(&#039;fetch.failed&#039;, function(GenericEvent $event) use ($clear, $output) {
+</pre></td></tr><tr class="notCovered"><td class="number">46</td><td><pre>                $clear();
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>                $output-&gt;writeln(sprintf(&#039;   &lt;error&gt;Failed to fetch %s&lt;/error&gt;&#039;, $event-&gt;getArgument(&#039;url&#039;)));
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>            })
+</pre></td></tr><tr class="notCovered"><td class="number">49</td><td><pre>            -&gt;handle(&#039;fetch.end&#039;, function() use ($clear) {
+</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>                $clear();
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>            });
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>52</td><td><pre>        ;
+</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>54</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

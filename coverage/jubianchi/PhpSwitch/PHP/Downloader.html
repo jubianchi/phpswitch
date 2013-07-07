@@ -10,7 +10,7 @@
 	<body>
 		<div id="header">
 			<h1>Code coverage of <a href="../../../">phpswitch</a>: jubianchi\PhpSwitch\PHP\Downloader</h1>
-			<h2>Class code coverage <span>25%</span></h2>
+			<h2>Class code coverage <span>23.53%</span></h2>
 		</div>
 		<div id="page">
 			<div id="content">
@@ -34,8 +34,8 @@
 								
 									<div class="bar">
 										<div class="background"></div>
-										<div class="graph" style="width: 3.85%"></div>
-										<div class="label"><a href="#download">download</a> <span>3.85%</span></div>
+										<div class="graph" style="width: 4%"></div>
+										<div class="label"><a href="#download">download</a> <span>4%</span></div>
 									</div>
 								
 							</li>
@@ -45,8 +45,8 @@
 								
 									<div class="bar">
 										<div class="background"></div>
-										<div class="graph" style="width: 0%"></div>
-										<div class="label"><a href="#getDestination">getDestination</a> <span>0%</span></div>
+										<div class="graph" style="width: 50%"></div>
+										<div class="label"><a href="#getDestination">getDestination</a> <span>50%</span></div>
 									</div>
 								
 							</li>
@@ -90,90 +90,88 @@
 </pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>21</td><td><pre>    private $directory;
 </pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>22</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>23</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>24</td><td><pre>     * @param                                       $directory
+</pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>24</td><td><pre>     * @param string                                $directory
 </pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>25</td><td><pre>     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
 </pre></td></tr><tr><td class="number"><a name="getConfigurationFilePath"></a>26</td><td><pre>     */
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>    public function __construct($directory, Dispatcher $dispatcher = null)
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>28</td><td><pre>    {
 </pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>29</td><td><pre>        $this-&gt;directory = $directory;
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>30</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>31</td><td><pre>        if (null !== $dispatcher) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>32</td><td><pre>            $this-&gt;setDispatcher($dispatcher);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>33</td><td><pre>        }
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>34</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     * @param string                           $mirror
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>	 *
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>40</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Downloader
-</pre></td></tr><tr><td class="number"><a name="__construct"></a>41</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="download"></a>42</td><td><pre>    public function download(Version $version, $mirror)
-</pre></td></tr><tr><td class="number"><a name="download"></a>43</td><td><pre>    {
-</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>        $this-&gt;emit(
-</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>            &#039;download.before&#039;,
-</pre></td></tr><tr><td class="number"><a name="download"></a>46</td><td><pre>            $args = array(
-</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>                &#039;version&#039; =&gt; $version,
-</pre></td></tr><tr><td class="number"><a name="download"></a>48</td><td><pre>                &#039;mirror&#039; =&gt; $mirror
-</pre></td></tr><tr class="notCovered"><td class="number">49</td><td><pre>            )
-</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>        );
-</pre></td></tr><tr><td class="number"><a name="download"></a>51</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">52</td><td><pre>        $url  = sprintf($version-&gt;getUrl(), $mirror);
-</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>		$handle = $this-&gt;getDestinationHandle($version);
-</pre></td></tr><tr><td class="number"><a name="download"></a>54</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">55</td><td><pre>        $ch = curl_init($url);
-</pre></td></tr><tr class="notCovered"><td class="number">56</td><td><pre>        curl_setopt($ch, CURLOPT_FILE, $handle);
-</pre></td></tr><tr class="notCovered"><td class="number">57</td><td><pre>        curl_setopt($ch, CURLOPT_URL, $url);
-</pre></td></tr><tr class="notCovered"><td class="number">58</td><td><pre>        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>59</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">60</td><td><pre>        $self = $this;
-</pre></td></tr><tr class="notCovered"><td class="number">61</td><td><pre>        curl_setopt($ch, CURLOPT_NOPROGRESS, false);
-</pre></td></tr><tr class="notCovered"><td class="number">62</td><td><pre>        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function($size, $downloaded) use ($self) {
-</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>            $self-&gt;emit(
-</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>                &#039;download.progress&#039;,
-</pre></td></tr><tr><td class="number"><a name="download"></a>65</td><td><pre>                array(
-</pre></td></tr><tr class="notCovered"><td class="number">66</td><td><pre>                    &#039;size&#039; =&gt; $size,
-</pre></td></tr><tr><td class="number"><a name="download"></a>67</td><td><pre>                    &#039;downloaded&#039; =&gt; $downloaded
-</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>                )
-</pre></td></tr><tr class="notCovered"><td class="number">69</td><td><pre>            );
-</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>        });
-</pre></td></tr><tr><td class="number"><a name="download"></a>71</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>        curl_exec($ch);
-</pre></td></tr><tr class="notCovered"><td class="number">73</td><td><pre>        curl_close($ch);
-</pre></td></tr><tr class="notCovered"><td class="number">74</td><td><pre>        fclose($handle);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>31</td><td><pre>        $this-&gt;setDispatcher(null === $dispatcher ? new Dispatcher() : $dispatcher);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>32</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>34</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>36</td><td><pre>     * @param string                           $mirror
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>37</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>38</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Downloader
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>39</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="download"></a>40</td><td><pre>    public function download(Version $version, $mirror)
+</pre></td></tr><tr><td class="number"><a name="download"></a>41</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>        $this-&gt;emit(
+</pre></td></tr><tr class="notCovered"><td class="number">43</td><td><pre>            &#039;download.before&#039;,
+</pre></td></tr><tr><td class="number"><a name="download"></a>44</td><td><pre>            $args = array(
+</pre></td></tr><tr class="notCovered"><td class="number">45</td><td><pre>                &#039;version&#039; =&gt; $version,
+</pre></td></tr><tr><td class="number"><a name="download"></a>46</td><td><pre>                &#039;mirror&#039; =&gt; $mirror
+</pre></td></tr><tr class="notCovered"><td class="number">47</td><td><pre>            )
+</pre></td></tr><tr class="notCovered"><td class="number">48</td><td><pre>        );
+</pre></td></tr><tr><td class="number"><a name="download"></a>49</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">50</td><td><pre>        $url  = sprintf($version-&gt;getUrl(), $mirror);
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>        $handle = $this-&gt;getDestinationHandle($version);
+</pre></td></tr><tr><td class="number"><a name="download"></a>52</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>        $ch = curl_init($url);
+</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>        curl_setopt($ch, CURLOPT_FILE, $handle);
+</pre></td></tr><tr class="notCovered"><td class="number">55</td><td><pre>        curl_setopt($ch, CURLOPT_URL, $url);
+</pre></td></tr><tr class="notCovered"><td class="number">56</td><td><pre>        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+</pre></td></tr><tr><td class="number"><a name="download"></a>57</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">58</td><td><pre>        $self = $this;
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>59</td><td><pre>        curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+</pre></td></tr><tr class="notCovered"><td class="number">60</td><td><pre>        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function($size, $downloaded) use ($self) {
+</pre></td></tr><tr class="notCovered"><td class="number">61</td><td><pre>            $self-&gt;emit(
+</pre></td></tr><tr class="notCovered"><td class="number">62</td><td><pre>                &#039;download.progress&#039;,
+</pre></td></tr><tr><td class="number"><a name="download"></a>63</td><td><pre>                array(
+</pre></td></tr><tr class="notCovered"><td class="number">64</td><td><pre>                    &#039;size&#039; =&gt; $size,
+</pre></td></tr><tr><td class="number"><a name="download"></a>65</td><td><pre>                    &#039;downloaded&#039; =&gt; $downloaded
+</pre></td></tr><tr class="notCovered"><td class="number">66</td><td><pre>                )
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>            );
+</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>        });
+</pre></td></tr><tr><td class="number"><a name="download"></a>69</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>        curl_exec($ch);
+</pre></td></tr><tr class="notCovered"><td class="number">71</td><td><pre>        curl_close($ch);
+</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>        fclose($handle);
+</pre></td></tr><tr><td class="number"><a name="download"></a>73</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">74</td><td><pre>        $this-&gt;emit(&#039;download.after&#039;, $args);
 </pre></td></tr><tr><td class="number"><a name="download"></a>75</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">76</td><td><pre>        $this-&gt;emit(&#039;download.after&#039;, $args);
-</pre></td></tr><tr><td class="number"><a name="download"></a>77</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">78</td><td><pre>        return $this;
-</pre></td></tr><tr><td class="number"><a name="download"></a>79</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="download"></a>80</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="download"></a>81</td><td><pre>    /**
-</pre></td></tr><tr><td class="number"><a name="download"></a>82</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="download"></a>83</td><td><pre>     *
-</pre></td></tr><tr><td class="number"><a name="download"></a>84</td><td><pre>     * @return string
-</pre></td></tr><tr><td class="number"><a name="download"></a>85</td><td><pre>     */
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>86</td><td><pre>    public function getDestination(Version $version)
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>87</td><td><pre>    {
-</pre></td></tr><tr class="notCovered"><td class="number">88</td><td><pre>        return $this-&gt;directory . DIRECTORY_SEPARATOR . Version::DEFAULT_NAME . &#039;-&#039; . $version-&gt;getVersion() . self::EXTENSION;
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>89</td><td><pre>    }
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>90</td><td><pre>
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>91</td><td><pre>	/**
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>92</td><td><pre>	 * @param \jubianchi\PhpSwitch\PHP\Version $version
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>93</td><td><pre>	 *
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>94</td><td><pre>	 * @throws \RuntimeException
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>95</td><td><pre>	 *
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>96</td><td><pre>	 * @return resource
-</pre></td></tr><tr><td class="number"><a name="getDestination"></a>97</td><td><pre>	 */
-</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>98</td><td><pre>	public function getDestinationHandle(Version $version)
-</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>99</td><td><pre>	{
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>100</td><td><pre>		$destination = $this-&gt;getDestination($version);
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>101</td><td><pre>		if(($handle = @fopen($destination, &#039;wb+&#039;)) === false) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>102</td><td><pre>			throw new \RuntimeException(&#039;Could not write to &#039; . $destination);
-</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>103</td><td><pre>		}
-</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>104</td><td><pre>
-</pre></td></tr><tr class="notCovered"><td class="number">105</td><td><pre>		return $handle;
-</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>106</td><td><pre>	}
-</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>107</td><td><pre>}
+</pre></td></tr><tr class="notCovered"><td class="number">76</td><td><pre>        return $this;
+</pre></td></tr><tr><td class="number"><a name="download"></a>77</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="download"></a>78</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="download"></a>79</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="download"></a>80</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="download"></a>81</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="download"></a>82</td><td><pre>     * @return string
+</pre></td></tr><tr><td class="number"><a name="download"></a>83</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>84</td><td><pre>    public function getDestination(Version $version)
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>85</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">86</td><td><pre>        return $this-&gt;directory . DIRECTORY_SEPARATOR . Version::DEFAULT_NAME . &#039;-&#039; . $version-&gt;getVersion() . self::EXTENSION;
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>87</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>88</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>89</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>90</td><td><pre>     * @param \jubianchi\PhpSwitch\PHP\Version $version
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>91</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>92</td><td><pre>     * @throws \RuntimeException
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>93</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>94</td><td><pre>     * @return resource
+</pre></td></tr><tr><td class="number"><a name="getDestination"></a>95</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>96</td><td><pre>    public function getDestinationHandle(Version $version)
+</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>97</td><td><pre>    {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>98</td><td><pre>        $destination = $this-&gt;getDestination($version);
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>99</td><td><pre>        if(($handle = @fopen($destination, &#039;wb+&#039;)) === false) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="build"></a>100</td><td><pre>            throw new \RuntimeException(&#039;Could not write to &#039; . $destination);
+</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>101</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>102</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">103</td><td><pre>        return $handle;
+</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>104</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getDestinationHandle"></a>105</td><td><pre>}
 </pre></td></tr>
 				</table>
 			</div>

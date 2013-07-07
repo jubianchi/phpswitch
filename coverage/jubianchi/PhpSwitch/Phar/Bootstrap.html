@@ -64,17 +64,17 @@
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>17</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>18</td><td><pre>    public function __construct($class, array $args = array())
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>19</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>20</td><td><pre>        if (false === class_exists($class)) {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>21</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;Class %s does not exist&#039;, $class));
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>20</td><td><pre>        if (false === class_exists($class)) {
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>21</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;Class %s does not exist&#039;, $class));
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>22</td><td><pre>        }
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>23</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>24</td><td><pre>        $this-&gt;class = $class;
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>25</td><td><pre>        $this-&gt;args = $args;
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>26</td><td><pre>    }
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>24</td><td><pre>        $this-&gt;class = $class;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>25</td><td><pre>        $this-&gt;args = $args;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>26</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="__construct"></a>27</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>28</td><td><pre>    public function __toString()
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>29</td><td><pre>    {
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>30</td><td><pre>        $args = var_export($this-&gt;args, true);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>30</td><td><pre>        $args = var_export($this-&gt;args, true);
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>31</td><td><pre>
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>32</td><td><pre>        return &lt;&lt;&lt;EOF
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>33</td><td><pre>&lt;?php
@@ -90,9 +90,9 @@
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>43</td><td><pre>    )
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>44</td><td><pre>);
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>45</td><td><pre>
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>46</td><td><pre>\$app = new $this-&gt;class(\$basedir, $args);
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>47</td><td><pre>\$app-&gt;run();
-</pre></td></tr><tr class="covered"><td class="number"><a name="isInstalled"></a>48</td><td><pre>EOF;
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>46</td><td><pre>\$app = new $this-&gt;class(\$basedir, $args);
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>47</td><td><pre>\$app-&gt;run();
+</pre></td></tr><tr class="covered"><td class="number"><a name="install"></a>48</td><td><pre>EOF;
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>49</td><td><pre>    }
 </pre></td></tr><tr><td class="number"><a name="__toString"></a>50</td><td><pre>}
 </pre></td></tr>

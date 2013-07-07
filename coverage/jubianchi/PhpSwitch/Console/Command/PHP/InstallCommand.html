@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Command\PHP\InstallCommand</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Command\PHP\InstallCommand</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#setApplication">setApplication</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#execute">execute</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getInstaller">getInstaller</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getResolver">getResolver</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getNormalizer">getNormalizer</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#resolveOptions">resolveOptions</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="startProgress"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Command\PHP;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>13</td><td><pre>use jubianchi\PhpSwitch\Config\Dumper;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>14</td><td><pre>use jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>15</td><td><pre>use Symfony\Component\Console\Application;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>16</td><td><pre>use Symfony\Component\Console\Input\InputInterface;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>17</td><td><pre>use Symfony\Component\Console\Input\InputArgument;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>18</td><td><pre>use Symfony\Component\Console\Input\InputOption;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>19</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>20</td><td><pre>use jubianchi\PhpSwitch\PHP\Version;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>21</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Command;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>22</td><td><pre>use jubianchi\PhpSwitch\Console\Subscriber;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>23</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>24</td><td><pre>class InstallCommand extends Command
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>25</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>26</td><td><pre>    const NAME = &#039;php:install&#039;;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>27</td><td><pre>    const DESC = &#039;Installs a PHP version&#039;;
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>28</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>29</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>30</td><td><pre>     * @param string $name
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>31</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>32</td><td><pre>    public function __construct($name = self::NAME)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>33</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">34</td><td><pre>        parent::__construct($name);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>35</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">36</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">37</td><td><pre>            -&gt;addArgument(&#039;version&#039;, InputArgument::REQUIRED, &#039;PHP version (x.y.z)&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">38</td><td><pre>            -&gt;addOption(&#039;global&#039;, &#039;g&#039;, InputOption::VALUE_NONE, &#039;Switch PHP version globaly&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">39</td><td><pre>            -&gt;addOption(&#039;alias&#039;, &#039;a&#039;, InputOption::VALUE_REQUIRED, &#039;Version name alias&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">40</td><td><pre>            -&gt;addOption(&#039;config&#039;, &#039;c&#039;, InputOption::VALUE_REQUIRED, &#039;Use the same configuration as an existing version&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">41</td><td><pre>            -&gt;addOption(&#039;jobs&#039;, &#039;j&#039;, InputOption::VALUE_REQUIRED, &#039;Number of jobs to run simultaneously&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">42</td><td><pre>            -&gt;addOption(&#039;ini&#039;, &#039;i&#039;, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, &#039;INI configuration directives&#039;)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>43</td><td><pre>        ;
+</pre></td></tr><tr class="notCovered"><td class="number">44</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>45</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>46</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>47</td><td><pre>     * @param \Symfony\Component\Console\Application $application
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>48</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>49</td><td><pre>    public function setApplication(Application $application = null)
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>50</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">51</td><td><pre>        parent::setApplication($application);
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>52</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">53</td><td><pre>        if (null !== $application) {
+</pre></td></tr><tr class="notCovered"><td class="number">54</td><td><pre>            $this-&gt;getApplication()-&gt;getService(&#039;app.php.options&#039;)-&gt;setCommand($this);
+</pre></td></tr><tr class="notCovered"><td class="number">55</td><td><pre>        }
+</pre></td></tr><tr class="notCovered"><td class="number">56</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>57</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>58</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>59</td><td><pre>     * @param \Symfony\Component\Console\Input\InputInterface   $input
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>60</td><td><pre>     * @param \Symfony\Component\Console\Output\OutputInterface $output
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>61</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>62</td><td><pre>     * @throws \jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>63</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>64</td><td><pre>     * @return int|void
+</pre></td></tr><tr><td class="number"><a name="setApplication"></a>65</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="execute"></a>66</td><td><pre>    protected function execute(InputInterface $input, OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="execute"></a>67</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>        parent::execute($input, $output);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>69</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>        $finder = $this-&gt;getApplication()-&gt;getService(&#039;app.php.finder.cached&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">71</td><td><pre>        $version = $finder-&gt;getVersion($input-&gt;getArgument(&#039;version&#039;));
+</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>        $mirror = $this-&gt;getConfiguration()-&gt;get(&#039;mirror&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">73</td><td><pre>        if (null !== ($alias = $input-&gt;getOption(&#039;alias&#039;))) {
+</pre></td></tr><tr class="notCovered"><td class="number">74</td><td><pre>            $version-&gt;setName($alias);
+</pre></td></tr><tr class="notCovered"><td class="number">75</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>76</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">77</td><td><pre>        $template = $this-&gt;getApplication()-&gt;getService(&#039;app.php.template.builder&#039;)-&gt;build($version, $input);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>78</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">79</td><td><pre>        $subscriber = new Subscriber\Installer($output, $input-&gt;isInteractive() ? $this-&gt;getHelper(&#039;progress&#039;) : null);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>80</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>81</td><td><pre>        try {
+</pre></td></tr><tr class="notCovered"><td class="number">82</td><td><pre>            $this-&gt;getInstaller()
+</pre></td></tr><tr class="notCovered"><td class="number">83</td><td><pre>                -&gt;subscribe($subscriber)
+</pre></td></tr><tr class="notCovered"><td class="number">84</td><td><pre>                -&gt;install($template, $mirror, $input-&gt;getOption(&#039;jobs&#039;), $input, $output)
+</pre></td></tr><tr class="notCovered"><td class="number">85</td><td><pre>                -&gt;unsubscribe($subscriber)
+</pre></td></tr><tr><td class="number"><a name="execute"></a>86</td><td><pre>            ;
+</pre></td></tr><tr class="notCovered"><td class="number">87</td><td><pre>        } catch(AlreadyInstalledException $exception) {
+</pre></td></tr><tr class="notCovered"><td class="number">88</td><td><pre>            throw new AlreadyInstalledException(
+</pre></td></tr><tr class="notCovered"><td class="number">89</td><td><pre>                $exception-&gt;getMessage() . PHP_EOL . &#039;Use --alias to install using a different name&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">90</td><td><pre>                $exception-&gt;getCode(),
+</pre></td></tr><tr><td class="number"><a name="execute"></a>91</td><td><pre>                $exception
+</pre></td></tr><tr class="notCovered"><td class="number">92</td><td><pre>            );
+</pre></td></tr><tr><td class="number"><a name="execute"></a>93</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>94</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">95</td><td><pre>        $configs = $template-&gt;getConfigs();
+</pre></td></tr><tr class="notCovered"><td class="number">96</td><td><pre>        foreach ($configs as $key =&gt; $value) {
+</pre></td></tr><tr class="notCovered"><td class="number">97</td><td><pre>            $this-&gt;getApplication()-&gt;getService(&#039;app.php.config&#039;)-&gt;setValue($version, $key, $value);
+</pre></td></tr><tr class="notCovered"><td class="number">98</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>99</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">100</td><td><pre>        $this-&gt;getConfiguration()
+</pre></td></tr><tr class="notCovered"><td class="number">101</td><td><pre>            -&gt;set(
+</pre></td></tr><tr class="notCovered"><td class="number">102</td><td><pre>                &#039;versions.&#039; . $template-&gt;getName(),
+</pre></td></tr><tr><td class="number"><a name="execute"></a>103</td><td><pre>                array(
+</pre></td></tr><tr class="notCovered"><td class="number">104</td><td><pre>                    &#039;options&#039; =&gt; (string) $template-&gt;getOptions(),
+</pre></td></tr><tr class="notCovered"><td class="number">105</td><td><pre>                    &#039;config&#039; =&gt; $template-&gt;getConfigs()
+</pre></td></tr><tr class="notCovered"><td class="number">106</td><td><pre>                ),
+</pre></td></tr><tr class="notCovered"><td class="number">107</td><td><pre>                !$input-&gt;getOption(&#039;global&#039;)
+</pre></td></tr><tr class="notCovered"><td class="number">108</td><td><pre>            )
+</pre></td></tr><tr><td class="number"><a name="execute"></a>109</td><td><pre>        ;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>110</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">111</td><td><pre>        return 0;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>112</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>113</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>114</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="execute"></a>115</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Installer
+</pre></td></tr><tr><td class="number"><a name="execute"></a>116</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>117</td><td><pre>    public function getInstaller()
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>118</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">119</td><td><pre>        return $this-&gt;getApplication()-&gt;getService(&#039;app.php.installer&#039;);
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>120</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>121</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>122</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>123</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Resolver
+</pre></td></tr><tr><td class="number"><a name="getInstaller"></a>124</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>125</td><td><pre>    public function getResolver()
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>126</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">127</td><td><pre>        return $this-&gt;getApplication()-&gt;getOptionResolver();
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>128</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>129</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>130</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>131</td><td><pre>     * @return \jubianchi\PhpSwitch\PHP\Option\Normalizer
+</pre></td></tr><tr><td class="number"><a name="getResolver"></a>132</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="getNormalizer"></a>133</td><td><pre>    public function getNormalizer()
+</pre></td></tr><tr><td class="number"><a name="getNormalizer"></a>134</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">135</td><td><pre>        return $this-&gt;getApplication()-&gt;getOptionNormalizer();
+</pre></td></tr><tr><td class="number"><a name="getNormalizer"></a>136</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getNormalizer"></a>137</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>138</td><td><pre>    protected function resolveOptions(InputInterface $input)
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>139</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">140</td><td><pre>        $options = $this-&gt;getResolver()-&gt;resolve($input, $this-&gt;options);
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>141</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">142</td><td><pre>        if (null !== ($config = $input-&gt;getOption(&#039;config&#039;))) {
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>143</td><td><pre>            try {
+</pre></td></tr><tr class="notCovered"><td class="number">144</td><td><pre>                $config = $this-&gt;getConfiguration()-&gt;get(&#039;versions.&#039; . str_replace(&#039;.&#039;, &#039;-&#039;, $config));
+</pre></td></tr><tr class="notCovered"><td class="number">145</td><td><pre>            } catch (\InvalidArgumentException $exception) {
+</pre></td></tr><tr class="notCovered"><td class="number">146</td><td><pre>                throw new \InvalidArgumentException(
+</pre></td></tr><tr class="notCovered"><td class="number">147</td><td><pre>                    sprintf(&#039;Configuration %s does not exist&#039;, $config),
+</pre></td></tr><tr class="notCovered"><td class="number">148</td><td><pre>                    $exception-&gt;getCode(),
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>149</td><td><pre>                    $exception
+</pre></td></tr><tr class="notCovered"><td class="number">150</td><td><pre>                );
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>151</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>152</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">153</td><td><pre>            $options-&gt;addOptions($this-&gt;getNormalizer()-&gt;denormalize($config, $this-&gt;options));
+</pre></td></tr><tr class="notCovered"><td class="number">154</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>155</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">156</td><td><pre>        return $options;
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>157</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="resolveOptions"></a>158</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>

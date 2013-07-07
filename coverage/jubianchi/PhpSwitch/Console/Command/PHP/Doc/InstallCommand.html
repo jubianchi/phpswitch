@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>phpswitch : code coverage of jubianchi\PhpSwitch\Console\Command\PHP\Doc\InstallCommand</title>
+		<link rel="stylesheet" media="screen" type="text/css" href="../../../../../../screen.css" title="Screen" />
+	</head>
+	<body>
+		<div id="header">
+			<h1>Code coverage of <a href="../../../../../../">phpswitch</a>: jubianchi\PhpSwitch\Console\Command\PHP\Doc\InstallCommand</h1>
+			<h2>Class code coverage <span>0%</span></h2>
+		</div>
+		<div id="page">
+			<div id="content">
+				<h3>Methods</h3>
+				<ul class="summary">
+					
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#__construct">__construct</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#execute">execute</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getFilename">getFilename</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#download">download</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getProcessCallback">getProcessCallback</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#getDownloadProgressCallback">getDownloadProgressCallback</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+							<li>
+								
+								
+									<div class="bar">
+										<div class="background"></div>
+										<div class="graph" style="width: 0%"></div>
+										<div class="label"><a href="#startProgress">startProgress</a> <span>0%</span></div>
+									</div>
+								
+							</li>
+						
+					
+				</ul>
+				<h3>Source</h3>
+				<table cellpadding="0" cellspacing="0" class="source">
+					<tr><th class="number">Line</th><th>Code</th></tr>
+					<tr><td class="number"><a name="execute"></a>1</td><td><pre>&lt;?php
+</pre></td></tr><tr><td class="number"><a name="execute"></a>2</td><td><pre>/**
+</pre></td></tr><tr><td class="number"><a name="execute"></a>3</td><td><pre> * This file is part of phpswitch.
+</pre></td></tr><tr><td class="number"><a name="execute"></a>4</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="execute"></a>5</td><td><pre> * (c) Julien Bianchi &lt;contact@jubianchi.fr&gt;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>6</td><td><pre> *
+</pre></td></tr><tr><td class="number"><a name="execute"></a>7</td><td><pre> * For the full copyright and license information, please view the LICENSE
+</pre></td></tr><tr><td class="number"><a name="execute"></a>8</td><td><pre> * file that was distributed with this source code.
+</pre></td></tr><tr><td class="number"><a name="execute"></a>9</td><td><pre> */
+</pre></td></tr><tr><td class="number"><a name="execute"></a>10</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>11</td><td><pre>namespace jubianchi\PhpSwitch\Console\Command\PHP\Doc;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>12</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>13</td><td><pre>use Symfony\Component\Console;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>14</td><td><pre>use Symfony\Component\Process\Process;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>15</td><td><pre>use Symfony\Component\Console\Input\InputInterface;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>16</td><td><pre>use Symfony\Component\Console\Input\InputOption;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>17</td><td><pre>use Symfony\Component\Console\Output\OutputInterface;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>18</td><td><pre>use jubianchi\PhpSwitch\Console\Command\Command;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>19</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>20</td><td><pre>class InstallCommand extends Command
+</pre></td></tr><tr><td class="number"><a name="execute"></a>21</td><td><pre>{
+</pre></td></tr><tr><td class="number"><a name="execute"></a>22</td><td><pre>    const NAME = &#039;php:doc:install&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>23</td><td><pre>    const DESC = &#039;Installs PHP offline documentation&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>24</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>25</td><td><pre>    const URL = &#039;http://php.net/get/%s/from/%s/mirror&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>26</td><td><pre>    const FORMAT_HTML = &#039;html&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>27</td><td><pre>    const FORMAT_SINGLE_HTML = &#039;single-html&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>28</td><td><pre>    const FORMAT_CHM = &#039;chm&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>29</td><td><pre>    const FORMAT_CHM_ENH = &#039;chm-enhanced&#039;;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>30</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>31</td><td><pre>    private static $formats = array(
+</pre></td></tr><tr><td class="number"><a name="execute"></a>32</td><td><pre>        self::FORMAT_HTML =&gt; &#039;php_manual_%s.tar.gz&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>33</td><td><pre>        self::FORMAT_SINGLE_HTML =&gt; &#039;php_manual_%s.html.gz&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>34</td><td><pre>        self::FORMAT_CHM =&gt; &#039;php_%s.chm&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>35</td><td><pre>        self::FORMAT_CHM_ENH =&gt; &#039;php_enhanced_%s.chm&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>36</td><td><pre>    );
+</pre></td></tr><tr><td class="number"><a name="execute"></a>37</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>38</td><td><pre>    private static $outputs = array(
+</pre></td></tr><tr><td class="number"><a name="execute"></a>39</td><td><pre>        self::FORMAT_HTML =&gt; &#039;php-chunked-xhtml&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>40</td><td><pre>        self::FORMAT_SINGLE_HTML =&gt; &#039;php_manual_fr.html&#039;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>41</td><td><pre>    );
+</pre></td></tr><tr><td class="number"><a name="execute"></a>42</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>43</td><td><pre>    private static $langs = array(
+</pre></td></tr><tr><td class="number"><a name="execute"></a>44</td><td><pre>        &#039;en&#039; =&gt; &#039;en&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>45</td><td><pre>        &#039;pt&#039; =&gt; &#039;pt_BR&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>46</td><td><pre>        &#039;cn&#039; =&gt; &#039;zh&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>47</td><td><pre>        &#039;fr&#039; =&gt; &#039;fr&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>48</td><td><pre>        &#039;de&#039; =&gt; &#039;de&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>49</td><td><pre>        &#039;it&#039; =&gt; &#039;it&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>50</td><td><pre>        &#039;ja&#039; =&gt; &#039;ja&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>51</td><td><pre>        &#039;pl&#039; =&gt; &#039;pl&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>52</td><td><pre>        &#039;ro&#039; =&gt; &#039;ro&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>53</td><td><pre>        &#039;ru&#039; =&gt; &#039;ru&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>54</td><td><pre>        &#039;es&#039; =&gt; &#039;es&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>55</td><td><pre>        &#039;tr&#039; =&gt; &#039;tr&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>56</td><td><pre>    );
+</pre></td></tr><tr><td class="number"><a name="execute"></a>57</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="execute"></a>58</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="execute"></a>59</td><td><pre>     * @param string $name
+</pre></td></tr><tr><td class="number"><a name="execute"></a>60</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>61</td><td><pre>    public function __construct($name = self::NAME)
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>62</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">63</td><td><pre>        parent::__construct($name);
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>64</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">65</td><td><pre>        $this
+</pre></td></tr><tr class="notCovered"><td class="number">66</td><td><pre>            -&gt;addOption(
+</pre></td></tr><tr class="notCovered"><td class="number">67</td><td><pre>                &#039;format&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">68</td><td><pre>                &#039;f&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">69</td><td><pre>                InputOption::VALUE_OPTIONAL,
+</pre></td></tr><tr class="notCovered"><td class="number">70</td><td><pre>                sprintf(
+</pre></td></tr><tr class="notCovered"><td class="number">71</td><td><pre>                    &#039;Documentation format &lt;comment&gt;(%s)&lt;/comment&gt;&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">72</td><td><pre>                    implode(&#039;, &#039;, array_keys(static::$formats))
+</pre></td></tr><tr class="notCovered"><td class="number">73</td><td><pre>                ),
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>74</td><td><pre>                self::FORMAT_HTML
+</pre></td></tr><tr class="notCovered"><td class="number">75</td><td><pre>            )
+</pre></td></tr><tr class="notCovered"><td class="number">76</td><td><pre>            -&gt;addOption(
+</pre></td></tr><tr class="notCovered"><td class="number">77</td><td><pre>                &#039;lang&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">78</td><td><pre>                &#039;l&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">79</td><td><pre>                InputOption::VALUE_OPTIONAL,
+</pre></td></tr><tr class="notCovered"><td class="number">80</td><td><pre>                sprintf(
+</pre></td></tr><tr class="notCovered"><td class="number">81</td><td><pre>                    &#039;Documentation language &lt;comment&gt;(%s)&lt;/comment&gt;&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">82</td><td><pre>                    implode(&#039;, &#039;, array_keys(static::$langs))
+</pre></td></tr><tr class="notCovered"><td class="number">83</td><td><pre>                ),
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>84</td><td><pre>                &#039;en&#039;
+</pre></td></tr><tr class="notCovered"><td class="number">85</td><td><pre>            )
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>86</td><td><pre>        ;
+</pre></td></tr><tr class="notCovered"><td class="number">87</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>88</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>89</td><td><pre>    /**
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>90</td><td><pre>     * @param \Symfony\Component\Console\Input\InputInterface   $input
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>91</td><td><pre>     * @param \Symfony\Component\Console\Output\OutputInterface $output
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>92</td><td><pre>     *
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>93</td><td><pre>     * @return int
+</pre></td></tr><tr><td class="number"><a name="__construct"></a>94</td><td><pre>     */
+</pre></td></tr><tr><td class="number"><a name="execute"></a>95</td><td><pre>    protected function execute(InputInterface $input, OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="execute"></a>96</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">97</td><td><pre>        parent::execute($input, $output);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>98</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">99</td><td><pre>        $format = $input-&gt;getOption(&#039;format&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">100</td><td><pre>        $lang = $input-&gt;getOption(&#039;lang&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">101</td><td><pre>        $filename = static::getFilename($format, $lang);
+</pre></td></tr><tr class="notCovered"><td class="number">102</td><td><pre>        $url = sprintf(self::URL, $filename, $this-&gt;getConfiguration()-&gt;get(&#039;mirror&#039;));
+</pre></td></tr><tr class="notCovered"><td class="number">103</td><td><pre>        $archive = $this-&gt;getApplication()-&gt;getService(&#039;app.workspace.doc.path&#039;) . DIRECTORY_SEPARATOR . $filename;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>104</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">105</td><td><pre>        $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">106</td><td><pre>            sprintf(PHP_EOL . &#039;Downloading PHP documentation &lt;info&gt;(%s/%s)&lt;/info&gt;&#039;, $format, $lang),
+</pre></td></tr><tr class="notCovered"><td class="number">107</td><td><pre>            sprintf(&#039;%s&lt;comment&gt;%s&lt;/comment&gt;&#039;, self::INDENT, $url)
+</pre></td></tr><tr class="notCovered"><td class="number">108</td><td><pre>        ));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>109</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">110</td><td><pre>        static::download($url, $archive, $this-&gt;getDownloadProgressCallback($output));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>111</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">112</td><td><pre>        if (false === in_array($format, array(static::FORMAT_CHM, self::FORMAT_CHM_ENH))) {
+</pre></td></tr><tr class="notCovered"><td class="number">113</td><td><pre>            $destination = $this-&gt;getApplication()-&gt;getService(&#039;app.workspace.doc.path&#039;) . DIRECTORY_SEPARATOR . sprintf(&#039;php_manual-%s-%s&#039;, $format, $lang) . (static::FORMAT_SINGLE_HTML === $format ? &#039;.html&#039; : &#039;&#039;);
+</pre></td></tr><tr><td class="number"><a name="execute"></a>114</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">115</td><td><pre>            $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">116</td><td><pre>                PHP_EOL . PHP_EOL . &#039;Extracting PHP documentation&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">117</td><td><pre>                sprintf(&#039;%s&lt;comment&gt;%s&lt;/comment&gt;&#039;, self::INDENT, $destination)
+</pre></td></tr><tr class="notCovered"><td class="number">118</td><td><pre>            ));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>119</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">120</td><td><pre>            $process = new Process(
+</pre></td></tr><tr class="notCovered"><td class="number">121</td><td><pre>                sprintf(
+</pre></td></tr><tr class="notCovered"><td class="number">122</td><td><pre>                    static::FORMAT_HTML === $format ? &#039;tar -zxvf %s&#039; : &#039;gunzip %s&#039;,
+</pre></td></tr><tr><td class="number"><a name="execute"></a>123</td><td><pre>                    $archive
+</pre></td></tr><tr class="notCovered"><td class="number">124</td><td><pre>                ),
+</pre></td></tr><tr class="notCovered"><td class="number">125</td><td><pre>                dirname($destination)
+</pre></td></tr><tr class="notCovered"><td class="number">126</td><td><pre>            );
+</pre></td></tr><tr class="notCovered"><td class="number">127</td><td><pre>            $process-&gt;run($this-&gt;getProcessCallback($output));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>128</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">129</td><td><pre>            $process = new Process(
+</pre></td></tr><tr class="notCovered"><td class="number">130</td><td><pre>                sprintf(
+</pre></td></tr><tr class="notCovered"><td class="number">131</td><td><pre>                    &#039;mv %s %s&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">132</td><td><pre>                    static::$outputs[$format],
+</pre></td></tr><tr><td class="number"><a name="execute"></a>133</td><td><pre>                    $destination
+</pre></td></tr><tr class="notCovered"><td class="number">134</td><td><pre>                ),
+</pre></td></tr><tr class="notCovered"><td class="number">135</td><td><pre>                dirname($archive)
+</pre></td></tr><tr class="notCovered"><td class="number">136</td><td><pre>            );
+</pre></td></tr><tr class="notCovered"><td class="number">137</td><td><pre>            $process-&gt;run($this-&gt;getProcessCallback($output));
+</pre></td></tr><tr><td class="number"><a name="execute"></a>138</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">139</td><td><pre>            if (file_exists($archive)) {
+</pre></td></tr><tr class="notCovered"><td class="number">140</td><td><pre>                unlink($archive);
+</pre></td></tr><tr class="notCovered"><td class="number">141</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">142</td><td><pre>        } else {
+</pre></td></tr><tr class="notCovered"><td class="number">143</td><td><pre>            $destination = $this-&gt;getApplication()-&gt;getService(&#039;app.workspace.doc.path&#039;) . DIRECTORY_SEPARATOR . $filename;
+</pre></td></tr><tr><td class="number"><a name="execute"></a>144</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>145</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">146</td><td><pre>        $output-&gt;writeln(array(
+</pre></td></tr><tr class="notCovered"><td class="number">147</td><td><pre>            PHP_EOL . PHP_EOL . &#039;PHP offline documentation is now installed&#039;,
+</pre></td></tr><tr class="notCovered"><td class="number">148</td><td><pre>            sprintf(&#039;%s&lt;comment&gt;%s&lt;/comment&gt;&#039;, self::INDENT, $destination)
+</pre></td></tr><tr class="notCovered"><td class="number">149</td><td><pre>        ));
+</pre></td></tr><tr class="notCovered"><td class="number">150</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="execute"></a>151</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>152</td><td><pre>    private static function getFilename($format, $lang)
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>153</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">154</td><td><pre>        if (false === isset(static::$formats[$format])) {
+</pre></td></tr><tr class="notCovered"><td class="number">155</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;Invalid format &quot;%s&quot;&#039;, $format));
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>156</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>157</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">158</td><td><pre>        if (false === isset(static::$langs[$lang])) {
+</pre></td></tr><tr class="notCovered"><td class="number">159</td><td><pre>            throw new \InvalidArgumentException(sprintf(&#039;Invalid lang &quot;%s&quot;&#039;, $format));
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>160</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>161</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">162</td><td><pre>        return sprintf(static::$formats[$format], static::$langs[$lang]);
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>163</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getFilename"></a>164</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="download"></a>165</td><td><pre>    private static function download($url, $destination, $callback = null)
+</pre></td></tr><tr><td class="number"><a name="download"></a>166</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">167</td><td><pre>        $handle = fopen($destination, &#039;wb+&#039;);
+</pre></td></tr><tr><td class="number"><a name="download"></a>168</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">169</td><td><pre>        $channel = curl_init($url);
+</pre></td></tr><tr class="notCovered"><td class="number">170</td><td><pre>        curl_setopt($channel, CURLOPT_FILE, $handle);
+</pre></td></tr><tr class="notCovered"><td class="number">171</td><td><pre>        curl_setopt($channel, CURLOPT_HEADER, 0);
+</pre></td></tr><tr class="notCovered"><td class="number">172</td><td><pre>        curl_setopt($channel, CURLOPT_URL, $url);
+</pre></td></tr><tr class="notCovered"><td class="number">173</td><td><pre>        curl_setopt($channel, CURLOPT_FOLLOWLOCATION, true);
+</pre></td></tr><tr><td class="number"><a name="download"></a>174</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">175</td><td><pre>        if (null !== $callback) {
+</pre></td></tr><tr class="notCovered"><td class="number">176</td><td><pre>            curl_setopt($channel, CURLOPT_NOPROGRESS, false);
+</pre></td></tr><tr class="notCovered"><td class="number">177</td><td><pre>            curl_setopt($channel, CURLOPT_PROGRESSFUNCTION, $callback);
+</pre></td></tr><tr class="notCovered"><td class="number">178</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="download"></a>179</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">180</td><td><pre>        curl_exec($channel);
+</pre></td></tr><tr class="notCovered"><td class="number">181</td><td><pre>        curl_close($channel);
+</pre></td></tr><tr class="notCovered"><td class="number">182</td><td><pre>        fclose($handle);
+</pre></td></tr><tr class="notCovered"><td class="number">183</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="download"></a>184</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>185</td><td><pre>    protected function getProcessCallback(OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>186</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">187</td><td><pre>        $self = $this;
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>188</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">189</td><td><pre>        if (OutputInterface::VERBOSITY_VERBOSE !== $output-&gt;getVerbosity()) {
+</pre></td></tr><tr class="notCovered"><td class="number">190</td><td><pre>            $this-&gt;startProgress($output);
+</pre></td></tr><tr class="notCovered"><td class="number">191</td><td><pre>        }
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>192</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">193</td><td><pre>        return function($type, $buffer) use ($self, $output) {
+</pre></td></tr><tr class="notCovered"><td class="number">194</td><td><pre>            $buffer = rtrim($buffer);
+</pre></td></tr><tr class="notCovered"><td class="number">195</td><td><pre>            if (&#039;&#039; === empty($buffer)) {
+</pre></td></tr><tr class="notCovered"><td class="number">196</td><td><pre>                return;
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>197</td><td><pre>            }
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>198</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">199</td><td><pre>            $self-&gt;log($buffer, &#039;err&#039; === $type ? \Monolog\Logger::ERROR : \Monolog\Logger::INFO);
+</pre></td></tr><tr class="notCovered"><td class="number">200</td><td><pre>            $self-&gt;getHelper(&#039;progress&#039;)-&gt;advance();
+</pre></td></tr><tr class="notCovered"><td class="number">201</td><td><pre>        };
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>202</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getProcessCallback"></a>203</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>204</td><td><pre>    protected function getDownloadProgressCallback(OutputInterface $output)
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>205</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">206</td><td><pre>        $self = $this;
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>207</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">208</td><td><pre>        $this-&gt;startProgress($output, 100, &#039;[%bar%] %percent%%&#039;);
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>209</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">210</td><td><pre>        return function($size, $downloaded) use ($self) {
+</pre></td></tr><tr class="notCovered"><td class="number">211</td><td><pre>            static $previous = 0;
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>212</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">213</td><td><pre>            if ($size &gt; 0) {
+</pre></td></tr><tr class="notCovered"><td class="number">214</td><td><pre>                $complete = ceil(($downloaded / $size) * 100);
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>215</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">216</td><td><pre>                $self-&gt;getHelper(&#039;progress&#039;)-&gt;advance($complete - $previous);
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>217</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">218</td><td><pre>                $previous = $complete;
+</pre></td></tr><tr class="notCovered"><td class="number">219</td><td><pre>            }
+</pre></td></tr><tr class="notCovered"><td class="number">220</td><td><pre>        };
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>221</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="getDownloadProgressCallback"></a>222</td><td><pre>
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>223</td><td><pre>    protected function startProgress(OutputInterface $output, $max = null, $format = &#039;[%bar%]&#039;)
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>224</td><td><pre>    {
+</pre></td></tr><tr class="notCovered"><td class="number">225</td><td><pre>        $progress = $this-&gt;getHelper(&#039;progress&#039;);
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>226</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">227</td><td><pre>        $progress-&gt;setBarWidth(50);
+</pre></td></tr><tr class="notCovered"><td class="number">228</td><td><pre>        $progress-&gt;setEmptyBarCharacter($max ? &#039;-&#039; : &#039;=&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">229</td><td><pre>        $progress-&gt;setProgressCharacter(&#039;&gt;&#039;);
+</pre></td></tr><tr class="notCovered"><td class="number">230</td><td><pre>        $progress-&gt;setFormat($format);
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>231</td><td><pre>
+</pre></td></tr><tr class="notCovered"><td class="number">232</td><td><pre>        $progress-&gt;start($output, $max);
+</pre></td></tr><tr class="notCovered"><td class="number">233</td><td><pre>    }
+</pre></td></tr><tr><td class="number"><a name="startProgress"></a>234</td><td><pre>}
+</pre></td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Code coverage report powered by <a href="http://atoum.org">atoum</a></p>
+		</div>
+	</body>
+</html>
