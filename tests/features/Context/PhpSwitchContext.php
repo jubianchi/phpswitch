@@ -88,7 +88,6 @@ class PhpSwitchContext extends CLIContext
             sprintf(__DIR__ . '/../../../bin/installer %s', $command),
             static::$sandbox,
             array(
-                'PHPSWITCH_GIT_URL' => realpath(__DIR__ . '/../../..'),
                 'COMPOSER_HOME' => getenv('HOME') . DIRECTORY_SEPARATOR . '.composer',
                 'PHPSWITCH_PATH' => static::$workspace,
                 'PHPSWITCH_SYMLINK' => static::$root,
