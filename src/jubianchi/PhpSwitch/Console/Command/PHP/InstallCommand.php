@@ -10,14 +10,12 @@
 
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
-use jubianchi\PhpSwitch\Config\Dumper;
 use jubianchi\PhpSwitch\PHP\Exception\AlreadyInstalledException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use jubianchi\PhpSwitch\PHP\Version;
 use jubianchi\PhpSwitch\Console\Command\Command;
 use jubianchi\PhpSwitch\Console\Subscriber;
 

@@ -13,7 +13,6 @@ namespace jubianchi\PhpSwitch\Console\Command\PHP;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use jubianchi\PhpSwitch\Console\Command\Command;
-use jubianchi\PhpSwitch\PHP;
 
 class REPLCommand extends Command
 {

@@ -16,7 +16,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use jubianchi\PhpSwitch\Console\Command\Command;
-use jubianchi\PhpSwitch\Config\Dumper;
 
 class SwitchCommand extends Command
 {

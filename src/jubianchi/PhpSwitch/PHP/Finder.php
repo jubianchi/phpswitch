@@ -13,7 +13,6 @@ namespace jubianchi\PhpSwitch\PHP;
 use jubianchi\PhpSwitch\Event\Dispatcher;
 use jubianchi\PhpSwitch\Event\Emitter;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\EventDispatcher\Event;
 
 class Finder extends Emitter implements \IteratorAggregate
 {

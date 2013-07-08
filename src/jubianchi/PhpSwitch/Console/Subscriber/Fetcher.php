@@ -12,7 +12,6 @@ namespace jubianchi\PhpSwitch\Console\Subscriber;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\Console\Helper\ProgressHelper;
 use jubianchi\PhpSwitch\Event;
 
 class Fetcher extends Event\Subscriber
@@ -36,11 +35,9 @@ class Fetcher extends Event\Subscriber
         $this
             ->handle('fetch.start', function(GenericEvent $event) use (& $string, $clear, $output) {
                 $clear(sprintf('   Fetching <info>%s</info>', $event->getArgument('url')));
-                //$output->write($string = sprintf('   Fetching <info>%s</info>', $event->getArgument('url')));
             })
             ->handle('fetch.parsing', function(GenericEvent $event) use (& $string, $clear, $output) {
                 $clear(sprintf('   Parsing <info>%s</info>', $event->getArgument('url')));
-                //$output->write($string = sprintf('   Parsing <info>%s</info>', $event->getArgument('url')));
             })
             ->handle('fetch.failed', function(GenericEvent $event) use ($clear, $output) {
                 $clear();

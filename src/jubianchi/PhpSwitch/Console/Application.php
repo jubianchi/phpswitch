@@ -11,9 +11,6 @@
 namespace jubianchi\PhpSwitch\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
-use jubianchi\PhpSwitch\PHP\Builder;
-use jubianchi\PhpSwitch\PHP\Extracter;
-use jubianchi\PhpSwitch\PHP\Downloader;
 use jubianchi\PhpSwitch\Console\Application\Configuration;
 
 class Application extends BaseApplication
