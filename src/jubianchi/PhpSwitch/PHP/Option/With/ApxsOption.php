@@ -73,7 +73,7 @@ class ApxsOption extends WithOption
         $module = implode(
             DIRECTORY_SEPARATOR,
             array(
-                $this->command->getApplication()->getService('app.workspace.sources.path'),
+                $this->command->getApplication()->getService('parameters')->offsetGet('app.workspace.sources.path'),
                 $version,
                 'libs',
                 'libphp5.so'
