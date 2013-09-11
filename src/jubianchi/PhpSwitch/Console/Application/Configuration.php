@@ -63,7 +63,7 @@ class Configuration implements \IteratorAggregate
      *
      * @return \jubianchi\PhpSwitch\Config\Configuration
      */
-    public function set($offset, $value, $local = true)
+    public function set($offset, $value, $local = false)
     {
         if (true === $local) {
             $configuration = $this->local->set($offset, $value);

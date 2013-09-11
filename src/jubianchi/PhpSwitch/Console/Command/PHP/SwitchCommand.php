@@ -53,7 +53,7 @@ class SwitchCommand extends Command
 
         if (null !== $version) {
             if ('off' === $version) {
-                $this->getConfiguration()->set('enabled', false, !$input->getOption('global'));
+                $this->getConfiguration()->set('enabled', false, false);
 
                 $version = null;
             } else {
@@ -106,7 +106,7 @@ class SwitchCommand extends Command
             ;
         }
 
-        $this->getConfiguration()->set('enabled', $version !== null, !$input->getOption('global'));
+        $this->getConfiguration()->set('enabled', $version !== null, false);
 
         $output->writeln(sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'));
 

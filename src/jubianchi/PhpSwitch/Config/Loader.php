@@ -42,27 +42,24 @@ class Loader
     {
         $values = array();
         if (false === $bubble) {
-            $directory = array($directory);
+            $configs = array($directory . DIRECTORY_SEPARATOR . $this->name);
         } else {
             preg_match('/^(?:(?P<protocol>[a-z]+\:\/\/))?(?P<path>.*)$/', $directory, $matches);
 
             $parts = explode(DIRECTORY_SEPARATOR, $matches['path']);
             $basedir = isset($matches['protocol']) ? $matches['protocol'] : '';
-            $directory = array();
+            $configs = array();
             foreach ($parts as $part) {
                 $dirpath = $basedir . $part;
-
-                if(false === in_array($dirpath, $exclude)) {
-                    $directory[] = $dirpath;
+                if(false === in_array($dirpath, $exclude) && is_readable($dirpath . DIRECTORY_SEPARATOR . $this->name)) {
+                    $configs[] = $dirpath . DIRECTORY_SEPARATOR . $this->name;
                 }
 
                 $basedir = $dirpath . DIRECTORY_SEPARATOR;
             }
         }
 
-        foreach ($directory as $dir) {
-            $path = $dir . DIRECTORY_SEPARATOR . $this->name;
-
+        foreach ($configs as $path) {
             if (is_file($path)) {
                 $config = $this->parse($path) ?: array();
 
@@ -72,7 +69,7 @@ class Loader
 
         $configuration = new Configuration();
         $values = $this->validator->validate($values);
-        $configuration->setPath($path);
+        $configuration->setPath(end($configs));
         $configuration->setValues($values);
         $configuration->setDumper($dumper);
 

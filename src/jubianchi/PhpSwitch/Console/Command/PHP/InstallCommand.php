@@ -33,7 +33,7 @@ class InstallCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'PHP version (x.y.z)')
-            ->addOption('global', 'g', InputOption::VALUE_NONE, 'Switch PHP version globaly')
+            ->addOption('save', 's', InputOption::VALUE_NONE, 'Save configuration locally')
             ->addOption('alias', 'a', InputOption::VALUE_REQUIRED, 'Version name alias')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Use the same configuration as an existing version')
             ->addOption('jobs', 'j', InputOption::VALUE_REQUIRED, 'Number of jobs to run simultaneously')
@@ -102,7 +102,7 @@ class InstallCommand extends Command
                     'options' => (string) $template->getOptions(),
                     'config' => $template->getConfigs()
                 ),
-                !$input->getOption('global')
+                $input->getOption('save')
             )
         ;
 

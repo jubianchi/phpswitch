@@ -66,7 +66,7 @@ class PhpSwitch implements Runnable
         $this->container['parameters']['app.templates.path'] = $this->container['parameters']['app.source.path'] . DIRECTORY_SEPARATOR . 'jubianchi/PhpSwitch/Templates';
         $this->container['parameters']['app.php.option.path'] = $this->container['parameters']['app.source.path'] . DIRECTORY_SEPARATOR . '/jubianchi/PhpSwitch/PHP/Option';
         $this->container['parameters']['app.user.path'] = getenv('HOME');
-        $this->container['parameters']['app.workspace.path'] = $this->container['parameters']['app.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
+        $this->container['parameters']['app.workspace.path'] = $this->container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . '.phpswitch';
         $this->container['parameters']['app.config.name'] = '.phpswitch.yml';
         $this->container['parameters']['app.logger.output.path'] = $this->container['parameters']['app.workspace.path'] . DIRECTORY_SEPARATOR . 'phpswitch.log';
         $this->container['parameters']['app.logger.error.path'] = $this->container['parameters']['app.logger.output.path'];

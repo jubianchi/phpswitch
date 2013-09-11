@@ -1,7 +1,6 @@
 <?php
 namespace tests\units\jubianchi\PhpSwitch\Console\Template;
 
-use jubianchi\PhpSwitch\Config\Configuration;
 use jubianchi\PhpSwitch\Console\Application;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Console\Template\Builder as TestedClass;
@@ -17,12 +16,9 @@ class Builder extends atoum\test
             ->if($collection = new Option\OptionCollection())
             ->and($resolver = new Option\Resolver($collection))
             ->and($normalizer = new Option\Normalizer($collection))
-            ->and($controller = new atoum\mock\controller())
-            ->and($controller->dump = function() {})
-            ->and($config = new Application\Configuration(
-                new \mock\jubianchi\PhpSwitch\Config\Configuration($controller),
-                new \mock\jubianchi\PhpSwitch\Config\Configuration($controller)
-            ))
+            ->and($configuration = new \mock\jubianchi\PhpSwitch\Config\Configuration(uniqid()))
+            ->and($this->calling($configuration)->dump = $configuration)
+            ->and($config = new Application\Configuration($configuration, $configuration))
             ->and($config->set('versions', array()))
             ->and($builder = new TestedClass($resolver, $normalizer, $config))
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
