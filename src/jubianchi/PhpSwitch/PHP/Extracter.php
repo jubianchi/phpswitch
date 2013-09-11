@@ -70,7 +70,7 @@ class Extracter extends Emitter
             }
         };
 
-        $this->builder->get()
+        $this->builder->create()
             ->setWorkingDirectory($dirname)
             ->add('tar')
             ->add('-xvf')
@@ -79,7 +79,7 @@ class Extracter extends Emitter
                 ->run($callback)
         ;
 
-        $this->builder->get()
+        $this->builder->create()
             ->setWorkingDirectory($dirname)
             ->add('mv')
             ->add('-f')

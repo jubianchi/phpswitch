@@ -94,14 +94,19 @@ class Builder extends Emitter
     public function clean($source, $callback = null)
     {
         if (true === file_exists($this->directory . DIRECTORY_SEPARATOR . 'Makefile')) {
-            $this->builder->get()
+            $process = $this->builder->create(array('make', 'clean'))
                 ->setWorkingDirectory($source)
-                ->add('make')
-                ->add('clean')
                 ->getProcess()
-                    ->run($callback)
             ;
+
+            $process->run($callback);
+
+            if (false === $process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
         }
+
+
 
         return $this;
     }
@@ -124,14 +129,16 @@ class Builder extends Emitter
             $callback('init', $prefix);
         }
 
-        $builder = $this->builder->get()
-            ->setWorkingDirectory($source)
-            ->add('./configure')
-            ->add('--prefix=' . $prefix)
-            ->add('--with-config-file-path=' . $prefix . '/etc')
-            ->add('--with-config-file-scan-dir=' . $prefix . '/var/db')
-            ->add('--with-pear=' . $prefix . '/lib/php')
-        ;
+        $builder = $this->builder->create(
+            array(
+                './configure',
+                '--prefix=' . $prefix,
+                '--with-config-file-path=' . $prefix . '/etc',
+                '--with-config-file-scan-dir=' . $prefix . '/var/db',
+                '--with-pear=' . $prefix . '/lib/php'
+            )
+        );
+        $builder->setWorkingDirectory($source);
 
         foreach (explode(' ', $options) as $option) {
             $builder->add((string) $option);
@@ -159,7 +166,7 @@ class Builder extends Emitter
      */
     public function make($source, $jobs = null, $callback = null)
     {
-        $builder = $this->builder->get()
+        $builder = $this->builder->create()
             ->setTimeout(null)
             ->setWorkingDirectory($source)
             ->add('make')

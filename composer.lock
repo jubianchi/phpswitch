@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "92e2d07ae4b6d8753a9d9dbc4b6ad69f",
+    "hash": "f6346d6dafcae53a56fc6c091c8adb4e",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -69,16 +69,16 @@
         },
         {
             "name": "pimple/pimple",
-            "version": "dev-master",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "v1.0.2"
+                "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/v1.0.2",
-                "reference": "v1.0.2",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94",
+                "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                     "Pimple": "lib/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -153,17 +153,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "v2.2.2"
+                "reference": "4ab8ad0c0f4bb52b0e7fb12d63b81892fb7f697a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/4ab8ad0c0f4bb52b0e7fb12d63b81892fb7f697a",
+                "reference": "4ab8ad0c0f4bb52b0e7fb12d63b81892fb7f697a",
                 "shasum": ""
             },
             "require": {
@@ -196,7 +196,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-10 18:08:31"
+            "time": "2013-08-06 02:31:28"
         },
         {
             "name": "symfony/console",
@@ -247,17 +247,17 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "v2.2.2"
+                "reference": "a5deeae9ed56895cff84fd9b9844727eec45a373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/a5deeae9ed56895cff84fd9b9844727eec45a373",
+                "reference": "a5deeae9ed56895cff84fd9b9844727eec45a373",
                 "shasum": ""
             },
             "require": {
@@ -290,28 +290,28 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-19 19:00:13"
+            "time": "2013-07-01 12:15:46"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "v2.2.2"
+                "reference": "1b0afd4aafccb8677f5012915d81d406d8752d5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/1b0afd4aafccb8677f5012915d81d406d8752d5d",
+                "reference": "1b0afd4aafccb8677f5012915d81d406d8752d5d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/css-selector": ">=2.0,<3.0"
+                "symfony/css-selector": "~2.0"
             },
             "suggest": {
                 "symfony/css-selector": "2.2.*"
@@ -343,28 +343,28 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-19 19:00:13"
+            "time": "2013-07-01 12:15:46"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "v2.2.2"
+                "reference": "45c43ffa186a0473c71a947981e43e025cd93c87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/45c43ffa186a0473c71a947981e43e025cd93c87",
+                "reference": "45c43ffa186a0473c71a947981e43e025cd93c87",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/dependency-injection": ">=2.0,<3.0"
+                "symfony/dependency-injection": "~2.0"
             },
             "suggest": {
                 "symfony/dependency-injection": "2.2.*",
@@ -401,17 +401,17 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "v2.2.2"
+                "reference": "5ac3486e27d79116dfe67ae17521f19a033abc58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/5ac3486e27d79116dfe67ae17521f19a033abc58",
+                "reference": "5ac3486e27d79116dfe67ae17521f19a033abc58",
                 "shasum": ""
             },
             "require": {
@@ -444,21 +444,21 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-27 20:26:32"
+            "time": "2013-08-13 19:56:24"
         },
         {
             "name": "symfony/process",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "v2.2.2"
+                "reference": "e4a89b7a685c8b79206a68332dd3d3a3475ddd02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/e4a89b7a685c8b79206a68332dd3d3a3475ddd02",
+                "reference": "e4a89b7a685c8b79206a68332dd3d3a3475ddd02",
                 "shasum": ""
             },
             "require": {
@@ -491,21 +491,21 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-06 20:02:13"
+            "time": "2013-08-21 15:32:30"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.2.2",
+            "version": "v2.2.6",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.2.2"
+                "reference": "d135717c1a42cb566cc09433658e7e8dbbe30b0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/d135717c1a42cb566cc09433658e7e8dbbe30b0a",
+                "reference": "d135717c1a42cb566cc09433658e7e8dbbe30b0a",
                 "shasum": ""
             },
             "require": {
@@ -538,7 +538,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-10 18:08:31"
+            "time": "2013-08-24 06:36:00"
         },
         {
             "name": "twig/twig",
@@ -546,12 +546,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5"
+                "reference": "4001f81a179e3971377ce1ac51b4ff9ea851b8ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f753205834b511269a97fe35108bbd5c8d245f5",
-                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/4001f81a179e3971377ce1ac51b4ff9ea851b8ce",
+                "reference": "4001f81a179e3971377ce1ac51b4ff9ea851b8ce",
                 "shasum": ""
             },
             "require": {
@@ -560,7 +560,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -570,7 +570,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -587,7 +587,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-09 06:03:21"
+            "time": "2013-09-08 15:21:02"
         }
     ],
     "packages-dev": [
@@ -597,12 +597,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/atoum/atoum.git",
-                "reference": "7d934258ef35f8fa3f85cb1a9c75adc03834a812"
+                "reference": "4d4657e8631c1f9b2fd5b357c8dbaa0a9d05235e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atoum/atoum/zipball/7d934258ef35f8fa3f85cb1a9c75adc03834a812",
-                "reference": "7d934258ef35f8fa3f85cb1a9c75adc03834a812",
+                "url": "https://api.github.com/repos/atoum/atoum/zipball/4d4657e8631c1f9b2fd5b357c8dbaa0a9d05235e",
+                "reference": "4d4657e8631c1f9b2fd5b357c8dbaa0a9d05235e",
                 "shasum": ""
             },
             "require": {
@@ -663,7 +663,7 @@
                 "test",
                 "unit testing"
             ],
-            "time": "2013-06-15 18:33:22"
+            "time": "2013-09-11 11:18:40"
         }
     ],
     "aliases": [
@@ -671,13 +671,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/finder": 5,
-        "symfony/config": 5,
-        "symfony/yaml": 5,
-        "symfony/process": 5,
-        "symfony/dom-crawler": 5,
-        "symfony/css-selector": 5,
-        "pimple/pimple": 20,
         "twig/twig": 20,
         "atoum/atoum": 20
     },

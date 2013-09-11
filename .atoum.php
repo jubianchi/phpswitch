@@ -70,4 +70,4 @@ if(colorized())
 
 $runner->setBootstrapFile(__DIR__ . '/tests/units/bootstrap.php');
 $script->noCodeCoverageForNamespaces('Symfony');
-$script->addTestAllDirectory(TESTALL_DIRECTORY);
+$runner->addTestsFromDirectory(TESTALL_DIRECTORY);

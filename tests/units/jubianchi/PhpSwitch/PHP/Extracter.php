@@ -1,6 +1,7 @@
 <?php
 namespace tests\units\jubianchi\PhpSwitch\PHP;
 
+use jubianchi\PhpSwitch\Event\Event;
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
 use mageekguy\atoum\mock\streams\file;
@@ -32,10 +33,11 @@ class Extracter extends atoum\test
     {
         $this
             ->if($dispatcher = new \mock\jubianchi\PhpSwitch\Event\Dispatcher())
+            ->and($this->calling($dispatcher)->dispatch = function($name, $event) { return $event; })
             ->and($process = new \mock\Symfony\Component\Process\Process(uniqid()))
             ->and($this->calling($process)->run = 0)
-            ->and($processBuilder = new \mock\jubianchi\PhpSwitch\Process\Builder())
-            ->and($this->calling($processBuilder)->get = $processBuilder)
+            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder())
+            ->and($this->calling($processFactory)->create = $processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
             ->and($this->calling($processBuilder)->getProcess = $process)
             ->and($directory = stream::get())
             ->and($directory->dir_opendir = true)
@@ -43,18 +45,22 @@ class Extracter extends atoum\test
             ->and($options = new \mock\jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
             ->and($this->calling($options)->__toString = $normalized = uniqid())
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
-            ->and($extracter = new \mock\jubianchi\PhpSwitch\PHP\Extracter($directory, $processBuilder, $dispatcher))
+            ->and($extracter = new \jubianchi\PhpSwitch\PHP\Extracter($directory, $processFactory, $dispatcher))
             ->then
                 ->object($extracter->extract($version, $archive))->isIdenticalTo($extracter)
-                ->mock($extracter)
-                    ->call('emit')->withArguments(
+                ->mock($dispatcher)
+                    ->call('dispatch')->withArguments(
                         'extract.before',
-                        $args = array(
-                            'version' => $version,
-                            'archive' => $archive
+                         new Event(
+                            'extract.before',
+                            $extracter,
+                            $args = array(
+                                'version' => $version,
+                                'archive' => $archive
+                            )
                         )
                     )->once()
-                    ->call('emit')->withArguments('extract.after', $args)->once()
+                    ->call('dispatch')->withArguments('extract.after', new Event('extract.after', $extracter, $args))->once()
         ;
     }
 }

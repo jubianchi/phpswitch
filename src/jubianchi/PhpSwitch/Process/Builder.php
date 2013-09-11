@@ -12,10 +12,10 @@ namespace jubianchi\PhpSwitch\Process;
 
 use Symfony\Component\Process\ProcessBuilder;
 
-class Builder extends ProcessBuilder
+class Builder
 {
-    public function get(array $arguments = array())
+    public function create(array $arguments = array())
     {
-        return new static($arguments);
+        return new ProcessBuilder($arguments);
     }
 }
