@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace jubianchi\PhpSwitch\Config;
+namespace jubianchi\PhpSwitch\Configuration;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

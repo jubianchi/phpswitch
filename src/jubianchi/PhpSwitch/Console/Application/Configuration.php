@@ -10,17 +10,21 @@
 
 namespace jubianchi\PhpSwitch\Console\Application;
 
-use jubianchi\PhpSwitch\Config\Configuration as BaseConfiguration;
+use jubianchi\PhpSwitch\Configuration as BaseConfiguration;
 use Traversable;
 
 class Configuration implements \IteratorAggregate
 {
-    /** @var \jubianchi\PhpSwitch\Config\Configuration  */
+    /** @var \jubianchi\PhpSwitch\Configuration  */
     protected $local;
 
-    /** @var \jubianchi\PhpSwitch\Config\Configuration  */
+    /** @var \jubianchi\PhpSwitch\Configuration  */
     protected $global;
 
+    /**
+     * @param \jubianchi\PhpSwitch\Configuration $local
+     * @param \jubianchi\PhpSwitch\Configuration $global
+     */
     public function __construct(BaseConfiguration $local, BaseConfiguration $global)
     {
         $this->local = $local;
@@ -61,7 +65,7 @@ class Configuration implements \IteratorAggregate
      *
      * @throws \InvalidArgumentException
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function set($offset, $value, $local = false)
     {
@@ -93,7 +97,7 @@ class Configuration implements \IteratorAggregate
     }
 
     /**
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function getGlobal()
     {
@@ -101,7 +105,7 @@ class Configuration implements \IteratorAggregate
     }
 
     /**
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function getLocal()
     {

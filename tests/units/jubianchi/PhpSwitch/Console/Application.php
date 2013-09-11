@@ -32,8 +32,8 @@ class Application extends atoum\test
         $this
             ->if($object = new TestedClass())
             ->and($config = new Configuration(
-                new \mock\jubianchi\PhpSwitch\Config\Configuration(),
-                new \mock\jubianchi\PhpSwitch\Config\Configuration()
+                new \mock\jubianchi\PhpSwitch\Configuration(),
+                new \mock\jubianchi\PhpSwitch\Configuration()
             ))
             ->then
                 ->object($object->setConfiguration($config))->isIdenticalTo($object)

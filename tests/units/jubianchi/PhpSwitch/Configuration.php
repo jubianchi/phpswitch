@@ -1,10 +1,10 @@
 <?php
-namespace tests\units\jubianchi\PhpSwitch\Config;
+namespace tests\units\jubianchi\PhpSwitch;
 
 use mageekguy\atoum;
-use jubianchi\PhpSwitch\Config\Configuration as TestedClass;
+use jubianchi\PhpSwitch\Configuration as TestedClass;
 
-require_once __DIR__ . '/../../../bootstrap.php';
+require_once __DIR__ . '/../../bootstrap.php';
 
 class Configuration extends atoum\test
 {
@@ -96,7 +96,7 @@ class Configuration extends atoum\test
     {
         $this
             ->mockGenerator->shuntParentClassCalls()
-            ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
+            ->if($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
             ->if($object = new TestedClass(uniqid(), $dumper))
             ->and($object->setPath($path = uniqid()))
             ->and($object->setDumper($dumper))
@@ -111,7 +111,7 @@ class Configuration extends atoum\test
     {
         $this
             ->if($object = new TestedClass())
-            ->and($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
+            ->and($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
             ->then
                 ->object($object->setDumper($dumper))->isIdenticalTo($object)
                 ->object($object->getDumper())->isIdenticalTo($dumper)
@@ -123,8 +123,8 @@ class Configuration extends atoum\test
         $this
             ->if($object = new TestedClass())
             ->then
-                ->object($object->getDumper())->isInstanceOf('\\jubianchi\\PhpSwitch\\Config\\Dumper')
-            ->if($dumper = new \mock\jubianchi\PhpSwitch\Config\Dumper())
+                ->object($object->getDumper())->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration\\Dumper')
+            ->if($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
             ->and($object->setDumper($dumper))
             ->then
                 ->object($object->getDumper())->isIdenticalTo($dumper)

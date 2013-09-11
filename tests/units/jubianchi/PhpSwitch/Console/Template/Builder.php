@@ -16,7 +16,7 @@ class Builder extends atoum\test
             ->if($collection = new Option\OptionCollection())
             ->and($resolver = new Option\Resolver($collection))
             ->and($normalizer = new Option\Normalizer($collection))
-            ->and($configuration = new \mock\jubianchi\PhpSwitch\Config\Configuration(uniqid()))
+            ->and($configuration = new \mock\jubianchi\PhpSwitch\Configuration(uniqid()))
             ->and($this->calling($configuration)->dump = $configuration)
             ->and($config = new Application\Configuration($configuration, $configuration))
             ->and($config->set('versions', array()))

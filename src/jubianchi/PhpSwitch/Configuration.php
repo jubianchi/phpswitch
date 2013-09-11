@@ -8,7 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace jubianchi\PhpSwitch\Config;
+namespace jubianchi\PhpSwitch;
+
+use jubianchi\PhpSwitch\Configuration\Dumper;
 
 class Configuration implements \IteratorAggregate
 {
@@ -23,7 +25,7 @@ class Configuration implements \IteratorAggregate
     /** @var array */
     private $configuration = array();
 
-    /** @var \jubianchi\PhpSwitch\Config\Dumper */
+    /** @var \jubianchi\PhpSwitch\Configuration\Dumper */
     private $dumper;
 
     public function __construct($name = '.phpswitch.yml', Dumper $dumper = null)
@@ -73,7 +75,7 @@ class Configuration implements \IteratorAggregate
      *
      * @throws \InvalidArgumentException
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function set($offset, $value)
     {
@@ -102,7 +104,7 @@ class Configuration implements \IteratorAggregate
     /**
      * @param array $values
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function setValues(array $values)
     {
@@ -130,7 +132,7 @@ class Configuration implements \IteratorAggregate
     /**
      * @throws \RuntimeException
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function dump()
     {
@@ -140,9 +142,9 @@ class Configuration implements \IteratorAggregate
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\Config\Dumper $dumper
+     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function setDumper(Dumper $dumper)
     {
@@ -152,7 +154,7 @@ class Configuration implements \IteratorAggregate
     }
 
     /**
-     * @return \jubianchi\PhpSwitch\Config\Dumper
+     * @return \jubianchi\PhpSwitch\Configuration\Dumper
      */
     public function getDumper()
     {
@@ -162,7 +164,7 @@ class Configuration implements \IteratorAggregate
     /**
      * @param string $path
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function setPath($path)
     {

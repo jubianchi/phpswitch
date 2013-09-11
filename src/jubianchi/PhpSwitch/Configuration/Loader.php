@@ -8,13 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace jubianchi\PhpSwitch\Config;
+namespace jubianchi\PhpSwitch\Configuration;
 
 use Symfony\Component\Yaml\Yaml;
+use jubianchi\PhpSwitch\Configuration;
 
 class Loader
 {
-    /** @var \jubianchi\PhpSwitch\Config\Validator */
+    /** @var \jubianchi\PhpSwitch\Configuration\Validator */
     private $validator;
 
     /** @var string */
@@ -22,7 +23,7 @@ class Loader
 
     /**
      * @param string                                $name
-     * @param \jubianchi\PhpSwitch\Config\Validator $validator
+     * @param \jubianchi\PhpSwitch\Configuration\Validator $validator
      */
     public function __construct($name, Validator $validator)
     {
@@ -31,12 +32,12 @@ class Loader
     }
 
     /**
-     * @param string                             $directory
-     * @param \jubianchi\PhpSwitch\Config\Dumper $dumper
-     * @param bool                               $bubble
-     * @param array                              $exclude
+     * @param string                                    $directory
+     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
+     * @param bool                                      $bubble
+     * @param array                                     $exclude
      *
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function load($directory, Dumper $dumper, $bubble = false, array $exclude = array())
     {

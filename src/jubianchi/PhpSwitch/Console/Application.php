@@ -43,7 +43,7 @@ class Application extends BaseApplication
     }
 
     /**
-     * @return \jubianchi\PhpSwitch\Config\Configuration
+     * @return \jubianchi\PhpSwitch\Configuration
      */
     public function getConfiguration()
     {

@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace jubianchi\PhpSwitch\Config;
+namespace jubianchi\PhpSwitch\Configuration;
 
 use Symfony\Component\Yaml\Yaml;
+use jubianchi\PhpSwitch\Configuration;
 
 class Dumper
 {
@@ -19,9 +20,9 @@ class Dumper
 
     /**
      * @param string                                    $path
-     * @param \jubianchi\PhpSwitch\Config\Configuration $configuration
+     * @param \jubianchi\PhpSwitch\Configuration $configuration
      *
-     * @return \jubianchi\PhpSwitch\Config\Dumper
+     * @return \jubianchi\PhpSwitch\Configuration\Dumper
      */
     public function dump($path, Configuration $configuration)
     {

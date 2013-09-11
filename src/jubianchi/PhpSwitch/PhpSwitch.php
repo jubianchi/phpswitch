@@ -172,7 +172,7 @@ class PhpSwitch implements Runnable
 
         $this->container['app.config.loader'] = $this->container->share(
             function(\Pimple $container) {
-                return new Config\Loader(
+                return new Configuration\Loader(
                     $container['parameters']['app.config.name'],
                     $container['app.config.validator']
                 );
@@ -181,13 +181,13 @@ class PhpSwitch implements Runnable
 
         $this->container['app.config.validator'] = $this->container->share(
             function(\Pimple $container) {
-                return new Config\Validator($container['parameters']['app.path']);
+                return new Configuration\Validator($container['parameters']['app.path']);
             }
         );
 
         $this->container['app.config.dumper'] = $this->container->share(
             function() {
-                return new Config\Dumper();
+                return new Configuration\Dumper();
             }
         );
 

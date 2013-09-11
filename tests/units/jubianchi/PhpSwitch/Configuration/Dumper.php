@@ -1,10 +1,10 @@
 <?php
-namespace tests\units\jubianchi\PhpSwitch\Config;
+namespace tests\units\jubianchi\PhpSwitch\Configuration;
 
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
 use mageekguy\atoum\mock\streams\fs\file;
-use jubianchi\PhpSwitch\Config\Dumper as TestedClass;
+use jubianchi\PhpSwitch\Configuration\Dumper as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
@@ -17,7 +17,7 @@ class Dumper extends atoum\test
             ->and($file->isWritable(true))
             ->and($directory->readdir[1] = $file)
             ->and($object = new TestedClass())
-            ->and($configuration = new \mock\jubianchi\PhpSwitch\Config\Configuration())
+            ->and($configuration = new \mock\jubianchi\PhpSwitch\Configuration())
             ->then
                 ->object($object->dump((string) $file, $configuration))
                 ->adapter($file)

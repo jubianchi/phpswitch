@@ -1,9 +1,9 @@
 <?php
-namespace tests\units\jubianchi\PhpSwitch\Config;
+namespace tests\units\jubianchi\PhpSwitch\Configuration;
 
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
-use jubianchi\PhpSwitch\Config\Validator as TestedClass;
+use jubianchi\PhpSwitch\Configuration\Validator as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
@@ -13,7 +13,7 @@ class Validator extends atoum\test
     {
         $this
             ->testedClass
-                ->isSubclassOf('\\Symfony\\Component\\Config\Definition\\ConfigurationInterface')
+                ->isSubclassOf('\\Symfony\\Component\\Config\\Definition\\ConfigurationInterface')
         ;
     }
 
