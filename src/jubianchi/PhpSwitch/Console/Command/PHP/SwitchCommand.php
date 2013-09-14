@@ -31,7 +31,6 @@ class SwitchCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)')
-            ->addOption('global', 'g', InputOption::VALUE_NONE, 'Switch PHP version globaly')
             ->addOption('apache2', 'a', InputOption::VALUE_NONE)
         ;
     }
@@ -78,8 +77,7 @@ class SwitchCommand extends Command
                         'command' => InstallCommand::NAME,
                         'version' => $version->getVersion(),
                         '--config' => (string) $version,
-                        '--alias' => $version->getName(),
-                        '--global' => $input->getOption('global')
+                        '--alias' => $version->getName()
                     ));
 
                     $install = new InstallCommand();
@@ -101,9 +99,7 @@ class SwitchCommand extends Command
         }
 
         if($version !== null) {
-            $this->getConfiguration()
-                ->set('version', (string) $version, !$input->getOption('global'))
-            ;
+            $this->getConfiguration()->set('version', (string) $version);
         }
 
         $this->getConfiguration()->set('enabled', $version !== null, false);

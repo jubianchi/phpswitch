@@ -10,7 +10,8 @@
 
 namespace jubianchi\PhpSwitch;
 
-use jubianchi\PhpSwitch\Console\Application\Configuration;
+use jubianchi\PhpSwitch\Configuration;
+use jubianchi\PhpSwitch\Console\Application\Configuration as AppConfiguration;
 use jubianchi\PhpSwitch\Console\Command\Finder;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -163,25 +164,31 @@ class PhpSwitch implements Runnable
             function(\Pimple $container) {
                 $dumper =  $container['app.config.dumper'];
 
-                $global = $container['app.config.loader']->load($container['parameters']['app.user.path'], $dumper);
-                $local = $container['app.config.loader']->load(getcwd(), $dumper, true, array($container['parameters']['app.user.path']));
+                $global = $container['app.config.loader']->load($container['parameters']['app.user.path'], $container['app.config.validator.global']);
+                $global->setDumper($dumper);
 
-                return new Configuration($local, $global);
+                $local = $container['app.config.loader']->load(getcwd(), $container['app.config.validator.local'], true, array($container['parameters']['app.user.path']));
+                $local->setDumper($dumper);
+
+                return new AppConfiguration($local, $global);
             }
         );
 
         $this->container['app.config.loader'] = $this->container->share(
             function(\Pimple $container) {
-                return new Configuration\Loader(
-                    $container['parameters']['app.config.name'],
-                    $container['app.config.validator']
-                );
+                return new Configuration\Loader($container['parameters']['app.config.name']);
             }
         );
 
-        $this->container['app.config.validator'] = $this->container->share(
-            function(\Pimple $container) {
-                return new Configuration\Validator($container['parameters']['app.path']);
+        $this->container['app.config.validator.global'] = $this->container->share(
+            function() {
+                return new Configuration\Globl\Validator();
+            }
+        );
+
+        $this->container['app.config.validator.local'] = $this->container->share(
+            function() {
+                return new Configuration\Local\Validator();
             }
         );
 

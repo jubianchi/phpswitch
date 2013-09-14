@@ -17,22 +17,20 @@ class Loader extends atoum\test
             ->and($file = file::getSubStream($directory, $name = uniqid()))
             ->and($validator = new \mock\jubianchi\PhpSwitch\Configuration\Validator())
             ->and($validator->getMockController()->validate = function($values) { return $values; })
-            ->and($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
-            ->and($dumper->getMockController()->dump = $dumper)
-            ->and($object = new \mock\jubianchi\PhpSwitch\Configuration\Loader($name, $validator))
+            ->and($object = new TestedClass($name))
             ->then
-                ->object($configuration = $object->load($directory, $dumper))->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration')
+                ->object($configuration = $object->load($directory, $validator))->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration')
             ->if($file->setContents("phpswitch:\n    version: php-5.5.5\n"))
             ->then
-                ->object($otherConfiguration = $object->load($directory, $dumper))
+                ->object($otherConfiguration = $object->load($directory, $validator))
                     ->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration')
                     ->IsNotIdenticalTo($configuration)
             ->if($subDirectory = stream::getSubStream($directory, 'subDirectory'))
             ->and($thirdFile = file::getSubStream($subDirectory, $name))
             ->and($thirdFile->setContents("phpswitch:\n    version: php-5.4.5\n"))
-            ->and($object = new \mock\jubianchi\PhpSwitch\Configuration\Loader($name, $validator))
+            ->and($object = new TestedClass($name))
             ->then
-                ->object($object->load($subDirectory, $dumper, true))->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration')
+                ->object($object->load($subDirectory, $validator, true))->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration')
         ;
     }
 
@@ -43,8 +41,7 @@ class Loader extends atoum\test
             ->and($file = stream::getSubStream($directory, $name = uniqid()))
             ->and($file->file_get_contents = "phpswitch:\n    version: 0.1.1")
             ->and($directory->readdir[1] = $file)
-            ->and($validator = new \mock\jubianchi\PhpSwitch\Configuration\Validator())
-            ->and($object = new TestedClass(array($directory), $validator))
+            ->and($object = new TestedClass(array($directory)))
             ->then
                 ->array($object->parse($file))->isIdenticalTo(array('phpswitch' => array('version' => '0.1.1')))
         ;

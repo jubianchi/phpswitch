@@ -3,7 +3,7 @@ namespace tests\units\jubianchi\PhpSwitch\Configuration;
 
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
-use jubianchi\PhpSwitch\Configuration\Validator as TestedClass;
+use mock\jubianchi\PhpSwitch\Configuration\Validator as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
@@ -14,15 +14,6 @@ class Validator extends atoum\test
         $this
             ->testedClass
                 ->isSubclassOf('\\Symfony\\Component\\Config\\Definition\\ConfigurationInterface')
-        ;
-    }
-
-    public function testGetConfigTreeBuilder()
-    {
-        $this
-            ->if($object = new TestedClass())
-            ->then
-                ->object($object->getConfigTreeBuilder())->isInstanceOf('\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder')
         ;
     }
 

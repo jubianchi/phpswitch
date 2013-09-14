@@ -15,31 +15,26 @@ use jubianchi\PhpSwitch\Configuration;
 
 class Loader
 {
-    /** @var \jubianchi\PhpSwitch\Configuration\Validator */
-    private $validator;
-
     /** @var string */
     protected $name;
 
     /**
-     * @param string                                $name
-     * @param \jubianchi\PhpSwitch\Configuration\Validator $validator
+     * @param string $name
      */
-    public function __construct($name, Validator $validator)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->validator = $validator;
     }
 
     /**
-     * @param string                                    $directory
-     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
-     * @param bool                                      $bubble
-     * @param array                                     $exclude
+     * @param string                                       $directory
+     * @param \jubianchi\PhpSwitch\Configuration\Validator $validator
+     * @param bool                                         $bubble
+     * @param array                                        $exclude
      *
      * @return \jubianchi\PhpSwitch\Configuration
      */
-    public function load($directory, Dumper $dumper, $bubble = false, array $exclude = array())
+    public function load($directory, Validator $validator, $bubble = false, array $exclude = array())
     {
         $values = array();
         if (false === $bubble) {
@@ -69,10 +64,9 @@ class Loader
         }
 
         $configuration = new Configuration();
-        $values = $this->validator->validate($values);
+        $values = $validator->validate($values);
         $configuration->setPath(end($configs));
         $configuration->setValues($values);
-        $configuration->setDumper($dumper);
 
         return $configuration;
     }

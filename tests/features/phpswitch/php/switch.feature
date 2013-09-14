@@ -26,8 +26,8 @@ Feature: php:switch
 
 
 
-        php:switch [-g|--global] [-a|--apache2] version
-        php switch [-g|--global] [-a|--apache2] version
+        php:switch [-a|--apache2] version
+        php switch [-a|--apache2] version
 
 
 
