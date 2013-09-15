@@ -89,6 +89,8 @@ class Builder extends Emitter
      * @param string   $source
      * @param callable $callback
      *
+     * @throws \Symfony\Component\Process\Exception\ProcessFailedException
+     *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
     public function clean($source, $callback = null)
@@ -129,16 +131,19 @@ class Builder extends Emitter
             $callback('init', $prefix);
         }
 
-        $builder = $this->builder->create(
-            array(
-                './configure',
-                '--prefix=' . $prefix,
-                '--with-config-file-path=' . $prefix . '/etc',
-                '--with-config-file-scan-dir=' . $prefix . '/var/db',
-                '--with-pear=' . $prefix . '/lib/php'
+        $builder = $this->builder
+            ->create(
+                array(
+                    './configure',
+                    '--prefix=' . $prefix,
+                    '--with-config-file-path=' . $prefix . '/etc',
+                    '--with-config-file-scan-dir=' . $prefix . '/var/db',
+                    '--with-pear=' . $prefix . '/lib/php'
+                )
             )
-        );
-        $builder->setWorkingDirectory($source);
+            ->setTimeout(null)
+            ->setWorkingDirectory($source)
+        ;
 
         foreach (explode(' ', $options) as $option) {
             $builder->add((string) $option);
@@ -166,10 +171,10 @@ class Builder extends Emitter
      */
     public function make($source, $jobs = null, $callback = null)
     {
-        $builder = $this->builder->create()
+        $builder = $this->builder
+            ->create(array('make'))
             ->setTimeout(null)
             ->setWorkingDirectory($source)
-            ->add('make')
         ;
 
         if (null !== $jobs) {
@@ -199,6 +204,6 @@ class Builder extends Emitter
      */
     public function getDestination(Version $version)
     {
-        return $this->directory . DIRECTORY_SEPARATOR . $version->getName() . '-' . $version->getVersion();
+        return $this->directory . DIRECTORY_SEPARATOR . $version;
     }
 }

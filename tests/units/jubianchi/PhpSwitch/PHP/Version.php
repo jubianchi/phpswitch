@@ -30,11 +30,11 @@ class Version extends atoum\test
             ->then
                 ->object($object = new TestedClass($version, $url))
                 ->string($object->getUrl())->isEqualTo('http://' . $host . '/from/%s/mirror')
-			->if($name = uniqid())
-			->then
-				->object($object = new TestedClass($version, $url, $name))
-				->string($object->getName())->isEqualTo($name)
-				->string($object->getVersion())->isEqualTo($version)
+            ->if($name = uniqid())
+            ->then
+                ->object($object = new TestedClass($version, $url, $name))
+                ->string($object->getName())->isEqualTo($name)
+                ->string($object->getVersion())->isEqualTo($version)
         ;
     }
 
@@ -74,10 +74,10 @@ class Version extends atoum\test
             ->and($object = new TestedClass($version, $url))
             ->then
                 ->castToString($object)->isEqualTo('php-' . $version)
-			->if($name = uniqid())
-			->and($object = new TestedClass($version, $url, $name))
-			->then
-				->castToString($object)->isEqualTo($name . '-' . $version)
+            ->if($name = uniqid())
+            ->and($object = new TestedClass($version, $url, $name))
+            ->then
+                ->castToString($object)->isEqualTo($name . '-' . $version)
         ;
     }
 }

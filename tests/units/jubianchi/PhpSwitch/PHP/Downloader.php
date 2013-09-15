@@ -34,14 +34,14 @@ class Downloader extends atoum\test
 			->if($dispatcher = new \mock\jubianchi\PhpSwitch\Event\Dispatcher())
 			->and($destination = file::get())
 			->and($destination->isNotWritable())
-			->and($downloader = new \mock\jubianchi\PhpSwitch\PHP\Downloader(uniqid(), $dispatcher))
-			->and($this->calling($downloader)->getDestination = (string) $destination)
+			->and($downloader = new TestedClass($directory = uniqid(), $dispatcher))
+            ->and($version = new Version(phpversion()))
 			->then
-				->exception(function() use ($downloader) {
-					$downloader->getDestinationHandle(new Version(phpversion()));
+				->exception(function() use ($downloader, $version) {
+					$downloader->getDestinationHandle($version);
 				})
 					->isInstanceOf('\\RuntimeException')
-					->hasMessage('Could not write to ' . $destination)
+					->hasMessage('Could not write to ' . $directory . DIRECTORY_SEPARATOR . $version . TestedClass::EXTENSION)
 			->if($destination->isWritable())
 			->then
 				->variable($destination)->isNotNull()

@@ -1,6 +1,7 @@
 <?php
 namespace tests\units\jubianchi\PhpSwitch\PHP;
 
+use jubianchi\PhpSwitch\Event\Event;
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
 use jubianchi\PhpSwitch\PHP\Installer as TestedClass;
@@ -41,6 +42,7 @@ class Installer extends atoum\test
             ->and($builder = new \mock\jubianchi\PhpSwitch\PHP\Builder($installDir = stream::getSubStream($root, uniqid())))
             ->and($this->calling($builder)->build = $builder)
             ->and($dispatcher = new \mock\jubianchi\PhpSwitch\Event\Dispatcher())
+            ->and($this->calling($dispatcher)->dispatch = function($name, $event) { return $event; })
             ->and($options = new \mock\jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
             ->and($this->calling($options)->__toString = $normalized = uniqid())
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
@@ -50,9 +52,9 @@ class Installer extends atoum\test
             ->and($this->calling($process)->run = 0)
             ->and($processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
             ->and($this->calling($processBuilder)->getProcess = $process)
-			->and($template = new \jubianchi\PhpSwitch\PHP\Template($version))
-			->and($template->setOptions($options))
-            ->and($installer = new \mock\jubianchi\PhpSwitch\PHP\Installer($downloader, $extracter, $builder, $dispatcher))
+            ->and($template = new \jubianchi\PhpSwitch\PHP\Template($version))
+            ->and($template->setOptions($options))
+            ->and($installer = new TestedClass($downloader, $extracter, $builder, $dispatcher))
             ->then
                 ->object($installer->install($template, $mirror = uniqid(), null, $input, $output))
                 ->mock($downloader)
@@ -64,18 +66,22 @@ class Installer extends atoum\test
                 ->mock($options)
                     ->call('preInstall')->withArguments($version, $input, $output)->once()
                     ->call('postInstall')->withArguments($version, $input, $output)->once()
-                ->mock($installer)
-                    ->call('emit')->withArguments(
+                ->mock($dispatcher)
+                    ->call('dispatch')->withArguments(
                         'install.before',
-                        $args = array(
-                            'version' => $version,
-                            'mirror' => $mirror,
-                            'jobs' => null,
-                            'options' => $options,
-                            'destination' => $builder->getDestination($version)
+                        new Event(
+                            'install.before',
+                            $installer,
+                            $args = array(
+                                'version' => $version,
+                                'mirror' => $mirror,
+                                'jobs' => null,
+                                'options' => $options,
+                                'destination' => $builder->getDestination($version)
+                            )
                         )
                     )->once()
-                    ->call('emit')->withArguments('install.after', $args)->once()
+                    ->call('dispatch')->withArguments('install.after', new Event('install.after', $installer, $args))->once()
                 ->if($dir = stream::getSubStream($installDir, 'php-' . phpversion()))
                 ->and($dir->dir_opendir = true)
                 ->then

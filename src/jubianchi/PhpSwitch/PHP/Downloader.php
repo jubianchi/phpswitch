@@ -96,7 +96,7 @@ class Downloader extends Emitter
     public function getDestinationHandle(Version $version)
     {
         $destination = $this->getDestination($version);
-        if(($handle = @fopen($destination, 'wb+')) === false) {
+        if (($handle = @fopen($destination, 'wb+')) === false) {
             throw new \RuntimeException('Could not write to ' . $destination);
         }
 

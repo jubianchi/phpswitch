@@ -16,7 +16,7 @@ class Config extends atoum\test
             ->if($directory = uniqid())
             ->and($config = new TestedClass($directory))
             ->then
-				->string($config->getDirectory())->isEqualTo($directory)
+                ->string($config->getDirectory())->isEqualTo($directory)
         ;
     }
 
@@ -64,7 +64,7 @@ class Config extends atoum\test
             ->and($varDirectory->dir_opendir = true)
             ->and($dbDirectory = stream::getSubStream($varDirectory, 'db'))
             ->and($dbDirectory->dir_opendir = true)
-            ->if($file = file::getSubStream($dbDirectory, ($name = uniqid()) . '.ini'))
+            ->and($file = file::getSubStream($dbDirectory, ($name = uniqid()) . '.ini'))
             ->and($file->notExists())
             ->and($directory->dir_readdir[1] = $versionDirectory)
             ->and($versionDirectory->dir_readdir[1] = $varDirectory)

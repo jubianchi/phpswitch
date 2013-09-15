@@ -4,7 +4,6 @@ namespace tests\units\jubianchi\PhpSwitch\PHP;
 use jubianchi\PhpSwitch\Event\Event;
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
-use mageekguy\atoum\mock\streams\file;
 use jubianchi\PhpSwitch\PHP\Extracter as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
@@ -45,7 +44,7 @@ class Extracter extends atoum\test
             ->and($options = new \mock\jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
             ->and($this->calling($options)->__toString = $normalized = uniqid())
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
-            ->and($extracter = new \jubianchi\PhpSwitch\PHP\Extracter($directory, $processFactory, $dispatcher))
+            ->and($extracter = new TestedClass($directory, $processFactory, $dispatcher))
             ->then
                 ->object($extracter->extract($version, $archive))->isIdenticalTo($extracter)
                 ->mock($dispatcher)

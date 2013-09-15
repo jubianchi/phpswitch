@@ -2,6 +2,7 @@
 namespace tests\units\jubianchi\PhpSwitch\PHP;
 
 use jubianchi\PhpSwitch\Event\Event;
+use jubianchi\PhpSwitch\PHP\Version;
 use mageekguy\atoum;
 use mageekguy\atoum\mock\stream;
 use jubianchi\PhpSwitch\PHP\Builder as TestedClass;
@@ -44,7 +45,7 @@ class Builder extends atoum\test
             ->and($source = uniqid())
             ->and($options = new \jubianchi\PhpSwitch\PHP\Option\OptionCollection(array()))
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
-            ->and($builder = new \jubianchi\PhpSwitch\PHP\Builder($directory, $processFactory, $dispatcher))
+            ->and($builder = new TestedClass($directory, $processFactory, $dispatcher))
             ->then
                 ->object($builder->build($version, $source, $options))->isIdenticalTo($builder)
                 ->mock($dispatcher)
@@ -75,11 +76,31 @@ class Builder extends atoum\test
                     )->once()
             ->if($makefile = stream::getSubStream($directory, 'Makefile'))
             ->and($makefile->file_get_contents = uniqid())
-            ->and($builder = new \jubianchi\PhpSwitch\PHP\Builder($directory, $processFactory, $dispatcher))
+            ->and($builder = new TestedClass($directory, $processFactory, $dispatcher))
             ->then
                 ->object($builder->build($version, $source, $options))->isIdenticalTo($builder)
                 ->mock($processFactory)
                     ->call('create')->withArguments(array('make', 'clean'))->once()
+        ;
+    }
+
+    public function testGetDestination()
+    {
+        $this
+            ->if($dispatcher = new \mock\jubianchi\PhpSwitch\Event\Dispatcher())
+            ->and($this->calling($dispatcher)->dispatch = function($name, $event) { return $event; })
+            ->and($process = new \mock\Symfony\Component\Process\Process(uniqid()))
+            ->and($this->calling($process)->run = 0)
+            ->and($this->calling($process)->isSuccessful = true)
+            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder())
+            ->and($this->calling($processFactory)->create = $processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
+            ->and($this->calling($processBuilder)->getProcess = $process)
+            ->and($directory = stream::get())
+            ->and($directory->dir_opendir = true)
+            ->and($builder = new TestedClass($directory, $processFactory, $dispatcher))
+            ->and($version = new Version(phpversion()))
+            ->then
+                ->string($builder->getDestination($version))->isEqualTo($directory . DIRECTORY_SEPARATOR . $version)
         ;
     }
 }
