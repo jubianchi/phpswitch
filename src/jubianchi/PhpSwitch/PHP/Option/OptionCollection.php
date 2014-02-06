@@ -54,6 +54,11 @@ class OptionCollection implements OptionInterface, \Countable, \Iterator
         return $this;
     }
 
+    public function contains($name)
+    {
+        return false === array_key_exists($name, $this->options);
+    }
+
     public function merge(OptionCollection $collection)
     {
         return $this->addOptions($collection->options);

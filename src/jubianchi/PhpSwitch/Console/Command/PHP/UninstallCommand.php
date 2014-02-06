@@ -109,7 +109,7 @@ class UninstallCommand extends Command
             if ($file->isDir()) {
                 static::deleteDirectory($file);
             } else {
-                unlink($file);
+                @unlink($file);
             }
         }
 

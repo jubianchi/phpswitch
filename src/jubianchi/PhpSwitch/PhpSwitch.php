@@ -17,6 +17,8 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
 use jubianchi\PhpSwitch\Phar\Runnable;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PhpSwitch implements Runnable
 {
@@ -56,7 +58,7 @@ class PhpSwitch implements Runnable
 
     public function run()
     {
-        $this->container['app']->run();
+        $this->container['app']->run($this->container['app.input'], $this->container['app.output']);
     }
 
     protected function initEnv($path, array $env = array())
@@ -103,6 +105,18 @@ class PhpSwitch implements Runnable
             }
         );
 
+        $this->container['app.input'] = $this->container->share(
+            function() {
+                return new ArgvInput();
+            }
+        );
+
+        $this->container['app.output'] = $this->container->share(
+            function() {
+                return new ConsoleOutput();
+            }
+        );
+
         $this->container['app.loader'] = $this->container->share(
             function(\Pimple $container) {
                 return new Console\Loader($container['app.command.finder']);
@@ -144,8 +158,14 @@ class PhpSwitch implements Runnable
         );
 
         $this->container['app.process.builder'] = $this->container->share(
-            function() {
-                return new Process\Builder();
+            function(\Pimple $container) {
+                return new Process\Builder\Factory($container['app.process.askpass']);
+            }
+        );
+
+        $this->container['app.process.askpass'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Process\AskPass(new Process\Builder\Factory(), $container['app.output'], $container['app']->getHelperSet()->get('dialog'));
             }
         );
 

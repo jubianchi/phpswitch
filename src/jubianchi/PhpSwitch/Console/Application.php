@@ -12,6 +12,12 @@ namespace jubianchi\PhpSwitch\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
 use jubianchi\PhpSwitch\Console\Application\Configuration;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends BaseApplication
 {
@@ -147,5 +153,19 @@ class Application extends BaseApplication
         $parameters = $this->getService('parameters');
 
         return $parameters[$name];
+    }
+
+    public function doRun(InputInterface $input, OutputInterface $output)
+    {
+        if (0 === posix_getuid() && 0 !== getmyuid()) {
+            throw new \RuntimeException(
+                sprintf(
+                    'You should not run %s as root. It will automatically ask for privileges when required.',
+                    $this->getName()
+                )
+            );
+        }
+
+        return parent::doRun($input, $output);
     }
 }

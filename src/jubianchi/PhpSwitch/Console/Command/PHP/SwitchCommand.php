@@ -10,6 +10,7 @@
 
 namespace jubianchi\PhpSwitch\Console\Command\PHP;
 
+use jubianchi\PhpSwitch\PHP\Option\With;
 use jubianchi\PhpSwitch\PHP\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -32,6 +33,7 @@ class SwitchCommand extends Command
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)')
             ->addOption('apache2', 'a', InputOption::VALUE_NONE)
+            ->addOption('save', 's', InputOption::VALUE_NONE)
         ;
     }
 
@@ -48,6 +50,7 @@ class SwitchCommand extends Command
     {
         parent::execute($input, $output);
 
+        $oldVersion = $this->getConfiguration()->get('enabled', false) ? $this->getConfiguration()->get('version') : null;
         $version = $input->getArgument('version');
 
         if (null !== $version) {
@@ -86,20 +89,18 @@ class SwitchCommand extends Command
                     $install->run($args, $output);
                 }
             }
-        } else {
-            $this->restoreSystemModule($output);
         }
 
-        if ($input->getOption('apache2')) {
-            if (false === is_writable($this->getLibDir())) {
-                throw new \RuntimeException(sprintf('%s is not writable', $this->getLibDir()));
+        if (null === $version) {
+            if($oldVersion !== $version) {
+                $this->restoreSystemModule($output);
+            }
+        } else {
+            if($oldVersion !== (string) $version) {
+                $this->switchModule($output, $version);
             }
 
-            $this->switchModule($output, $version);
-        }
-
-        if($version !== null) {
-            $this->getConfiguration()->set('version', (string) $version);
+            $this->getConfiguration()->set('version', (string) $version, $input->getOption('save'));
         }
 
         $this->getConfiguration()->set('enabled', $version !== null, false);
@@ -123,7 +124,11 @@ class SwitchCommand extends Command
                     sprintf('    <comment>To: %s</comment>', $backup)
                 ));
 
-                copy($path, $backup);
+                $this->getApplication()->getService('app.process.builder')
+                    ->create(array('cp', $path, $backup))
+                    ->setRoot()
+                    ->getProcess()
+                    ->run();
             }
         }
     }
@@ -135,34 +140,68 @@ class SwitchCommand extends Command
 
         if (is_file($backup)) {
             if (is_file($original)) {
-                unlink($original);
+                $this->getApplication()->getService('app.process.builder')
+                    ->create(array('rm', $original))
+                    ->setRoot()
+                    ->getProcess()
+                    ->run();
             }
 
             $output->writeln('Restoring <info>system default</info> Apache2 module');
-            copy($backup, $original);
-            chmod($original, 0755);
+            $this->getApplication()->getService('app.process.builder')
+                ->create(array('mv', $backup, $original))
+                ->setRoot()
+                ->getProcess()
+                ->run();
+            $this->getApplication()->getService('app.process.builder')
+                ->create(array('chmod', '755' , $original))
+                ->setRoot()
+                ->getProcess()
+                ->run();
 
             $this->promptApacheRestart($output);
         }
     }
 
-    public function switchModule(OutputInterface $output, $version)
+    public function switchModule(OutputInterface $output, Version $version)
     {
-        $original = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
-        $module = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
+        $config = $this->getApplication()->getService('app.config')->get('versions.' . str_replace('.', '-', $version) . '.options');
+        /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options */
+        $options = $this->getApplication()->getService('app.php.option.normalizer')->denormalize($config);
 
-        if (is_file($module)) {
-            if (is_file($original)) {
-                $this->backupSystemModule($output);
+        $apache = $options->contains(With\ApacheOption::ARG)
+            || $options->contains(With\ApxsOption::ARG)
+            || $options->contains(With\Apxs2Option::ARG);
 
-                unlink($original);
+        if(true === $apache) {
+            $original = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5.so';
+            $module = $this->getLibDir() . DIRECTORY_SEPARATOR . 'libphp5-' . $version . '.so';
+
+            if (is_file($module)) {
+                if (is_file($original)) {
+                    $this->backupSystemModule($output);
+
+                    $this->getApplication()->getService('app.process.builder')
+                        ->create(array('rm' , $original))
+                        ->setRoot()
+                        ->getProcess()
+                        ->run();
+                }
+
+                $output->writeln(sprintf('Switching Apache2 module to <info>%s</info>', $version));
+                $this->getApplication()->getService('app.process.builder')
+                    ->create(array('cp', $module, $original))
+                    ->setRoot()
+                    ->getProcess()
+                    ->run();
+                $this->getApplication()->getService('app.process.builder')
+                    ->create(array('chmod', '755' , $original))
+                    ->setRoot()
+                    ->getProcess()
+                    ->run();
+
+                $this->promptApacheRestart($output);
             }
-
-            $output->writeln(sprintf('Switching Apache2 module to <info>%s</info>', $version));
-            copy($module, $original);
-            chmod($original, 0755);
-
-            $this->promptApacheRestart($output);
         }
     }
 

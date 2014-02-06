@@ -1,13 +1,33 @@
 phpswitch:
-  version: phpswitch-5.5.3
+  version: phpswitch-5.3.27
   versions:
-    phpswitch_5_3_21:
+    phpswitch_5_3_27:
+      options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session --with-openssl'
+      config:
+        date.timezone: Europe/Paris
+        phar.readonly: Off
+    phpswitch_5_4_19:
       options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session --with-openssl'
       config:
         date.timezone: Europe/Paris
         phar.readonly: Off
     phpswitch_5_5_3:
       options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session --with-openssl'
+      config:
+        date.timezone: Europe/Paris
+        phar.readonly: Off
+    phpswitch_apxs2_5_3_27:
+      options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session --with-openssl --with-apxs2=/usr/bin/apxs2'
+      config:
+        date.timezone: Europe/Paris
+        phar.readonly: Off
+    phpswitch_apxs2_5_4_19:
+      options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session --with-openssl --with-apxs2=/usr/bin/apxs2'
+      config:
+        date.timezone: Europe/Paris
+        phar.readonly: Off
+    phpswitch_apxs2_5_5_3:
+      options: '--disable-all --enable-ctype --enable-dom --enable-json --enable-phar --enable-libxml --enable-xml --enable-simplexml --enable-tokenizer --with-xsl --enable-hash --enable-pcntl --enable-posix --with-curl=/usr --with-libedit --enable-mbstring --enable-session --with-openssl --with-apxs2=/usr/bin/apxs2'
       config:
         date.timezone: Europe/Paris
         phar.readonly: Off

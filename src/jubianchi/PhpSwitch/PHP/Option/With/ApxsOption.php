@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use jubianchi\PhpSwitch\PHP\Version;
+use Symfony\Component\Process\Process;
 
 class ApxsOption extends WithOption
 {
@@ -48,7 +49,10 @@ class ApxsOption extends WithOption
                 sprintf('    <comment>To: %s.backup</comment>', $path)
             ));
 
-            copy($path, $path . '.backup');
+            $this->command->getApplication()->getService('app.process.builder')
+                ->create(array('cp', $path, $path . '.backup'), true)
+                ->getProcess()
+                ->run();
         }
     }
 
@@ -63,8 +67,15 @@ class ApxsOption extends WithOption
                 sprintf('    <comment>To: %s</comment>', $path)
             ));
 
-            copy($path . '.backup', $path);
-            unlink($path . '.backup');
+            $this->command->getApplication()->getService('app.process.builder')
+                ->create(array('cp', $path . '.backup', $path), true)
+                ->getProcess()
+                ->run();
+
+            $this->command->getApplication()->getService('app.process.builder')
+                ->create(array('rm', $path . '.backup'), true)
+                ->getProcess()
+                ->run();
         }
     }
 
@@ -89,8 +100,15 @@ class ApxsOption extends WithOption
                 sprintf('    <comment>To: %s</comment>', $out)
             ));
 
-            copy($module, $out);
-            chmod($out, 0755);
+            $this->command->getApplication()->getService('app.process.builder')
+                ->create(array('cp', $module , $out), true)
+                ->getProcess()
+                ->run();
+
+            $this->command->getApplication()->getService('app.process.builder')
+                ->create(array('chmod', '755' , $out), true)
+                ->getProcess()
+                ->run();
         }
     }
 

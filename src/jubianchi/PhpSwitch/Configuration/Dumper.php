@@ -15,9 +15,6 @@ use jubianchi\PhpSwitch\Configuration;
 
 class Dumper
 {
-    const GLOBAL_DIR = 0;
-    const LOCAL_DIR = 1;
-
     /**
      * @param string                                    $path
      * @param \jubianchi\PhpSwitch\Configuration $configuration

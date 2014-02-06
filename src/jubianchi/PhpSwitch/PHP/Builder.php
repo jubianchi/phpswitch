@@ -10,6 +10,9 @@
 
 namespace jubianchi\PhpSwitch\PHP;
 
+use jubianchi\PhpSwitch\PHP\Option\With\ApacheOption;
+use jubianchi\PhpSwitch\PHP\Option\With\Apxs2Option;
+use jubianchi\PhpSwitch\PHP\Option\With\ApxsOption;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use jubianchi\PhpSwitch\PHP\Option\OptionCollection;
 use jubianchi\PhpSwitch\Process\Builder as ProcessBuilder;
@@ -21,18 +24,18 @@ class Builder extends Emitter
     /** @var string */
     private $directory;
 
-    /** @var \jubianchi\PhpSwitch\Process\Builder */
+    /** @var \jubianchi\PhpSwitch\Process\Builder\Factory */
     private $builder;
 
     /**
-     * @param string                                $directory
-     * @param \jubianchi\PhpSwitch\Process\Builder  $builder
-     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
+     * @param string                                        $directory
+     * @param \jubianchi\PhpSwitch\Process\Builder\Factory  $builder
+     * @param \jubianchi\PhpSwitch\Event\Dispatcher         $dispatcher
      */
-    public function __construct($directory, ProcessBuilder $builder = null, Dispatcher $dispatcher = null)
+    public function __construct($directory, ProcessBuilder\Factory $builder = null, Dispatcher $dispatcher = null)
     {
         $this->directory = $directory;
-        $this->builder = $builder ?: new ProcessBuilder();
+        $this->builder = $builder ?: new ProcessBuilder\Factory();
 
         if (null !== $dispatcher) {
             $this->setDispatcher($dispatcher);
@@ -77,7 +80,7 @@ class Builder extends Emitter
         $this
             ->clean($source, $callback)
             ->configure($version, $source, $options, $callback)
-            ->make($source, $jobs, $callback)
+            ->make($version, $source, $options, $jobs, $callback)
         ;
 
         $this->emit('build.after', $args);
@@ -114,16 +117,16 @@ class Builder extends Emitter
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\PHP\Version $version
-     * @param string                           $source
-     * @param array                            $options
-     * @param callable                         $callback
+     * @param \jubianchi\PhpSwitch\PHP\Version                 $version
+     * @param string                                           $source
+     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
+     * @param callable                                         $callback
      *
      * @throws \Symfony\Component\Process\Exception\ProcessFailedException
      *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
-    public function configure(Version $version, $source, $options, $callback = null)
+    public function configure(Version $version, $source, OptionCollection $options, $callback = null)
     {
         $prefix = $this->getDestination($version);
 
@@ -145,7 +148,7 @@ class Builder extends Emitter
             ->setWorkingDirectory($source)
         ;
 
-        foreach (explode(' ', $options) as $option) {
+        foreach ($options as $option) {
             $builder->add((string) $option);
         }
 
@@ -161,15 +164,17 @@ class Builder extends Emitter
     }
 
     /**
-     * @param string   $source
-     * @param int      $jobs
-     * @param callable $callback
+     * @param \jubianchi\PhpSwitch\PHP\Version                 $version
+     * @param string                                           $source
+     * @param \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options
+     * @param int                                              $jobs
+     * @param callable                                         $callback
      *
      * @throws \Symfony\Component\Process\Exception\ProcessFailedException
      *
      * @return \jubianchi\PhpSwitch\PHP\Builder
      */
-    public function make($source, $jobs = null, $callback = null)
+    public function make(Version $version, $source, OptionCollection $options, $jobs = null, $callback = null)
     {
         $builder = $this->builder
             ->create(array('make'))
@@ -187,9 +192,30 @@ class Builder extends Emitter
             throw new ProcessFailedException($process);
         }
 
-        $builder->add('install');
-        $process = $builder->getProcess();
+
+        $root = $options->contains(ApacheOption::ARG)
+            || $options->contains(ApxsOption::ARG)
+            || $options->contains(Apxs2Option::ARG);
+
+        $process = $this->builder
+            ->create(array('make', 'install'))
+            ->setRoot($root)
+            ->setTimeout(null)
+            ->setWorkingDirectory($source)
+            ->getProcess();
+
         $process->run($callback);
+
+        if(true === $root) {
+            $this->builder
+                ->create(array('chown', '-R', posix_geteuid() . ':' . posix_getgid(), $this->getDestination($version)))
+                ->setRoot()
+                ->setTimeout(null)
+                ->setWorkingDirectory($source)
+                ->getProcess()
+                ->run($callback);
+        }
+
         if (false === $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }

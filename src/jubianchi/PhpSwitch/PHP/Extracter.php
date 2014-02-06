@@ -19,18 +19,18 @@ class Extracter extends Emitter
     /** @var string */
     private $directory;
 
-    /** @var \jubianchi\PhpSwitch\Process\Builder */
+    /** @var \jubianchi\PhpSwitch\Process\Builder\Factory */
     private $builder;
 
     /**
-     * @param string                                $directory
-     * @param \jubianchi\PhpSwitch\Process\Builder  $builder
-     * @param \jubianchi\PhpSwitch\Event\Dispatcher $dispatcher
+     * @param string                                       $directory
+     * @param \jubianchi\PhpSwitch\Process\Builder\Factory $builder
+     * @param \jubianchi\PhpSwitch\Event\Dispatcher        $dispatcher
      */
-    public function __construct($directory, ProcessBuilder $builder = null, Dispatcher $dispatcher = null)
+    public function __construct($directory, ProcessBuilder\Factory $builder = null, Dispatcher $dispatcher = null)
     {
         $this->directory = $directory;
-        $this->builder = $builder ?: new ProcessBuilder();
+        $this->builder = $builder ?: new ProcessBuilder\Factory();
 
         if (null !== $dispatcher) {
             $this->setDispatcher($dispatcher);

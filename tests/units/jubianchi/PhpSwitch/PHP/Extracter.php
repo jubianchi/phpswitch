@@ -22,7 +22,7 @@ class Extracter extends atoum\test
     {
         $this
             ->if($directory = uniqid())
-            ->and($processBuilder = new \jubianchi\PhpSwitch\Process\Builder())
+            ->and($processBuilder = new \jubianchi\PhpSwitch\Process\Builder\Factory())
             ->then
                 ->object(new TestedClass($directory, $processBuilder))->isInstanceOf('\\jubianchi\\PhpSwitch\\PHP\\Extracter')
         ;
@@ -35,7 +35,7 @@ class Extracter extends atoum\test
             ->and($this->calling($dispatcher)->dispatch = function($name, $event) { return $event; })
             ->and($process = new \mock\Symfony\Component\Process\Process(uniqid()))
             ->and($this->calling($process)->run = 0)
-            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder())
+            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder\Factory())
             ->and($this->calling($processFactory)->create = $processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
             ->and($this->calling($processBuilder)->getProcess = $process)
             ->and($directory = stream::get())

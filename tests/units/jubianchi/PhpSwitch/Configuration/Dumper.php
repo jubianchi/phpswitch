@@ -17,7 +17,7 @@ class Dumper extends atoum\test
             ->and($file->isWritable(true))
             ->and($directory->readdir[1] = $file)
             ->and($object = new TestedClass())
-            ->and($configuration = new \mock\jubianchi\PhpSwitch\Configuration())
+            ->and($configuration = new \jubianchi\PhpSwitch\Configuration())
             ->then
                 ->object($object->dump((string) $file, $configuration))
                 ->adapter($file)

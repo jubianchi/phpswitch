@@ -23,7 +23,7 @@ class Builder extends atoum\test
     {
         $this
             ->if($directory = uniqid())
-            ->and($processBuilder = new \jubianchi\PhpSwitch\Process\Builder())
+            ->and($processBuilder = new \jubianchi\PhpSwitch\Process\Builder\Factory())
             ->then
                 ->object(new TestedClass($directory, $processBuilder))->isInstanceOf('\\jubianchi\\PhpSwitch\\PHP\\Builder')
         ;
@@ -37,8 +37,8 @@ class Builder extends atoum\test
             ->and($process = new \mock\Symfony\Component\Process\Process(uniqid()))
             ->and($this->calling($process)->run = 0)
             ->and($this->calling($process)->isSuccessful = true)
-            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder())
-            ->and($this->calling($processFactory)->create = $processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
+            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder\Factory())
+            ->and($this->calling($processFactory)->create = $processBuilder = new \mock\jubianchi\PhpSwitch\Process\Builder())
             ->and($this->calling($processBuilder)->getProcess = $process)
             ->and($directory = stream::get())
             ->and($directory->dir_opendir = true)
@@ -92,8 +92,8 @@ class Builder extends atoum\test
             ->and($process = new \mock\Symfony\Component\Process\Process(uniqid()))
             ->and($this->calling($process)->run = 0)
             ->and($this->calling($process)->isSuccessful = true)
-            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder())
-            ->and($this->calling($processFactory)->create = $processBuilder = new \mock\Symfony\Component\Process\ProcessBuilder())
+            ->and($processFactory = new \mock\jubianchi\PhpSwitch\Process\Builder\Factory())
+            ->and($this->calling($processFactory)->create = $processBuilder = new \mock\jubianchi\PhpSwitch\Process\Builder())
             ->and($this->calling($processBuilder)->getProcess = $process)
             ->and($directory = stream::get())
             ->and($directory->dir_opendir = true)
