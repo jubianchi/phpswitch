@@ -56,7 +56,7 @@ class OptionCollection implements OptionInterface, \Countable, \Iterator
 
     public function contains($name)
     {
-        return false === array_key_exists($name, $this->options);
+        return true === array_key_exists($name, $this->options);
     }
 
     public function merge(OptionCollection $collection)

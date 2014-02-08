@@ -32,14 +32,18 @@ class AskPass
     {
         $process = $this->builder->create(array('sudo', '-n', 'whoami'))->getProcess();
         $process->run();
+        $passwordRequired = (false === $process->isSuccessful() || '' !== $process->getErrorOutput());
 
-        if(false === $process->isSuccessful() && null === $this->password)
+        if(true === $passwordRequired && null === $this->password)
         {
-            $this->output->writeln("\n\033[0;36mYou will be asked to provide your password\nto process the following actions.\033[0m" . PHP_EOL);
+            $this->output->writeln(array(
+                PHP_EOL,
+                "\033[0;36mYou will be asked to provide your password\nto process the following actions.\033[0m\n"
+            ));
 
             $i = 0;
             do {
-                $this->password = $this->dialog->askHiddenResponse($this->output, 'Enter your password: ');
+                $this->password = $this->dialog->askHiddenResponse($this->output, "\033[0;36mEnter your password: \033[0m");
 
                 $process = $process = $this->builder
                     ->create(array('sudo', '-S', 'whoami'))

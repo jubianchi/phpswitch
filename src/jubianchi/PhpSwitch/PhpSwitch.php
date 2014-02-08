@@ -50,9 +50,9 @@ class PhpSwitch implements Runnable
 
         $this
             ->initEnv($path, static::getEnv($env))
-            ->initApplication()
             ->initConfiguration()
             ->initPhp()
+            ->initApplication()
         ;
     }
 
@@ -96,12 +96,9 @@ class PhpSwitch implements Runnable
     {
         $this->container['app'] = $this->container->share(
             function(\Pimple $container) {
-                $application = new Console\Application();
+                $application = new Console\Application($container);
 
-                return $container['app.loader']
-                    ->load($application->setContainer($container))
-                    ->setConfiguration($container['app.config'])
-                ;
+                return $container['app.loader']->load($application);
             }
         );
 
@@ -180,41 +177,40 @@ class PhpSwitch implements Runnable
 
     protected function initConfiguration()
     {
+        $this->container['app.config.dumper'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Configuration\Dumper();
+            }
+        );
+
+        $this->container['app.config.user'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Configuration\Yaml(
+                    $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'],
+                    $container['app.config.dumper'],
+                    new Configuration\Validator\User()
+                );
+            }
+        );
+
+        $this->container['app.config.local'] = $this->container->share(
+            function(\Pimple $container) {
+                return new Configuration\Yaml(
+                    getcwd(). DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'],
+                    $container['app.config.dumper'],
+                    new Configuration\Validator\Local()
+                );
+            }
+        );
+
         $this->container['app.config'] = $this->container->share(
             function(\Pimple $container) {
-                $dumper =  $container['app.config.dumper'];
+                $configuration = new Configuration\Collection();
 
-                $global = $container['app.config.loader']->load($container['parameters']['app.user.path'], $container['app.config.validator.global']);
-                $global->setDumper($dumper);
-
-                $local = $container['app.config.loader']->load(getcwd(), $container['app.config.validator.local'], true, array($container['parameters']['app.user.path']));
-                $local->setDumper($dumper);
-
-                return new AppConfiguration($local, $global);
-            }
-        );
-
-        $this->container['app.config.loader'] = $this->container->share(
-            function(\Pimple $container) {
-                return new Configuration\Loader($container['parameters']['app.config.name']);
-            }
-        );
-
-        $this->container['app.config.validator.global'] = $this->container->share(
-            function() {
-                return new Configuration\Globl\Validator();
-            }
-        );
-
-        $this->container['app.config.validator.local'] = $this->container->share(
-            function() {
-                return new Configuration\Local\Validator();
-            }
-        );
-
-        $this->container['app.config.dumper'] = $this->container->share(
-            function() {
-                return new Configuration\Dumper();
+                return $configuration
+                    ->add($container['app.config.user'])
+                    ->add($container['app.config.local'])
+                ;
             }
         );
 
@@ -310,7 +306,7 @@ class PhpSwitch implements Runnable
                     $container['parameters']['app.workspace.cache.path'],
                     array(
                         'http://php.net/releases' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
-                        'http://php.net/downloads.php' => '/(PHP\s*([4-5]\.(?:\d+\.?)*) \(tar\.bz2\))/',
+                        'http://php.net/downloads.php' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
                         'http://snaps.php.net/' => '/(php\-(?:([4-5]\.(?:\d+\.?)*\-dev)|\-trunk) \(tar\.bz2\))/',
                         'http://downloads.php.net/stas' => '/(php-([4-5]\.(?:\d+\.?)*)\.tar\.bz2)/',
                         'http://downloads.php.net/dsp' => '/(php-([4-5]\.(?:\d+\.?)*(?:(?:alpha|beta)\d*)?)\.tar\.bz2)/'

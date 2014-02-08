@@ -5,6 +5,7 @@ use jubianchi\PhpSwitch\Console\Application;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Console\Template\Builder as TestedClass;
 use jubianchi\PhpSwitch\PHP\Option;
+use jubianchi\PhpSwitch\Configuration;
 
 require_once __DIR__ . '/../../../../bootstrap.php';
 
@@ -16,10 +17,14 @@ class Builder extends atoum\test
             ->if($collection = new Option\OptionCollection())
             ->and($resolver = new Option\Resolver($collection))
             ->and($normalizer = new Option\Normalizer($collection))
-            ->and($configuration = new \mock\jubianchi\PhpSwitch\Configuration(uniqid()))
-            ->and($this->calling($configuration)->dump = $configuration)
-            ->and($config = new Application\Configuration($configuration, $configuration))
-            ->and($config->set('versions', array()))
+            ->and($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
+            ->and($this->calling($dumper)->dump = $dumper)
+            ->and($configuration = new \mock\jubianchi\PhpSwitch\Configuration(uniqid(), $dumper))
+            ->and($this->calling($configuration)->read = array(
+                'versions' => array()
+            ))
+            ->and($config = new Configuration\Collection())
+            ->and($config->add($configuration))
             ->and($builder = new TestedClass($resolver, $normalizer, $config))
             ->and($version = new \jubianchi\PhpSwitch\PHP\Version(phpversion()))
             ->and($input = new \mock\Symfony\Component\Console\Input\InputInterface())
@@ -84,6 +89,15 @@ class Builder extends atoum\test
                     ->isInstanceOf('\\InvalidArgumentException')
                     ->hasMessage(sprintf('Template configuration %s does not exist', $templateName))
             ->if($config->set('versions.' . $templateName, array('options' => '--otherOption', 'config' => array())))
+            ->if($this->calling($configuration)->read = array(
+                    'versions' => array(
+                        $templateName => array(
+                            'options' => '--otherOption',
+                            'config' => array()
+                        )
+                    )
+                )
+            )
             ->then
                 ->object($template = $builder->build($version, $input))->isInstanceOf('\\jubianchi\\PhpSwitch\\PHP\\Template')
                 ->object($template->getOptions())->isEqualTo(new Option\OptionCollection(array($option, $otherOption)))
@@ -100,7 +114,17 @@ class Builder extends atoum\test
             ->then
                 ->object($template = $builder->build($version, $input))->isInstanceOf('\\jubianchi\\PhpSwitch\\PHP\\Template')
                 ->array($template->getConfigs())->isEqualTo($ini)
-            ->if($config->set('versions.' . $templateName, array('options' => '--otherOption', 'config' => array($iniKey = uniqid() => $iniValue = uniqid()))))
+            ->if($this->calling($configuration)->read = array(
+                    'versions' => array(
+                        $templateName => array(
+                            'options' => '--otherOption',
+                            'config' => array(
+                                $iniKey = uniqid() => $iniValue = uniqid()
+                            )
+                        )
+                    )
+                )
+            )
             ->and($this->calling($input)->getOption = function($opt) use($ini, $templateName) {
                 switch ($opt) {
                     case 'ini':

@@ -17,22 +17,20 @@ class Dumper extends atoum\test
             ->and($file->isWritable(true))
             ->and($directory->readdir[1] = $file)
             ->and($object = new TestedClass())
-            ->and($configuration = new \jubianchi\PhpSwitch\Configuration())
             ->then
-                ->object($object->dump((string) $file, $configuration))
+                ->object($object->dump((string) $file, array()))
                 ->adapter($file)
-                    ->call('stream_write')->withArguments("phpswitch: {  }\n")->once()
+                    ->call('stream_write')->withArguments("{  }")->once()
             ->if($values = array(
                 $key = uniqid() => $value = uniqid(),
                 $otherKey = uniqid() => array(
                     $subKey = uniqid() => $subValue = uniqid()
                 )
             ))
-            ->and($configuration->setValues($values))
             ->then
-                ->object($object->dump((string) $file, $configuration))
+                ->object($object->dump((string) $file, $values))
                 ->adapter($file)
-                    ->call('stream_write')->withArguments("phpswitch:\n  $key: $value\n  $otherKey:\n    $subKey: $subValue\n")->once()
+                    ->call('stream_write')->withArguments("$key: $value\n$otherKey:\n  $subKey: $subValue\n")->once()
         ;
     }
 }

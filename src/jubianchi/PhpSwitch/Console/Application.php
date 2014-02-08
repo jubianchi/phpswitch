@@ -11,7 +11,7 @@
 namespace jubianchi\PhpSwitch\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
-use jubianchi\PhpSwitch\Console\Application\Configuration;
+use jubianchi\PhpSwitch\Configuration;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,31 +21,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends BaseApplication
 {
-    /** @var \jubianchi\PhpSwitch\Console\Application\Configuration */
-    private $configuration;
-
     /** @var \Pimple */
     private $container;
 
     /**
-     * @param string $name
-     * @param string $version
+     * @param \Pimple $container
      */
-    public function __construct($name = 'phpswitch', $version = '0.1')
+    public function __construct(\Pimple $container)
     {
-        parent::__construct($name, $version);
-    }
+        $this->container = $container;
 
-    /**
-     * @param \jubianchi\PhpSwitch\Console\Application\Configuration $configuration
-     *
-     * @return \jubianchi\PhpSwitch\Console\Application
-     */
-    public function setConfiguration(Configuration $configuration)
-    {
-        $this->configuration = $configuration;
-
-        return $this;
+        parent::__construct('phpswitch', '0.1');
     }
 
     /**
@@ -53,7 +39,7 @@ class Application extends BaseApplication
      */
     public function getConfiguration()
     {
-        return $this->configuration;
+        return $this->getService('app.config');
     }
 
     /**
@@ -110,18 +96,6 @@ class Application extends BaseApplication
     public function getLogger()
     {
         return $this->getService('app.logger');
-    }
-
-    /**
-     * @param \Pimple $container
-     *
-     * @return \jubianchi\PhpSwitch\Console\Application
-     */
-    public function setContainer(\Pimple $container)
-    {
-        $this->container = $container;
-
-        return $this;
     }
 
     /**

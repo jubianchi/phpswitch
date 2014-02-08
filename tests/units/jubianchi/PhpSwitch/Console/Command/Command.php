@@ -32,8 +32,8 @@ class Command extends atoum\test
     {
         $this
             ->if($object = new \mock\jubianchi\PhpSwitch\Console\Command\Command())
-            ->and($application = new \mock\jubianchi\PhpSwitch\Console\Application())
-            ->and($config = new \mock\jubianchi\PhpSwitch\Configuration())
+            ->and($application = new \mock\jubianchi\PhpSwitch\Console\Application(new \mock\Pimple()))
+            ->and($config = new \mock\jubianchi\PhpSwitch\Configuration(uniqid()))
             ->and($application->getMockController()->getConfiguration = $config)
             ->and($object->setApplication($application))
             ->then

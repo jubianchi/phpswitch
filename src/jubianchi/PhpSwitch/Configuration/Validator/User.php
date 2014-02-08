@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace jubianchi\PhpSwitch\Configuration\Globl;
+namespace jubianchi\PhpSwitch\Configuration\Validator;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Processor;
 use jubianchi\PhpSwitch\Configuration\Validator as BaseValidator;
 
-class Validator extends BaseValidator
+class User extends BaseValidator
 {
     const ROOT = 'phpswitch';
 

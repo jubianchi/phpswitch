@@ -95,7 +95,7 @@ class InstallCommand extends Command
             $this->getApplication()->getService('app.php.config')->setValue($version, $key, $value);
         }
 
-        $this->getConfiguration()
+        $this->getApplication()->getService('app.config.' . ($input->getOption('save') ? 'local' : 'user'))
             ->set(
                 'versions.' . $template->getName(),
                 array(

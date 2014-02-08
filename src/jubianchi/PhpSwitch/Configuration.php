@@ -10,28 +10,95 @@
 
 namespace jubianchi\PhpSwitch;
 
-use jubianchi\PhpSwitch\Configuration\Dumper;
-
-class Configuration implements \IteratorAggregate
+abstract class Configuration implements \IteratorAggregate
 {
     const ROOT = 'phpswitch';
 
     /** @var string */
-    protected $name;
-
-    /** @var string */
     protected $path;
+
+    /** @var \jubianchi\PhpSwitch\Configuration\Dumper */
+    protected $dumper;
+
+    /** @var \jubianchi\PhpSwitch\Configuration\Validator */
+    protected $validator;
 
     /** @var array */
     private $configuration = array();
 
-    /** @var \jubianchi\PhpSwitch\Configuration\Dumper */
-    private $dumper;
-
-    public function __construct($name = '.phpswitch.yml', Dumper $dumper = null)
+    /**
+     * @param string                  $path
+     * @param Configuration\Validator $validator
+     * @param Configuration\Dumper    $dumper
+     */
+    public function __construct($path, Configuration\Dumper $dumper = null, Configuration\Validator $validator = null)
     {
-        $this->name = $name;
-        $this->setDumper($dumper ?: new Dumper());
+        $this->path = $path;
+        $this
+            ->setDumper($dumper)
+            ->setValidator($validator)
+        ;
+
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
+     *
+     * @return \jubianchi\PhpSwitch\Configuration
+     */
+    public function setDumper(Configuration\Dumper $dumper = null)
+    {
+        $this->dumper = $dumper ?: new Configuration\Dumper();
+
+        return $this;
+    }
+
+    /**
+     * @return \jubianchi\PhpSwitch\Configuration\Dumper
+     */
+    public function getDumper()
+    {
+        return $this->dumper;
+    }
+
+    /**
+     * @param \jubianchi\PhpSwitch\Configuration\Validator $validator
+     *
+     * @return \jubianchi\PhpSwitch\Configuration
+     */
+    public function setValidator(Configuration\Validator $validator = null)
+    {
+        $this->validator = $validator ?: new Configuration\Validator\Pass();
+
+        return $this;
+    }
+
+    /**
+     * @return \jubianchi\PhpSwitch\Configuration\Dumper
+     */
+    public function getValidator()
+    {
+        return $this->validator;
+    }
+
+    /**
+     * @return array
+     */
+    abstract protected function read();
+
+    protected function doRead()
+    {
+        $this->configuration = $this->validator->validate($this->read());
+
+        return $this;
     }
 
     /**
@@ -44,13 +111,14 @@ class Configuration implements \IteratorAggregate
      */
     public function get($offset, $default = null)
     {
-        $offset = str_replace('-', '_', $offset);
-        $offset = preg_split('/(?<!\\\)\./', $offset);
-        $reference = $this->configuration;
+        $this->doRead();
+
+        $offset = self::parseOffest($offset);
+        $reference = & $this->configuration;
         $current = $sep = '';
 
         foreach ($offset as $key) {
-            $key = preg_replace('/\\\\./', '.', $key);
+            $key = self::unescapeKey($key);
             $current .= $sep . $key;
 
             if (false === array_key_exists($key, $reference) || null === $reference[$key]) {
@@ -71,6 +139,31 @@ class Configuration implements \IteratorAggregate
 
     /**
      * @param string $offset
+     *
+     * @return bool
+     */
+    public function has($offset)
+    {
+        $this->doRead();
+
+        $offset = self::parseOffest($offset);
+        $reference = & $this->configuration;
+
+        foreach ($offset as $key) {
+            $key = self::unescapeKey($key);
+
+            if (false === array_key_exists($key, $reference) || null === $reference[$key]) {
+                return false;
+            }
+
+            $reference = & $reference[$key];
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $offset
      * @param mixed  $value
      *
      * @throws \InvalidArgumentException
@@ -79,13 +172,14 @@ class Configuration implements \IteratorAggregate
      */
     public function set($offset, $value)
     {
-        $offset = str_replace('-', '_', $offset);
-        $offset = preg_split('/(?<!\\\)\./', $offset);
+        $this->doRead();
+
+        $offset = self::parseOffest($offset);
         $reference = & $this->configuration;
         $current = $sep = '';
 
         foreach ($offset as $key) {
-            $key = preg_replace('/\\\\./', '.', $key);
+            $key = self::unescapeKey($key);
             $current .= $sep . $key;
             if (false === isset($reference[$key])) {
                 $reference[$key] = null;
@@ -98,27 +192,9 @@ class Configuration implements \IteratorAggregate
 
         $reference = $value;
 
-        return $this;
-    }
-
-    /**
-     * @param array $values
-     *
-     * @return \jubianchi\PhpSwitch\Configuration
-     */
-    public function setValues(array $values)
-    {
-        $this->configuration = $values;
+        $this->dumper->dump($this->path, array(self::ROOT => $this->configuration));
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getValues()
-    {
-        return $this->configuration;
     }
 
     /**
@@ -126,58 +202,28 @@ class Configuration implements \IteratorAggregate
      */
     public function getIterator()
     {
-    return new \RecursiveArrayIterator($this->configuration);
+        return new \RecursiveArrayIterator($this->doRead()->configuration);
     }
 
     /**
-     * @throws \RuntimeException
+     * @param string $offset
      *
-     * @return \jubianchi\PhpSwitch\Configuration
+     * @return array
      */
-    public function dump()
+    private static function parseOffest($offset)
     {
-        $this->dumper->dump($this->path, $this);
+        $offset = str_replace('-', '_', $offset);
 
-        return $this;
+        return preg_split('/(?<!\\\)\./', $offset);
     }
 
     /**
-     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
+     * @param string $key
      *
-     * @return \jubianchi\PhpSwitch\Configuration
-     */
-    public function setDumper(Dumper $dumper)
-    {
-        $this->dumper = $dumper;
-
-        return $this;
-    }
-
-    /**
-     * @return \jubianchi\PhpSwitch\Configuration\Dumper
-     */
-    public function getDumper()
-    {
-        return $this->dumper;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return \jubianchi\PhpSwitch\Configuration
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getPath()
+    private static function unescapeKey($key)
     {
-        return $this->path;
+        return preg_replace('/\\\\./', '.', $key);
     }
 }

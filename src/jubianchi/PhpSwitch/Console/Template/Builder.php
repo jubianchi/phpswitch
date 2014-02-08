@@ -13,7 +13,7 @@ namespace jubianchi\PhpSwitch\Console\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use jubianchi\PhpSwitch\PHP\Option\Resolver;
 use jubianchi\PhpSwitch\PHP\Version;
-use jubianchi\PhpSwitch\Console\Application\Configuration;
+use jubianchi\PhpSwitch\Configuration;
 use jubianchi\PhpSwitch\PHP\Template;
 use jubianchi\PhpSwitch\PHP\Option\Normalizer;
 use jubianchi\PhpSwitch\PHP\Option\OptionCollection;
@@ -24,7 +24,7 @@ class Builder
     protected $config;
     protected $normalizer;
 
-    public function __construct(Resolver $resolver, Normalizer $normalizer, Configuration $config)
+    public function __construct(Resolver $resolver, Normalizer $normalizer, Configuration\Collection $config)
     {
         $this->resolver = $resolver;
         $this->config = $config;

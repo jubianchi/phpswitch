@@ -10,7 +10,7 @@
 
 namespace jubianchi\PhpSwitch\Configuration;
 
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component;
 use jubianchi\PhpSwitch\Configuration;
 
 class Dumper
@@ -21,11 +21,11 @@ class Dumper
      *
      * @return \jubianchi\PhpSwitch\Configuration\Dumper
      */
-    public function dump($path, Configuration $configuration)
+    public function dump($path, array $values)
     {
         file_put_contents(
             $path,
-            Yaml::dump(array(Configuration::ROOT => $configuration->getValues()), 5, 2)
+            Component\Yaml\Yaml::dump($values, 5, 2)
         );
 
         return $this;

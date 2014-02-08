@@ -30,9 +30,9 @@ class Loader extends atoum\test
         $this
             ->mockGenerator->shuntParentClassCalls()
             ->if($finder = new \mock\jubianchi\PhpSwitch\Console\Command\Finder(uniqid(), uniqid()))
-            ->and($finder->getMockController()->getIterator = new \ArrayIterator())
+            ->and($this->calling($finder)->getIterator = new \ArrayIterator())
             ->and($object = new TestedClass($finder))
-            ->and($application = new \mock\jubianchi\PhpSwitch\Console\Application())
+            ->and($application = new \mock\jubianchi\PhpSwitch\Console\Application(new \mock\Pimple()))
             ->then
                 ->object($object->load($application))->isIdenticalTo($application)
         ;
