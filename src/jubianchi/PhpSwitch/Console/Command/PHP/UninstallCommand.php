@@ -96,7 +96,7 @@ class UninstallCommand extends Command
         ));
         static::deleteDirectory($install);
 
-        $output->writeln(sprintf(PHP_EOL . 'Successfuly removed PHP version <info>%s</info>', $version));
+        $output->writeln(sprintf(PHP_EOL . 'Successfully removed PHP version <info>%s</info>', $version));
 
         return 0;
     }
