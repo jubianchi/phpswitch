@@ -103,7 +103,7 @@ class UninstallCommand extends Command
 
     private static function deleteDirectory($path)
     {
-        $iterator = new \RecursiveDirectoryIterator($path);
+        $iterator = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
 
         foreach ($iterator as $file) {
             if ($file->isDir()) {
