@@ -26,7 +26,10 @@ class Symfony2Option extends DefaultOption
                 new Enable\SessionOption(),
                 new With\PCREOption(),
                 new Enable\IntlOption(),
-                new With\PDOMySQLOption()
+                new With\PDOMySQLOption(),
+                new With\CURLOption(),
+                new Enable\HashOption(),
+                new Enable\ZIPOption()
             )
         );
     }
