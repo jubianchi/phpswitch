@@ -12,7 +12,7 @@ Feature: Install and use
         Configure options: \[\]
 
         Downloading PHP 5\.4\.0
-            http:\/\/php\.net\/get\/php\-5\.4\.0\.tar\.bz2\/from\/fr2.php.net\/mirror
+            http:\/\/.*?php\.net\/.*?php\-5\.4\.0\.tar\.bz2(?:\/from\/fr2.php.net\/mirror)?
 
 
         Extracting 5\.4\.0
