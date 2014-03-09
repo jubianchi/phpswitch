@@ -18,8 +18,16 @@ class Yaml extends Configuration
     /**
      * @return \jubianchi\PhpSwitch\Configuration
      */
-    protected function read()
+    public function read()
     {
-        return Component\Yaml\Yaml::parse($this->getPath());
+        return file_exists($this->getPath()) ? Component\Yaml\Yaml::parse($this->getPath()) : array();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return Component\Yaml\Yaml::dump(array(self::ROOT => $this->configuration), 5, 2);
     }
 }

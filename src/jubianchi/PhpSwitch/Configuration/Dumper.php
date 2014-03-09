@@ -21,12 +21,9 @@ class Dumper
      *
      * @return \jubianchi\PhpSwitch\Configuration\Dumper
      */
-    public function dump($path, array $values)
+    public function dump($path, Configuration $configuration)
     {
-        file_put_contents(
-            $path,
-            Component\Yaml\Yaml::dump($values, 5, 2)
-        );
+        file_put_contents($path, (string) $configuration);
 
         return $this;
     }

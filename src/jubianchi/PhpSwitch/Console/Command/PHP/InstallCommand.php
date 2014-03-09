@@ -117,40 +117,5 @@ class InstallCommand extends Command
         return $this->getApplication()->getService('app.php.installer');
     }
 
-    /**
-     * @return \jubianchi\PhpSwitch\PHP\Option\Resolver
-     */
-    public function getResolver()
-    {
-        return $this->getApplication()->getOptionResolver();
-    }
 
-    /**
-     * @return \jubianchi\PhpSwitch\PHP\Option\Normalizer
-     */
-    public function getNormalizer()
-    {
-        return $this->getApplication()->getOptionNormalizer();
-    }
-
-    protected function resolveOptions(InputInterface $input)
-    {
-        $options = $this->getResolver()->resolve($input, $this->options);
-
-        if (null !== ($config = $input->getOption('config'))) {
-            try {
-                $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $config));
-            } catch (\InvalidArgumentException $exception) {
-                throw new \InvalidArgumentException(
-                    sprintf('Configuration %s does not exist', $config),
-                    $exception->getCode(),
-                    $exception
-                );
-            }
-
-            $options->addOptions($this->getNormalizer()->denormalize($config, $this->options));
-        }
-
-        return $options;
-    }
 }

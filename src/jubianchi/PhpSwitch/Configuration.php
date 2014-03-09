@@ -24,7 +24,7 @@ abstract class Configuration implements \IteratorAggregate
     protected $validator;
 
     /** @var array */
-    private $configuration = array();
+    protected $configuration = array();
 
     /**
      * @param string                  $path
@@ -90,9 +90,14 @@ abstract class Configuration implements \IteratorAggregate
     }
 
     /**
+     * @return string
+     */
+    abstract public function __toString();
+
+    /**
      * @return array
      */
-    abstract protected function read();
+    abstract public function read();
 
     protected function doRead()
     {
@@ -192,7 +197,7 @@ abstract class Configuration implements \IteratorAggregate
 
         $reference = $value;
 
-        $this->dumper->dump($this->path, array(self::ROOT => $this->configuration));
+        $this->dumper->dump($this->path, $this);
 
         return $this;
     }
