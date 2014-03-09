@@ -55,7 +55,7 @@ class Configuration extends atoum\test
             ->then
                 ->object($object->set($offset, $value))->isIdenticalTo($object)
                 ->mock($dumper)
-                    ->call('dump')->withArguments($object->getPath(), array(TestedClass::ROOT => array($offset => $value)))->once()
+                    ->call('dump')->withArguments($object->getPath(), $object)->once()
         ;
     }
 

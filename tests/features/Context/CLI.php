@@ -1,7 +1,9 @@
 <?php
+namespace jubianchi\PhpSwitch\Test\Context;
+
 use Behat\Gherkin\Node\PyStringNode;
 
-class CLIContext extends BehatAtoumContext
+class CLI extends Atoum
 {
     private $output;
     private $status;

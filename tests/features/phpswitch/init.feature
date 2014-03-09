@@ -17,8 +17,9 @@ Feature: init
      And The directory "workspace/installed" should exist
      And The directory "workspace/doc" should exist
      And The file "workspace/.phpswitchrc" should exist
+
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run "source ../workspace/.phpswitchrc && php -h"
      Then I should see output matching
         """

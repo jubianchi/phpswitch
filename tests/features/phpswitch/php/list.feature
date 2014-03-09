@@ -8,7 +8,7 @@ Feature: php:list
       And The command should exit with failure status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run the "php:list" command
      Then I should see output matching
         """
@@ -20,7 +20,7 @@ Feature: php:list
       And The file "workspace/phpswitch.cache" should exist
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run the "php:list --available" command
      Then I should see output matching
         """
@@ -31,7 +31,7 @@ Feature: php:list
       And The command should exit with success status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run the "php:list --installed" command
      Then I should see output matching
         """
@@ -41,7 +41,7 @@ Feature: php:list
       And The command should exit with success status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run "source ../workspace/.phpswitchrc && php list"
      Then I should see output matching
         """

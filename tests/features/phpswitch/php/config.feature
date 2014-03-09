@@ -8,7 +8,7 @@ Feature: php:current
       And The command should exit with failure status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And The PHP version "php-5.3.15" is installed and enabled
       And I run the "php:config foo.bar" command
      Then I should see

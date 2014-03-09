@@ -8,13 +8,13 @@ Feature: php:current
       And The command should exit with failure status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run the "php:current" command
      Then I should see no output
       And The command should exit with failure status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And The PHP version "php-5.3.15" is installed and enabled
       And I run the "php:current" command
      Then I should see
@@ -25,7 +25,7 @@ Feature: php:current
       And The command should exit with success status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run "source ../workspace/.phpswitchrc && php current"
      Then I should see output matching
         """

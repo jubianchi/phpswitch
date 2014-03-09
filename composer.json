@@ -39,8 +39,9 @@
     },
     "autoload": {
         "psr-0": {
-            "": "src/"
-        }
+            "jubianchi\\PhpSwitch\\": "src/"
+        },
+        "classmap": ["tests/features/Context"]
     },
     "config": {
         "bin-dir": "bin"

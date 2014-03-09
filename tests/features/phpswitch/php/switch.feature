@@ -14,7 +14,7 @@ Feature: php:switch
       And The command should exit with failure status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I run the "php:switch php-6.6.6" command
      Then I should see
         """
@@ -26,8 +26,8 @@ Feature: php:switch
 
 
 
-        php:switch [-a|--apache2] version
-        php switch [-a|--apache2] version
+        php:switch [-a|--apache2] [-s|--save] version
+        php switch [-a|--apache2] [-s|--save] version
 
 
 
@@ -35,7 +35,7 @@ Feature: php:switch
       And The command should exit with failure status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And The PHP version "php-5.3.15" is installed
       And I run the "php:switch php-5.3.15" command
      Then I should see
@@ -53,7 +53,7 @@ Feature: php:switch
       And The command should exit with success status
 
   Scenario:
-    Given I run the "init" command
+    Given phpswitch is initialized
       And I have the following configuration in "sandbox/.phpswitch.yml":
         """
         phpswitch:
