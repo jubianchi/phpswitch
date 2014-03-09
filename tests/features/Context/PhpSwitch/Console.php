@@ -25,7 +25,7 @@ class Console extends CLI implements Sandboxed
     {
         parent::iRun(
             $command,
-            $cwd ?: $this->sandbox,
+            $cwd ?: getcwd(),
             $env ?: array(
                 'PHPSWITCH_PREFIX' => $this->workspace,
                 'PHPSWITCH_HOME' => $this->home,

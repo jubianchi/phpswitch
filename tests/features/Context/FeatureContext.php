@@ -36,6 +36,8 @@ class FeatureContext extends BehatContext
             mkdir(static::$sandbox, 0777, true);
         }
 
+        chdir(static::$sandbox);
+
         $this->getSubcontext('phpswitch')->setDirectories(static::$root, static::$workspace, static::$home, static::$sandbox);
         $this->getSubcontext('fs')->setDirectories(static::$root, static::$workspace, static::$home, static::$sandbox);
     }

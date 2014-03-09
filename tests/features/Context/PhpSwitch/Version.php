@@ -72,7 +72,7 @@ class Version extends Atoum implements Sandboxed
     {
         return array(
             new Step\Given(sprintf('The PHP version "%s" is installed', $version)),
-            new Step\Given(sprintf('The PHP version "%s" is %s enabled', $version, $configuration ?: 'locally'))
+            new Step\Given(sprintf('The PHP version "%s" is%s enabled', $version, $configuration ?: ' locally'))
         );
     }
 }

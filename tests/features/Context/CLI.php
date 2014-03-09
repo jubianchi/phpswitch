@@ -134,21 +134,4 @@ class CLI extends Atoum
             )
         ;
     }
-
-    /**
-     * @Then /^I am in "(?P<path>[^\"]*)"$/
-     * @Then /^I go to "(?P<path>[^\"]*)"$/
-     */
-    public function iAmIn($path)
-    {
-        $this->assert
-            ->boolean(chdir($path))
-            ->isTrue(
-                sprintf(
-                    'Could not change directory to %s',
-                    $path
-                )
-            )
-        ;
-    }
 }

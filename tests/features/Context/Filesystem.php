@@ -52,4 +52,21 @@ class Filesystem extends Atoum implements Sandboxed
     {
         $this->assert->boolean(is_dir($this->locatePath($path)))->isTrue();
     }
+
+    /**
+     * @Given /^I am in "(?P<path>[^\"]*)"$/
+     * @Then /^I go to "(?P<path>[^\"]*)"$/
+     */
+    public function iAmIn($path)
+    {
+        $this->assert
+            ->boolean(chdir($this->locatePath($path)))
+            ->isTrue(
+                sprintf(
+                    'Could not change directory to %s',
+                    $path
+                )
+            )
+        ;
+    }
 }

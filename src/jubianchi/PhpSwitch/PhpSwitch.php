@@ -195,11 +195,29 @@ class PhpSwitch implements Runnable
 
         $this->container['app.config.local'] = $this->container->share(
             function(\Pimple $container) {
-                return new Configuration\Yaml(
-                    getcwd(). DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'],
-                    $container['app.config.dumper'],
-                    new Configuration\Validator\Local()
-                );
+                $pwd = getcwd();
+
+                while (
+                    is_dir($pwd) &&
+                    (
+                        is_file($filepath = $pwd . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name']) === false ||
+                        realpath($filepath) === realpath($container['app.config.user']->getPath())
+                    )
+                ) {
+                    $pwd = realpath($pwd . DIRECTORY_SEPARATOR . '..');
+
+                    if ($pwd === '/') {
+                        break;
+                    }
+                }
+
+                if (is_file($filepath) === false) {
+                    $filepath = getcwd(). DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'];
+                }
+
+                $config = new Configuration\Yaml($filepath, $container['app.config.dumper'], new Configuration\Validator\Local());
+
+                return $config;
             }
         );
 
