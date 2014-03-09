@@ -57,14 +57,16 @@ class Downloader extends Emitter
 
         $self = $this;
         curl_setopt($ch, CURLOPT_NOPROGRESS, false);
-        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function($size, $downloaded) use ($self) {
-            $self->emit(
-                'download.progress',
-                array(
-                    'size' => $size,
-                    'downloaded' => $downloaded
-                )
-            );
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function($curl, $size, $downloaded) use ($self, $args) {
+            if ($size > 1) {
+                $self->emit(
+                    'download.progress',
+                    array(
+                        'size' => $size,
+                        'downloaded' => $downloaded
+                    )
+                );
+            }
         });
 
         curl_exec($ch);
