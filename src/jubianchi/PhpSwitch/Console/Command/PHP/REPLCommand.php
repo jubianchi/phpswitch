@@ -39,7 +39,7 @@ class REPLCommand extends Command
             throw new \RuntimeException('php repl is not available');
         }
 
-        $version = $this->getConfiguration()->get('version', phpversion());
+        $version = $this->getHelper('configuration')->getCurrentVersion() ?: phpversion();
         $boris = new \Boris\Boris($output->getFormatter()->format(sprintf('<info>%s →</info> ', $version)));
         $boris->start();
 

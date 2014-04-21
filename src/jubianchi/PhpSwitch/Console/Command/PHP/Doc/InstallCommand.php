@@ -99,7 +99,7 @@ class InstallCommand extends Command
         $format = $input->getOption('format');
         $lang = $input->getOption('lang');
         $filename = static::getFilename($format, $lang);
-        $url = sprintf(self::URL, $filename, $this->getConfiguration()->get('mirror'));
+        $url = sprintf(self::URL, $filename, $this->getApplication()->getService('app.config.user')->get('mirror'));
         $archive = $this->getApplication()->getService('app.workspace.doc.path') . DIRECTORY_SEPARATOR . $filename;
 
         $output->writeln(array(

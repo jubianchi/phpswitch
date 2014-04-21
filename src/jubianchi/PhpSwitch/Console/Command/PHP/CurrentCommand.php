@@ -31,22 +31,24 @@ class CurrentCommand extends Command
     {
         parent::execute($input, $output);
 
-        if ($this->getConfiguration()->get('enabled', true)) {
-            try {
-                $version = $this->getConfiguration()->get('version');
-            } catch (\InvalidArgumentException $exception) {
-                return 255;
-            }
-
-            $version = Version::fromString($version);
-
-            if (true === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
-                $output->writeln((string) $version);
-
-                return 0;
-            }
+        try {
+            $version = $this->getHelper('configuration')->getCurrentVersion();
+        } catch (\InvalidArgumentException $exception) {
+            return 255;
         }
 
-        return 1;
+        if (null === $version) {
+            return 1;
+        }
+
+        $version = Version::fromString($version);
+
+        if (false === $this->getApplication()->getService('app.php.installer')->isInstalled($version)) {
+            return 1;
+        }
+
+        $output->writeln((string) $version);
+
+        return 0;
     }
 }

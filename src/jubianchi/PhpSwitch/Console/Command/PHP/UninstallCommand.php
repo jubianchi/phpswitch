@@ -50,7 +50,7 @@ class UninstallCommand extends Command
     {
         $version = $input->getArgument('version');
 
-        if ($this->getConfiguration()->get('enabled') &&  $version === $this->getConfiguration()->get('version', false)) {
+        if ($version === $this->getHelper('configuration')->getCurrentVersion) {
             throw new \InvalidArgumentException('Cannot uninstall current php version');
         }
 

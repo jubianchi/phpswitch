@@ -59,6 +59,7 @@ class PhpSwitch implements Runnable
     public function run()
     {
         $this->container['app']->run($this->container['app.input'], $this->container['app.output']);
+        $this->container['app.config.dumper']->dump($this->container['app.config.user']->getPath(), $this->container['app.config.user']);
     }
 
     protected function initEnv($path, array $env = array())
