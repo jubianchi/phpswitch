@@ -190,8 +190,7 @@ class PhpSwitch implements Runnable
                 $userConfigurationFile = $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'];
 
                 return new Configuration\Yaml(
-                    $userConfigurationFile,
-                    $container['app.config.dumper'],
+                    $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'],
                     new Configuration\Validator\User()
                 );
             }
@@ -224,11 +223,7 @@ class PhpSwitch implements Runnable
                     return $container['app.config.user'];
                 }
 
-                $config = new Configuration\Yaml(
-                    $filepath,
-                    $container['app.config.dumper'],
-                    new Configuration\Validator\Local()
-                );
+                $config = new Configuration\Yaml($filepath, new Configuration\Validator\Local());
 
                 return $config;
             }

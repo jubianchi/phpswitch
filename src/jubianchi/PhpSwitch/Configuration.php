@@ -29,17 +29,14 @@ abstract class Configuration implements \IteratorAggregate
     /**
      * @param string                  $path
      * @param Configuration\Validator $validator
-     * @param Configuration\Dumper    $dumper
      */
-    public function __construct($path, Configuration\Dumper $dumper = null, Configuration\Validator $validator = null)
+    public function __construct($path, Configuration\Validator $validator = null)
     {
         $this->path = $path;
         $this
-            ->setDumper($dumper)
             ->setValidator($validator)
             ->doRead()
         ;
-
     }
 
     /**
@@ -48,26 +45,6 @@ abstract class Configuration implements \IteratorAggregate
     public function getPath()
     {
         return $this->path;
-    }
-
-    /**
-     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
-     *
-     * @return \jubianchi\PhpSwitch\Configuration
-     */
-    public function setDumper(Configuration\Dumper $dumper = null)
-    {
-        $this->dumper = $dumper ?: new Configuration\Dumper();
-
-        return $this;
-    }
-
-    /**
-     * @return \jubianchi\PhpSwitch\Configuration\Dumper
-     */
-    public function getDumper()
-    {
-        return $this->dumper;
     }
 
     /**

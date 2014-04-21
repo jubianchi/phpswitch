@@ -2,6 +2,7 @@
 namespace tests\units\jubianchi\PhpSwitch;
 
 use mageekguy\atoum;
+use mageekguy\atoum\mock\controller;
 use \mock\jubianchi\PhpSwitch\Configuration as TestedClass;
 
 require_once __DIR__ . '/../../bootstrap.php';
@@ -19,8 +20,11 @@ class Configuration extends atoum\test
     public function testGet()
     {
         $this
-            ->if($object = new TestedClass(uniqid()))
-            ->and($this->calling($object)->read = array())
+            ->if(
+                $controller = new controller(),
+                $controller->read = array(),
+                $object = new TestedClass(uniqid(), null, $controller)
+            )
             ->and($offset = uniqid())
             ->then
                 ->exception(function() use($object, $offset) {
@@ -28,8 +32,12 @@ class Configuration extends atoum\test
                 })
                     ->isInstanceOf('\\InvalidArgumentException')
                     ->hasMessage(sprintf('Offset %s does not exist', $offset))
-            ->if($value = null)
-            ->and($this->calling($object)->read = array($offset => $value))
+            ->if(
+                $value = null,
+                $controller = new controller(),
+                $controller->read = array($offset => $value),
+                $object = new TestedClass(uniqid(), null, $controller)
+            )
             ->then
                 ->exception(function() use($object, $offset) {
                     $object->get($offset);
@@ -37,7 +45,11 @@ class Configuration extends atoum\test
                     ->isInstanceOf('\\InvalidArgumentException')
                     ->hasMessage(sprintf('Offset %s does not exist', $offset))
             ->if($value = uniqid())
-            ->and($this->calling($object)->read = array($offset => $value))
+            ->if(
+                $controller = new controller(),
+                $controller->read = array($offset => $value),
+                $object = new TestedClass(uniqid(), null, $controller)
+            )
             ->then
                 ->variable($object->get($offset))->isIdenticalTo($value)
         ;
@@ -46,56 +58,37 @@ class Configuration extends atoum\test
     public function testSet()
     {
         $this
-            ->given($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
-            ->and($this->calling($dumper)->dump = $dumper)
-            ->if($object = new TestedClass(uniqid(), $dumper))
-            ->and($this->calling($object)->read = array())
+            ->if(
+                $controller = new controller(),
+                $controller->read = array(),
+                $object = new TestedClass(uniqid(), null, $controller)
+            )
             ->and($offset = uniqid())
             ->and($value = uniqid())
             ->then
                 ->object($object->set($offset, $value))->isIdenticalTo($object)
-                ->mock($dumper)
-                    ->call('dump')->withArguments($object->getPath(), $object)->once()
+                ->variable($object->get($offset))->isIdenticalTo($value)
         ;
     }
 
     public function testGetIterator()
     {
         $this
-            ->if($object = new TestedClass(uniqid()))
-            ->and($this->calling($object)->read = array())
+            ->if(
+                $controller = new controller(),
+                $controller->read = array(),
+                $object = new TestedClass(uniqid(), null, $controller)
+            )
             ->then
                 ->object($object->getIterator())->isInstanceOf('\\RecursiveArrayIterator')
                 ->array((array) $object->getIterator())->isEmpty()
-            ->if($this->calling($object)->read = $values = array(uniqid() => uniqid()))
+            ->if(
+                $controller = new controller(),
+                $controller->read = $values = array(uniqid() => uniqid()),
+                $object = new TestedClass(uniqid(), null, $controller)
+            )
             ->then
                 ->array((array) $object->getIterator())->isEqualTo($values)
-        ;
-    }
-
-    public function testSetDumper()
-    {
-        $this
-            ->if($object = new TestedClass(uniqid()))
-            ->and($this->calling($object)->read = array())
-            ->and($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
-            ->then
-                ->object($object->setDumper($dumper))->isIdenticalTo($object)
-                ->object($object->getDumper())->isIdenticalTo($dumper)
-        ;
-    }
-
-    public function testGetDumper()
-    {
-        $this
-            ->if($object = new TestedClass(uniqid()))
-            ->and($this->calling($object)->read = array())
-            ->then
-                ->object($object->getDumper())->isInstanceOf('\\jubianchi\\PhpSwitch\\Configuration\\Dumper')
-            ->if($dumper = new \mock\jubianchi\PhpSwitch\Configuration\Dumper())
-            ->and($object->setDumper($dumper))
-            ->then
-                ->object($object->getDumper())->isIdenticalTo($dumper)
         ;
     }
 }
