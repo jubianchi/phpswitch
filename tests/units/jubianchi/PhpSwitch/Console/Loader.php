@@ -1,6 +1,7 @@
 <?php
 namespace tests\units\jubianchi\PhpSwitch\Console;
 
+use mock\jubianchi\PhpSwitch\Configuration;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Console\Loader as TestedClass;
 
@@ -29,10 +30,25 @@ class Loader extends atoum\test
     {
         $this
             ->mockGenerator->shuntParentClassCalls()
-            ->if($finder = new \mock\jubianchi\PhpSwitch\Console\Command\Finder(uniqid(), uniqid()))
-            ->and($this->calling($finder)->getIterator = new \ArrayIterator())
-            ->and($object = new TestedClass($finder))
-            ->and($application = new \mock\jubianchi\PhpSwitch\Console\Application(new \mock\Pimple()))
+            ->if(
+                $finder = new \mock\jubianchi\PhpSwitch\Console\Command\Finder(uniqid(), uniqid()),
+                $this->calling($finder)->getIterator = new \ArrayIterator(),
+                $object = new TestedClass($finder),
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $exception) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $application = new \mock\jubianchi\PhpSwitch\Console\Application($pimple)
+            )
             ->then
                 ->object($object->load($application))->isIdenticalTo($application)
         ;

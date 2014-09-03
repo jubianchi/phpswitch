@@ -26,8 +26,8 @@ Feature: php:switch
 
 
 
-        php:switch [-a|--apache2] [-s|--save] version
-        php switch [-a|--apache2] [-s|--save] version
+        php:switch [-s|--save] version
+        php switch [-s|--save] version
 
 
 

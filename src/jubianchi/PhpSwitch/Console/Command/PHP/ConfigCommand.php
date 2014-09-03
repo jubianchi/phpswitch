@@ -46,7 +46,7 @@ class ConfigCommand extends Command
 
         $name = $input->getArgument('name');
         $value = $input->getArgument('value');
-        $version = Version::fromString($this->getConfiguration()->get('version'));
+        $version = Version::fromString($this->getHelper('configuration')->getCurrentVersion());
 
         if (null !== $value) {
             $this->getApplication()->getService('app.php.config')->setValue($version, $name, $value);

@@ -9,13 +9,16 @@
  * file that was distributed with this source code.
  */
 
-define('INSTALLER_URL',             'https://raw.github.com/jubianchi/phpswitch/master/bin/installer');
-define('PHPSWITCH_GIT_URL',         (($url = getenv('PHPSWITCH_GIT_URL')) ? $url : 'git://github.com/jubianchi/phpswitch.git'));
+define('INSTALLER_URL',                'https://raw.github.com/jubianchi/phpswitch/master/bin/installer');
+define('PHPSWITCH_GIT_URL_DEFAULT',    'git://github.com/jubianchi/phpswitch.git');
+define('PHPSWITCH_GIT_URL',            (($url = getenv('PHPSWITCH_GIT_URL')) ? $url : PHPSWITCH_GIT_URL_DEFAULT));
+define('PHPSWITCH_GIT_BRANCH_DEFAULT', 'master');
+define('PHPSWITCH_GIT_BRANCH',         (($branch = getenv('PHPSWITCH_GIT_BRANCH')) ? $branch : PHPSWITCH_GIT_BRANCH_DEFAULT));
 
-define('PHPSWITCH_PATH_DEFAULT',    '/usr/share/phpswitch');
-define('PHPSWITCH_PATH',            (($path = getenv('PHPSWITCH_PATH')) ? $path : PHPSWITCH_PATH_DEFAULT));
-define('PHPSWITCH_SYMLINK_DEFAULT', '/usr/local/bin');
-define('PHPSWITCH_SYMLINK',         (($symlink = getenv('PHPSWITCH_SYMLINK')) ? $symlink : PHPSWITCH_SYMLINK_DEFAULT) . DIRECTORY_SEPARATOR . 'phpswitch');
+define('PHPSWITCH_PATH_DEFAULT',       '/usr/share/phpswitch');
+define('PHPSWITCH_PATH',               (($path = getenv('PHPSWITCH_PATH')) ? $path : PHPSWITCH_PATH_DEFAULT));
+define('PHPSWITCH_SYMLINK_DEFAULT',    '/usr/local/bin');
+define('PHPSWITCH_SYMLINK',            (($symlink = getenv('PHPSWITCH_SYMLINK')) ? $symlink : PHPSWITCH_SYMLINK_DEFAULT) . DIRECTORY_SEPARATOR . 'phpswitch');
 
 if(false === defined('STDOUT')) {
     define('STDOUT', fopen('php://stdout', 'w'));
@@ -89,6 +92,7 @@ function usage(array $args) {
 
     printfln(PHP_EOL . 'Environment :');
     printfln($format, 'PHPSWITCH_GIT_URL', 'Git repository <yellow>(default : git://github.com/jubianchi/phpswitch.git)');
+    printfln($format, 'PHPSWITCH_GIT_BRANCH', 'Git branch <yellow>(default : master)');
     printfln($format, 'PHPSWITCH_PATH', 'Installation directory <yellow>(default : ' . PHPSWITCH_PATH_DEFAULT . ')');
     printfln($format, 'PHPSWITCH_SYMLINK', 'phpswitch bin symlink path <yellow>(default: ' . PHPSWITCH_SYMLINK_DEFAULT . ')');
 
@@ -110,16 +114,18 @@ function download(array $args) {
         printfln('>>> <yellow>Cloning source repository...');
         ppassthru('git clone ' . PHPSWITCH_GIT_URL . ' ' . $path);
 
-        $output = null;
-        exec('cd ' . $path . ' && git rev-parse HEAD', $output);
-        printfln('>>> <yellow>Installed phpswitch master@%s', substr(implode('', $output), 0, 7));
-    } else {
-        printfln('>> <yellow>Updating sources...');
-        ppassthru('cd ' . $path . ' && git fetch origin && git reset --hard origin/master');
+        ppassthru('cd ' . $path . ' && git checkout ' . PHPSWITCH_GIT_BRANCH);
 
         $output = null;
         exec('cd ' . $path . ' && git rev-parse HEAD', $output);
-        printfln('>>> <yellow>Updated phpswitch to master@%s', substr(implode('', $output), 0, 7));
+        printfln('>>> <yellow>Installed phpswitch ' . PHPSWITCH_GIT_BRANCH . '@%s', substr(implode('', $output), 0, 7));
+    } else {
+        printfln('>> <yellow>Updating sources...');
+        ppassthru('cd ' . $path . ' && git fetch origin && git reset --hard origin/' . PHPSWITCH_GIT_BRANCH);
+
+        $output = null;
+        exec('cd ' . $path . ' && git rev-parse HEAD', $output);
+        printfln('>>> <yellow>Updated phpswitch to ' . PHPSWITCH_GIT_BRANCH . '@%s', substr(implode('', $output), 0, 7));
     }
 
     printfln('>> <yellow>Updating dependencies...');

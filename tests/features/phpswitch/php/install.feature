@@ -1,5 +1,6 @@
 Feature: Install and use
 
+  @not-travis
   Scenario:
     Given phpswitch is initialized
       And I run the "php:install 5.5.9" command

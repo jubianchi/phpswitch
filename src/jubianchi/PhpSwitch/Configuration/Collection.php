@@ -65,21 +65,7 @@ class Collection implements \IteratorAggregate
      */
     public function set($offset, $value)
     {
-        $matched = null;
-
-        foreach (array_reverse($this->configs) as $configuration) {
-            if ($configuration->has($offset)) {
-                $matched = $configuration;
-            }
-        }
-
-        if (null === $matched) {
-            $matched = current(array_reverse($this->configs));
-        }
-
-        $matched->set($offset, $value);
-
-        return $this;
+        throw new \RuntimeException('Configuration is readonly');
     }
 
     /**

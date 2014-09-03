@@ -4,6 +4,6 @@ DIR=$(dirname $0)
 PHP="php -d phar.readonly=Off"
 
 $PHP $DIR/atoum -ncc || exit 1
-$PHP $DIR/behat.phar $DIR/../tests/features || exit 1
+$PHP $DIR/behat.phar --tags=~@not-travis $DIR/../tests/features || exit 1
 
 $PHP bin/phpswitch phar:build

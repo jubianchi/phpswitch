@@ -29,16 +29,14 @@ abstract class Configuration implements \IteratorAggregate
     /**
      * @param string                  $path
      * @param Configuration\Validator $validator
-     * @param Configuration\Dumper    $dumper
      */
-    public function __construct($path, Configuration\Dumper $dumper = null, Configuration\Validator $validator = null)
+    public function __construct($path, Configuration\Validator $validator = null)
     {
         $this->path = $path;
         $this
-            ->setDumper($dumper)
             ->setValidator($validator)
+            ->doRead()
         ;
-
     }
 
     /**
@@ -47,26 +45,6 @@ abstract class Configuration implements \IteratorAggregate
     public function getPath()
     {
         return $this->path;
-    }
-
-    /**
-     * @param \jubianchi\PhpSwitch\Configuration\Dumper $dumper
-     *
-     * @return \jubianchi\PhpSwitch\Configuration
-     */
-    public function setDumper(Configuration\Dumper $dumper = null)
-    {
-        $this->dumper = $dumper ?: new Configuration\Dumper();
-
-        return $this;
-    }
-
-    /**
-     * @return \jubianchi\PhpSwitch\Configuration\Dumper
-     */
-    public function getDumper()
-    {
-        return $this->dumper;
     }
 
     /**
@@ -101,7 +79,7 @@ abstract class Configuration implements \IteratorAggregate
 
     protected function doRead()
     {
-        $this->configuration = $this->validator->validate($this->read());
+        $this->configuration = $this->validator->validate($this->read() ?: array());
 
         return $this;
     }
@@ -116,8 +94,6 @@ abstract class Configuration implements \IteratorAggregate
      */
     public function get($offset, $default = null)
     {
-        $this->doRead();
-
         $offset = self::parseOffest($offset);
         $reference = & $this->configuration;
         $current = $sep = '';
@@ -149,8 +125,6 @@ abstract class Configuration implements \IteratorAggregate
      */
     public function has($offset)
     {
-        $this->doRead();
-
         $offset = self::parseOffest($offset);
         $reference = & $this->configuration;
 
@@ -177,8 +151,6 @@ abstract class Configuration implements \IteratorAggregate
      */
     public function set($offset, $value)
     {
-        $this->doRead();
-
         $offset = self::parseOffest($offset);
         $reference = & $this->configuration;
         $current = $sep = '';
@@ -197,7 +169,7 @@ abstract class Configuration implements \IteratorAggregate
 
         $reference = $value;
 
-        $this->dumper->dump($this->path, $this);
+        $this->validator->validate(array(self::ROOT => $this->configuration));
 
         return $this;
     }
@@ -207,7 +179,7 @@ abstract class Configuration implements \IteratorAggregate
      */
     public function getIterator()
     {
-        return new \RecursiveArrayIterator($this->doRead()->configuration);
+        return new \RecursiveArrayIterator($this->configuration);
     }
 
     /**

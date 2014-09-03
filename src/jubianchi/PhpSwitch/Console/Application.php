@@ -10,8 +10,13 @@
 
 namespace jubianchi\PhpSwitch\Console;
 
+use jubianchi\PhpSwitch\Console\Helper\ConfigurationHelper;
 use Symfony\Component\Console\Application as BaseApplication;
 use jubianchi\PhpSwitch\Configuration;
+use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,6 +37,8 @@ class Application extends BaseApplication
         $this->container = $container;
 
         parent::__construct('phpswitch', '0.1');
+
+        $this->setAutoExit(false);
     }
 
     /**
@@ -127,6 +134,14 @@ class Application extends BaseApplication
         $parameters = $this->getService('parameters');
 
         return $parameters[$name];
+    }
+
+    protected function getDefaultHelperSet()
+    {
+        $helperSet =  parent::getDefaultHelperSet();
+        $helperSet->set(new ConfigurationHelper($this->getService('app.config.user'), $this->getService('app.config.local')));
+
+        return $helperSet;
     }
 
     public function doRun(InputInterface $input, OutputInterface $output)

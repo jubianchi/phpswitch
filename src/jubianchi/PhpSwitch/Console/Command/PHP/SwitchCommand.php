@@ -32,7 +32,6 @@ class SwitchCommand extends Command
 
         $this
             ->addArgument('version', InputArgument::REQUIRED, 'Switch PHP version (alias-x.y.z)')
-            ->addOption('apache2', 'a', InputOption::VALUE_NONE)
             ->addOption('save', 's', InputOption::VALUE_NONE)
         ;
     }
@@ -50,22 +49,19 @@ class SwitchCommand extends Command
     {
         parent::execute($input, $output);
 
-        try {
-            $oldVersion = $this->getConfiguration()->get('enabled', false) ? $this->getConfiguration()->get('version') : null;
-        } catch (\InvalidArgumentException $exception) {
-            $oldVersion = null;
-        }
-
-        $version = $input->getArgument('version');
-
-        $configuration = $this->getApplication()->getService('app.config.' . ($input->getOption('save') ? 'local' : 'user'));
+        $configuration = $this->getHelper('configuration');
+        $oldVersion = $configuration->getCurrentVersion();
+        $version = $argument = $input->getArgument('version');
 
         if (null !== $version) {
             if ('off' === $version) {
                 $version = null;
             } else {
                 try {
-                    $version = Version::fromString($version === 'on' ? $this->getConfiguration()->get('version') : $version);
+                    $version = Version::fromString($version === 'on'
+                        ? $input->getOption('save') ?  $configuration->getCurrentLocalVersion() : $configuration->getCurrentGlobalVersion()
+                        : $version
+                    );
                 } catch(\InvalidArgumentException $exception) {
                     return 0;
                 }
@@ -105,19 +101,39 @@ class SwitchCommand extends Command
                 $this->switchModule($output, $version);
             }
 
-            $configuration->set('version', (string) $version);
+            if ($argument !== 'off') {
+                if ($input->getOption('save')) {
+                    $configuration->setVersionLocally($version);
+                } else {
+                    $configuration->setVersionGlobally($version);
+                }
+            }
         }
 
-        $configuration->set('enabled', $version !== null);
+        if ($argument !== 'off') {
+            if ($input->getOption('save')) {
+                $configuration->enableLocally();
+            } else {
+                $configuration->enableGlobally();
+            }
 
-        $output->writeln(sprintf('PHP switched to <info>%s</info>', $version ?: 'system default version'));
+            $output->writeln(sprintf(($input->getOption('save') ? 'Local' : 'Global') . ' PHP switched to <info>%s</info>', $version ?: 'system default version'));
+        } else {
+            if ($input->getOption('save')) {
+                $configuration->disableLocally();
+            } else {
+                $configuration->disableGlobally();
+            }
+
+            $output->writeln(sprintf(($input->getOption('save') ? 'Local' : 'Global') . ' PHP switched <info>off</info>'));
+        }
 
         return 0;
     }
 
     public function backupSystemModule(OutputInterface $output, Version $version)
     {
-        $config = $this->getApplication()->getService('app.config')->get('versions.' . str_replace('.', '-', $version) . '.options', '');
+        $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $version) . '.options', '');
         /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options */
         $options = $this->getApplication()->getService('app.php.option.normalizer')->denormalize($config);
 
@@ -150,7 +166,7 @@ class SwitchCommand extends Command
 
     public function restoreSystemModule(OutputInterface $output, Version $version)
     {
-        $config = $this->getApplication()->getService('app.config')->get('versions.' . str_replace('.', '-', $version) . '.options', '');
+        $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $version) . '.options', '');
         /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options */
         $options = $this->getApplication()->getService('app.php.option.normalizer')->denormalize($config);
 
@@ -190,7 +206,7 @@ class SwitchCommand extends Command
 
     public function switchModule(OutputInterface $output, Version $version)
     {
-        $config = $this->getApplication()->getService('app.config')->get('versions.' . str_replace('.', '-', $version) . '.options', '');
+        $config = $this->getConfiguration()->get('versions.' . str_replace('.', '-', $version) . '.options', '');
         /** @var \jubianchi\PhpSwitch\PHP\Option\OptionCollection $options */
         $options = $this->getApplication()->getService('app.php.option.normalizer')->denormalize($config);
 

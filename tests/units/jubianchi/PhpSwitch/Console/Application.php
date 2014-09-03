@@ -2,7 +2,7 @@
 namespace tests\units\jubianchi\PhpSwitch\Console;
 
 use mageekguy\atoum;
-use jubianchi\PhpSwitch\Configuration;
+use mock\jubianchi\PhpSwitch\Configuration;
 use jubianchi\PhpSwitch\Console\Application as TestedClass;
 
 require_once __DIR__ . '/../../../bootstrap.php';
@@ -20,7 +20,22 @@ class Application extends atoum\test
     public function test__construct()
     {
         $this
-            ->if($object = new TestedClass(new \mock\Pimple()))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->then
                 ->string($object->getName())->isEqualTo('phpswitch')
                 ->string($object->getVersion())->isEqualTo('0.1')
@@ -30,12 +45,28 @@ class Application extends atoum\test
     public function testGetDownloader()
     {
         $this
-            ->given($container = new \mock\Pimple())
-            ->if($object = new TestedClass($container))
-            ->and($container->getMockController()->offsetGet = $downloader = new \mock\jubianchi\PhpSwitch\PHP\Downloader(uniqid()))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $downloader) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        case 'app.php.downloader':
+                            return $downloader = new \mock\jubianchi\PhpSwitch\PHP\Downloader(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->then
                 ->object($object->getDownloader())->isIdenticalTo($downloader)
-                ->mock($container)
+                ->mock($pimple)
                     ->call('offsetGet')->withArguments('app.php.downloader')->once()
         ;
     }
@@ -43,12 +74,28 @@ class Application extends atoum\test
     public function testGetExtracter()
     {
         $this
-            ->given($container = new \mock\Pimple())
-            ->if($object = new TestedClass($container))
-            ->and($container->getMockController()->offsetGet = $extracter = new \mock\jubianchi\PhpSwitch\PHP\Extracter(uniqid()))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $extracter) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        case 'app.php.extracter':
+                            return $extracter = new \mock\jubianchi\PhpSwitch\PHP\Extracter(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->then
                 ->object($object->getExtracter())->isIdenticalTo($extracter)
-                ->mock($container)
+                ->mock($pimple)
                     ->call('offsetGet')->withArguments('app.php.extracter')->once()
         ;
     }
@@ -56,12 +103,28 @@ class Application extends atoum\test
     public function testGetBuilder()
     {
         $this
-            ->given($container = new \mock\Pimple())
-            ->if($object = new TestedClass($container))
-            ->and($container->getMockController()->offsetGet = $builder = new \mock\jubianchi\PhpSwitch\PHP\Builder(uniqid()))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $builder) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        case 'app.php.builder':
+                            return $builder = new \mock\jubianchi\PhpSwitch\PHP\Builder(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->then
                 ->object($object->getBuilder())->isIdenticalTo($builder)
-                ->mock($container)
+                ->mock($pimple)
                     ->call('offsetGet')->withArguments('app.php.builder')->once()
         ;
     }
@@ -69,13 +132,30 @@ class Application extends atoum\test
     public function testGetOptionFinder()
     {
         $this
-            ->given($container = new \mock\Pimple())
-            ->if($object = new TestedClass($container))
-            ->mockGenerator->shuntParentClassCalls()
-            ->and($container->getMockController()->offsetGet = $builder = new \mock\jubianchi\PhpSwitch\PHP\Option\Finder(uniqid(), uniqid()))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $generator = $this->mockGenerator,
+                $this->calling($pimple)->offsetGet = function($id) use (& $finder, $generator) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        case 'app.php.option.finder':
+                            $generator->shuntParentClassCalls();
+                            return $finder = new \mock\jubianchi\PhpSwitch\PHP\Option\Finder(uniqid(), uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->then
-                ->object($object->getOptionFinder())->isIdenticalTo($builder)
-                ->mock($container)
+                ->object($object->getOptionFinder())->isIdenticalTo($finder)
+                ->mock($pimple)
                     ->call('offsetGet')->withArguments('app.php.option.finder')->once()
         ;
     }
@@ -83,9 +163,24 @@ class Application extends atoum\test
     public function testGetContainer()
     {
         $this
-            ->if($object = new TestedClass($container = new \mock\Pimple()))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $builder) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->then
-                ->object($object->getContainer())->isIdenticalTo($container)
+                ->object($object->getContainer())->isIdenticalTo($pimple)
         ;
     }
 
@@ -93,20 +188,39 @@ class Application extends atoum\test
     public function testGetService()
     {
         $this
-            ->given($container = new \mock\Pimple())
-            ->if($object = new TestedClass($container))
+            ->if(
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $exception, & $service, & $otherService, & $value) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        case $service:
+                            throw $exception = new \Exception();
+
+                        case $otherService:
+                            return $value;
+
+                        default:
+                            return null;
+                    }
+                },
+                $object = new TestedClass($pimple)
+            )
             ->and($service = uniqid())
             ->then
-                ->exception(function() use($object, $service) {
-                    $object->getService($service);
-                })
-                    ->isInstanceOf('\\InvalidArgumentException')
-                    ->hasMessage(sprintf('Identifier "%s" is not defined.', $service))
-                ->mock($container)
+                ->exception(function() use($object, $service) { $object->getService($service); })->isIdenticalTo($exception)
+                ->mock($pimple)
                     ->call('offsetGet')->withArguments($service)->once()
-            ->if($container[$service] = $value = uniqid())
+            ->if(
+                $otherService = uniqid(),
+                $value = uniqid()
+            )
             ->then
-                ->string($object->getService($service))->isEqualTo($value)
+                ->string($object->getService($otherService))->isEqualTo($value)
         ;
     }
 }

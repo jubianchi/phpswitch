@@ -59,6 +59,7 @@ class PhpSwitch implements Runnable
     public function run()
     {
         $this->container['app']->run($this->container['app.input'], $this->container['app.output']);
+        $this->container['app.config.dumper']->dump($this->container['app.config.user']->getPath(), $this->container['app.config.user']);
     }
 
     protected function initEnv($path, array $env = array())
@@ -189,8 +190,7 @@ class PhpSwitch implements Runnable
                 $userConfigurationFile = $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'];
 
                 return new Configuration\Yaml(
-                    $userConfigurationFile,
-                    $container['app.config.dumper'],
+                    $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'],
                     new Configuration\Validator\User()
                 );
             }
@@ -220,14 +220,10 @@ class PhpSwitch implements Runnable
                 }
 
                 if ($filepath === $userConfigurationFile) {
-                    return $container['app.config.user'];
+                    return null;
                 }
 
-                $config = new Configuration\Yaml(
-                    $filepath,
-                    $container['app.config.dumper'],
-                    new Configuration\Validator\Local()
-                );
+                $config = new Configuration\Yaml($filepath, new Configuration\Validator\Local());
 
                 return $config;
             }
@@ -237,10 +233,13 @@ class PhpSwitch implements Runnable
             function(\Pimple $container) {
                 $configuration = new Configuration\Collection();
 
-                return $configuration
-                    ->add($container['app.config.user'])
-                    ->add($container['app.config.local'])
-                ;
+                $configuration->add($container['app.config.user']);
+
+                if (null !== $container['app.config.local']) {
+                    $configuration->add($container['app.config.local']);
+                }
+
+                return $configuration;
             }
         );
 

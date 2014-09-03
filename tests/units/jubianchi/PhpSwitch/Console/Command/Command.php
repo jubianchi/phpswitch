@@ -1,6 +1,8 @@
 <?php
 namespace tests\units\jubianchi\PhpSwitch\Console\Command;
 
+use mageekguy\atoum\mock\controller;
+use mock\jubianchi\PhpSwitch\Configuration;
 use mageekguy\atoum;
 use jubianchi\PhpSwitch\Console\Command\Command as TestedClass;
 
@@ -31,11 +33,28 @@ class Command extends atoum\test
     public function testGetConfiguration()
     {
         $this
-            ->if($object = new \mock\jubianchi\PhpSwitch\Console\Command\Command())
-            ->and($application = new \mock\jubianchi\PhpSwitch\Console\Application(new \mock\Pimple()))
-            ->and($config = new \mock\jubianchi\PhpSwitch\Configuration(uniqid()))
-            ->and($application->getMockController()->getConfiguration = $config)
-            ->and($object->setApplication($application))
+            ->if(
+                $object = new \mock\jubianchi\PhpSwitch\Console\Command\Command(),
+                $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $extracter) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
+                $application = new \mock\jubianchi\PhpSwitch\Console\Application($pimple),
+                $controller = new controller(),
+                $controller->read = array(),
+                $config = new \mock\jubianchi\PhpSwitch\Configuration(uniqid(), null, $controller),
+                $application->getMockController()->getConfiguration = $config,
+                $object->setApplication($application)
+            )
             ->then
                 ->object($object->getConfiguration())->isIdenticalTo($config)
         ;

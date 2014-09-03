@@ -67,7 +67,7 @@ class InstallCommand extends Command
 
         $finder = $this->getApplication()->getService('app.php.finder.cached');
         $version = $finder->getVersion($input->getArgument('version'));
-        $mirror = $this->getConfiguration()->get('mirror');
+        $mirror = $this->getApplication()->getService('app.config.user')->get('mirror');
         if (null !== ($alias = $input->getOption('alias'))) {
             $version->setName($alias);
         }
