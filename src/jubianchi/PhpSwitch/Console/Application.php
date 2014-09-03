@@ -139,10 +139,7 @@ class Application extends BaseApplication
     protected function getDefaultHelperSet()
     {
         $helperSet =  parent::getDefaultHelperSet();
-
-        if(isset($this->container['app.config.local']) && isset($this->container['app.config.user'])) {
-            $helperSet->set(new ConfigurationHelper($this->getService('app.config.local'), $this->getService('app.config.user')));
-        }
+        $helperSet->set(new ConfigurationHelper($this->getService('app.config.user'), $this->getService('app.config.local')));
 
         return $helperSet;
     }

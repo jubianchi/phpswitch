@@ -101,7 +101,7 @@ class SwitchCommand extends Command
                 $this->switchModule($output, $version);
             }
 
-            if ($argument !== 'on' && $argument !== 'off') {
+            if ($argument !== 'off') {
                 if ($input->getOption('save')) {
                     $configuration->setVersionLocally($version);
                 } else {
@@ -124,6 +124,7 @@ class SwitchCommand extends Command
             } else {
                 $configuration->disableGlobally();
             }
+
             $output->writeln(sprintf(($input->getOption('save') ? 'Local' : 'Global') . ' PHP switched <info>off</info>'));
         }
 

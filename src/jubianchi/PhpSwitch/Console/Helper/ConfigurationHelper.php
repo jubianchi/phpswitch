@@ -19,10 +19,10 @@ class ConfigurationHelper extends Helper
     protected $local;
     protected $global;
 
-    public function __construct(Configuration $local, Configuration $global)
+    public function __construct(Configuration $global, Configuration $local = null)
     {
-        $this->local = $local;
         $this->global = $global;
+        $this->local = $local;
     }
 
     public function getName()
@@ -38,8 +38,7 @@ class ConfigurationHelper extends Helper
             $version = $this->getCurrentLocalVersion();
         }
 
-        if (null === $version && $this->isEnabledGlobally())
-        {
+        if (null === $version && $this->isEnabledGlobally()) {
             $version = $this->getCurrentGlobalVersion();
         }
 
@@ -48,6 +47,10 @@ class ConfigurationHelper extends Helper
 
     public function getCurrentLocalVersion()
     {
+        if (null === $this->local) {
+            return null;
+        }
+
         try {
             try {
                 $local = $this->local->get('version');
@@ -72,11 +75,19 @@ class ConfigurationHelper extends Helper
 
     public function isEnabledLocally()
     {
+        if (null === $this->local) {
+            return false;
+        }
+
         return $this->global->get('directories.' . str_replace('.', '\.', $this->getLocalConfigDirectory()) . '.enabled', true);
     }
 
     public function isExplicitlyDisabledLocally()
     {
+        if (null === $this->local) {
+            return false;
+        }
+
         return $this->global->get('directories.' . str_replace('.', '\.', $this->getLocalConfigDirectory()) . '.enabled') === false;
     }
 
@@ -92,6 +103,10 @@ class ConfigurationHelper extends Helper
 
     public function enableLocally()
     {
+        if (null === $this->local) {
+            throw new \BadMethodCallException('No local configuration found');
+        }
+
         $this->global->set('directories.' . str_replace('.', '\.', $this->getLocalConfigDirectory()) . '.enabled', true);
     }
 
@@ -102,6 +117,10 @@ class ConfigurationHelper extends Helper
 
     public function disableLocally()
     {
+        if (null === $this->local) {
+            throw new \BadMethodCallException('No local configuration found');
+        }
+
         $this->global->set('directories.' . str_replace('.', '\.', $this->getLocalConfigDirectory()) . '.enabled', false);
     }
 
@@ -112,6 +131,10 @@ class ConfigurationHelper extends Helper
 
     public function setVersionLocally(Version $version)
     {
+        if (null === $this->local) {
+            throw new \BadMethodCallException('No local configuration found');
+        }
+
         $this->global->set('directories.' . str_replace('.', '\.', $this->getLocalConfigDirectory()) . '.version', (string) $version);
     }
 
@@ -122,6 +145,10 @@ class ConfigurationHelper extends Helper
 
     protected function getLocalConfigDirectory()
     {
+        if (null === $this->local) {
+            return null;
+        }
+
         return dirname($this->local->getPath());
     }
 }

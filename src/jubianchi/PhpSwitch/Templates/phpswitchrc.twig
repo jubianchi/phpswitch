@@ -147,6 +147,6 @@ phpswitch_dir() {
 [ $(echo $SHELL | grep bash) ] && export PROMPT_COMMAND="phpswitch_dir"
 if [ $(echo $SHELL | grep zsh) ]
 then
-    export precmd_functions=($precmd_functions phpswitch_dir)
+    precmd_functions=($precmd_functions phpswitch_dir)
 fi
 export _PHPSWITCH_ASK=0

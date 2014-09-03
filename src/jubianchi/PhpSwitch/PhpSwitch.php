@@ -220,7 +220,7 @@ class PhpSwitch implements Runnable
                 }
 
                 if ($filepath === $userConfigurationFile) {
-                    return $container['app.config.user'];
+                    return null;
                 }
 
                 $config = new Configuration\Yaml($filepath, new Configuration\Validator\Local());
@@ -233,10 +233,13 @@ class PhpSwitch implements Runnable
             function(\Pimple $container) {
                 $configuration = new Configuration\Collection();
 
-                return $configuration
-                    ->add($container['app.config.user'])
-                    ->add($container['app.config.local'])
-                ;
+                $configuration->add($container['app.config.user']);
+
+                if (null !== $container['app.config.local']) {
+                    $configuration->add($container['app.config.local']);
+                }
+
+                return $configuration;
             }
         );
 
