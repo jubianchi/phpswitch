@@ -75,6 +75,7 @@ class Extracter extends Emitter
             ->add('tar')
             ->add('-xvf')
             ->add($archive)
+            ->setTimeout(null)
             ->getProcess()
                 ->run($callback)
         ;
@@ -85,6 +86,7 @@ class Extracter extends Emitter
             ->add('-f')
             ->add($basename)
             ->add($this->getDestination($version))
+            ->setTimeout(null)
             ->getProcess()
                 ->run($callback)
         ;
