@@ -38,7 +38,7 @@ class Application extends BaseApplication
 
         parent::__construct('phpswitch', '0.1');
 
-        //$this->setAutoExit(false);
+        $this->setAutoExit(false);
     }
 
     /**
