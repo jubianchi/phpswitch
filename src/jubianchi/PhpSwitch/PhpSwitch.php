@@ -183,10 +183,13 @@ class PhpSwitch implements Runnable
             }
         );
 
+        $userConfigurationFile = null;
         $this->container['app.config.user'] = $this->container->share(
-            function(\Pimple $container) {
+            function(\Pimple $container) use (& $userConfigurationFile) {
+                $userConfigurationFile = $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'];
+
                 return new Configuration\Yaml(
-                    $container['parameters']['app.user.path'] . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'],
+                    $userConfigurationFile,
                     $container['app.config.dumper'],
                     new Configuration\Validator\User()
                 );
@@ -194,8 +197,9 @@ class PhpSwitch implements Runnable
         );
 
         $this->container['app.config.local'] = $this->container->share(
-            function(\Pimple $container) {
+            function(\Pimple $container) use (& $userConfigurationFile) {
                 $pwd = getcwd();
+                $filepath = null;
 
                 while (
                     is_dir($pwd) &&
@@ -212,10 +216,18 @@ class PhpSwitch implements Runnable
                 }
 
                 if (is_file($filepath) === false) {
-                    $filepath = getcwd(). DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'];
+                    $filepath = getcwd() . DIRECTORY_SEPARATOR . $container['parameters']['app.config.name'];
                 }
 
-                $config = new Configuration\Yaml($filepath, $container['app.config.dumper'], new Configuration\Validator\Local());
+                if ($filepath === $userConfigurationFile) {
+                    return $container['app.config.user'];
+                }
+
+                $config = new Configuration\Yaml(
+                    $filepath,
+                    $container['app.config.dumper'],
+                    new Configuration\Validator\Local()
+                );
 
                 return $config;
             }
