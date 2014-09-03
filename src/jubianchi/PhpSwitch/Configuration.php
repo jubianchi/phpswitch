@@ -79,7 +79,7 @@ abstract class Configuration implements \IteratorAggregate
 
     protected function doRead()
     {
-        $this->configuration = $this->validator->validate($this->read());
+        $this->configuration = $this->validator->validate($this->read() ?: array());
 
         return $this;
     }

@@ -36,6 +36,18 @@ class Command extends atoum\test
             ->if(
                 $object = new \mock\jubianchi\PhpSwitch\Console\Command\Command(),
                 $pimple = new \mock\Pimple(),
+                $this->calling($pimple)->offsetGet = function($id) use (& $extracter) {
+                    switch ($id) {
+                        case 'app.config.local':
+                            return new Configuration(uniqid());
+
+                        case 'app.config.user':
+                            return new Configuration(uniqid());
+
+                        default:
+                            return null;
+                    }
+                },
                 $application = new \mock\jubianchi\PhpSwitch\Console\Application($pimple),
                 $controller = new controller(),
                 $controller->read = array(),

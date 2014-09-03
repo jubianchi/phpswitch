@@ -52,7 +52,7 @@ phpswitch_switchoff() {
     export PATH=$_PHPSWITCH_ORIG_PATH
 
     /usr/bin/env php -ddisplay_errors=stderr \
-        {{ path }}/bin/phpswitch php:switch off $1 2> /dev/null
+        {{ path }}/bin/phpswitch php:switch off $1
 }
 
 phpswitch_switchon() {
